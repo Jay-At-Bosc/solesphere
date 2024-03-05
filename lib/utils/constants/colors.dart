@@ -13,13 +13,14 @@ class SColors {
   static final Color darkBackground = const Color(0xFF1A2530).withOpacity(0.8);
 
   // Gradient Colors
-  static const Gradient linearGradient = LinearGradient(
-    begin: Alignment(0.0, 0.0),
-    end: Alignment(0.707, -0.707),
+  static const Color gradiantStatingColor = Color(0xFFC0E0FF);
+  static final Color gradiantEndingColor = const Color(0xFFE2F3F9).withOpacity(0);
+  static final Gradient linearGradient = LinearGradient(
+    begin: const Alignment(0.0, 0.0),
+    end: const Alignment(0.707, -0.707),
     colors: [
-      Color(0xFFC0E0FF),
-      Color(0xFFE2F3F9),
-      // Color(0xFFFAD0C4),
+     gradiantStatingColor,
+     gradiantEndingColor
     ],
   );
 
