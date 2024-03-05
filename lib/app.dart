@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:solesphere/screens/home/home.dart';
 import 'utils/theme/theme.dart';
-
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -15,6 +15,7 @@ class App extends StatelessWidget {
       theme: SAppTheme.lightTheme,
       darkTheme: SAppTheme.darkTheme,
       debugShowCheckedModeBanner: false,
+      home: const HomeScreen(),
     );
   }
 }

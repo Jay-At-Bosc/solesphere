@@ -47,9 +47,9 @@ flutter:
     - assets/icons/brands/
     - assets/icons/home/
     - assets/icons/navigation/
-    - assets/icons/profile
-    - assets/icons/search
-    - assets/icons/social
+    - assets/icons/profile/
+    - assets/icons/search/
+    - assets/icons/social/
     - assets/images/
     - assets/images/onboarding/
     - assets/images/products/
