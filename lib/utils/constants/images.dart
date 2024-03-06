@@ -5,10 +5,14 @@ class SImages {
   static const String splasgImage = "assets/images/ig_splash.png";
 
   // Onboarding Image
-  static const String onboardingImage_1 = "assets/images/onboarding/ig_onboard-1.png";
-  static const String onboardingImage_2 = "assets/images/onboarding/ig_onboard-2.png";
-  static const String onboardingImage_3 = "assets/images/onboarding/ig_onboard-3.png";
-  static const String onboardingImageDots = "assets/images/onboarding/ig_onboard-dots.svg";
+  static const String onboardingImage_1 =
+      "assets/images/onboarding/ig_onboard-1.png";
+  static const String onboardingImage_2 =
+      "assets/images/onboarding/ig_onboard-2.png";
+  static const String onboardingImage_3 =
+      "assets/images/onboarding/ig_onboard-3.png";
+  static const String onboardingImageDots =
+      "assets/images/onboarding/ig_onboard-dots.svg";
 
   // Product Image
   static const String shoe1 = "assets/images/products/ig_shoes-1.jpg";
