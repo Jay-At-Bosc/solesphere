@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:solesphere/auth/splash/splash_screen.dart';
+
+import 'services/routes/app_pages.dart';
 import 'utils/theme/theme.dart';
 
 
@@ -15,8 +16,10 @@ class App extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: SAppTheme.lightTheme,
       darkTheme: SAppTheme.darkTheme,
+       initialRoute: AppPages.initial,
+      getPages: AppPages.routes,
       debugShowCheckedModeBanner: false,
-      home: const SplashScreen(),
+      //home: const SplashScreen(),
     );
   }
 }

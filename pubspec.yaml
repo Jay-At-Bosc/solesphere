@@ -17,6 +17,7 @@ dependencies:
   intl: ^0.19.0
   logger: ^2.1.0
   url_launcher: ^6.2.5
+  flutter_svg: ^2.0.10+1
   
   # Icons
   cupertino_icons: ^1.0.6
@@ -26,6 +27,8 @@ dependencies:
   # State Management
   get: ^4.6.6
   get_storage: ^2.1.1
+  smooth_page_indicator: ^1.1.0
+  
 
   # Product Specific
 
@@ -63,7 +66,7 @@ flutter:
         - asset: assets/fonts/AirbnbCereal_W_Bd.otf
           weight: 300
         - asset: assets/fonts/AirbnbCereal_W_Md.otf
-          weight: 400
+          weight: 500
     
   
   
