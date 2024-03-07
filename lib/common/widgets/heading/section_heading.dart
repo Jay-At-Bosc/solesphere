@@ -1,0 +1,51 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:solesphere/common/widgets/popup/loaders.dart';
+
+import '../../../utils/constants/colors.dart';
+import '../../../utils/constants/labels.dart';
+
+class SSectionTitle extends StatelessWidget {
+  const SSectionTitle({
+    super.key,
+    this.heading = "",
+    this.suffix,
+  });
+
+  final String heading;
+  final String? suffix;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 0.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            SLabels.newArrivals,
+            overflow: TextOverflow.ellipsis,
+            textScaler: const TextScaler.linear(1),
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+          TextButton(
+            onPressed: () {
+              Get.closeAllSnackbars();
+              TLoaders.warningSnackBar(
+                  title: "Oh noo", message: "There is nothing to see");
+            },
+            child: Text(
+              SLabels.seeAll,
+              overflow: TextOverflow.ellipsis,
+              textScaler: const TextScaler.linear(1),
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium!
+                  .apply(color: SColors.accent),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}

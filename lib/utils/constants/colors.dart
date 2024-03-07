@@ -14,20 +14,17 @@ class SColors {
 
   // Gradient Colors
   static const Color gradiantStatingColor = Color(0xFFC0E0FF);
-  static final Color gradiantEndingColor = const Color(0xFFE2F3F9).withOpacity(0);
+  static final Color gradiantEndingColor =
+      const Color(0xFFE2F3F9).withOpacity(0);
   static final Gradient linearGradient = LinearGradient(
     begin: const Alignment(0.0, 0.0),
     end: const Alignment(0.707, -0.707),
-    colors: [
-     gradiantStatingColor,
-     gradiantEndingColor
-    ],
+    colors: [gradiantStatingColor, gradiantEndingColor],
   );
 
-  
   // Text Colors
   static const Color textPrimary = Color(0xFF1A2530);
-  static final  Color textPrimaryWith80 = SColors.textPrimary.withOpacity(0.8);
+  static final Color textPrimaryWith80 = SColors.textPrimary.withOpacity(0.8);
   static final Color textPrimaryWith60 = SColors.textPrimary.withOpacity(0.6);
   static const Color textSecondary = Color(0xFF707B81);
   static const Color textAccent = SColors.accent;

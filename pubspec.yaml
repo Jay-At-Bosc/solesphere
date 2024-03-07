@@ -26,6 +26,9 @@ dependencies:
   # State Management
   get: ^4.6.6
   get_storage: ^2.1.1
+  curved_labeled_navigation_bar: ^2.0.2
+  floating_bottom_bar: ^0.0.3
+  flutter_rating_bar: ^4.0.1
 
   # Product Specific
 
@@ -63,7 +66,7 @@ flutter:
         - asset: assets/fonts/AirbnbCereal_W_Bd.otf
           weight: 300
         - asset: assets/fonts/AirbnbCereal_W_Md.otf
-          weight: 400
+          weight: 500
     
   
   
