@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 
 import 'package:iconsax/iconsax.dart';
 import 'package:solesphere/auth/auth_exports.dart';
@@ -34,7 +33,7 @@ class CustomAppBar extends StatelessWidget {
               onPressed: () {
                 Get.offNamed(Routes.signup);
               },
-              icon: Icon(Iconsax.arrow_left)),
+              icon: const Icon(Iconsax.arrow_left)),
         ),
       ),
       title: const Text(

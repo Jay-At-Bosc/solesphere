@@ -29,16 +29,16 @@ class CustomAddressTab extends StatelessWidget {
                 .copyWith(color: SColors.textWhite),
             unselectedLabelStyle: STextTheme.lightTextTheme.bodySmall!
                 .copyWith(color: SColors.secondary),
-            tabs: [
-              const Tab(
+            tabs: const  [
+              Tab(
                 icon: Icon(Iconsax.home),
                 text: "Home",
               ),
-              const Tab(
-                icon: const Icon(Iconsax.bank),
+              Tab(
+                icon: Icon(Iconsax.bank),
                 text: "Work",
               ),
-              const Tab(
+              Tab(
                 icon: Icon(Iconsax.location),
                 text: "Other",
               ),

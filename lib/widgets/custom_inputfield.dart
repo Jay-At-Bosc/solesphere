@@ -75,7 +75,7 @@ class CustomInputField extends StatelessWidget {
           filled: true,
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(50.0),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: SColors.error,
             ),
           ),

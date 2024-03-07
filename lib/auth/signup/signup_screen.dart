@@ -23,11 +23,11 @@ class SignUpPage extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.only(top: 50.0),
+          padding: const EdgeInsets.only(top: 50.0),
           child: SingleChildScrollView(
             child: Center(
               child: Padding(
-                padding: EdgeInsets.only(left: 20.0, right: 20.0, bottom: 50),
+                padding: const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 50),
                 child: Column(
                   children: [
                     CustomLabelText(
@@ -42,11 +42,11 @@ class SignUpPage extends StatelessWidget {
                     const SizedBox(
                       height: 30.0,
                     ),
-                    CustomSignUpForm(),
+                    const CustomSignUpForm(),
                     const SizedBox(
                       height: 24.0,
                     ),
-                    CustomLoginText(),
+                    const CustomLoginText(),
                   ],
                 ),
               ),

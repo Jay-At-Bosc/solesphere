@@ -58,7 +58,7 @@ class CustomProfileUpload extends StatelessWidget {
               child: Center(
                 child: IconButton(
                   onPressed: controller.pickImage,
-                  icon: Icon(
+                  icon: const Icon(
                     Iconsax.camera,
                     size: 16,
                   ),

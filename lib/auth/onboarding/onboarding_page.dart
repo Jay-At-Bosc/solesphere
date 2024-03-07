@@ -1,13 +1,7 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:solesphere/auth/auth_exports.dart';
-import 'package:solesphere/services/routes/app_route_exports.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
 import '../../utils/constants/colors.dart';
-import '../../utils/constants/images.dart';
 
 class OnBoardingPage extends StatelessWidget {
   const OnBoardingPage(

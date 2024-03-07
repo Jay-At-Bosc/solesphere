@@ -70,7 +70,7 @@ class OnBoardingController extends GetxController {
     if (currentIndex.value < onboardingItems.length - 1) {
       currentIndex.value++;
       pageController.nextPage(
-          duration: const Duration(milliseconds: 300), curve: Curves.ease);
+          duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
       update(['First Part']);
     } else {
       // Navigate to next screen after onboarding, or do something else

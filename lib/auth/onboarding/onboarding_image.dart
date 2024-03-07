@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:solesphere/auth/auth_exports.dart';
-import 'package:solesphere/auth/onboarding/onboarding_controller.dart';
 import 'package:solesphere/utils/constants/colors.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
 

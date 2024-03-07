@@ -132,7 +132,7 @@ class STextTheme {
       fontFamily: 'AirbnbCereal',
       fontWeight: FontWeight.w500,
     ),
-    headlineMedium: TextStyle(
+    headlineMedium: const TextStyle(
       fontSize: SSizes.fontSizeXl,
       color: SColors.textWhite,
       fontFamily: 'AirbnbCereal',
