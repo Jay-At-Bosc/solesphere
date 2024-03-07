@@ -27,8 +27,14 @@ dependencies:
   # State Management
   get: ^4.6.6
   get_storage: ^2.1.1
+<<<<<<< HEAD
   smooth_page_indicator: ^1.1.0
   
+=======
+  curved_labeled_navigation_bar: ^2.0.2
+  floating_bottom_bar: ^0.0.3
+  flutter_rating_bar: ^4.0.1
+>>>>>>> c87f241e056c228e76a1731abd1b9cff5f0e564f
 
   # Product Specific
 

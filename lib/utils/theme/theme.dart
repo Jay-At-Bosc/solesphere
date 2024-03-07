@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 
 
 import '../constants/colors.dart';
+<<<<<<< HEAD
 import 'widget_themes/elevated_button_theme.dart';
+=======
+import 'widget_themes/appbar_theme.dart';
+>>>>>>> c87f241e056c228e76a1731abd1b9cff5f0e564f
 import 'widget_themes/text_theme.dart';
 
 class SAppTheme {
@@ -18,7 +22,7 @@ class SAppTheme {
     textTheme: STextTheme.lightTextTheme,
     // chipTheme: TChipTheme.lightChipTheme,
     // scaffoldBackgroundColor: TColors.white,
-    // appBarTheme: TAppBarTheme.lightAppBarTheme,
+    appBarTheme: SAppBarTheme.lightAppBarTheme,
     // checkboxTheme: TCheckboxTheme.lightCheckboxTheme,
     // bottomSheetTheme: TBottomSheetTheme.lightBottomSheetTheme,
     elevatedButtonTheme: SElevatedButtonTheme.lightElevatedButtonTheme,
@@ -36,7 +40,7 @@ class SAppTheme {
     textTheme: STextTheme.darkTextTheme,
     // chipTheme: TChipTheme.darkChipTheme,
     // scaffoldBackgroundColor: TColors.black,
-    // appBarTheme: TAppBarTheme.darkAppBarTheme,
+    appBarTheme: SAppBarTheme.darkAppBarTheme,
     // checkboxTheme: TCheckboxTheme.darkCheckboxTheme,
     // bottomSheetTheme: TBottomSheetTheme.darkBottomSheetTheme,
     elevatedButtonTheme: SElevatedButtonTheme.darkElevatedButtonTheme,
