@@ -47,15 +47,9 @@ class STextTheme {
       fontWeight: FontWeight.w500,
     ),
 
-<<<<<<< HEAD
-    titleLarge: const TextStyle(
-      fontSize: SSizes.fontSizeLg,
-      color: SColors.textWhite,
-=======
     titleLarge: TextStyle(
       fontSize: SSizes.fontSizeLg,
-      color: SColors.dark,
->>>>>>> c87f241e056c228e76a1731abd1b9cff5f0e564f
+      color: SColors.textPrimaryWith60,
       fontFamily: 'AirbnbCereal',
       fontWeight: FontWeight.w500,
     ), // button text theme
@@ -113,7 +107,6 @@ class STextTheme {
 
   /// Customizable Dark Text Theme
   static TextTheme darkTextTheme = TextTheme(
-<<<<<<< HEAD
     displayLarge: const TextStyle(
       fontSize: SSizes.fontSizeXxxl,
       color: SColors.textWhite,
@@ -123,17 +116,6 @@ class STextTheme {
     displayMedium: TextStyle(
       fontSize: SSizes.fontSizeXl,
       color: SColors.primary.withOpacity(0.5),
-=======
-    displayLarge: TextStyle(
-      fontSize: SSizes.fontSizeXxxl,
-      color: SColors.textPrimaryWith80,
-      fontFamily: 'AirbnbCereal',
-      fontWeight: FontWeight.w500,
-    ), // onboarding title
-    displayMedium: const TextStyle(
-      fontSize: SSizes.fontSizeXl,
-      color: SColors.textSecondary,
->>>>>>> c87f241e056c228e76a1731abd1b9cff5f0e564f
       fontFamily: 'AirbnbCereal',
       fontWeight: FontWeight.w500,
     ), // onboarding subtitle / login subtitle
@@ -152,11 +134,7 @@ class STextTheme {
     ),
     headlineMedium: TextStyle(
       fontSize: SSizes.fontSizeXl,
-<<<<<<< HEAD
-      color: SColors.textPrimaryWith80,
-=======
       color: SColors.textWhite,
->>>>>>> c87f241e056c228e76a1731abd1b9cff5f0e564f
       fontFamily: 'AirbnbCereal',
       fontWeight: FontWeight.w500,
     ),
@@ -186,17 +164,6 @@ class STextTheme {
       fontWeight: FontWeight.w500,
     ),
 
-<<<<<<< HEAD
-    bodyLarge: TextStyle(
-      fontSize: SSizes.fontSizeMd,
-      color: SColors.textPrimaryWith80,
-      fontFamily: 'AirbnbCereal',
-      fontWeight: FontWeight.w500,
-    ),
-    bodyMedium: TextStyle(
-      fontSize: SSizes.fontSizeSm,
-      color: SColors.textPrimaryWith80,
-=======
     bodyLarge: const TextStyle(
       fontSize: SSizes.fontSizeMd,
       color: SColors.textWhite,
@@ -206,21 +173,14 @@ class STextTheme {
     bodyMedium: const TextStyle(
       fontSize: SSizes.fontSizeSm,
       color: SColors.textWhite,
->>>>>>> c87f241e056c228e76a1731abd1b9cff5f0e564f
       fontFamily: 'AirbnbCereal',
       fontWeight: FontWeight.w500,
     ), // input style / forgot password style
     bodySmall: const TextStyle(
       fontSize: SSizes.fontSizeXs,
-<<<<<<< HEAD
-      color: SColors.textSecondary,
-      fontFamily: 'AirbnbCereal',
-      fontWeight: FontWeight.w500,
-=======
       color: SColors.textWhite,
       fontFamily: 'AirbnbCereal',
       fontWeight: FontWeight.w400,
->>>>>>> c87f241e056c228e76a1731abd1b9cff5f0e564f
     ), // account end style // short desc
 
     labelLarge: const TextStyle(

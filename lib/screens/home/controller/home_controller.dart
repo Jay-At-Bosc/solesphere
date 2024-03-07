@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:solesphere/models/category_model.dart';
+import 'package:solesphere/services/models/category_model.dart';
 
-import '../../../data/category_data.dart';
+import '../../../services/data/category_data.dart';
 
 class HomeController extends GetxController {
   static HomeController get instance => Get.find();

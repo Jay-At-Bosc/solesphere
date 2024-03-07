@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:solesphere/models/product_model.dart';
+import 'package:solesphere/services/models/product_model.dart';
 
 import '../../../utils/constants/sizes.dart';
 

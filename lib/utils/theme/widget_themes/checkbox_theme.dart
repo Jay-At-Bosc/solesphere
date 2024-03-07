@@ -28,22 +28,22 @@ class SCheckboxTheme {
   );
 
   /// Customizable Dark Text Theme
-  // static CheckboxThemeData darkCheckboxTheme = CheckboxThemeData(
-  //   shape:
-  //       RoundedRectangleBorder(borderRadius: BorderRadius.circular(TSizes.xs)),
-  //   checkColor: MaterialStateProperty.resolveWith((states) {
-  //     if (states.contains(MaterialState.selected)) {
-  //       return TColors.white;
-  //     } else {
-  //       return TColors.black;
-  //     }
-  //   }),
-  //   fillColor: MaterialStateProperty.resolveWith((states) {
-  //     if (states.contains(MaterialState.selected)) {
-  //       return TColors.primary;
-  //     } else {
-  //       return Colors.transparent;
-  //     }
-  //   }),
-  // );
+  static CheckboxThemeData darkCheckboxTheme = CheckboxThemeData(
+    shape:
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(SSizes.xs)),
+    checkColor: MaterialStateProperty.resolveWith((states) {
+      if (states.contains(MaterialState.selected)) {
+        return SColors.textWhite;
+      } else {
+        return SColors.accent;
+      }
+    }),
+    fillColor: MaterialStateProperty.resolveWith((states) {
+      if (states.contains(MaterialState.selected)) {
+        return SColors.primary;
+      } else {
+        return Colors.transparent;
+      }
+    }),
+  );
 }

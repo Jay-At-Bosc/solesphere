@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-
+import 'widget_themes/checkbox_theme.dart';
+import 'widget_themes/elevated_button_theme.dart';
 
 import '../constants/colors.dart';
-<<<<<<< HEAD
-import 'widget_themes/elevated_button_theme.dart';
-=======
 import 'widget_themes/appbar_theme.dart';
->>>>>>> c87f241e056c228e76a1731abd1b9cff5f0e564f
 import 'widget_themes/text_theme.dart';
 
 class SAppTheme {
@@ -23,7 +20,7 @@ class SAppTheme {
     // chipTheme: TChipTheme.lightChipTheme,
     // scaffoldBackgroundColor: TColors.white,
     appBarTheme: SAppBarTheme.lightAppBarTheme,
-    // checkboxTheme: TCheckboxTheme.lightCheckboxTheme,
+    checkboxTheme: SCheckboxTheme.lightCheckboxTheme,
     // bottomSheetTheme: TBottomSheetTheme.lightBottomSheetTheme,
     elevatedButtonTheme: SElevatedButtonTheme.lightElevatedButtonTheme,
     // outlinedButtonTheme: TOutlinedButtonTheme.lightOutlinedButtonTheme,
@@ -41,7 +38,7 @@ class SAppTheme {
     // chipTheme: TChipTheme.darkChipTheme,
     // scaffoldBackgroundColor: TColors.black,
     appBarTheme: SAppBarTheme.darkAppBarTheme,
-    // checkboxTheme: TCheckboxTheme.darkCheckboxTheme,
+    checkboxTheme: SCheckboxTheme.darkCheckboxTheme,
     // bottomSheetTheme: TBottomSheetTheme.darkBottomSheetTheme,
     elevatedButtonTheme: SElevatedButtonTheme.darkElevatedButtonTheme,
     // outlinedButtonTheme: TOutlinedButtonTheme.darkOutlinedButtonTheme,

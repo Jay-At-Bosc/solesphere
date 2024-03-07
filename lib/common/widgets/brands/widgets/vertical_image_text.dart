@@ -37,14 +37,14 @@ class SVerticalImageText extends StatelessWidget {
                   padding: const EdgeInsets.all(SSizes.sm),
                   decoration: BoxDecoration(
                     color: backgroundColor ??
-                        (dark ? SColors.primary : SColors.dark),
+                        (dark ? SColors.primary : SColors.darkBackground),
                     borderRadius: BorderRadius.circular(100),
                   ),
                   child: Center(
                     child: Image(
                       image: AssetImage(image),
                       fit: BoxFit.cover,
-                      color: SColors.dark,
+                      color: SColors.darkBackground,
                     ),
                   ),
                 )
@@ -65,7 +65,7 @@ class SVerticalImageText extends StatelessWidget {
                           padding: const EdgeInsets.all(SSizes.xs),
                           decoration: BoxDecoration(
                             color: backgroundColor ??
-                                (dark ? SColors.primary : SColors.dark),
+                                (dark ? SColors.primary : SColors.darkBackground),
                             borderRadius: BorderRadius.circular(100),
                           ),
                           child: Center(
@@ -74,7 +74,7 @@ class SVerticalImageText extends StatelessWidget {
                               height: 24,
                               image: AssetImage(image),
                               fit: BoxFit.cover,
-                              color: SColors.dark,
+                              color: SColors.darkBackground,
                             ),
                           ),
                         ),

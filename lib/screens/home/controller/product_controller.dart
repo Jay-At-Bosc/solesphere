@@ -2,9 +2,9 @@
 
 import 'package:get/get.dart';
 import 'package:solesphere/common/widgets/popup/loaders.dart';
-import 'package:solesphere/data/product_data.dart';
+import 'package:solesphere/services/data/product_data.dart';
 
-import '../../../models/product_model.dart';
+import '../../../services/models/product_model.dart';
 
 class ProductController extends GetxController {
   static ProductController get instance => Get.find();

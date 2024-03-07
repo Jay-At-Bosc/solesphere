@@ -7,6 +7,8 @@ import '../../services/models/onboarding_model.dart';
 
 import 'package:http/http.dart' as http;
 
+import '../../services/routes/app_pages.dart';
+
 class OnBoardingController extends GetxController {
   static OnBoardingController get instance => Get.find();
 
@@ -72,7 +74,7 @@ class OnBoardingController extends GetxController {
       update(['First Part']);
     } else {
       // Navigate to next screen after onboarding, or do something else
-      //Get.to(const Home());
+      Get.offAllNamed(Routes.signin);
     }
   }
 }

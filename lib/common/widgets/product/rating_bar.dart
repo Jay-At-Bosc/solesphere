@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -8,7 +9,8 @@ import '../popup/loaders.dart';
 
 class SRatingBar extends StatelessWidget {
   const SRatingBar({
-    super.key, required this.rating,
+    super.key,
+    required this.rating,
   });
 
   final double rating;

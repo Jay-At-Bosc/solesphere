@@ -11,7 +11,7 @@ class TRoundedImage extends StatelessWidget {
     required this.imageUrl,
     this.applyImageRadius = true,
     this.border,
-    this.backgroundColor = SColors.light,
+    this.backgroundColor = SColors.primary,
     this.fit = BoxFit.contain,
     this.isNetworkImage = false,
     required this.onPress,

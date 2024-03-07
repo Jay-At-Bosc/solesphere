@@ -16,15 +16,9 @@ class SColors {
   static const Color gradiantStatingColor = Color(0xFFC0E0FF);
   static final Color gradiantEndingColor =
       const Color(0xFFE2F3F9).withOpacity(0);
-<<<<<<< HEAD
   static final Gradient lightLinearGradient = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-=======
-  static final Gradient linearGradient = LinearGradient(
-    begin: const Alignment(0.0, 0.0),
-    end: const Alignment(0.707, -0.707),
->>>>>>> c87f241e056c228e76a1731abd1b9cff5f0e564f
     colors: [gradiantStatingColor, gradiantEndingColor],
   );
 

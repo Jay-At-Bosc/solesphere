@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:solesphere/common/widgets/popup/loaders.dart';
 
-import '../../../models/product_model.dart';
+import '../../../services/models/product_model.dart';
 import '../../../screens/home/controller/product_controller.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
@@ -55,7 +55,7 @@ class SProductCardVertical extends StatelessWidget {
               height: 100,
               // padding: const EdgeInsets.only(
               //     left: SSizes.sm, right: SSizes.sm, top: SSizes.sm),
-              backgroundColor: dark ? SColors.dark : SColors.light,
+              backgroundColor: dark ? SColors.darkBackground : SColors.primary,
               child: Stack(
                 children: [
                   //image

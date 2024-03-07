@@ -33,12 +33,12 @@ class TSearchContainer extends StatelessWidget {
         decoration: BoxDecoration(
           color: showBackground
               ? dark
-                  ? SColors.dark
+                  ? SColors.darkBackground
                   : SColors.textWhite
               : Colors.transparent,
           borderRadius: BorderRadius.circular(SSizes.buttonRadius),
           border: showBorder
-              ? Border.all(color: dark ? SColors.dark : SColors.secondary)
+              ? Border.all(color: dark ? SColors.darkBackground : SColors.secondary)
               : null,
         ),
         child: Row(

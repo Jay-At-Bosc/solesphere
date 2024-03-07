@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:solesphere/screens/home/controller/product_controller.dart';
 
-import '../../../models/product_model.dart';
+import '../../../services/models/product_model.dart';
 import '../../../utils/constants/colors.dart';
 
 class SFavoriteIcon extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:solesphere/utils/constants/colors.dart';
 
-import '../../../models/product_model.dart';
+import '../../../services/models/product_model.dart';
 import '../text/text_style.dart';
 import 'avialable_color.dart';
 import 'rating_bar.dart';

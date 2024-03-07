@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../models/product_model.dart';
+import '../../../services/models/product_model.dart';
 import '../../../utils/constants/colors.dart';
 import '../text/text_style.dart';
 

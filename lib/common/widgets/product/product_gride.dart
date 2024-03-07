@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:solesphere/utils/helpers/helper_function.dart';
-import '../../../models/product_model.dart';
+import '../../../services/models/product_model.dart';
 import '../../../utils/constants/sizes.dart';
 import 'product_card.dart';
 
