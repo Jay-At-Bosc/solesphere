@@ -49,7 +49,7 @@ class STextTheme {
 
     titleLarge: TextStyle(
       fontSize: SSizes.fontSizeLg,
-      color: SColors.dark,
+      color: SColors.textPrimaryWith60,
       fontFamily: 'AirbnbCereal',
       fontWeight: FontWeight.w500,
     ), // button text theme
