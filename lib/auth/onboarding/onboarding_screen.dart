@@ -1,80 +1,170 @@
-import 'package:flutter/material.dart';
 import 'package:solesphere/auth/auth_exports.dart';
+import 'package:solesphere/auth/onboarding/onboarding_controller.dart';
+import 'package:solesphere/services/routes/app_route_exports.dart';
+import 'package:solesphere/utils/extensions/responsive_extension.dart';
+import 'package:solesphere/utils/theme/theme.dart';
 
-import 'onboarding_controller.dart';
-import 'onboarding_page.dart';
+import '../../utils/constants/colors.dart';
+import '../../utils/constants/labels.dart';
+import 'onboarding_image.dart';
 import 'onbording_dotnavigation.dart';
 
-import 'package:solesphere/utils/constants/labels.dart';
-import '../../utils/extensions/responsive_extension.dart';
-
-import '../../utils/constants/images.dart';
-
-class OnBoardingScreen extends StatelessWidget {
+class OnBoardingScreen extends GetView<OnBoardingController> {
   const OnBoardingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          
-          Expanded(
-            child: PageView(
-              controller: OnBoardingController.instance.pageController,
-              onPageChanged: OnBoardingController.instance.updatePageIndicator,
+      body: GetBuilder<OnBoardingController>(
+        id: "Main Onboard",
+        builder: (controller) {
+          if (controller.isLoading.value) {
+            return const Center(
+              child: CircularProgressIndicator(color: SColors.accent),
+            );
+          } else {
+            return Column(
+              mainAxisSize: MainAxisSize.max,
               children: [
-                OnBoardingPage(
-                  imagePath: SImages.onboardingImage_1,
-                  onboardingTitle: SLabels.onBoardingTitle1,
-                  onboardingSubTitle: SLabels.onBoardingSubTitle1,
-                  xheight: 80.0.getHeight(),
-                  xwidth: 100.0.getWidth(),
+                Expanded(
+                  flex: 9,
+                  child: GetBuilder<OnBoardingController>(
+                    id: "First Part",
+                    builder: (controller) {
+                      return PageView.builder(
+                        controller: controller.pageController,
+                        itemCount: controller.onboardingItems.length,
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        onPageChanged: controller.updatePageIndicator,
+                        itemBuilder: (context, index) {
+                          return Column(
+                            children: [
+                              Expanded(
+                                flex: 6,
+                                child: OnBordingImage(
+                                  imageUrl:
+                                      controller.onboardingItems[index].image,
+                                ),
+                              ),
+                              Expanded(
+                                flex: 3,
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 3.0.getWidth(),
+                                  ),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        controller.onboardingItems[index].title,
+                                        //SLabels.onBoardingTitle1,
+                                        style: Get.isDarkMode
+                                            ? SAppTheme.darkTheme.textTheme
+                                                .displayLarge
+                                            : SAppTheme.lightTheme.textTheme
+                                                .displayLarge,
+                                      ),
+                                      Text(
+                                        controller.onboardingItems[index].subtitle,
+                                        //SLabels.onBoardingSubTitle1,
+                                        style: Get.isDarkMode
+                                            ? SAppTheme.darkTheme.textTheme
+                                                .displayMedium
+                                            : SAppTheme.lightTheme.textTheme
+                                                .displayMedium,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                  ),
                 ),
-                OnBoardingPage(
-                  imagePath: SImages.onboardingImage_2,
-                  onboardingTitle: SLabels.onBoardingTitle2,
-                  onboardingSubTitle: SLabels.onBoardingSubTitle2,
-                  xheight: 80.0.getHeight(),
-                  xwidth: 100.0.getWidth(),
-                ),
-                OnBoardingPage(
-                  imagePath: SImages.onboardingImage_3,
-                  onboardingTitle: SLabels.onBoardingTitle3,
-                  onboardingSubTitle: SLabels.onBoardingSubTitle3,
-                  xheight: 90.0.getHeight(),
-                  xwidth: 100.0.getWidth(),
+
+                /// Page Indicator with button
+                Expanded(
+                  flex: 1,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 3.0.getWidth()),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        OnBoardingDotNavigation(
+                          count: OnBoardingController
+                              .instance.onboardingItems.length,
+                        ),
+                        Obx(
+                          () => ElevatedButton(
+                            onPressed: () =>
+                                OnBoardingController.instance.nextPage(),
+                            child: OnBoardingController
+                                        .instance.currentIndex.value ==
+                                    OnBoardingController
+                                            .instance.onboardingItems.length -
+                                        1
+                                ? const Text(SLabels.getStarted)
+                                : const Text(SLabels.next),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ],
-            ),
-          ),
-
-          // Child 2: Row with Two Buttons
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Obx(
-              () => Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  /// Page Navigation Dots
-                  const OnBoardingDotNavigation(),
-            
-                  ElevatedButton(
-                    onPressed: () => OnBoardingController.instance.nextPage(),
-                    child:
-                        OnBoardingController.instance.currentIndex.value == 2
-                            ? const Text(SLabels.getStarted)
-                            : const Text(SLabels.next),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
+            );
+          }
+        },
       ),
     );
   }
 }
+
+// Expanded(
+                //   flex: 6,
+                //   child: PageView(
+                //     controller: OnBoardingController.instance.pageController,
+                //     onPageChanged: OnBoardingController.instance.updatePageIndicator,
+                //     children: [
+                //       OnBoardingPage(
+                //         imagePath: SImages.onboardingImage_1,
+                //         onboardingTitle: SLabels.onBoardingTitle1,
+                //         onboardingSubTitle: SLabels.onBoardingSubTitle1,
+                //         xheight: 80.0.getHeight(),
+                //         xwidth: 100.0.getWidth(),
+                //       ),
+                //       OnBoardingPage(
+                //         imagePath: SImages.onboardingImage_2,
+                //         onboardingTitle: SLabels.onBoardingTitle2,
+                //         onboardingSubTitle: SLabels.onBoardingSubTitle2,
+                //         xheight: 80.0.getHeight(),
+                //         xwidth: 100.0.getWidth(),
+                //       ),
+                //       OnBoardingPage(
+                //         imagePath: SImages.onboardingImage_3,
+                //         onboardingTitle: SLabels.onBoardingTitle3,
+                //         onboardingSubTitle: SLabels.onBoardingSubTitle3,
+                //         xheight: 90.0.getHeight(),
+                //         xwidth: 100.0.getWidth(),
+                //       ),
+                //     ],
+                //   ),
+                // ),
+
+                // // Child 2: Row with Two Buttons
+                
+
+
+
+
+
+
+
+
 
 
 // PageView(

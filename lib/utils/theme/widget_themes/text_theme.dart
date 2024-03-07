@@ -107,15 +107,15 @@ class STextTheme {
 
   /// Customizable Dark Text Theme
   static TextTheme darkTextTheme = TextTheme(
-    displayLarge: TextStyle(
+    displayLarge: const TextStyle(
       fontSize: SSizes.fontSizeXxxl,
-      color: SColors.textPrimaryWith80,
+      color: SColors.textWhite,
       fontFamily: 'AirbnbCereal',
       fontWeight: FontWeight.w500,
     ), // onboarding title
-    displayMedium: const TextStyle(
+    displayMedium: TextStyle(
       fontSize: SSizes.fontSizeXl,
-      color: SColors.textSecondary,
+      color: SColors.primary.withOpacity(0.5),
       fontFamily: 'AirbnbCereal',
       fontWeight: FontWeight.w500,
     ), // onboarding subtitle / login subtitle

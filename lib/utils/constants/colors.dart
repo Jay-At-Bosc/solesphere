@@ -16,9 +16,9 @@ class SColors {
   static const Color gradiantStatingColor = Color(0xFFC0E0FF);
   static final Color gradiantEndingColor =
       const Color(0xFFE2F3F9).withOpacity(0);
-  static final Gradient linearGradient = LinearGradient(
-    begin: const Alignment(0, 0),
-    end: const Alignment(5, 5),
+  static final Gradient lightLinearGradient = LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
     colors: [gradiantStatingColor, gradiantEndingColor],
   );
 
@@ -35,9 +35,9 @@ class SColors {
   static final Color textHint = SColors.textPrimary.withOpacity(0.4);
 
   // Background Colors
-  static const Color light = Color(0xFFF8F9FA);
-  static final Color dark = SColors.textPrimary.withOpacity(0.6);
-  static const Color primaryBackground = Color(0xFFF3F5FF);
+  // static const Color light = Color(0xFFF8F9FA);
+  // static final Color dark = SColors.textPrimary.withOpacity(0.6);
+  // static const Color primaryBackground = Color(0xFFF3F5FF);
 
   // Background Container Colors
   static const Color lightContainer = Color(0xFFF6F6F6);
@@ -63,5 +63,7 @@ class SColors {
   static final Color primaryIcon = SColors.textPrimary.withOpacity(0.4);
 
   // Dot Navigation Color
-  static const Color dotColor = Color(0xFFE5EEF7);
+  static const Color navigationDotColor = Color(0xFFE5EEF7);
+  static const Color lightDotColor = Color(0xFFA4CDF6);
+  static const Color darkDotColor = Color(0xFF161F28);
 }

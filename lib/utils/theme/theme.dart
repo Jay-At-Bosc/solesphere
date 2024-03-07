@@ -18,7 +18,6 @@ class SAppTheme {
     textTheme: STextTheme.lightTextTheme,
     // chipTheme: TChipTheme.lightChipTheme,
     // scaffoldBackgroundColor: TColors.white,
-    
     // appBarTheme: TAppBarTheme.lightAppBarTheme,
     // checkboxTheme: TCheckboxTheme.lightCheckboxTheme,
     // bottomSheetTheme: TBottomSheetTheme.lightBottomSheetTheme,

@@ -6,21 +6,19 @@ class SExpandingDotEffect {
 
   // Light Theme Dot Style
   static const lightEffect = ExpandingDotsEffect(
-    dotColor: SColors.dotColor,
-    activeDotColor: SColors.accent,
-    dotHeight: 5,
-    dotWidth: 8,
-    radius: 16,
-    expansionFactor: 4
-  );
+      dotColor: SColors.lightDotColor,
+      activeDotColor: SColors.accent,
+      dotHeight: 5,
+      dotWidth: 8,
+      radius: 16,
+      expansionFactor: 4);
 
   /// Dark Theme Dot Style
   static const darkEffect = ExpandingDotsEffect(
-    dotColor: SColors.dotColor,
-    activeDotColor: SColors.accent,
-    dotHeight: 5,
-    dotWidth: 8,
-    radius: 16,
-    expansionFactor: 4
-  );
+      dotColor: SColors.primary,
+      activeDotColor: SColors.accent,
+      dotHeight: 5,
+      dotWidth: 8,
+      radius: 16,
+      expansionFactor: 4);
 }
