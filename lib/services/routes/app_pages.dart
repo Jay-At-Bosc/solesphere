@@ -8,6 +8,7 @@ import '../../auth/signup/signup_binding.dart';
 import '../../auth/signup/signup_screen.dart';
 import '../../screens/userprofile/user_detail.dart';
 import 'app_route_exports.dart';
+
 part 'app_routes.dart';
 
 class AppPages {
@@ -17,7 +18,7 @@ class AppPages {
     GetPage(
       name: _Paths.splash,
       page: () => const SplashScreen(),
-      //binding: SplashBinding(),
+      binding: SplashBinding(),
     ),
     GetPage(
       name: _Paths.onboard,
@@ -59,6 +60,5 @@ class AppPages {
       transitionDuration: const Duration(milliseconds: 300),
       curve: Curves.easeIn,
     ),
-    
   ];
 }

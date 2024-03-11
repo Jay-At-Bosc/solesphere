@@ -4,13 +4,14 @@ import 'package:solesphere/utils/extensions/responsive_extension.dart';
 import '../../utils/constants/colors.dart';
 
 class OnBoardingPage extends StatelessWidget {
-  const OnBoardingPage(
-      {super.key,
-      required this.imagePath,
-      required this.onboardingTitle,
-      required this.onboardingSubTitle,
-      required this.xheight,
-      required this.xwidth});
+  const OnBoardingPage({
+    super.key,
+    required this.imagePath,
+    required this.onboardingTitle,
+    required this.onboardingSubTitle,
+    required this.xheight,
+    required this.xwidth,
+  });
 
   final String imagePath;
   final String onboardingTitle;
@@ -82,33 +83,6 @@ class OnBoardingPage extends StatelessWidget {
               imagePath,
             ),
           ),
-
-          // Positioned(
-          //   top: 20.0.getHeight() + 100.0.getWidth(),
-          //   left: 20,
-          //   right: 20,
-          //   child: Text(
-          //     onboardingTitle,
-          //     style: Theme.of(context).textTheme.displayLarge,
-          //     maxLines: 2,
-          //   ),
-          // ),
-          // Positioned(
-          //   top: 33.0.getHeight() + 100.0.getWidth(),
-          //   left: 20,
-          //   right: 20,
-          //   child: Text(
-          //     onboardingSubTitle,
-          //     style: Theme.of(context).textTheme.displayMedium,
-          //     maxLines: 2,
-          //   ),
-          // ),
-          // Positioned(
-          //   child: Text(
-          //     onboardingSubTitle,
-          //     style: Theme.of(context).textTheme.displayMedium,
-          //   ),
-          // ),
         ],
       ),
     );

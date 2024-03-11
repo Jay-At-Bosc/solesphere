@@ -5,10 +5,14 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: CustomImage(imgPath: SImages.splasgImage),
-      ),
-    );
+    return GetBuilder<SplashController>(
+        init: SplashController(),
+        builder: (controller) {
+          return const Scaffold(
+            body: Center(
+              child: CustomImage(imgPath: SImages.splasgImage),
+            ),
+          );
+        });
   }
 }

@@ -1,5 +1,5 @@
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+
 //import 'package:get_storage/get_storage.dart';
 
 import '../../utils/local_storage/app_storage.dart';
@@ -8,15 +8,14 @@ import '../routes/app_pages.dart';
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
 
-  /// Variables
-  // final deviceStorage = GetStorage();
-
   /// Called from main.dart on app launch
   // @override
   // void onReady() {
   //   screenRedirect();
   //   super.onReady();
   // }
+
+  final appStorage = Get.find<AppStorage>();
 
   @override
   void onInit() {
@@ -25,14 +24,8 @@ class AuthenticationRepository extends GetxController {
   }
 
   /// Function to Show Relevant Screen
-  screenRedirect() async {
-    final appStorage = Get.find<AppStorage>();
-    bool hasOnboardCompleted =
-        await appStorage.read('hasOnboardCompleted') ?? false;
-    if (kDebugMode) {
-      print('================= GET STORAGE ====================');
-      print("hasOnboardCompleted : $hasOnboardCompleted");
-    }
+  Future<void> screenRedirect() async {
+    bool hasOnboardCompleted = appStorage.hasOnBoardingCompleted;
 
     if (hasOnboardCompleted) {
       Get.offAllNamed(Routes.signin);

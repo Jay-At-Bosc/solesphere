@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 import '../../../services/models/product_model.dart';
@@ -6,7 +8,8 @@ import '../text/text_style.dart';
 
 class SProductPrice extends StatelessWidget {
   const SProductPrice({
-    super.key, required this.product,
+    super.key,
+    required this.product,
   });
   final Product product;
   @override
@@ -18,7 +21,7 @@ class SProductPrice extends StatelessWidget {
           style: Theme.of(context).textTheme.labelLarge!.apply(
             color: Colors.black,
             fontSizeFactor: 1.5,
-            fontFeatures: [const FontFeature.superscripts()],
+            fontFeatures: [FontFeature.superscripts()],
           ),
         ),
         const SizedBox(

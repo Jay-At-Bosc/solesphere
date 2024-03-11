@@ -1,8 +1,6 @@
-import 'dart:convert';
 import 'package:solesphere/auth/auth_exports.dart';
 
 import '../../services/models/onboarding_model.dart';
-
 import '../../services/routes/app_pages.dart';
 import '../../utils/local_storage/app_storage.dart';
 
@@ -15,7 +13,7 @@ class OnBoardingController extends GetxController {
   final pageController = PageController();
   Rx<int> currentIndex = 0.obs;
   Rx<bool> isLoading = false.obs;
-  final storageBox = Get.find<AppStorage>();
+  final appStorage = Get.find<AppStorage>();
 
   @override
   void onInit() {
@@ -29,28 +27,16 @@ class OnBoardingController extends GetxController {
     currentIndex.value = pageController.page!.round();
   }
 
-  void getOnboardingItemsFromStorage() {
-    final jsonString = storageBox.read('onboardingItems');
-    print(jsonString);
-    
-    if (jsonString != null) {
-      final List<dynamic> decodedData = jsonDecode(jsonString);
-      final items =
-          decodedData.map((item) => OnboardingItem.fromMap(item)).toList();
+  bool getOnboardingItemsFromStorage() {
+    List<OnboardingItem> items = appStorage.getOnboardingItems();
+    try {
       onboardingItems.assignAll(items);
-    } else {
-      // final controller = Get.find<SplashController>();
-      // controller.fetchOnboardingItems();
-      // final List<dynamic> decodedData = jsonDecode(jsonString);
-      // final items =
-      //     decodedData.map((item) => OnboardingItem.fromMap(item)).toList();
-      // onboardingItems.assignAll(items);
-      // print("Data from onboarding null condition \n" +
-      //     storageBox.read('onboardingData'));
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
     }
   }
-
-  
 
   /// Update current index when page scroll
   void updatePageIndicator(index) => currentIndex.value = index;
@@ -72,8 +58,7 @@ class OnBoardingController extends GetxController {
     } else {
       // Navigate to next screen after onboarding, or do something else
       final appStorage = Get.find<AppStorage>();
-      appStorage.write('hasOnboardCompleted', true);
-      print("");
+      appStorage.setBool(StorageKey.kHasOnBoardingCompleted, true);
       Get.offAllNamed(Routes.signin);
     }
   }
