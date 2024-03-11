@@ -16,4 +16,12 @@ class OnboardingItem {
   }
 
   factory OnboardingItem.fromJson(String source) => OnboardingItem.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  Map<String, dynamic> toJson() {
+    return {
+      'image': image,
+      'title': title,
+      'subtitle': subtitle,
+    };
+  }
 }

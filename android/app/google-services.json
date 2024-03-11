@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "946297687740",
+    "project_id": "solesphere-app-73c2b",
+    "storage_bucket": "solesphere-app-73c2b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:946297687740:android:8ac8b0eb1b47482579cab9",
+        "android_client_info": {
+          "package_name": "com.example.solesphere"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "946297687740-6nkbe22l1umstekjsnhiv7qvmjlb8r58.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.solesphere",
+            "certificate_hash": "2c6696d9d8d7af0b7ca919689f2f456008683f9c"
+          }
+        },
+        {
+          "client_id": "946297687740-klresmd6287n2p6f140sqpgj5bt1kbaa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcstnhjCh89Z3w_ujwCttr2rpcfAppi58"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "946297687740-klresmd6287n2p6f140sqpgj5bt1kbaa.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "946297687740-4liim37evo3iraae8s785kiu73dpkdj5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.solesphere.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

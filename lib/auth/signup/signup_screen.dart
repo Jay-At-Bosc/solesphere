@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:solesphere/auth/signup/signup_form.dart';
+import 'greetings_text.dart';
+import 'package:solesphere/auth/signup/signup_controller.dart';
 import 'package:solesphere/utils/constants/icons.dart';
-
+import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
 import '../../services/routes/app_pages.dart';
 import '../../utils/constants/colors.dart';
@@ -11,6 +14,53 @@ import '../../utils/constants/labels.dart';
 import '../../utils/theme/theme.dart';
 
 import '../../widgets/custom_label.dart';
+
+class SignUpScreen extends GetView<SignUpController> {
+  const SignUpScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.only(
+              top: 20.0.getHeight(), left: 20, right: 20, bottom: 20),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                /// Greetings Texts
+                const SignUpGreetings(),
+                SizedBox(
+                  height: 2.0.getHeight(),
+                ),
+
+                /// Signup Form
+                // GetBuilder<SignUpController>(
+                //   id: 'freeSignUpForm',
+                //   builder: (_) {
+                //     return  Form(
+                //       //key: controller.form,
+                //       child: SignUpForm(),
+                //     );
+                //   },
+                // ),
+
+                /// Buttons - Register & Signup With Google
+                /// 
+        
+
+                /// Signin Page Navigation
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
 
 class SignUpPage extends StatelessWidget {
   const SignUpPage({super.key});
@@ -27,7 +77,8 @@ class SignUpPage extends StatelessWidget {
           child: SingleChildScrollView(
             child: Center(
               child: Padding(
-                padding: const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 50),
+                padding:
+                    const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 50),
                 child: Column(
                   children: [
                     CustomLabelText(
@@ -137,7 +188,9 @@ class CustomSignUpForm extends StatelessWidget {
                 return 'Please Username';
               }
               return null;
-            }, keyboardType: TextInputType.text,maxLength: 1,
+            },
+            keyboardType: TextInputType.text,
+            maxLength: 1,
           ),
           const SizedBox(
             height: 12.0,
@@ -152,7 +205,9 @@ class CustomSignUpForm extends StatelessWidget {
             suffixIconData: null,
             isObscure: false,
             suffixIconColor: SColors.textPrimaryWith80,
-            obscuringCharacter: '',keyboardType: TextInputType.emailAddress,maxLength: 1,
+            obscuringCharacter: '',
+            keyboardType: TextInputType.emailAddress,
+            maxLength: 1,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter your email';
@@ -179,7 +234,8 @@ class CustomSignUpForm extends StatelessWidget {
                 return 'Please enter your password';
               }
               return null;
-            }, keyboardType: TextInputType.text,
+            },
+            keyboardType: TextInputType.text,
             maxLength: 1,
           ),
           const SizedBox(
@@ -201,7 +257,8 @@ class CustomSignUpForm extends StatelessWidget {
                 return 'Please enter your password';
               }
               return null;
-            }, keyboardType: TextInputType.text,
+            },
+            keyboardType: TextInputType.text,
             maxLength: 1,
           ),
           const SizedBox(
@@ -390,7 +447,9 @@ class CustomInputField extends StatelessWidget {
     required this.suffixIconColor,
     required this.isObscure,
     required this.obscuringCharacter,
-    required this.validator, required TextInputType keyboardType, required int maxLength,
+    required this.validator,
+    required TextInputType keyboardType,
+    required int maxLength,
   });
 
   @override

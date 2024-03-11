@@ -17,7 +17,7 @@ class AppPages {
     GetPage(
       name: _Paths.splash,
       page: () => const SplashScreen(),
-      binding: SplashBinding(),
+      //binding: SplashBinding(),
     ),
     GetPage(
       name: _Paths.onboard,

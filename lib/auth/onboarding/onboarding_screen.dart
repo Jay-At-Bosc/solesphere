@@ -28,59 +28,53 @@ class OnBoardingScreen extends GetView<OnBoardingController> {
               children: [
                 Expanded(
                   flex: 9,
-                  child: GetBuilder<OnBoardingController>(
-                    id: "First Part",
-                    builder: (controller) {
-                      return PageView.builder(
-                        controller: controller.pageController,
-                        itemCount: controller.onboardingItems.length,
-                        physics: const AlwaysScrollableScrollPhysics(),
-                        onPageChanged: controller.updatePageIndicator,
-                        itemBuilder: (context, index) {
-                          return Column(
-                            children: [
-                              Expanded(
-                                flex: 6,
-                                child: OnBordingImage(
-                                  imageUrl:
-                                      controller.onboardingItems[index].image,
-                                ),
+                  child: PageView.builder(
+                    controller: controller.pageController,
+                    itemCount: controller.onboardingItems.length,
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    onPageChanged: controller.updatePageIndicator,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          Expanded(
+                            flex: 6,
+                            child: OnBordingImage(
+                              imageUrl: controller.onboardingItems[index].image,
+                            ),
+                          ),
+                          Expanded(
+                            flex: 3,
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 3.0.getWidth(),
                               ),
-                              Expanded(
-                                flex: 3,
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 3.0.getWidth(),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    controller.onboardingItems[index].title,
+                                    //SLabels.onBoardingTitle1,
+                                    style: Get.isDarkMode
+                                        ? SAppTheme
+                                            .darkTheme.textTheme.displayLarge
+                                        : SAppTheme
+                                            .lightTheme.textTheme.displayLarge,
                                   ),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        controller.onboardingItems[index].title,
-                                        //SLabels.onBoardingTitle1,
-                                        style: Get.isDarkMode
-                                            ? SAppTheme.darkTheme.textTheme
-                                                .displayLarge
-                                            : SAppTheme.lightTheme.textTheme
-                                                .displayLarge,
-                                      ),
-                                      Text(
-                                        controller.onboardingItems[index].subtitle,
-                                        //SLabels.onBoardingSubTitle1,
-                                        style: Get.isDarkMode
-                                            ? SAppTheme.darkTheme.textTheme
-                                                .displayMedium
-                                            : SAppTheme.lightTheme.textTheme
-                                                .displayMedium,
-                                      ),
-                                    ],
+                                  Text(
+                                    controller.onboardingItems[index].subtitle,
+                                    //SLabels.onBoardingSubTitle1,
+                                    style: Get.isDarkMode
+                                        ? SAppTheme
+                                            .darkTheme.textTheme.displayMedium
+                                        : SAppTheme
+                                            .lightTheme.textTheme.displayMedium,
                                   ),
-                                ),
+                                ],
                               ),
-                            ],
-                          );
-                        },
+                            ),
+                          ),
+                        ],
                       );
                     },
                   ),
