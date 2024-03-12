@@ -17,23 +17,25 @@ class SRatingBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RatingBar.builder(
-      initialRating: rating,
-      minRating: 1,
-      direction: Axis.horizontal,
-      allowHalfRating: true,
-      itemCount: 5,
-      itemSize: SSizes.md,
-      itemPadding: const EdgeInsets.only(right: 1.0),
-      itemBuilder: (context, _) => const Icon(
-        Iconsax.star4,
-        color: Colors.amber,
+    return AbsorbPointer(
+      child: RatingBar.builder(
+        initialRating: rating,
+        minRating: 1,
+        direction: Axis.horizontal,
+        allowHalfRating: true,
+        itemCount: 5,
+        itemSize: SSizes.md,
+        itemPadding: const EdgeInsets.only(right: 1.0),
+        itemBuilder: (context, _) => const Icon(
+          Iconsax.star4,
+          color: Colors.amber,
+        ),
+        onRatingUpdate: (rating) {
+          Get.closeCurrentSnackbar();
+          TLoaders.successSnackBar(
+              title: "Wow 🤩!", message: "Thanks  For Rating us $rating ⭐");
+        },
       ),
-      onRatingUpdate: (rating) {
-        Get.closeCurrentSnackbar();
-        TLoaders.successSnackBar(
-            title: "Wow 🤩!", message: "Thanks  For Rating us $rating ⭐");
-      },
     );
   }
 }

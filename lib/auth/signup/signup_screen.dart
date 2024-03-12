@@ -3,12 +3,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:solesphere/utils/constants/icons.dart';
 
-
 import '../../services/routes/app_pages.dart';
 import '../../utils/constants/colors.dart';
 import '../../utils/constants/labels.dart';
-
-import '../../utils/theme/theme.dart';
 
 import '../../widgets/custom_label.dart';
 
@@ -27,16 +24,18 @@ class SignUpPage extends StatelessWidget {
           child: SingleChildScrollView(
             child: Center(
               child: Padding(
-                padding: const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 50),
+                padding:
+                    const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 50),
                 child: Column(
                   children: [
                     CustomLabelText(
                         labelText: SLabels.signUpTitle,
-                        labelStyle:
-                            SAppTheme.lightTheme.textTheme.headlineLarge),
+                        labelStyle: Theme.of(context).textTheme.headlineLarge),
                     CustomLabelText(
                       labelText: SLabels.signUpSubTitle,
-                      labelStyle: SAppTheme.lightTheme.textTheme.displayMedium!
+                      labelStyle: Theme.of(context)
+                          .textTheme
+                          .displayMedium!
                           .copyWith(fontSize: 16.0),
                     ),
                     const SizedBox(
@@ -76,28 +75,24 @@ class CustomLoginText extends StatelessWidget {
         children: [
           Text(
             SLabels.alreadyHaveAnAccount,
-            style: TextStyle(
-              fontFamily: 'Airbnb',
-              fontWeight: FontWeight.w500,
-              fontSize: 14.0,
-              color: SColors.textPrimaryWith80,
-            ),
+            style: Theme.of(context)
+                .textTheme
+                .bodySmall!
+                .apply(),
             textAlign: TextAlign.end,
             textScaler: const TextScaler.linear(1),
           ),
           const SizedBox(
             width: 4,
           ),
-          const Text(
+          Text(
             SLabels.signIn,
-            style: TextStyle(
-              fontFamily: 'Airbnb',
-              fontWeight: FontWeight.w500,
-              fontSize: 14.0,
-              color: SColors.accent,
-            ),
+            style: Theme.of(context)
+                .textTheme
+                .labelSmall!
+                .apply(color: SColors.accent),
             textAlign: TextAlign.end,
-            textScaler: TextScaler.linear(1),
+            textScaler: const TextScaler.linear(1),
           ),
         ],
       ),
@@ -137,7 +132,9 @@ class CustomSignUpForm extends StatelessWidget {
                 return 'Please Username';
               }
               return null;
-            }, keyboardType: TextInputType.text,maxLength: 1,
+            },
+            keyboardType: TextInputType.text,
+            maxLength: 1,
           ),
           const SizedBox(
             height: 12.0,
@@ -152,7 +149,9 @@ class CustomSignUpForm extends StatelessWidget {
             suffixIconData: null,
             isObscure: false,
             suffixIconColor: SColors.textPrimaryWith80,
-            obscuringCharacter: '',keyboardType: TextInputType.emailAddress,maxLength: 1,
+            obscuringCharacter: '',
+            keyboardType: TextInputType.emailAddress,
+            maxLength: 1,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter your email';
@@ -179,7 +178,8 @@ class CustomSignUpForm extends StatelessWidget {
                 return 'Please enter your password';
               }
               return null;
-            }, keyboardType: TextInputType.text,
+            },
+            keyboardType: TextInputType.text,
             maxLength: 1,
           ),
           const SizedBox(
@@ -201,7 +201,8 @@ class CustomSignUpForm extends StatelessWidget {
                 return 'Please enter your password';
               }
               return null;
-            }, keyboardType: TextInputType.text,
+            },
+            keyboardType: TextInputType.text,
             maxLength: 1,
           ),
           const SizedBox(
@@ -390,7 +391,9 @@ class CustomInputField extends StatelessWidget {
     required this.suffixIconColor,
     required this.isObscure,
     required this.obscuringCharacter,
-    required this.validator, required TextInputType keyboardType, required int maxLength,
+    required this.validator,
+    required TextInputType keyboardType,
+    required int maxLength,
   });
 
   @override

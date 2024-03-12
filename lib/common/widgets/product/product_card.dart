@@ -4,6 +4,7 @@ import 'package:solesphere/common/widgets/popup/loaders.dart';
 
 import '../../../services/models/product_model.dart';
 import '../../../screens/home/controller/product_controller.dart';
+import '../../../services/routes/app_pages.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
 import '../../../utils/helpers/helper_function.dart';
@@ -19,7 +20,7 @@ class SProductCardVertical extends StatelessWidget {
     required this.product,
     required this.onFavoriteToggle,
   });
-  final Product product;
+  final Products product;
   final Function(int) onFavoriteToggle;
   final int index;
   @override
@@ -32,6 +33,7 @@ class SProductCardVertical extends StatelessWidget {
         Get.closeCurrentSnackbar();
         TLoaders.successSnackBar(
             title: "Product", message: "You Tapped on Product: ${index + 1}");
+        Get.toNamed(Routes.productDetail);
       },
       child: Container(
         width: 190,
@@ -60,9 +62,10 @@ class SProductCardVertical extends StatelessWidget {
                 children: [
                   //image
                   TRoundedImage(
-                    imageUrl: product.imageUrl,
+                    imageUrl: product.image,
                     onPress: () {},
                     applyImageRadius: true,
+                    isNetworkImage: true,
                   ),
                   //Favorite Icon Button
                   SFavoriteIcon(

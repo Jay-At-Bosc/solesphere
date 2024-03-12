@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/screens/favorite/favorite_screen.dart';
+import 'package:solesphere/screens/drawer/drawer_screen.dart';
 
 import 'widgets/home_content.dart';
 
@@ -62,7 +62,7 @@ class NavigationController extends GetxController {
   final GlobalKey<CurvedNavigationBarState> bottomNavigationKey = GlobalKey();
 
   final screens = [
-    const HomeScreenContent(),
+    const Stack(children: [DrawerScreen(), HomeScreenContent()]),
     const FavoriteScreen(),
     // Container(
     //   color: Colors.pink,

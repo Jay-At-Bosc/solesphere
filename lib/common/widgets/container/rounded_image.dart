@@ -13,7 +13,7 @@ class TRoundedImage extends StatelessWidget {
     this.border,
     this.backgroundColor = SColors.primary,
     this.fit = BoxFit.contain,
-    this.isNetworkImage = false,
+    this.isNetworkImage = true,
     required this.onPress,
     this.borderRadius = SSizes.md,
     this.padding,
@@ -47,11 +47,15 @@ class TRoundedImage extends StatelessWidget {
           borderRadius: applyImageRadius
               ? BorderRadius.circular(borderRadius)
               : BorderRadius.zero,
-          child: Image(
-              fit: fit,
-              image: isNetworkImage
-                  ? NetworkImage(imageUrl)
-                  : AssetImage(imageUrl) as ImageProvider),
+          child: Image.network(
+            imageUrl,
+            fit: fit,
+          ),
+          // child: Image(
+          //     fit: fit,
+          //     image: isNetworkImage
+          //         ? NetworkImage(imageUrl)
+          //         : AssetImage(imageUrl) as ImageProvider),
         ),
       ),
     );

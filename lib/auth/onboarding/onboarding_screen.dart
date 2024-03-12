@@ -2,7 +2,7 @@ import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/auth/onboarding/onboarding_controller.dart';
 import 'package:solesphere/services/routes/app_route_exports.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
-import 'package:solesphere/utils/theme/theme.dart';
+
 
 import '../../utils/constants/colors.dart';
 import '../../utils/constants/labels.dart';
@@ -59,20 +59,17 @@ class OnBoardingScreen extends GetView<OnBoardingController> {
                                       Text(
                                         controller.onboardingItems[index].title,
                                         //SLabels.onBoardingTitle1,
-                                        style: Get.isDarkMode
-                                            ? SAppTheme.darkTheme.textTheme
-                                                .displayLarge
-                                            : SAppTheme.lightTheme.textTheme
-                                                .displayLarge,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displayLarge,
                                       ),
                                       Text(
-                                        controller.onboardingItems[index].subtitle,
+                                        controller
+                                            .onboardingItems[index].subtitle,
                                         //SLabels.onBoardingSubTitle1,
-                                        style: Get.isDarkMode
-                                            ? SAppTheme.darkTheme.textTheme
-                                                .displayMedium
-                                            : SAppTheme.lightTheme.textTheme
-                                                .displayMedium,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displayMedium,
                                       ),
                                     ],
                                   ),

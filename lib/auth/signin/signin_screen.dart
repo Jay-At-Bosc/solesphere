@@ -1,16 +1,12 @@
-
 import 'package:iconsax/iconsax.dart';
 import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/utils/constants/colors.dart';
-
-
 
 import '../../services/routes/app_pages.dart';
 import '../../utils/constants/labels.dart';
 import '../../utils/theme/widget_themes/text_theme.dart';
 import '../../widgets/custom_label.dart';
 import '../signup/signup_screen.dart';
-
 
 class SigninScreen extends StatelessWidget {
   const SigninScreen({super.key});
@@ -32,12 +28,12 @@ class SigninScreen extends StatelessWidget {
                 children: [
                   Text(
                     SLabels.signInTitle,
-                    style: STextTheme.lightTextTheme.headlineLarge,
+                    style: Theme.of(context).textTheme.headlineLarge,
                     textScaler: const TextScaler.linear(1),
                   ),
                   Text(
                     SLabels.signInSubTitle,
-                    style: STextTheme.lightTextTheme.displayMedium,
+                    style: Theme.of(context).textTheme.displayMedium,
                     textScaler: const TextScaler.linear(1),
                   ),
                   const SizedBox(
@@ -55,7 +51,7 @@ class SigninScreen extends StatelessWidget {
                         },
                         child: CustomSignUpText(
                           label: SLabels.dontHaveAnAccount,
-                          style: STextTheme.lightTextTheme.bodySmall!,
+                          style: Theme.of(context).textTheme.bodySmall!,
                         ),
                       ),
                       const SizedBox(
@@ -63,7 +59,7 @@ class SigninScreen extends StatelessWidget {
                       ),
                       CustomSignUpText(
                         label: SLabels.signup,
-                        style: STextTheme.lightTextTheme.displaySmall!,
+                        style: Theme.of(context).textTheme.displaySmall!,
                       ),
                     ],
                   ),
@@ -157,7 +153,9 @@ class CustomLoginForm extends StatelessWidget {
                 return 'Please enter your password';
               }
               return null;
-            }, keyboardType: TextInputType.text,maxLength: 1,
+            },
+            keyboardType: TextInputType.text,
+            maxLength: 1,
           ),
           const SizedBox(
             height: 18.0,

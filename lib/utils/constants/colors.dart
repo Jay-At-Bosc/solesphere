@@ -10,7 +10,7 @@ class SColors {
 
   // Scaffold Background Colors
   static const Color lightBackground = Color(0xFFF8F9FA);
-  static final Color darkBackground = const Color(0xFF1A2530).withOpacity(0.8);
+  static final Color darkBackground = const Color(0xFF1A2530).withOpacity(0.99);
 
   // Gradient Colors
   static const Color gradiantStatingColor = Color(0xFFC0E0FF);
@@ -66,4 +66,8 @@ class SColors {
   static const Color navigationDotColor = Color(0xFFE5EEF7);
   static const Color lightDotColor = Color(0xFFA4CDF6);
   static const Color darkDotColor = Color(0xFF161F28);
+
+  // Button
+  static const Color cartBtnColor = Color(0xFFFFD814);
+  static const Color buyBtnColor = Color(0xFFFFA41C);
 }

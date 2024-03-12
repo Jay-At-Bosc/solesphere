@@ -3,7 +3,7 @@ import 'package:solesphere/utils/constants/colors.dart';
 
 import '../../../services/models/product_model.dart';
 import '../text/text_style.dart';
-import 'avialable_color.dart';
+
 import 'rating_bar.dart';
 
 class SProductReview extends StatelessWidget {
@@ -11,7 +11,7 @@ class SProductReview extends StatelessWidget {
     super.key,
     required this.product,
   });
-  final Product product;
+  final Products product;
 
   @override
   Widget build(BuildContext context) {
@@ -21,15 +21,15 @@ class SProductReview extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           STextStyle(
-            text: product.rating.toString(),
+            text: product.avgRating.toString(),
             style: Theme.of(context).textTheme.labelSmall!.apply(
                   color: SColors.accent,
                   fontSizeFactor: 0.9,
                 ),
           ),
-          SRatingBar(rating: product.rating),
+          SRatingBar(rating: product.avgRating),
           STextStyle(
-            text: "(${product.reviews})",
+            text: "(${product.totalReview})",
             style: Theme.of(context).textTheme.labelSmall!.apply(
                   color: SColors.textPrimaryWith60,
                   fontSizeFactor: 0.9,
@@ -38,7 +38,7 @@ class SProductReview extends StatelessWidget {
           const SizedBox(
             width: 1,
           ),
-          SAvailableColors(totalColor: product.availableColors.length),
+          // SAvailableColors(totalColor: product.availableColors.length),
         ],
       ),
     );

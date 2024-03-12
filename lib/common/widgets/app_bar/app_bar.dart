@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:solesphere/auth/auth_exports.dart';
+
 
 import '../../../utils/device/device_utility.dart';
 import 'appbar_widgets/leading_drawer.dart';
@@ -10,6 +11,8 @@ class SAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    // final controller = Get.find<CustomDrawerController>();
+
     return AppBar(
       leading: const SLeadingDrawer(),
       title: const SVerticalText(),

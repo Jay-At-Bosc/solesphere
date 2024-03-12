@@ -35,16 +35,16 @@ class OnBoardingController extends GetxController {
         'https://solesphere-backend.onrender.com/api/v1/splashScreen';
     try {
       final response = await http.get(Uri.parse(apiUrl));
-      
 
       if (response.statusCode == 200) {
-          final Map<String, dynamic> responseData = jsonDecode(response.body);
-      final List<dynamic> data = responseData['data']; // Extract 'data' array
-      
-      List<OnboardingItem> items = data.map((item) => OnboardingItem.fromMap(item)).toList();
-      onboardingItems.assignAll(items);
-      isLoading.value = false;
-      update(['Main Onboard']);
+        final Map<String, dynamic> responseData = jsonDecode(response.body);
+        final List<dynamic> data = responseData['data']; // Extract 'data' array
+
+        List<OnboardingItem> items =
+            data.map((item) => OnboardingItem.fromMap(item)).toList();
+        onboardingItems.assignAll(items);
+        isLoading.value = false;
+        update(['Main Onboard']);
       } else {
         // Handle error
         print('Failed to load onboarding items: ${response.statusCode}');

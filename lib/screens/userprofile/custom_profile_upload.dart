@@ -55,13 +55,14 @@ class CustomProfileUpload extends StatelessWidget {
                 color: SColors.accent,
                 shape: BoxShape.circle,
               ),
-              child: Center(
-                child: IconButton(
-                  onPressed: controller.pickImage,
-                  icon: const Icon(
-                    Iconsax.camera,
-                    size: 16,
-                  ),
+              child: IconButton(
+                padding: const EdgeInsets.all(0),
+                onPressed: controller.pickImage,
+                alignment: Alignment.center,
+                icon: Icon(
+                  Iconsax.camera,
+                  size: 16,
+                  color: SColors.textWhite.withOpacity(0.7),
                 ),
               ),
             ),
