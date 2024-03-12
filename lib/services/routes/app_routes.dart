@@ -8,6 +8,7 @@ abstract class Routes {
   static const String userDetail = _Paths.userDetail;
   static const String home = _Paths.home;
    static const String favourite = _Paths.favourite;
+   static const String productDetail = _Paths.productDetail;
 }
 
 abstract class _Paths {
@@ -18,6 +19,7 @@ abstract class _Paths {
   static const String userDetail = '/userdetail';
   static const String home = '/home';
   static const String favourite = '/favourite';
+  static const String productDetail = '/product_details';
 
 
 }

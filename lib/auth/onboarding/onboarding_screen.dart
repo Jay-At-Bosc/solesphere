@@ -2,9 +2,10 @@ import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/auth/onboarding/onboarding_controller.dart';
 import 'package:solesphere/services/routes/app_route_exports.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
-import 'package:solesphere/utils/theme/theme.dart';
+
 
 import '../../utils/constants/labels.dart';
+import '../../utils/theme/theme.dart';
 import 'onboarding_image.dart';
 import 'onbording_dotnavigation.dart';
 

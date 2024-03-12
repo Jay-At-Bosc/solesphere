@@ -9,7 +9,7 @@ class SProductName extends StatelessWidget {
     super.key,
     required this.product,
   });
-  final Product product;
+  final Products product;
 
   @override
   Widget build(BuildContext context) {
@@ -17,14 +17,14 @@ class SProductName extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         STextStyle(
-          text: product.name.toString(),
+          text: product.productName.toString(),
           style: Theme.of(context)
               .textTheme
               .labelLarge!
               .apply(color: Colors.black),
         ),
         STextStyle(
-          text: product.description.toString(),
+          text: product.shortDescription.toString(),
           style: Theme.of(context)
               .textTheme
               .labelSmall!

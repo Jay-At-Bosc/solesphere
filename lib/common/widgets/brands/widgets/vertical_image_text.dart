@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:solesphere/screens/home/controller/home_controller.dart';
+
+import 'package:solesphere/screens/home/controller/product_controller.dart';
 
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
@@ -19,18 +20,18 @@ class SVerticalImageText extends StatelessWidget {
   final String image, title;
   final Color textColor;
   final Color? backgroundColor;
-  final int index;
+  final String index;
 
   @override
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
-    final controller = Get.find<HomeController>();
+    final controller = Get.find<ProductController>();
 
     return Padding(
       padding: const EdgeInsets.only(right: SSizes.spaceBtwItems),
       child: Column(
         children: [
-          controller.selectedItem.value != index
+          controller.selectedCategory.value != index
               ? Container(
                   width: 48,
                   height: 48,
@@ -42,9 +43,9 @@ class SVerticalImageText extends StatelessWidget {
                   ),
                   child: Center(
                     child: Image(
-                      image: AssetImage(image),
+                      image: NetworkImage(image),
                       fit: BoxFit.cover,
-                      color: SColors.darkBackground,
+                      // color: SColors.darkBackground,
                     ),
                   ),
                 )
@@ -65,16 +66,18 @@ class SVerticalImageText extends StatelessWidget {
                           padding: const EdgeInsets.all(SSizes.xs),
                           decoration: BoxDecoration(
                             color: backgroundColor ??
-                                (dark ? SColors.primary : SColors.darkBackground),
+                                (dark
+                                    ? SColors.primary
+                                    : SColors.darkBackground),
                             borderRadius: BorderRadius.circular(100),
                           ),
                           child: Center(
                             child: Image(
                               width: 24,
                               height: 24,
-                              image: AssetImage(image),
+                              image: NetworkImage(image),
                               fit: BoxFit.cover,
-                              color: SColors.darkBackground,
+                              // color: SColors.darkBackground,
                             ),
                           ),
                         ),

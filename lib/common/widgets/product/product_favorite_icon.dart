@@ -13,7 +13,7 @@ class SFavoriteIcon extends StatelessWidget {
     required this.product,
     required this.controller,
   });
-  final Product product;
+  final Products product;
   final ProductController controller;
 
   final bool dark;

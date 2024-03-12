@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:solesphere/screens/home/controller/home_controller.dart';
-
+import 'package:solesphere/screens/home/controller/product_controller.dart';
 import '../../../../../utils/constants/colors.dart';
-
 import 'widgets/vertical_image_text.dart';
 
 class SHomeCategories extends StatelessWidget {
@@ -23,8 +21,9 @@ class SHomeCategories extends StatelessWidget {
       child: Column(
         children: [
           //Scrolable Catgories
-          GetBuilder<HomeController>(
-            init: HomeController(),
+          GetBuilder<ProductController>(
+            init: ProductController(),
+            id: "categories",
             builder: (controller) => SizedBox(
               height: 60,
               child: ListView.builder(
@@ -34,14 +33,19 @@ class SHomeCategories extends StatelessWidget {
                 itemBuilder: (_, index) {
                   return GestureDetector(
                     onTap: () {
-                      controller.onItemClick(index);
+                      controller.onItemClick(controller.brandList[index].id,
+                          controller.brandList[index].brand);
+                      print('brand id :${controller.brandList[index].id}');
+                    },
+                    onDoubleTap: () {
+                      controller.onItemClick('', '');
                     },
                     child: SVerticalImageText(
-                      image: controller.categories[index].imagePath,
+                      image: controller.brandList[index].brandIcon,
                       textColor: SColors.primary,
                       backgroundColor: SColors.primary,
-                      title: controller.categories[index].name,
-                      index: index,
+                      title: controller.brandList[index].brand,
+                      index: controller.brandList[index].id,
                     ),
                   );
                 },

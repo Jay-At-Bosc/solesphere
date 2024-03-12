@@ -1,17 +1,15 @@
 import 'package:get/get.dart';
-import 'package:solesphere/services/models/category_model.dart';
 
-import '../../../services/data/category_data.dart';
 
 class HomeController extends GetxController {
   static HomeController get instance => Get.find();
 
-  final categories = RxList<Categories>([]);
-  RxInt selectedItem = 0.obs;
+  // final categories = RxList<Categories>([]);
+  RxInt selectedItem = (-1).obs;
 
   @override
   void onInit() {
-    categories.addAll(categoryList);
+    // categories.addAll(categoryList);
 
     super.onInit();
   }

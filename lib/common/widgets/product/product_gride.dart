@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:solesphere/screens/home/controller/product_controller.dart';
 import 'package:solesphere/utils/helpers/helper_function.dart';
 import '../../../services/models/product_model.dart';
 import '../../../utils/constants/sizes.dart';
@@ -11,15 +12,16 @@ class SProductGridView extends StatelessWidget {
     super.key,
     required this.list,
   });
-  final List<Product> list;
+  final List<Products> list;
 
   @override
   Widget build(BuildContext context) {
-    final dark = THelperFunctions.isDarkMode(context);
+    final dark = THelperFunctions.isDarkMode(Get.context!);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 12),
-      child: Obx(
-        () => list.isNotEmpty
+      child: GetBuilder<ProductController>(
+        id: "Favorite",
+        builder: (ctx) => list.isNotEmpty
             ? GridView.builder(
                 itemCount: list.length,
                 shrinkWrap: true,
@@ -42,14 +44,14 @@ class SProductGridView extends StatelessWidget {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Icon(
-                      Iconsax.battery_charging,
+                      Iconsax.heart_slash,
                       size: 100,
                       color: dark
                           ? Colors.white.withOpacity(0.6)
                           : Colors.black.withOpacity(0.6),
                     ),
                     Text(
-                      "There is no Favorite Product",
+                      "Products Not Found",
                       style: Theme.of(context).textTheme.titleLarge!.apply(),
                     )
                   ],

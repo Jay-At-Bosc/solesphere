@@ -128,7 +128,7 @@ class STextTheme {
 
     headlineLarge: const TextStyle(
       fontSize: SSizes.fontSizeXxl,
-      color: SColors.textPrimary,
+      color: SColors.textWhite,
       fontFamily: 'AirbnbCereal',
       fontWeight: FontWeight.w500,
     ),
@@ -189,9 +189,9 @@ class STextTheme {
       fontFamily: 'AirbnbCereal',
       fontWeight: FontWeight.w500,
     ), // label style
-    labelMedium: TextStyle(
+    labelMedium: const TextStyle(
       fontSize: SSizes.fontSizeSm,
-      color: SColors.textPrimaryWith60,
+      color: SColors.textWhite,
       fontFamily: 'AirbnbCereal',
       fontWeight: FontWeight.w500,
     ), // hint style
