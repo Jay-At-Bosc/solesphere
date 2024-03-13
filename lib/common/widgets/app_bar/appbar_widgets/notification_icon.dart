@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:solesphere/auth/auth_exports.dart';
+import 'package:solesphere/services/routes/app_pages.dart';
 
 import '../../../../utils/constants/colors.dart';
 
@@ -22,7 +23,7 @@ class SNotificationIcon extends StatelessWidget {
             icon: const Icon(Iconsax.notification),
             color: SColors.textSecondary, // Customize icon color if needed
             onPressed: () {
-              // Handle action icon tap
+              Get.toNamed(Routes.notification);
             },
           ),
         ),

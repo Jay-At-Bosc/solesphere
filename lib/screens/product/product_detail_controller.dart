@@ -2,35 +2,32 @@ import 'dart:convert';
 import 'dart:developer';
 // import 'dart:developer';
 
+import 'package:lottie/lottie.dart';
 import 'package:solesphere/auth/auth_exports.dart';
+
+import 'package:solesphere/utils/constants/icons.dart';
+import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
 import '../../services/models/product_detail_model.dart';
 import 'package:http/http.dart' as http;
 
 class ProductDetailController extends GetxController {
-  static const String rebuildProductDetails = "rebuildProductDetils";
+  // static const String rebuildProductDetails = "rebuildProductDetils";
+
   static ProductDetailController get instance =>
       Get.find<ProductDetailController>();
 
-      @override
+  late ProductDetailModel productDetail;
+  List<String> imageUrls = [];
+  RxBool isLoading = false.obs;
+
+  @override
   void onInit() {
     //call api and initialize the productDetail
     super.onInit();
   }
 
-  late ProductDetailModel productDetail;
   // Iterate over each ProductDetailModel in productDetailList
-
-  // void getImagesList() {
-    
-  //     // Iterate over each Variant in the current ProductDetailModel
-  //     for (Variant variant in productDetail.variants) {
-  //       // Add all image URLs from the current Variant to allImagesList
-  //       allImagesList.addAll(variant.image_urls);
-  //     }
-    
-  //   log('total images: ${allImagesList.length}');
-  // }
 
   void setProductDetails(Map<String, dynamic> responseData) {
     try {
@@ -41,12 +38,11 @@ class ProductDetailController extends GetxController {
           data = json.decode(data);
         }
 
-        // Ensure data is now a map
         if (data is Map<String, dynamic>) {
-          var product = ProductDetailModel.fromMap(data);
+          productDetail = ProductDetailModel.fromMap(data);
           // productDetailList.add(product);
           // log('Product Added: ${productDetailList.length}');
-          log('Product Details: $product');
+          log('Product Details: $productDetail');
         } else {
           throw const FormatException('Invalid product data structure');
         }
@@ -62,7 +58,26 @@ class ProductDetailController extends GetxController {
 
   Future<void> fetchProductDetails(String productId) async {
     try {
-      //true
+      isLoading.value = true;
+      if (isLoading.value == true) {
+        Get.dialog(
+          AlertDialog(
+            backgroundColor: Colors.white, // White background
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0), // Square shape
+            ),
+            icon: Lottie.asset(SJsons.loader,
+                width: 30.0.getWidth(), height: 30.0.getWidth()),
+            title: const Text(
+              'Loading',
+              style: TextStyle(color: Colors.black), // Black title
+            ),
+          ),
+          barrierDismissible: false,
+        );
+      } else {
+        Get.back();
+      }
       //update([id]);
       final response = await http.get(
         Uri.parse(
@@ -76,14 +91,46 @@ class ProductDetailController extends GetxController {
       if (response.statusCode == 200) {
         Map<String, dynamic> responseData = json.decode(response.body);
         setProductDetails(responseData);
+        isLoading.value = false;
       } else {
+        isLoading.value = false;
         throw Exception('Failed to load product details');
       }
     } catch (error) {
+      isLoading.value = false;
       log('Error during API request: $error');
       // Handle error
     }
     //false
     //update
   }
+
+  //calculate total rating of product
+
+  // List<Review> parseReviews(String productDetail.review) {
+  //   final parsed = jsonDecode(response).cast<Map<String, dynamic>>();
+  //   return parsed.map<Review>((json) => Review.fromJson(json)).toList();
+  // }
+
+  // double calculateAverageRating(List<Review> reviews) {
+  //   if (reviews.isEmpty) return 0;
+
+  //   final totalRating =
+  //       reviews.map((review) => review.rating).reduce((a, b) => a + b);
+  //   return totalRating / reviews.length;
+  // }
+
+  //All Images of products
+  void getImagesList() {
+    // Iterate over each Variant in the current ProductDetailModel
+    for (Variant variant in productDetail.variants) {
+      // Add all image URLs from the current Variant to allImagesList
+      imageUrls.addAll(variant.image_urls);
+    }
+
+    log('total images: ${imageUrls.length}');
+    // }
+  }
+
+  void load() {}
 }

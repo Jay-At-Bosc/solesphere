@@ -1,6 +1,9 @@
+import 'package:solesphere/screens/cart/cart_binding.dart';
+import 'package:solesphere/screens/cart/cart_screen.dart';
 import 'package:solesphere/screens/favorite/favorite_screen.dart';
 import 'package:solesphere/screens/home/home.dart';
 import 'package:solesphere/screens/home/home_binding.dart';
+import 'package:solesphere/screens/notification/notification_screen.dart';
 import 'package:solesphere/screens/product/product_detail_screen.dart';
 import 'package:solesphere/screens/userprofile/user_detail_binding.dart';
 
@@ -9,6 +12,7 @@ import '../../auth/signin/signin_screen.dart';
 import '../../auth/signup/signup_binding.dart';
 import '../../auth/signup/signup_screen.dart';
 import '../../screens/favorite/favorite_binding.dart';
+import '../../screens/notification/notification_binding.dart';
 import '../../screens/product/product_detail_binding.dart';
 import '../../screens/userprofile/user_detail.dart';
 import 'app_route_exports.dart';
@@ -16,7 +20,7 @@ import 'app_route_exports.dart';
 part 'app_routes.dart';
 
 class AppPages {
-  static const initial = Routes.splash;
+  static const initial = Routes.cart;
 
   static final routes = [
     GetPage(
@@ -76,6 +80,22 @@ class AppPages {
       name: _Paths.productDetail,
       page: () => const ProductDetail(),
       binding: ProductDetailBinding(),
+      //transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 300),
+      curve: Curves.easeIn,
+    ),
+    GetPage(
+      name: _Paths.notification,
+      page: () => const NotificationScreen(),
+      binding: NotificationBinding(),
+      //transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 300),
+      curve: Curves.easeIn,
+    ),
+     GetPage(
+      name: _Paths.cart,
+      page: () => const CartScreen(),
+      binding: CartBinding(),
       //transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
       curve: Curves.easeIn,

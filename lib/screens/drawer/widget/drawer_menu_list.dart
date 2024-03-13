@@ -30,7 +30,7 @@ class DrawerMenu extends StatelessWidget {
           ),
           const SDrawerOption(
             icon: Iconsax.shopping_bag,
-            text: "My Cart", route: Routes.home,
+            text: "My Cart", route: Routes.cart,
             // onTap: () {},
           ),
           const SDrawerOption(
@@ -45,7 +45,9 @@ class DrawerMenu extends StatelessWidget {
           ),
           const SDrawerOption(
             icon: Iconsax.notification_bing,
-            text: "Notifications", route: Routes.home,
+            text: "Notifications",
+            route: Routes.notification,
+
             // onTap: () {},
           ),
           SizedBox(
@@ -58,7 +60,7 @@ class DrawerMenu extends StatelessWidget {
           SizedBox(height: 2.0.getHeight()),
           const SDrawerOption(
             icon: Iconsax.logout,
-            text: "Sign Out", route: Routes.home,
+            text: "Sign Out", route: Routes.signin,
             // onTap: () {},
           ),
         ],

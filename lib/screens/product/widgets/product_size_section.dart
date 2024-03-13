@@ -27,7 +27,7 @@ class ProductSizeSection extends GetView<ProductDetailController> {
                   .apply(color: SColors.textPrimaryWith80),
             ),
             Text(
-              "UK",
+              controller.productDetail.sizeType,
               style: Theme.of(context)
                   .textTheme
                   .bodyLarge!

@@ -2,6 +2,7 @@ import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:solesphere/auth/auth_exports.dart';
+import 'package:solesphere/screens/cart/cart_screen.dart';
 import 'package:solesphere/screens/favorite/favorite_screen.dart';
 import 'package:solesphere/screens/drawer/drawer_screen.dart';
 
@@ -64,13 +65,14 @@ class NavigationController extends GetxController {
   final screens = [
     const Stack(children: [DrawerScreen(), HomeScreenContent()]),
     const FavoriteScreen(),
+    const CartScreen(),
     // Container(
     //   color: Colors.pink,
     //   child: const Center(
     //     child: Icon(Iconsax.heart),
     //   ),
     // ),
-    Container(color: const Color.fromARGB(255, 0, 0, 0)),
+    // Container(color: const Color.fromARGB(255, 0, 0, 0)),
     Container(color: Colors.red),
     Container(color: Colors.amberAccent),
   ];

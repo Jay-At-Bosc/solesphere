@@ -35,15 +35,12 @@ class SProductCardVertical extends StatelessWidget {
 
     return GestureDetector(
       onTap: () async {
-        // Get.closeCurrentSnackbar();
-        // TLoaders.successSnackBar(
-        //     title: "Product", message: "You Tapped on Product: ${index + 1}");
+        
         await details.fetchProductDetails(product.id);
-        // details.getImagesList();
+        details.getImagesList();
         log("product id: ${product.id}");
-        // log("product list: ${details.productDetailList.length}");
-
         Get.toNamed(Routes.productDetail);
+        
       },
       child: Container(
         width: 190,

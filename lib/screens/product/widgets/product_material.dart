@@ -29,7 +29,7 @@ class ProductmaterialType extends GetView<ProductDetailController> {
               padding: 0,
             ),
             SectionHeading(
-              text: "Mesh",
+              text: controller.productDetail.material,
               style: Theme.of(context)
                   .textTheme
                   .labelMedium!
@@ -50,7 +50,7 @@ class ProductmaterialType extends GetView<ProductDetailController> {
               padding: 0,
             ),
             SectionHeading(
-              text: "Less-up",
+              text: controller.productDetail.closureType,
               style: Theme.of(context)
                   .textTheme
                   .labelMedium!
