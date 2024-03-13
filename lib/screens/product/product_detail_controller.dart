@@ -55,7 +55,7 @@ class ProductDetailController extends GetxController {
       }
     } catch (error) {
       log('Error parsing product details: $error');
-      // print(stackTrace);
+      // log(stackTrace);
       // Handle parsing error
     }
   }

@@ -31,7 +31,7 @@ class SProductCardVertical extends StatelessWidget {
     final dark = SHelperFunctions.isDarkMode(context);
     final controller = Get.put(ProductController());
     final details = Get.put(ProductDetailController());
-    // print("product id: ${product.id}");
+    // log("product id: ${product.id}");
 
     return GestureDetector(
       onTap: () async {

@@ -11,7 +11,7 @@ class DrawerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // print(7.0.getHeight());
+    // log(7.0.getHeight());
     return Scaffold(
       backgroundColor: Colors.black,
       body: Padding(

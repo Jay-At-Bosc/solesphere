@@ -24,8 +24,8 @@ class HomeScreenContent extends StatelessWidget {
     final controllerDrawer = Get.put(CustomDrawerController());
    
 
-    // print(controllerDrawer.xOffset);
-    // print(controllerDrawer.yOffset);
+    // log(controllerDrawer.xOffset);
+    // log(controllerDrawer.yOffset);
 
     return GetBuilder<CustomDrawerController>(
       init: CustomDrawerController(),

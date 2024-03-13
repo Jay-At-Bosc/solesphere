@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:solesphere/services/models/user_data_model.dart';
 import 'package:solesphere/services/repositories/authentication.dart';
 import 'package:solesphere/services/routes/app_pages.dart';
@@ -30,7 +32,7 @@ class SplashController extends GetxController {
         Get.offAllNamed(Routes.onboard);
       }
     }).onError((error, stackTrace) {
-      print("jnnckjas");
+      log("jnnckjas");
     });
   }
 
