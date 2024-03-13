@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
@@ -35,7 +37,7 @@ class SHomeCategories extends StatelessWidget {
                     onTap: () {
                       controller.onItemClick(controller.brandList[index].id,
                           controller.brandList[index].brand);
-                      print('brand id :${controller.brandList[index].id}');
+                      log('brand id :${controller.brandList[index].id}');
                     },
                     onDoubleTap: () {
                       controller.onItemClick('', '');

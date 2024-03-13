@@ -1,11 +1,13 @@
-import 'package:flutter/material.dart';
+
+import 'package:solesphere/auth/auth_exports.dart';
+import 'package:solesphere/screens/product/product_detail_controller.dart';
 
 import '../../../utils/constants/colors.dart';
-import '../../../utils/constants/images.dart';
+
 import '../../../utils/constants/sizes.dart';
 import 'image_slider.dart';
 
-class ProductSlider extends StatelessWidget {
+class ProductSlider extends GetView<ProductDetailController> {
   const ProductSlider({
     super.key,
   });
@@ -16,7 +18,7 @@ class ProductSlider extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Air Jordan is an American brand of basketball shoes athletic, casual, and style clothing produced by Nike....',
+          "Short Desc",
           style: Theme.of(context)
               .textTheme
               .headlineSmall!
@@ -27,14 +29,7 @@ class ProductSlider extends StatelessWidget {
         const SizedBox(
           height: SSizes.spaceBtwSections,
         ),
-        const ProductImageSlider(
-          images: [
-            SImages.shoe1,
-            SImages.shoe1,
-            SImages.shoe8,
-            SImages.shoe1,
-          ],
-        ),
+        ProductImageSlider(images: [SImages.shoe1],),
         const SizedBox(
           height: SSizes.spaceBtwSections / 2,
         ),

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -47,11 +48,11 @@ class OnBoardingController extends GetxController {
         update(['Main Onboard']);
       } else {
         // Handle error
-        print('Failed to load onboarding items: ${response.statusCode}');
+        log('Failed to load onboarding items: ${response.statusCode}');
       }
     } catch (e) {
       // Handle network or decoding errors
-      print('Error fetching onboarding items: $e');
+      log('Error fetching onboarding items: $e');
     }
   }
 

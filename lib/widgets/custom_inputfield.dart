@@ -1,5 +1,7 @@
 // --------------------------- Start CustomInputField --------------------------- 
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -60,7 +62,7 @@ class CustomInputField extends StatelessWidget {
                     () => IconButton(
                       onPressed: () {
                         check.value = !check.value;
-                        print(check);
+                        log(check.toString());
                       },
                       icon: check.value
                           ? SvgPicture.asset(suffixIconData!)

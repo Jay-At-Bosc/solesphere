@@ -15,7 +15,7 @@ import 'app_route_exports.dart';
 part 'app_routes.dart';
 
 class AppPages {
-  static const initial = Routes.splash;
+  static const initial = Routes.home;
 
   static final routes = [
     GetPage(

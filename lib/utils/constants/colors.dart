@@ -70,4 +70,7 @@ class SColors {
   // Button
   static const Color cartBtnColor = Color(0xFFFFD814);
   static const Color buyBtnColor = Color(0xFFFFA41C);
+
+  //product background color
+  static const Color backgroundProduct = Color(0xFFE5E5E5);
 }
