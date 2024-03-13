@@ -27,9 +27,10 @@ class CustomerReview extends GetView<ProductDetailController> {
               decoration: BoxDecoration(
                 color: SColors.textHint,
                 borderRadius: BorderRadius.circular(50),
-                // image: DecorationImage(
-                //     image: NetworkImage(controller.productDetailList[0]
-                //         .review[index].user.profilePic))),
+                image: DecorationImage(
+                  image: NetworkImage(
+                      controller.productDetail.review[index].user.profilePic),
+                ),
               ),
             ),
             const SizedBox(
@@ -39,7 +40,7 @@ class CustomerReview extends GetView<ProductDetailController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "name",
+                  controller.productDetail.review[index].user.username,
                   style: Theme.of(context)
                       .textTheme
                       .labelMedium!
@@ -51,7 +52,7 @@ class CustomerReview extends GetView<ProductDetailController> {
           ],
         ),
         Text(
-          "Demo",
+          controller.productDetail.review[index].review,
           style: Theme.of(context)
               .textTheme
               .labelSmall!

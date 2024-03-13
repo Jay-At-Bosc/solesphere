@@ -1,4 +1,3 @@
-
 import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/screens/product/product_detail_controller.dart';
 
@@ -18,7 +17,7 @@ class ProductSlider extends GetView<ProductDetailController> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Short Desc",
+          controller.productDetail.shortDescription,
           style: Theme.of(context)
               .textTheme
               .headlineSmall!
@@ -29,7 +28,12 @@ class ProductSlider extends GetView<ProductDetailController> {
         const SizedBox(
           height: SSizes.spaceBtwSections,
         ),
-        ProductImageSlider(images: [SImages.shoe1],),
+
+        // Silder Images
+        ProductImageSlider(
+          images: controller.imageUrls,
+        ),
+
         const SizedBox(
           height: SSizes.spaceBtwSections / 2,
         ),

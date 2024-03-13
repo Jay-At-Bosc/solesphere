@@ -76,7 +76,7 @@ class ProductDetail extends GetView<ProductDetailController> {
                         .displayMedium!
                         .apply(color: Colors.black)),
                 Text(
-                 "Description",
+                  controller.productDetail.longDescription,
                   style: Theme.of(context)
                       .textTheme
                       .labelSmall!
@@ -86,7 +86,7 @@ class ProductDetail extends GetView<ProductDetailController> {
                 const Divider(),
 
                 //Customer review
-                // if (controller.productDetailList[0].review.isNotEmpty)
+                if (controller.productDetail.review.isNotEmpty)
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -100,7 +100,7 @@ class ProductDetail extends GetView<ProductDetailController> {
                       SizedBox(
                         height: 300,
                         child: ListView.builder(
-                            itemCount: 1,
+                            itemCount: controller.productDetail.review.length,
                             itemBuilder: (context, index) =>
                                 CustomerReview(index: index)),
                       ),

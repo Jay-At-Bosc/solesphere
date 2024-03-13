@@ -1,6 +1,3 @@
-
-import 'dart:developer';
-
 import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/screens/product/product_detail_controller.dart';
 
@@ -40,7 +37,7 @@ class ProductDetailHeader extends GetView<ProductDetailController> {
           Column(
             children: [
               Text(
-                "Air Jordan",
+                controller.productDetail.productName,
                 style: Theme.of(context)
                     .textTheme
                     .displayMedium!
@@ -48,7 +45,7 @@ class ProductDetailHeader extends GetView<ProductDetailController> {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
-              const SRatingBar(rating: 5),
+              const SRatingBar(rating: 4),
             ],
           ),
           Container(

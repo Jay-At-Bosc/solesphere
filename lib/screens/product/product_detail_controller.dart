@@ -8,29 +8,21 @@ import '../../services/models/product_detail_model.dart';
 import 'package:http/http.dart' as http;
 
 class ProductDetailController extends GetxController {
-  static const String rebuildProductDetails = "rebuildProductDetils";
+  // static const String rebuildProductDetails = "rebuildProductDetils";
+
   static ProductDetailController get instance =>
       Get.find<ProductDetailController>();
 
-      @override
+  late ProductDetailModel productDetail;
+  List<String> imageUrls = [];
+
+  @override
   void onInit() {
     //call api and initialize the productDetail
     super.onInit();
   }
 
-  late ProductDetailModel productDetail;
   // Iterate over each ProductDetailModel in productDetailList
-
-  // void getImagesList() {
-    
-  //     // Iterate over each Variant in the current ProductDetailModel
-  //     for (Variant variant in productDetail.variants) {
-  //       // Add all image URLs from the current Variant to allImagesList
-  //       allImagesList.addAll(variant.image_urls);
-  //     }
-    
-  //   log('total images: ${allImagesList.length}');
-  // }
 
   void setProductDetails(Map<String, dynamic> responseData) {
     try {
@@ -41,12 +33,11 @@ class ProductDetailController extends GetxController {
           data = json.decode(data);
         }
 
-        // Ensure data is now a map
         if (data is Map<String, dynamic>) {
-          var product = ProductDetailModel.fromMap(data);
+          productDetail = ProductDetailModel.fromMap(data);
           // productDetailList.add(product);
           // log('Product Added: ${productDetailList.length}');
-          log('Product Details: $product');
+          log('Product Details: $productDetail');
         } else {
           throw const FormatException('Invalid product data structure');
         }
@@ -85,5 +76,32 @@ class ProductDetailController extends GetxController {
     }
     //false
     //update
+  }
+
+  //calculate total rating of product
+
+  // List<Review> parseReviews(String productDetail.review) {
+  //   final parsed = jsonDecode(response).cast<Map<String, dynamic>>();
+  //   return parsed.map<Review>((json) => Review.fromJson(json)).toList();
+  // }
+
+  // double calculateAverageRating(List<Review> reviews) {
+  //   if (reviews.isEmpty) return 0;
+
+  //   final totalRating =
+  //       reviews.map((review) => review.rating).reduce((a, b) => a + b);
+  //   return totalRating / reviews.length;
+  // }
+
+  //All Images of products
+  void getImagesList() {
+    // Iterate over each Variant in the current ProductDetailModel
+    for (Variant variant in productDetail.variants) {
+      // Add all image URLs from the current Variant to allImagesList
+      imageUrls.addAll(variant.image_urls);
+    }
+
+    log('total images: ${imageUrls.length}');
+    // }
   }
 }
