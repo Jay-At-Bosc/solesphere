@@ -1,16 +1,21 @@
-import 'package:flutter/material.dart';
+
+import 'dart:developer';
+
 import 'package:solesphere/auth/auth_exports.dart';
+import 'package:solesphere/screens/product/product_detail_controller.dart';
 
 import '../../../common/widgets/product/rating_bar.dart';
 import '../../../utils/constants/colors.dart';
 
-class ProductDetailHeader extends StatelessWidget {
+class ProductDetailHeader extends GetView<ProductDetailController> {
   const ProductDetailHeader({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
+    // log('name: ${controller.productDetailList[0].productName}');
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Row(
@@ -23,6 +28,8 @@ class ProductDetailHeader extends StatelessWidget {
             ),
             child: IconButton(
                 onPressed: () {
+                  // controller.productDetailList.clear();
+                  // log("Deleted: ${controller.productDetailList.length}");
                   Get.back();
                 },
                 icon: const Icon(
@@ -33,7 +40,7 @@ class ProductDetailHeader extends StatelessWidget {
           Column(
             children: [
               Text(
-                'Air Jordan',
+                "Air Jordan",
                 style: Theme.of(context)
                     .textTheme
                     .displayMedium!

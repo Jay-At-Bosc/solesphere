@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:solesphere/common/widgets/popup/loaders.dart';
+
+import 'package:solesphere/screens/product/product_detail_controller.dart';
 
 import '../../../services/models/product_model.dart';
 import '../../../screens/home/controller/product_controller.dart';
@@ -27,12 +30,19 @@ class SProductCardVertical extends StatelessWidget {
   Widget build(BuildContext context) {
     final dark = SHelperFunctions.isDarkMode(context);
     final controller = Get.put(ProductController());
+    final details = Get.put(ProductDetailController());
+    // print("product id: ${product.id}");
 
     return GestureDetector(
-      onTap: () {
-        Get.closeCurrentSnackbar();
-        TLoaders.successSnackBar(
-            title: "Product", message: "You Tapped on Product: ${index + 1}");
+      onTap: () async {
+        // Get.closeCurrentSnackbar();
+        // TLoaders.successSnackBar(
+        //     title: "Product", message: "You Tapped on Product: ${index + 1}");
+        await details.fetchProductDetails(product.id);
+        // details.getImagesList();
+        log("product id: ${product.id}");
+        // log("product list: ${details.productDetailList.length}");
+
         Get.toNamed(Routes.productDetail);
       },
       child: Container(

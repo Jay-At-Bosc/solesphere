@@ -5,14 +5,14 @@ import '../../../utils/constants/sizes.dart';
 class SRoundedProductImage extends StatelessWidget {
   const SRoundedProductImage({
     super.key,
-    this.width,
+    this.width = double.infinity,
     this.height,
     required this.imgUrl,
     this.applyImageRadius = true,
     this.border,
     this.backgroundColor = SColors.primary,
     this.padding,
-    this.isNetworkImage = false,
+    this.isNetworkImage = true,
     this.onPress,
     this.fit = BoxFit.contain,
     this.borderRadius = SSizes.md,

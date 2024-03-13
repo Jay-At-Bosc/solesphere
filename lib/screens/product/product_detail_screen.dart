@@ -1,11 +1,14 @@
 import 'package:solesphere/auth/auth_exports.dart';
+import 'package:solesphere/screens/product/product_detail_controller.dart';
+import 'package:solesphere/screens/product/widgets/Reviews/customer_review.dart';
+import 'package:solesphere/services/routes/app_route_exports.dart';
 
 import 'package:solesphere/utils/constants/colors.dart';
 
 import 'package:solesphere/utils/constants/sizes.dart';
 
 import '../../common/widgets/heading/section_heading1.dart';
-import 'widgets/Reviews/product_review.dart';
+
 import 'widgets/deal_section.dart';
 import 'widgets/header.dart';
 
@@ -15,12 +18,12 @@ import 'widgets/product_material.dart';
 import 'widgets/product_size_section.dart';
 import 'widgets/product_slider.dart';
 
-class ProductDetail extends StatelessWidget {
+class ProductDetail extends GetView<ProductDetailController> {
   const ProductDetail({super.key});
 
   @override
   Widget build(BuildContext context) {
-    
+    // final dark = THelperFunctions.isDarkMode(context);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -73,7 +76,7 @@ class ProductDetail extends StatelessWidget {
                         .displayMedium!
                         .apply(color: Colors.black)),
                 Text(
-                  'Air Jordan is an American brand of basketball shoes athletic, casual, and style clothing produced by Nike Air Jordan is an American brand of basketball shoes athletic, casual, and style clothing produced by Nike.... \n\n Air Jordan is an American brand of basketball shoes athletic, casual, and style clothing produced by Nike Air Jordan is an American brand of basketball shoes athletic, casual, and style clothing produced by Nike.... \n\n Air Jordan is an American brand of basketball shoes athletic, casual, and style clothing produced by Nike Air Jordan is an American brand of basketball shoes athletic, casual, and style clothing produced by Nike....',
+                 "Description",
                   style: Theme.of(context)
                       .textTheme
                       .labelSmall!
@@ -83,7 +86,26 @@ class ProductDetail extends StatelessWidget {
                 const Divider(),
 
                 //Customer review
-                const ReviewSection(),
+                // if (controller.productDetailList[0].review.isNotEmpty)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SectionHeading(
+                        text: 'Customer Reviews',
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayMedium!
+                            .apply(color: Colors.black),
+                      ),
+                      SizedBox(
+                        height: 300,
+                        child: ListView.builder(
+                            itemCount: 1,
+                            itemBuilder: (context, index) =>
+                                CustomerReview(index: index)),
+                      ),
+                    ],
+                  ),
               ],
             ),
           ),

@@ -1,6 +1,7 @@
 // product_controller.dart
 
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:solesphere/common/widgets/popup/loaders.dart';
@@ -80,7 +81,7 @@ class ProductController extends GetxController {
           data.map((item) => Products.fromMap(item)).toList().obs;
       filterProductList.addAll(productList);
       isProdcutLoading.value = false;
-      print(productList.length);
+      log(productList.length.toString());
     } else {
       isProdcutLoading.value = false;
 
@@ -102,8 +103,8 @@ class ProductController extends GetxController {
       filterProductList.clear();
       filterProductList.addAll(productList);
     }
-    print("Index: ${selectedCategory}");
-    print("length: ${productList.length}");
+    log("Index: $selectedCategory");
+    log("length: ${productList.length}");
     update(["categories", "Favorite", "title"]);
   }
 

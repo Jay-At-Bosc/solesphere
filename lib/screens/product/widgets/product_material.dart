@@ -1,11 +1,13 @@
-import 'package:flutter/material.dart';
+
+import 'package:solesphere/auth/auth_exports.dart';
+import 'package:solesphere/screens/product/product_detail_controller.dart';
 
 import '../../../common/widgets/heading/section_heading1.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
 
 
-class ProductmaterialType extends StatelessWidget {
+class ProductmaterialType extends GetView<ProductDetailController> {
   const ProductmaterialType({
     super.key,
   });
@@ -27,7 +29,7 @@ class ProductmaterialType extends StatelessWidget {
               padding: 0,
             ),
             SectionHeading(
-              text: 'Mesh',
+              text: "Mesh",
               style: Theme.of(context)
                   .textTheme
                   .labelMedium!
@@ -48,7 +50,7 @@ class ProductmaterialType extends StatelessWidget {
               padding: 0,
             ),
             SectionHeading(
-              text: 'Lace-up',
+              text: "Less-up",
               style: Theme.of(context)
                   .textTheme
                   .labelMedium!

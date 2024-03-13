@@ -14,13 +14,13 @@ class ProductImageSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CarouselSlider(
-      options: CarouselOptions(viewportFraction: 0.86),
+      options: CarouselOptions(viewportFraction: 1),
       items: images
           .map((url) => SRoundedProductImage(
                 imgUrl: url,
-                backgroundColor: SColors.accent,
-                border: Border.all(
-                    width: 1, color: SColors.borderPrimary.withOpacity(0.1)),
+                backgroundColor: SColors.primary,
+                isNetworkImage: true,
+                borderRadius: 0,
               ))
           .toList(),
     );

@@ -1,6 +1,3 @@
-import 'dart:developer';
-
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
@@ -14,9 +11,7 @@ class CustomDrawerController extends GetxController {
     xOffset.value = 45.0.getWidth();
     yOffset.value = 55.0.getHeight();
     isDrawerOpen.value = true;
-    if (kDebugMode) {
-      print(xOffset);
-    }
+    print(xOffset);
     print(yOffset);
     update();
   }
@@ -30,7 +25,7 @@ class CustomDrawerController extends GetxController {
     update();
   }
 
-  void navigateTo(route) {
+  void navigateTo(route) async{
     xOffset.value = 0.0;
     yOffset.value = 0.0;
     isDrawerOpen.value = false;
