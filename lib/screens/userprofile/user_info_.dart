@@ -3,7 +3,8 @@ import 'package:solesphere/widgets/custom_label.dart';
 
 import '../../utils/constants/labels.dart';
 
-import '../../widgets/custom_inputfield.dart';
+
+import '../../widgets/custom_simple_input.dart';
 
 
 class UserInfo extends StatelessWidget {
@@ -17,40 +18,28 @@ class UserInfo extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const CustomLabelText(labelText: SLabels.username),
-        CustomInputField(
+        CustomSimpleInput(
           hintText: SLabels.username,
-          isObscure: false,
-          validator: (value) {
-            return value;
-          },
-          suffixIconColor: null,
-          obscuringCharacter: "",
+         controller: TextEditingController(),
+         node: FocusNode(),
         ),
         const SizedBox(
           height: 8.0,
         ),
         const CustomLabelText(labelText: SLabels.email),
-        CustomInputField(
+        CustomSimpleInput(
           hintText: SLabels.email,
-          isObscure: false,
-          validator: (value) {
-            return value;
-          },
-          suffixIconColor: null,
-          obscuringCharacter: "",
+          controller: TextEditingController(),
+         node: FocusNode(),
         ),
         const SizedBox(
           height: 8.0,
         ),
         const CustomLabelText(labelText: SLabels.mobileNumber),
-        CustomInputField(
+        CustomSimpleInput(
             hintText: SLabels.mobileNumber,
-            isObscure: false,
-            validator: (value) {
-              return value;
-            },
-            suffixIconColor: null,
-            obscuringCharacter: "",
+           controller: TextEditingController(),
+         node: FocusNode(),
             keyboardType: TextInputType.phone,
             maxLength: 10),
         const SizedBox(

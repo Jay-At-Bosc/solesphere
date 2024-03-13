@@ -16,7 +16,7 @@ class SProductGridView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dark = THelperFunctions.isDarkMode(Get.context!);
+    final dark = SHelperFunctions.isDarkMode(Get.context!);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 12),
       child: GetBuilder<ProductController>(

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
-import '../../utils/constants/labels.dart';
-
 import '../../widgets/custom_label.dart';
 
-class SignUpGreetings extends StatelessWidget {
-  const SignUpGreetings({super.key});
+class SignUpSignInGreetings extends StatelessWidget {
+  const SignUpSignInGreetings({super.key, required this.titleText, required this.subTitleText});
+
+  final String titleText;
+  final String subTitleText;
 
   @override
   Widget build(BuildContext context) {
@@ -16,13 +17,13 @@ class SignUpGreetings extends StatelessWidget {
       mainAxisSize: MainAxisSize.max,
       children: [
         CustomLabelText(
-            labelText: SLabels.signUpTitle,
+            labelText: titleText,
             labelStyle: Theme.of(context).textTheme.headlineLarge),
         SizedBox(
           height: 1.0.getHeight(),
         ),
         CustomLabelText(
-          labelText: SLabels.signUpSubTitle,
+          labelText: subTitleText,
           labelStyle: Theme.of(context).textTheme.displayMedium,
         ),
       ],

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:solesphere/auth/auth_exports.dart';
 
 import '../../services/models/onboarding_model.dart';
@@ -33,7 +35,7 @@ class OnBoardingController extends GetxController {
       onboardingItems.assignAll(items);
       return true;
     } catch (e) {
-      print(e);
+      log(e.toString());
       return false;
     }
   }
@@ -52,8 +54,8 @@ class OnBoardingController extends GetxController {
   void nextPage() {
     if (currentIndex.value < onboardingItems.length - 1) {
       currentIndex.value++;
-      pageController.nextPage(
-          duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+      pageController.animateToPage(currentIndex.value,
+        duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
       // update(['First Part']);
     } else {
       // Navigate to next screen after onboarding, or do something else

@@ -5,7 +5,7 @@ import 'signin_controller.dart';
 class SigninBinding extends Bindings{
   @override
   void dependencies() {
-    Get.put<SigninController>(SigninController());
+    Get.put<SignInController>(SignInController());
   }
 
 }

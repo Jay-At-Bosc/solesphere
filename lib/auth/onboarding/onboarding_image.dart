@@ -2,8 +2,6 @@ import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/utils/constants/colors.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
-import '../../utils/helpers/helper_functions.dart';
-
 class OnBordingImage extends StatelessWidget {
   const OnBordingImage({super.key, required this.imageUrl});
 
@@ -11,7 +9,7 @@ class OnBordingImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = THelperFunctions.isDarkMode(context);
+   
 
     return Stack(
       fit: StackFit.expand,
@@ -40,7 +38,7 @@ class OnBordingImage extends StatelessWidget {
             width: 50.0.getWidth(),
             height: 50.0.getWidth(),
             decoration: BoxDecoration(
-              color: isDark ? SColors.darkBackground : SColors.primary,
+              color:SColors.primary,
               borderRadius: BorderRadius.circular(50.0.getWidth()),
             ),
           ),
@@ -56,7 +54,7 @@ class OnBordingImage extends StatelessWidget {
             height: 4.0.getWidth(),
             width: 4.0.getWidth(),
             decoration: BoxDecoration(
-                color: isDark ? SColors.darkDotColor : SColors.lightDotColor,
+                color: SColors.lightDotColor,
                 borderRadius: BorderRadius.circular(5.0.getWidth())),
           ),
         ),

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:solesphere/utils/theme/widget_themes/text_theme.dart';
+import 'package:solesphere/widgets/custom_simple_input.dart';
 
-import '../../auth/signup/signup_screen.dart';
+
 import '../../utils/constants/labels.dart';
 import '../../utils/theme/widget_themes/checkbox_theme.dart';
 
@@ -25,26 +26,22 @@ class CustomAddressForm extends StatelessWidget {
           height: 8.0,
         ),
 
-        CustomInputField(
+        CustomSimpleInput(
           hintText: SLabels.addresslineOne,
-          isObscure: false,
+          controller: TextEditingController(),
+          node: FocusNode(),
           validator: (value) {
             return value;
           },
-          suffixIconColor: Colors.white,
-          obscuringCharacter: "", keyboardType: TextInputType.multiline,maxLength: 2,
+          keyboardType: TextInputType.multiline,maxLength: 2,
         ),
         const SizedBox(
           height: 8.0,
         ),
-        CustomInputField(
+        CustomSimpleInput(
           hintText: SLabels.addresslineTwo,
-          isObscure: false,
-          validator: (value) {
-            return value;
-          },
-          suffixIconColor: Colors.white,
-          obscuringCharacter: "", keyboardType: TextInputType.multiline,maxLength: 2,
+          controller: TextEditingController(),
+         node: FocusNode(), keyboardType: TextInputType.multiline,maxLength: 2,
         ),
 
         const SizedBox(
@@ -55,26 +52,18 @@ class CustomAddressForm extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
-              child: CustomInputField(
+              child: CustomSimpleInput(
                 hintText: SLabels.state,
-                isObscure: false,
-                validator: (value) {
-                  return value;
-                },
-                suffixIconColor: Colors.white,
-                obscuringCharacter: "", keyboardType: TextInputType.text,
+                controller: TextEditingController(),
+         node: FocusNode(),
                 maxLength: 1,
               ),
             ),
             Expanded(
-              child: CustomInputField(
+              child: CustomSimpleInput(
                 hintText: SLabels.zipcode,
-                isObscure: false,
-                validator: (value) {
-                  return value;
-                },
-                suffixIconColor:Colors.white,
-                obscuringCharacter: "",
+                controller: TextEditingController(),
+                node: FocusNode(),
                 keyboardType: TextInputType.number,
                 maxLength: 6,
               ),

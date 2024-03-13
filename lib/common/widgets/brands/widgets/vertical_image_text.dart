@@ -24,7 +24,7 @@ class SVerticalImageText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dark = THelperFunctions.isDarkMode(context);
+    final dark = SHelperFunctions.isDarkMode(context);
     final controller = Get.find<ProductController>();
 
     return Padding(

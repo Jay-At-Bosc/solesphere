@@ -25,7 +25,7 @@ class SProductCardVertical extends StatelessWidget {
   final int index;
   @override
   Widget build(BuildContext context) {
-    final dark = THelperFunctions.isDarkMode(context);
+    final dark = SHelperFunctions.isDarkMode(context);
     final controller = Get.put(ProductController());
 
     return GestureDetector(

@@ -22,7 +22,7 @@ class HomeScreenContent extends StatelessWidget {
     final controller = Get.put(ProductController());
     // final controllerHome = Get.put(HomeController());
     final controllerDrawer = Get.put(CustomDrawerController());
-    // final dark = THelperFunctions.isDarkMode(context);
+   
 
     // print(controllerDrawer.xOffset);
     // print(controllerDrawer.yOffset);

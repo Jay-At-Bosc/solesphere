@@ -7,8 +7,8 @@ import '../../widgets/custom_accent_color_button.dart';
 import '../../widgets/custom_primary_color_button.dart';
 import '../auth_exports.dart';
 
-class SignUpButton extends StatelessWidget {
-  const SignUpButton({super.key});
+class SignInButton extends StatelessWidget {
+  const SignInButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +20,11 @@ class SignUpButton extends StatelessWidget {
         children: [
           const SizedBox(
               width: double.maxFinite,
-              child: CustomAccentColorButton(buttonLabel: SLabels.register)),
+              child: CustomAccentColorButton(buttonLabel: SLabels.signIn)),
           SizedBox(
             height: 1.5.getHeight(),
           ),
-          const CustomPrimaryColorButton(buttonLabel: SLabels.signUpWithGooogle)
+          const CustomPrimaryColorButton(buttonLabel: SLabels.signInWithGooogle)
         ],
       ),
     );

@@ -20,7 +20,7 @@ class ProductDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final dark = THelperFunctions.isDarkMode(context);
+    
 
     return Scaffold(
       backgroundColor: Colors.white,

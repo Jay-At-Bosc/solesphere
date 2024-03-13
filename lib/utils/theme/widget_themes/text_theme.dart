@@ -22,7 +22,7 @@ class STextTheme {
       fontWeight: FontWeight.w500,
     ), // onboarding subtitle / login subtitle
     displaySmall: const TextStyle(
-      fontSize: SSizes.fontSizeXs,
+      fontSize: SSizes.fontSizeSm,
       color: SColors.textAccent,
       fontFamily: 'AirbnbCereal',
       fontWeight: FontWeight.w500,

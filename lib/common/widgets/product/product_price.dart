@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:solesphere/screens/home/controller/product_controller.dart';
@@ -22,7 +21,7 @@ class SProductPrice extends StatelessWidget {
           style: Theme.of(context).textTheme.labelLarge!.apply(
             color: Colors.black,
             fontSizeFactor: 1.5,
-            fontFeatures: [FontFeature.superscripts()],
+            fontFeatures: [const FontFeature.superscripts()],
           ),
         ),
         const SizedBox(

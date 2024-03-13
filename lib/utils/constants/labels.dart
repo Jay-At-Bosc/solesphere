@@ -156,4 +156,7 @@ class SLabels {
   static const String viewDetails = "View Details";
   static const String reorder = "Reorder";
  
+  static String hintText(String text) {
+    return 'Enter $text';
+  }
 }

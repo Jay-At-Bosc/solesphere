@@ -1,22 +1,21 @@
-import 'dart:convert';
-import 'dart:developer';
-
-import 'package:http/http.dart' as http;
 import 'package:solesphere/services/models/user_data_model.dart';
+import 'package:solesphere/services/repositories/authentication.dart';
 import 'package:solesphere/services/routes/app_pages.dart';
+import 'package:solesphere/services/routes/app_route_exports.dart';
 
 import '../../utils/local_storage/app_storage.dart';
 import '../auth_exports.dart';
 
 class SplashController extends GetxController {
   final appStorage = Get.find<AppStorage>();
+  final authRepository = Get.find<AuthenticationRepository>();
 
   @override
   void onInit() {
     super.onInit();
     Future.wait([
       getUserData(),
-      fetchOnboardingItems(),
+      getfetchOnboardingItems(),
       Future.delayed(const Duration(seconds: 3)),
     ]).then((_) {
       bool hasOnboardCompleted = appStorage.hasOnBoardingCompleted;
@@ -30,32 +29,29 @@ class SplashController extends GetxController {
       } else {
         Get.offAllNamed(Routes.onboard);
       }
+    }).onError((error, stackTrace) {
+      print("jnnckjas");
     });
   }
 
-  Future<bool> fetchOnboardingItems() async {
+  Future<bool> getfetchOnboardingItems() async {
     bool hasOnboardCompleted = appStorage.hasOnBoardingCompleted;
     if (hasOnboardCompleted) {
       return true;
     }
-    const apiUrl =
-        'https://solesphere-backend.onrender.com/api/v1/splashScreen';
-    // TODO: make this private and reuse from single instance, same for the API call
-    try {
-      final response = await http.get(Uri.parse(apiUrl));
 
-      if (response.statusCode == 200) {
-        final Map<String, dynamic> responseData = jsonDecode(response.body);
-        final List<dynamic> data = responseData['data'];
-        final jsonString = json.encode(data);
-        await appStorage.setOnboardingItems(jsonString);
-        return true;
-      } else {
-        log('Failed to load onboarding items: ${response.statusCode}');
-        return false;
-      }
+    // TODO: make this private and reuse from single instance, same for the API call
+
+    try {
+      await authRepository.fetchOnboardingItems();
+      return true;
     } catch (e) {
-      log('Error fetching onboarding items: $e');
+      String errorMessage = e.toString();
+      if (errorMessage.contains('SocketException')) {
+        _showErrorDialog('Please turn on your internet connection.');
+      } else {
+        _showErrorDialog('Network request failed. Please try again later.');
+      }
       return false;
     }
   }
@@ -64,5 +60,29 @@ class SplashController extends GetxController {
     // TODO: add api call to fetch user data
     await Future.delayed(const Duration(seconds: 0));
     return true;
+  }
+
+  void _showErrorDialog(String message) {
+    Get.dialog(
+      barrierDismissible: false,
+      AlertDialog(
+        content: Text(message),
+        actions: [
+          ElevatedButton(
+            onPressed: () {
+              Get.back(); // Close the dialog
+            },
+            child: const Text('OK'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              // Handle retry action
+              Get.back(); // Close the dialog
+            },
+            child: const Text('Retry'),
+          ),
+        ],
+      ),
+    );
   }
 }

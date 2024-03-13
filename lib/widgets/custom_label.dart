@@ -6,7 +6,7 @@ class CustomLabelText extends StatelessWidget {
   const CustomLabelText({
     super.key,
     required this.labelText,
-    this.labelStyle,
+    this.labelStyle, 
   });
 
   final String labelText;
