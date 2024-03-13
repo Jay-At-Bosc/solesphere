@@ -5,8 +5,10 @@ class STextStyle extends StatelessWidget {
     super.key,
     required this.text,
     this.style,
+    this.maxLine = 1,
   });
   final String text;
+  final int? maxLine;
   final TextStyle? style;
 
   @override
@@ -16,7 +18,7 @@ class STextStyle extends StatelessWidget {
       style: style,
       overflow: TextOverflow.ellipsis,
       textScaler: const TextScaler.linear(1),
-      maxLines: 1,
+      maxLines: maxLine,
       textAlign: TextAlign.left,
     );
   }

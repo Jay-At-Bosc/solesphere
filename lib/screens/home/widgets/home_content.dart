@@ -20,9 +20,8 @@ class HomeScreenContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(ProductController());
-    // final controllerHome = Get.put(HomeController());
+    // final productController = Get.put(ProductDetailController());
     final controllerDrawer = Get.put(CustomDrawerController());
-   
 
     // print(controllerDrawer.xOffset);
     // print(controllerDrawer.yOffset);

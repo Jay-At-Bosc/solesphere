@@ -31,6 +31,7 @@ dependencies:
   image_picker: ^1.0.7
   firebase_core: ^2.24.2
   carousel_slider: ^4.2.1
+  lottie: ^3.1.0
 
   # Product Specific
 
@@ -58,6 +59,7 @@ flutter:
     - assets/images/
     - assets/images/onboarding/
     - assets/images/products/
+    - assets/jsons/
 
    
   

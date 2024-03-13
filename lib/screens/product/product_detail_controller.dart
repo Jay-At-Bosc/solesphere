@@ -2,7 +2,11 @@ import 'dart:convert';
 import 'dart:developer';
 // import 'dart:developer';
 
+import 'package:lottie/lottie.dart';
 import 'package:solesphere/auth/auth_exports.dart';
+
+import 'package:solesphere/utils/constants/icons.dart';
+import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
 import '../../services/models/product_detail_model.dart';
 import 'package:http/http.dart' as http;
@@ -15,6 +19,7 @@ class ProductDetailController extends GetxController {
 
   late ProductDetailModel productDetail;
   List<String> imageUrls = [];
+  RxBool isLoading = false.obs;
 
   @override
   void onInit() {
@@ -53,7 +58,26 @@ class ProductDetailController extends GetxController {
 
   Future<void> fetchProductDetails(String productId) async {
     try {
-      //true
+      isLoading.value = true;
+      if (isLoading.value == true) {
+        Get.dialog(
+          AlertDialog(
+            backgroundColor: Colors.white, // White background
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0), // Square shape
+            ),
+            icon: Lottie.asset(SJsons.loader,
+                width: 30.0.getWidth(), height: 30.0.getWidth()),
+            title: const Text(
+              'Loading',
+              style: TextStyle(color: Colors.black), // Black title
+            ),
+          ),
+          barrierDismissible: false,
+        );
+      } else {
+        Get.back();
+      }
       //update([id]);
       final response = await http.get(
         Uri.parse(
@@ -67,10 +91,13 @@ class ProductDetailController extends GetxController {
       if (response.statusCode == 200) {
         Map<String, dynamic> responseData = json.decode(response.body);
         setProductDetails(responseData);
+        isLoading.value = false;
       } else {
+        isLoading.value = false;
         throw Exception('Failed to load product details');
       }
     } catch (error) {
+      isLoading.value = false;
       log('Error during API request: $error');
       // Handle error
     }
@@ -104,4 +131,6 @@ class ProductDetailController extends GetxController {
     log('total images: ${imageUrls.length}');
     // }
   }
+
+  void load() {}
 }
