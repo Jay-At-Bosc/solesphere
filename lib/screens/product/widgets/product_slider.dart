@@ -29,7 +29,7 @@ class ProductSlider extends GetView<ProductDetailController> {
         const SizedBox(
           height: SSizes.spaceBtwSections,
         ),
-        ProductImageSlider(images: [SImages.shoe1],),
+        const ProductImageSlider(images: [SImages.shoe1],),
         const SizedBox(
           height: SSizes.spaceBtwSections / 2,
         ),

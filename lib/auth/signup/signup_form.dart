@@ -2,6 +2,7 @@ import 'package:solesphere/auth/auth_exports.dart';
 
 import 'package:solesphere/utils/constants/labels.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
+import 'package:solesphere/utils/validators/validations.dart';
 import 'package:solesphere/widgets/custom_label.dart';
 import 'package:solesphere/widgets/custom_simple_input.dart';
 
@@ -25,13 +26,15 @@ class SignUpForm extends GetView<SignUpController> {
           ),
           CustomSimpleInput(
             controller: controller.username,
-            node: controller.userNode,
+         
+            enable: !controller.isMainLoading,
             hintText: SLabels.username,
             keyboardType: TextInputType.text,
+            validator: (value) => SValidator.validateUsername(value),
             maxLength: 1,
           ),
           SizedBox(
-            height: 1.5.getHeight(),
+            height: 1.0.getHeight(),
           ),
 
           /// Email label & input Field
@@ -41,13 +44,14 @@ class SignUpForm extends GetView<SignUpController> {
           ),
           CustomSimpleInput(
             controller: controller.email,
-            node: controller.emailNode,
             hintText: SLabels.email,
+            enable: !controller.isMainLoading,
             keyboardType: TextInputType.emailAddress,
+            validator: (value) => SValidator.validateEmail(value),
             maxLength: 1,
           ),
           SizedBox(
-            height: 1.5.getHeight(),
+            height: 1.0.getHeight(),
           ),
 
           /// Password label & input Field
@@ -60,15 +64,17 @@ class SignUpForm extends GetView<SignUpController> {
               builder: (controller) {
                 return CustomPasswordInput(
                   controller: controller.password,
-                  node: controller.passwordNode,
+              
                   hintText: SLabels.password,
+                  enable: !controller.isMainLoading,
                   keyboardType: TextInputType.text,
+                  validator: (value) => SValidator.validatePassword(value),
                   isObsecure: controller.ispasswordVisible,
                   onIconTap: controller.togglePasswordVisibility,
                 );
               }),
           SizedBox(
-            height: 1.5.getHeight(),
+            height: 1.0.getHeight(),
           ),
 
           /// Confirm Password label & input Field
@@ -81,9 +87,11 @@ class SignUpForm extends GetView<SignUpController> {
               builder: (controller) {
                 return CustomPasswordInput(
                   controller: controller.confirmPassword,
-                  node: controller.confirmPasswordNode,
+                
                   hintText: SLabels.confirmPassword,
+                  enable: !controller.isMainLoading,
                   keyboardType: TextInputType.text,
+                  validator: (value) => SValidator.validatePassword(value),
                   isObsecure: controller.isconfirmpasswordVisible,
                   onIconTap: controller.toggleConfirmPasswordVisibility,
                 );

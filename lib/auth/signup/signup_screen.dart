@@ -42,11 +42,11 @@ class SignUpScreen extends GetView<SignUpController> {
 
                   /// Signup Form
                   GetBuilder<SignUpController>(
-                    id: 'freeSignUpForm',
+                    id: controller.signUpForm,
                     builder: (_) {
-                      return const Form(
-                        //key: controller.form,
-                        child: SignUpForm(),
+                      return Form(
+                        key: controller.signupFormKey,
+                        child: const SignUpForm(),
                       );
                     },
                   ),
@@ -57,11 +57,15 @@ class SignUpScreen extends GetView<SignUpController> {
                   SizedBox(height: 5.0.getHeight()),
 
                   /// Signin Page Navigation
-                  CustomAuthNavigationText(
-                    label1: SLabels.alreadyHaveAnAccount,
-                    label2: SLabels.signIn,
-                    onTap: () => Get.offAllNamed(Routes.signin),
-                  ),
+                  GetBuilder<SignUpController>(builder: (controller) {
+                    return CustomAuthNavigationText(
+                      label1: SLabels.alreadyHaveAnAccount,
+                      label2: SLabels.signIn,
+                      isLoading: controller.isMainLoading,
+                      onTap: () => Get.offAllNamed(Routes.signin),
+                    );
+                  }),
+                  SizedBox(height: 2.0.getHeight()),
                 ],
               ),
             ),

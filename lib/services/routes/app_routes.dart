@@ -21,5 +21,4 @@ abstract class _Paths {
   static const String favourite = '/favourite';
   static const String productDetail = '/product_details';
 
-
 }

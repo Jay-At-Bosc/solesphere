@@ -1,9 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-
 import 'package:solesphere/utils/constants/colors.dart';
-
-import '../utils/constants/labels.dart';
 
 class CustomSimpleInput extends StatelessWidget {
   const CustomSimpleInput({
@@ -12,8 +9,8 @@ class CustomSimpleInput extends StatelessWidget {
     this.keyboardType,
     this.validator,
     this.maxLength,
-    required this.node,
     required this.hintText,
+    this.enable=true,
   });
 
   final TextEditingController controller;
@@ -21,16 +18,18 @@ class CustomSimpleInput extends StatelessWidget {
   final FormFieldValidator<String>? validator;
   final int? maxLength;
   final String hintText;
-  final FocusNode node;
+
+  final bool enable;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      enabled: enable,
       controller: controller,
+      validator: validator,
       cursorColor: SColors.accent,
       cursorErrorColor: SColors.error,
       style: Theme.of(context).textTheme.titleSmall,
-      focusNode: node,
       decoration: InputDecoration(
         errorStyle: Theme.of(context).textTheme.labelSmall,
         fillColor: SColors.primary,
@@ -45,22 +44,12 @@ class CustomSimpleInput extends StatelessWidget {
           borderRadius: BorderRadius.circular(50.0),
           borderSide: BorderSide.none,
         ),
-        hintText: node.hasFocus ? null : hintText,
-        errorText: getErrorText(controller),
+        hintText:  hintText,
         hintStyle: Theme.of(context).textTheme.labelMedium,
         contentPadding: const EdgeInsets.all(16.0),
       ),
     );
   }
 
-  String? getErrorText(TextEditingController controller) {
-    if (node.hasFocus) return null;
-    if (controller.text.trim().isEmpty) {
-      return null;
-    }
-    if (validator == null) {
-      return null;
-    }
-    return SLabels.hintText(hintText);
-  }
+  
 }

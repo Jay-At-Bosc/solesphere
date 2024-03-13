@@ -21,7 +21,7 @@ class UserInfo extends StatelessWidget {
         CustomSimpleInput(
           hintText: SLabels.username,
          controller: TextEditingController(),
-         node: FocusNode(),
+         
         ),
         const SizedBox(
           height: 8.0,
@@ -30,7 +30,7 @@ class UserInfo extends StatelessWidget {
         CustomSimpleInput(
           hintText: SLabels.email,
           controller: TextEditingController(),
-         node: FocusNode(),
+        
         ),
         const SizedBox(
           height: 8.0,
@@ -39,7 +39,7 @@ class UserInfo extends StatelessWidget {
         CustomSimpleInput(
             hintText: SLabels.mobileNumber,
            controller: TextEditingController(),
-         node: FocusNode(),
+        
             keyboardType: TextInputType.phone,
             maxLength: 10),
         const SizedBox(

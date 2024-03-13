@@ -26,7 +26,7 @@ class SignInForm extends GetView<SignInController> {
           ),
           CustomSimpleInput(
             controller: controller.email,
-            node: controller.emailNode,
+           
             hintText: SLabels.email,
             keyboardType: TextInputType.emailAddress,
             maxLength: 1,
@@ -45,7 +45,7 @@ class SignInForm extends GetView<SignInController> {
             builder: (controller) {
               return CustomPasswordInput(
                 controller: controller.password,
-                node: controller.passwordNode,
+                
                 hintText: SLabels.password,
                 keyboardType: TextInputType.text,
                   isObsecure: controller.passwordVisible,

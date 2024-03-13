@@ -59,11 +59,14 @@ class SigninScreen extends StatelessWidget {
                   SizedBox(height: 3.0.getHeight()),
 
                   /// Signin Page Navigation
-                  CustomAuthNavigationText(
-                    label1: SLabels.dontHaveAnAccount,
-                    label2: SLabels.signup,
-                    onTap: () => Get.offAllNamed(Routes.signup),
-                  ),
+                  GetBuilder<SignInController>(builder: (context) {
+                    return CustomAuthNavigationText(
+                      label1: SLabels.dontHaveAnAccount,
+                      label2: SLabels.signup,
+                      isLoading: true,
+                      onTap: () => Get.offAllNamed(Routes.signup),
+                    );
+                  }),
                   SizedBox(height: 3.0.getHeight()),
 
                   /// Skip to redirect Home Screen

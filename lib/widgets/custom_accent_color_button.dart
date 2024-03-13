@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../utils/theme/widget_themes/elevated_button_theme.dart';
@@ -9,17 +8,28 @@ class CustomAccentColorButton extends StatelessWidget {
     super.key,
     required this.buttonLabel,
     this.onPressed,
+    required this.isLoading,
   });
 
   final String buttonLabel;
+  final bool isLoading;
   final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: onPressed,
+      onPressed: !isLoading ? onPressed : null,
       style: SElevatedButtonTheme.elevatedButtonStyle,
-      child: CustomLabelText(labelText: buttonLabel),
+      child: isLoading
+          ? const SizedBox(
+              height: 30,
+              width: 30,
+              child: CircularProgressIndicator(
+                color: Colors.white,
+                strokeWidth: 1.8,
+              ),
+            )
+          : CustomLabelText(labelText: buttonLabel),
     );
   }
 }
