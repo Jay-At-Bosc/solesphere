@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:solesphere/auth/signin/signin_controller.dart';
-import 'package:solesphere/utils/constants/labels.dart';
-import 'package:solesphere/utils/extensions/responsive_extension.dart';
-import 'package:solesphere/widgets/custom_label.dart';
-import 'package:solesphere/widgets/custom_simple_input.dart';
+import 'signin_controller.dart';
+import '../../utils/constants/labels.dart';
+import '../../utils/extensions/responsive_extension.dart';
+import '../../utils/validators/validations.dart';
+import '../../widgets/custom_label.dart';
+import '../../widgets/custom_simple_input.dart';
 
 import '../../widgets/custom_password_input.dart';
 
@@ -24,11 +25,12 @@ class SignInForm extends GetView<SignInController> {
             labelText: SLabels.email,
             labelStyle: Theme.of(context).textTheme.labelLarge,
           ),
-          CustomSimpleInput(
+         CustomSimpleInput(
             controller: controller.email,
-           
             hintText: SLabels.email,
+            enable: !controller.isMainLoading,
             keyboardType: TextInputType.emailAddress,
+            validator: (value) => SValidator.validateEmail(value),
             maxLength: 1,
           ),
           SizedBox(
@@ -45,11 +47,12 @@ class SignInForm extends GetView<SignInController> {
             builder: (controller) {
               return CustomPasswordInput(
                 controller: controller.password,
-                
                 hintText: SLabels.password,
+                enable: !controller.isMainLoading,
                 keyboardType: TextInputType.text,
-                  isObsecure: controller.passwordVisible,
-                    onIconTap: controller.togglePasswordVisibility,
+                validator: (value) => SValidator.validatePassword(value),
+                isObsecure: controller.ispasswordVisible,
+                onIconTap: controller.togglePasswordVisibility,
               );
             }
           ),
