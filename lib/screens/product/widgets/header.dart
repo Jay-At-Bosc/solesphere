@@ -1,4 +1,3 @@
-
 import 'dart:developer';
 
 import 'package:solesphere/auth/auth_exports.dart';
@@ -30,6 +29,8 @@ class ProductDetailHeader extends GetView<ProductDetailController> {
             child: IconButton(
                 onPressed: () {
                   controller.isLoading.value = false;
+                  controller.selectedVarient.value = 0;
+                  controller.selectedSize.value = 0;
                   // log("Deleted: ${controller.productDetailList.length}");
                   Get.back();
                   Get.back();

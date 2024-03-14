@@ -20,6 +20,8 @@ class ProductDetailController extends GetxController {
   late ProductDetailModel productDetail;
   List<String> imageUrls = [];
   RxBool isLoading = false.obs;
+  RxInt selectedVarient = 0.obs;
+  RxInt selectedSize = 0.obs;
 
   @override
   void onInit() {
@@ -132,5 +134,10 @@ class ProductDetailController extends GetxController {
     // }
   }
 
-  void load() {}
+  int calculateDiscountPercentage(int actualPrice, int discountedPrice) {
+    double discountPercentage =
+        ((actualPrice - discountedPrice) / actualPrice) * 100;
+    return discountPercentage
+        .floor(); // Round the double value to the nearest integer
+  }
 }

@@ -8,6 +8,8 @@ import 'package:get/get.dart';
 import 'package:solesphere/services/repositories/authentication.dart';
 import 'package:solesphere/services/routes/app_pages.dart';
 
+import '../../common/widgets/popup/loaders.dart';
+
 class SignUpController extends GetxController {
   static SignUpController get instance => Get.find();
 
@@ -75,17 +77,20 @@ class SignUpController extends GetxController {
           .signUpWithEmailAndPassword(email.text.trim(), password.text.trim());
 
       log("uid : ${userCredential.user!.uid}");
-     
-      Get.snackbar("Success", "Account created Succefully",
-          duration: const Duration(seconds: 2),
-          snackPosition: SnackPosition.BOTTOM);
+
+      TLoaders.successSnackBar(title: 'Success', message: "Account created Succefully");
+
+      // Get.snackbar("Success", "Account created Succefully",
+      //     duration: const Duration(seconds: 2),
+      //     snackPosition: SnackPosition.BOTTOM);
 
       navigateToUserDetails();
     } catch (e) {
       // shown exception which is thrown
-      Get.snackbar("Error", e.toString(),
-          snackPosition: SnackPosition.BOTTOM,
-          duration: const Duration(seconds: 2));
+      TLoaders.warningSnackBar(title: 'Error', message: e.toString());
+      // Get.snackbar("Error", e.toString(),
+      //     snackPosition: SnackPosition.BOTTOM,
+      //     duration: const Duration(seconds: 2));
     } finally {
       isRegisterLoading = false; // Sets Register Loading to false
     }
@@ -101,6 +106,7 @@ class SignUpController extends GetxController {
       final creds = await AuthenticationRepository.instance.signUpWithGoogle();
       log(" ${creds.credential!.accessToken}");
       log(" ${creds.credential!.providerId}");
+      // log(" ${creds.credential!.}");
 
       navigateToUserDetails();
     } catch (e) {
@@ -125,7 +131,7 @@ class SignUpController extends GetxController {
     update([confirmpasswordId]);
   }
 
-  // Navigation Signup to UserDetails 
+  // Navigation Signup to UserDetails
   void navigateToUserDetails() => Get.offAllNamed(Routes.userDetail);
 
   @override

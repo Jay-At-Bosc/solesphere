@@ -42,7 +42,7 @@ class ProductDetail extends GetView<ProductDetailController> {
                 //Colors of Brand
                 const SProductColors(),
                 const SizedBox(
-                  height: SSizes.spaceBtwSections,
+                  height: SSizes.spaceBtwSections / 2,
                 ),
 
                 //Sizes

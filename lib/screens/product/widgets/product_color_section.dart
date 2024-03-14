@@ -1,10 +1,11 @@
 import 'package:solesphere/auth/auth_exports.dart';
+import 'package:solesphere/screens/product/product_detail_controller.dart';
 
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
 import 'image_color_container.dart';
 
-class SProductColors extends StatelessWidget {
+class SProductColors extends GetView<ProductDetailController> {
   const SProductColors({
     super.key,
   });
@@ -16,14 +17,14 @@ class SProductColors extends StatelessWidget {
       children: [
         RichText(
           text: TextSpan(
-            text: 'Color: ',
+            text: 'Color',
             style: Theme.of(context)
                 .textTheme
                 .bodyLarge!
                 .apply(color: SColors.textPrimaryWith80),
             children: const <TextSpan>[
               TextSpan(
-                text: 'Blue',
+                text: '',
                 style:
                     TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
               ),
@@ -31,20 +32,20 @@ class SProductColors extends StatelessWidget {
           ),
         ),
         const SizedBox(
-          height: SSizes.spaceBtwSections / 2,
+          height: SSizes.spaceBtwItems / 2,
         ),
         // SImageColorContainer(),
         GridView.builder(
-          itemCount: 4,
+          itemCount: controller.productDetail.variants.length,
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 5,
             mainAxisSpacing: SSizes.gridViewSpacing / 2,
             crossAxisSpacing: SSizes.gridViewSpacing,
-            // mainAxisExtent: 20.0.getWidth(),
+            // mainAxisExtent: 10.0.getWidth(),
           ),
-          itemBuilder: (context, index) => const SImageColorContainer(),
+          itemBuilder: (context, index) => SImageColorContainer(index: index),
         ),
       ],
     );

@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
+import 'package:solesphere/auth/auth_exports.dart';
+import 'package:solesphere/screens/product/product_detail_controller.dart';
 
 import '../../../common/widgets/heading/deal_label.dart';
 import '../../../utils/constants/colors.dart';
 
-
-class ProductDealOfTheDay extends StatelessWidget {
+class ProductDealOfTheDay extends GetView<ProductDetailController> {
   const ProductDealOfTheDay({
     super.key,
   });
@@ -24,30 +24,36 @@ class ProductDealOfTheDay extends StatelessWidget {
               .titleSmall!
               .apply(color: Colors.white),
         ),
-        RichText(
-          text: TextSpan(
-            text: '-45% ',
-            style: Theme.of(context)
-                .textTheme
-                .headlineLarge!
-                .apply(color: Colors.red, fontSizeFactor: 1.1),
-            children: <TextSpan>[
-              TextSpan(
-                text: '₹499',
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineLarge!
-                    .apply(color: Colors.black, fontSizeFactor: 1.4),
-              ),
-            ],
+        Obx(
+          () => RichText(
+            text: TextSpan(
+              text:
+                  '-${controller.calculateDiscountPercentage(controller.productDetail.variants[controller.selectedVarient.value].sizes[controller.selectedSize.value].actual_price, controller.productDetail.variants[controller.selectedVarient.value].sizes[controller.selectedSize.value].discounted_price)}% ',
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineLarge!
+                  .apply(color: Colors.red, fontSizeFactor: 0.9),
+              children: <TextSpan>[
+                TextSpan(
+                  text:
+                      '₹${controller.productDetail.variants[controller.selectedVarient.value].sizes[controller.selectedSize.value].discounted_price}'
+                          .toString(),
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineLarge!
+                      .apply(color: Colors.black, fontSizeFactor: 1.2),
+                ),
+              ],
+            ),
           ),
         ),
-        Text(
-          'M.R.P.: ₹999',
-          style: Theme.of(context)
-              .textTheme
-              .titleSmall!
-              .apply(color: SColors.textPrimaryWith80),
+        Obx(
+          () => Text(
+            'M.R.P.: ₹${controller.productDetail.variants[controller.selectedVarient.value].sizes[controller.selectedSize.value].actual_price}',
+            style: Theme.of(context).textTheme.titleSmall!.apply(
+                color: SColors.textPrimaryWith80,
+                decoration: TextDecoration.lineThrough),
+          ),
         ),
       ],
     );
