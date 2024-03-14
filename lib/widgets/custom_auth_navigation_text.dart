@@ -8,7 +8,7 @@ class CustomAuthNavigationText extends StatelessWidget {
     required this.label1,
     required this.label2,
     required this.onTap,
-    this.isLoading = true,
+    required this.isLoading,
   });
 
   final String label1;
@@ -19,7 +19,7 @@ class CustomAuthNavigationText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: isLoading ? onTap : null,
+      onTap: !isLoading ? onTap : null,
       child: RichText(
         text: TextSpan(
           children: <TextSpan>[
