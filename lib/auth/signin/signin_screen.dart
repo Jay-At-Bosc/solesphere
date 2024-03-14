@@ -54,12 +54,13 @@ class SigninScreen extends GetView<SignInController> {
                   const SignInForgotPassword(),
                   SizedBox(height: 12.0.getHeight()),
 
-                  /// Buttons - Register & Signup With Google
+                  /// Buttons - Signin Email,Password & Signin With Google
                   const SignInButton(),
                   SizedBox(height: 3.0.getHeight()),
 
                   /// Signin Page Navigation
-                  GetBuilder<SignInController>(builder: (controller) {
+                  GetBuilder<SignInController>(
+                    builder: (controller) {
                     return CustomAuthNavigationText(
                       label1: SLabels.dontHaveAnAccount,
                       label2: SLabels.signup,
