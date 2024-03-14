@@ -11,7 +11,7 @@ import 'signin_forgot_password.dart';
 import 'signin_form.dart';
 import 'signin_to_home_screen.dart';
 
-class SigninScreen extends StatelessWidget {
+class SigninScreen extends GetView<SignInController> {
   const SigninScreen({super.key});
 
   @override
@@ -40,37 +40,44 @@ class SigninScreen extends StatelessWidget {
 
                   /// Signup Form
                   GetBuilder<SignInController>(
-                    id: 'freeSignUpForm',
+                    id: controller.signInForm,
                     builder: (_) {
-                      return const Form(
-                        //key: controller.form,
-                        child: SignInForm(),
+                      return Form(
+                        key: controller.signinFormKey,
+                        child: const SignInForm(),
                       );
                     },
                   ),
                   SizedBox(height: 2.0.getHeight()),
 
                   /// Forgot Password
-                  const SignInForgotPassword(),
+                  GetBuilder<SignInController>(
+                    id : controller.forgotPasswordId,
+                    builder: (controller) {
+                      return const SignInForgotPassword();
+                    }
+                  ),
                   SizedBox(height: 12.0.getHeight()),
 
-                  /// Buttons - Register & Signup With Google
+                  /// Buttons - Signin Email,Password & Signin With Google
                   const SignInButton(),
                   SizedBox(height: 3.0.getHeight()),
 
                   /// Signin Page Navigation
-                  GetBuilder<SignInController>(builder: (context) {
+                  GetBuilder<SignInController>(
+                    id: controller.signinToSignupId,
+                    builder: (controller) {
                     return CustomAuthNavigationText(
                       label1: SLabels.dontHaveAnAccount,
                       label2: SLabels.signup,
-                      isLoading: true,
+                      isLoading: controller.isMainLoading,
                       onTap: () => Get.offAllNamed(Routes.signup),
                     );
                   }),
                   SizedBox(height: 3.0.getHeight()),
 
                   /// Skip to redirect Home Screen
-                  const SignInToHomeScreen(),
+                  ///const SignInToHomeScreen(),
                 ],
               ),
             ),

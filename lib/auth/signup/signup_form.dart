@@ -26,8 +26,7 @@ class SignUpForm extends GetView<SignUpController> {
           ),
           CustomSimpleInput(
             controller: controller.username,
-         
-            enable: !controller.isMainLoading,
+            enable: !controller.isMainLoading(),
             hintText: SLabels.username,
             keyboardType: TextInputType.text,
             validator: (value) => SValidator.validateUsername(value),
@@ -45,7 +44,7 @@ class SignUpForm extends GetView<SignUpController> {
           CustomSimpleInput(
             controller: controller.email,
             hintText: SLabels.email,
-            enable: !controller.isMainLoading,
+            enable: !controller.isMainLoading(),
             keyboardType: TextInputType.emailAddress,
             validator: (value) => SValidator.validateEmail(value),
             maxLength: 1,
@@ -64,9 +63,8 @@ class SignUpForm extends GetView<SignUpController> {
               builder: (controller) {
                 return CustomPasswordInput(
                   controller: controller.password,
-              
                   hintText: SLabels.password,
-                  enable: !controller.isMainLoading,
+                  enable: !controller.isMainLoading(),
                   keyboardType: TextInputType.text,
                   validator: (value) => SValidator.validatePassword(value),
                   isObsecure: controller.ispasswordVisible,
@@ -89,7 +87,7 @@ class SignUpForm extends GetView<SignUpController> {
                   controller: controller.confirmPassword,
                 
                   hintText: SLabels.confirmPassword,
-                  enable: !controller.isMainLoading,
+                  enable: !controller.isMainLoading(),
                   keyboardType: TextInputType.text,
                   validator: (value) => SValidator.validatePassword(value),
                   isObsecure: controller.isconfirmpasswordVisible,

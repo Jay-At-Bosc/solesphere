@@ -1,6 +1,6 @@
 class SValidationRules {
   SValidationRules._();
-  static final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+  static final emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
   static final hasUppercase = RegExp(r'[A-Z]');
   static final hasLowercase = RegExp(r'[a-z]');
   static final hasDigit = RegExp(r'[0-9]');

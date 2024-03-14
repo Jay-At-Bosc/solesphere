@@ -18,23 +18,23 @@ class CustomAppBar extends StatelessWidget {
       centerTitle: true,
       titleTextStyle: STextTheme.lightTextTheme.bodyLarge,
       leadingWidth: 64.0,
-      leading: Padding(
-        padding: const EdgeInsets.only(
-          left: 20.0,
-        ),
-        child: Container(
-          decoration: const BoxDecoration(
-            color: SColors.textWhite,
-            // borderRadius: BorderRadius.circular(SSizes.buttonRadius),
-            shape: BoxShape.circle,
-          ),
-          child: IconButton(
-              onPressed: () {
-                Get.offNamed(Routes.signup);
-              },
-              icon: const Icon(Iconsax.arrow_left)),
-        ),
-      ),
+      // leading: Padding(
+      //   padding: const EdgeInsets.only(
+      //     left: 20.0,
+      //   ),
+      //   child: Container(
+      //     decoration: const BoxDecoration(
+      //       color: SColors.textWhite,
+      //       // borderRadius: BorderRadius.circular(SSizes.buttonRadius),
+      //       shape: BoxShape.circle,
+      //     ),
+      //     child: IconButton(
+      //         onPressed: () {
+      //           Get.offNamed(Routes.signup);
+      //         },
+      //         icon: const Icon(Iconsax.arrow_left)),
+      //   ),
+      // ),
       title: const Text(
         SLabels.userDetails,
         overflow: TextOverflow.ellipsis,

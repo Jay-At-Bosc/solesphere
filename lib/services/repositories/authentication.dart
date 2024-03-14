@@ -30,6 +30,7 @@ class AuthenticationRepository extends GetxController {
 
   /// Function to Show Relevant Screen
   Future<void> screenRedirect() async {
+    await Future.delayed(Duration(seconds: 1));
     bool hasOnboardCompleted = appStorage.hasOnBoardingCompleted;
 
     if (hasOnboardCompleted) {
@@ -118,7 +119,6 @@ class AuthenticationRepository extends GetxController {
       );
 
       return await _auth.signInWithCredential(userCredentials);
-
     } on FirebaseAuthException catch (e) {
       throw SFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {

@@ -1,4 +1,3 @@
-
 import 'package:solesphere/auth/signup/signup_controller.dart';
 
 import '../../utils/constants/labels.dart';
@@ -26,9 +25,7 @@ class SignUpButton extends GetView<SignUpController> {
                   return CustomAccentColorButton(
                     buttonLabel: SLabels.register,
                     onPressed: () async {
-                     
                       await controller.signupWithEmailPassword();
-                      
                     },
                     isLoading: controller.isRegisterLoading,
                   );
