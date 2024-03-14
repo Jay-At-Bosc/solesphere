@@ -60,7 +60,8 @@ class DrawerMenu extends StatelessWidget {
           SizedBox(height: 2.0.getHeight()),
           const SDrawerOption(
             icon: Iconsax.logout,
-            text: "Sign Out", route: Routes.signin,
+            text: "Sign Out",
+            route: Routes.signin,
             // onTap: () {},
           ),
         ],

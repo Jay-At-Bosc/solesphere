@@ -13,7 +13,7 @@ class CustomPasswordInput extends StatelessWidget {
     required this.isObsecure,
     this.onIconTap,
     this.validator,
-    this.enable = true,
+    this.enable =true,
   });
 
   final TextEditingController controller;

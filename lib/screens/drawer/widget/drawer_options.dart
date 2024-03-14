@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
+import '../../../services/routes/app_pages.dart';
 import '../../../utils/constants/colors.dart';
 import '../../home/controller/drawer_controller.dart';
 
@@ -33,7 +34,12 @@ class SDrawerOption extends StatelessWidget {
           SizedBox(width: 6.0.getWidth()),
           InkWell(
             splashColor: Colors.transparent,
-            onTap: () => controller.navigateTo(route),
+            onTap: () {
+              if (route == Routes.signin) {
+                Get.offAllNamed(route);
+              }
+              controller.navigateTo(route);
+            },
             child: Text(
               text,
               style: Theme.of(context)

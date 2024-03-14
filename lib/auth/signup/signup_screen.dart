@@ -61,7 +61,7 @@ class SignUpScreen extends GetView<SignUpController> {
                     return CustomAuthNavigationText(
                       label1: SLabels.alreadyHaveAnAccount,
                       label2: SLabels.signIn,
-                      isLoading: controller.isMainLoading,
+                      isLoading: controller.isMainLoading(),
                       onTap: () => Get.offAllNamed(Routes.signin),
                     );
                   }),

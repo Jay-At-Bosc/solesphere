@@ -11,9 +11,11 @@ class SignInController extends GetxController {
 
   /// Builder Id
   final String signInForm = "SignInForm";
-  final String passwordId = "SignupPassword";
+  final String passwordId = "SignInPassword";
+  final String forgotPasswordId = "SignInForgotPassword";
   final String signinButtonId = "Signin";
   final String signinWithGoogleButtonId = "SignupWithGoogle";
+  final String signinToSignupId = "SigninToSignupId";
 
   /// Input Controller
   final TextEditingController email = TextEditingController();
@@ -23,29 +25,16 @@ class SignInController extends GetxController {
   GlobalKey<FormState> signinFormKey = GlobalKey<FormState>();
 
   /// Button Loader
-  bool _isSigInLoading = false;
-  bool _isGoogleSigInLoading = false;
+  bool isSigInLoading = false;
+  bool isGoogleSigInLoading = false;
   final _isPasswordVisible = true.obs;
 
   /// Getter
   bool get ispasswordVisible => _isPasswordVisible.value;
-  bool get isSignInLoading => _isSigInLoading;
-  bool get isGoogleLoading => _isGoogleSigInLoading;
-  bool get isMainLoading => _isSigInLoading || _isGoogleSigInLoading;
+  bool get isMainLoading => isSigInLoading || isGoogleSigInLoading;
 
   void get checkFormValidation =>
       !signinFormKey.currentState!.validate() ? throw "" : null;
-
-  /// Setter
-  set isSigInLoading(bool value) {
-    _isSigInLoading = value;
-    update([signinButtonId]);
-  }
-
-  set isGoogleSigInLoading(bool value) {
-    _isGoogleSigInLoading = value;
-    update([signinWithGoogleButtonId]);
-  }
 
   /// Methods
   // Register User
@@ -56,7 +45,10 @@ class SignInController extends GetxController {
 
       checkFormValidation; // Checks All Fields Validations
 
-      isSigInLoading = true; // Sets Register Loading to true
+      isSigInLoading = true;
+      update([
+        signinButtonId,
+      ]);
 
       // User Creation API Call For Firebase
       final userCredential = await AuthenticationRepository.instance
@@ -76,6 +68,9 @@ class SignInController extends GetxController {
           duration: const Duration(seconds: 2));
     } finally {
       isSigInLoading = false; // Sets Register Loading to false
+      update([
+        signinButtonId,
+      ]);
     }
   }
 
@@ -84,7 +79,8 @@ class SignInController extends GetxController {
     log("signupWithGoogle method called");
     try {
       // repo call
-      isGoogleSigInLoading = true; // Sets Register Loading to true
+      isGoogleSigInLoading = true;
+      update([signinWithGoogleButtonId]);
 
       final creds = await AuthenticationRepository.instance.signUpWithGoogle();
       log(" ${creds.credential!.accessToken}");
@@ -98,6 +94,7 @@ class SignInController extends GetxController {
           duration: const Duration(seconds: 2));
     } finally {
       isGoogleSigInLoading = false; // Sets Register Loading to false
+      update([signinWithGoogleButtonId]);
     }
   }
 

@@ -51,7 +51,12 @@ class SigninScreen extends GetView<SignInController> {
                   SizedBox(height: 2.0.getHeight()),
 
                   /// Forgot Password
-                  const SignInForgotPassword(),
+                  GetBuilder<SignInController>(
+                    id : controller.forgotPasswordId,
+                    builder: (controller) {
+                      return const SignInForgotPassword();
+                    }
+                  ),
                   SizedBox(height: 12.0.getHeight()),
 
                   /// Buttons - Signin Email,Password & Signin With Google
@@ -60,6 +65,7 @@ class SigninScreen extends GetView<SignInController> {
 
                   /// Signin Page Navigation
                   GetBuilder<SignInController>(
+                    id: controller.signinToSignupId,
                     builder: (controller) {
                     return CustomAuthNavigationText(
                       label1: SLabels.dontHaveAnAccount,
@@ -71,7 +77,7 @@ class SigninScreen extends GetView<SignInController> {
                   SizedBox(height: 3.0.getHeight()),
 
                   /// Skip to redirect Home Screen
-                  const SignInToHomeScreen(),
+                  ///const SignInToHomeScreen(),
                 ],
               ),
             ),

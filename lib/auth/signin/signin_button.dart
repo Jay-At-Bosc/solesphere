@@ -23,7 +23,7 @@ class SignInButton extends GetView<SignInController> {
                   builder: (controller) {
                     return CustomAccentColorButton(
                       buttonLabel: SLabels.signIn,
-                      isLoading: controller.isSignInLoading,
+                      isLoading: controller.isMainLoading,
                       onPressed: () async {
                         await controller.signinWithEmailPassword();
                       },
@@ -39,11 +39,12 @@ class SignInButton extends GetView<SignInController> {
                   id: controller.signinWithGoogleButtonId,
                   builder: (controller) {
                     return CustomPrimaryColorButton(
-                        buttonLabel: SLabels.signInWithGooogle,
-                        onPressed: () async {
-                          await controller.signInWithGoogle();
-                        },
-                        isLoading: controller.isGoogleLoading);
+                      buttonLabel: SLabels.signInWithGooogle,
+                      onPressed: () async {
+                        await controller.signInWithGoogle();
+                      },
+                      isLoading: controller.isMainLoading,
+                    );
                   })),
         ],
       ),

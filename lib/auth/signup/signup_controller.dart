@@ -8,8 +8,6 @@ import 'package:get/get.dart';
 import 'package:solesphere/services/repositories/authentication.dart';
 import 'package:solesphere/services/routes/app_pages.dart';
 
-import '../../common/widgets/popup/loaders.dart';
-
 class SignUpController extends GetxController {
   static SignUpController get instance => Get.find();
 
@@ -30,8 +28,8 @@ class SignUpController extends GetxController {
   GlobalKey<FormState> signupFormKey = GlobalKey<FormState>();
 
   /// Button Loader
-  bool _isRegisterLoading = false;
-  bool _isGoogleLoading = false;
+  bool isRegisterLoading = false;
+  bool isGoogleLoading = false;
 
   final _isPasswordVisible = true.obs;
   final _isConfirmPasswordVisible = true.obs;
@@ -39,38 +37,31 @@ class SignUpController extends GetxController {
   /// Getter
   bool get ispasswordVisible => _isPasswordVisible.value;
   bool get isconfirmpasswordVisible => _isConfirmPasswordVisible.value;
-  bool get isRegisterLoading => _isRegisterLoading;
-  bool get isGoogleLoading => _isGoogleLoading;
-  bool get isMainLoading => _isRegisterLoading || isGoogleLoading;
   void get isPasswordMatched => password.text != confirmPassword.text
       ? throw "Password Not Matched"
       : null;
   void get checkFormValidation =>
       !signupFormKey.currentState!.validate() ? throw "" : null;
 
-  /// Setter
-  set isRegisterLoading(bool value) {
-    _isRegisterLoading = value;
-    update([registerButtonId]);
-  }
-
-  set isGoogleLoading(bool value) {
-    _isGoogleLoading = value;
-    update([signupWithGoogleButtonId]);
-  }
-
   /// Methods
   // Register User
+  bool isMainLoading() {
+    if (isRegisterLoading || isGoogleLoading) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   Future<void> signupWithEmailPassword() async {
     log("signupWithEmailPassword method called");
     try {
-      // Form Validation
-
       isPasswordMatched; // Checks Password is matched or not
 
       checkFormValidation; // Checks All Fields Validations
 
-      isRegisterLoading = true; // Sets Register Loading to true
+      isRegisterLoading = true;
+      update([registerButtonId]);
 
       // User Creation API Call For Firebase
       final userCredential = await AuthenticationRepository.instance
@@ -78,21 +69,19 @@ class SignUpController extends GetxController {
 
       log("uid : ${userCredential.user!.uid}");
 
-      TLoaders.successSnackBar(title: 'Success', message: "Account created Succefully");
-
-      // Get.snackbar("Success", "Account created Succefully",
-      //     duration: const Duration(seconds: 2),
-      //     snackPosition: SnackPosition.BOTTOM);
+      Get.snackbar("Success", "Account created Succefully",
+          duration: const Duration(seconds: 2),
+          snackPosition: SnackPosition.BOTTOM);
 
       navigateToUserDetails();
     } catch (e) {
       // shown exception which is thrown
-      TLoaders.warningSnackBar(title: 'Error', message: e.toString());
-      // Get.snackbar("Error", e.toString(),
-      //     snackPosition: SnackPosition.BOTTOM,
-      //     duration: const Duration(seconds: 2));
+      Get.snackbar("Error", e.toString(),
+          snackPosition: SnackPosition.BOTTOM,
+          duration: const Duration(seconds: 2));
     } finally {
-      isRegisterLoading = false; // Sets Register Loading to false
+      isRegisterLoading = false;
+      update([registerButtonId]);
     }
   }
 
@@ -101,7 +90,8 @@ class SignUpController extends GetxController {
     log("signupWithGoogle method called");
     try {
       // repo call
-      isGoogleLoading = true; // Sets Register Loading to true
+      isGoogleLoading = true;
+      update([signupWithGoogleButtonId]);
 
       final creds = await AuthenticationRepository.instance.signUpWithGoogle();
       log(" ${creds.credential!.accessToken}");
@@ -116,6 +106,7 @@ class SignUpController extends GetxController {
           duration: const Duration(seconds: 2));
     } finally {
       isGoogleLoading = false; // Sets Register Loading to false
+      update([registerButtonId]);
     }
   }
 

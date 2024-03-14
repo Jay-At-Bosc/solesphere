@@ -16,7 +16,7 @@ class SignInForgotPassword extends GetView<SignInController> {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         GestureDetector(
-          onTap: controller.forgotPassword,
+          onTap: !controller.isMainLoading ? controller.forgotPassword : null,
           child: CustomLabelText(
             labelText: SLabels.forgotPassword,
             labelStyle: Theme.of(context).textTheme.displaySmall!.copyWith(
