@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:solesphere/app.dart';
 import 'package:solesphere/firebase_options.dart';
 import 'package:solesphere/services/repositories/authentication.dart';
-import 'package:solesphere/utils/helpers/network_manager.dart';
+
 import 'package:solesphere/utils/local_storage/app_storage.dart';
 
 Future<void> main() async {

@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
-import 'dart:developer';
+
 
 class CustomDrawerController extends GetxController {
   static CustomDrawerController get instance => Get.find();
