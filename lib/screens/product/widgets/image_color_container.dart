@@ -1,10 +1,7 @@
-
 import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/screens/product/product_detail_controller.dart';
 import 'package:solesphere/utils/constants/colors.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
-
-
 
 class SImageColorContainer extends GetView<ProductDetailController> {
   const SImageColorContainer({
@@ -22,8 +19,8 @@ class SImageColorContainer extends GetView<ProductDetailController> {
       },
       child: Obx(
         () => Container(
-          width: 5.0.getWidth(),
-          height: 5.0.getWidth(),
+          width: 12.0.getWidth(),
+          height: 12.0.getWidth(),
           decoration: BoxDecoration(
             color: Color(
                 int.parse(controller.productDetail.variants[index].color)),

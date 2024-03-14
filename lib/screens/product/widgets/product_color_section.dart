@@ -1,5 +1,6 @@
 import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/screens/product/product_detail_controller.dart';
+import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
@@ -35,18 +36,29 @@ class SProductColors extends GetView<ProductDetailController> {
           height: SSizes.spaceBtwItems / 2,
         ),
         // SImageColorContainer(),
-        GridView.builder(
-          itemCount: controller.productDetail.variants.length,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 5,
-            mainAxisSpacing: SSizes.gridViewSpacing / 2,
-            crossAxisSpacing: SSizes.gridViewSpacing,
-            // mainAxisExtent: 10.0.getWidth(),
+        SizedBox(
+          height: 12.0.getWidth(),
+          child: ListView.builder(
+            itemCount: controller.productDetail.variants.length,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, index) => Padding(
+              padding: const EdgeInsets.only(right: SSizes.spaceBtwItems),
+              child: SImageColorContainer(index: index),
+            ),
           ),
-          itemBuilder: (context, index) => SImageColorContainer(index: index),
-        ),
+        )
+        // GridView.builder(
+        //   itemCount: controller.productDetail.variants.length,
+        //   shrinkWrap: true,
+        //   physics: const NeverScrollableScrollPhysics(),
+        //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        //     crossAxisCount: 5,
+        //     mainAxisSpacing: SSizes.gridViewSpacing / 2,
+        //     crossAxisSpacing: SSizes.gridViewSpacing,
+        //     // mainAxisExtent: 10.0.getWidth(),
+        //   ),
+        //   itemBuilder: (context, index) => SImageColorContainer(index: index),
+        // ),
       ],
     );
   }

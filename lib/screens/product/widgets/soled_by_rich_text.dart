@@ -1,8 +1,10 @@
-import 'package:flutter/material.dart';
+
+import 'package:solesphere/auth/auth_exports.dart';
+import 'package:solesphere/screens/product/product_detail_controller.dart';
 
 import '../../../utils/constants/colors.dart';
 
-class SoledByRichText extends StatelessWidget {
+class SoledByRichText extends GetView<ProductDetailController> {
   const SoledByRichText({
     super.key,
   });
@@ -19,7 +21,7 @@ class SoledByRichText extends StatelessWidget {
               ),
           children: <TextSpan>[
             TextSpan(
-              text: 'NIKE Shoes',
+              text: controller.productDetail.brand.brand,
               style: Theme.of(context).textTheme.labelSmall!.apply(
                     color: SColors.accent,
                   ),
