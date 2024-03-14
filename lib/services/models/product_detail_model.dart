@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 
 class ProductDetailModel {
-  final Discount discount;
+  // final Discount discount;
   final String id;
   final String productName;
   final String shortDescription;
@@ -23,7 +23,7 @@ class ProductDetailModel {
   final String updatedAt;
   final int v;
   ProductDetailModel({
-    required this.discount,
+    // required this.discount,
     required this.id,
     required this.productName,
     required this.shortDescription,
@@ -45,7 +45,7 @@ class ProductDetailModel {
   });
 
   ProductDetailModel copyWith({
-    Discount? discount,
+    // Discount? discount,
     String? id,
     String? productName,
     String? shortDescription,
@@ -66,7 +66,7 @@ class ProductDetailModel {
     int? v,
   }) {
     return ProductDetailModel(
-      discount: discount ?? this.discount,
+      // discount: discount ?? this.discount,
       id: id ?? this.id,
       productName: productName ?? this.productName,
       shortDescription: shortDescription ?? this.shortDescription,
@@ -90,7 +90,7 @@ class ProductDetailModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'discount': discount.toMap(),
+      // 'discount': discount.toMap(),
       '_id': id,
       'productName': productName,
       'shortDescription': shortDescription,
@@ -114,8 +114,8 @@ class ProductDetailModel {
 
   factory ProductDetailModel.fromMap(Map<String, dynamic> map) {
     return ProductDetailModel(
-      discount:
-          Discount.fromMap(map['discount'] as Map<String, dynamic>? ?? {}),
+      // discount:
+      //     Discount.fromMap(map['discount'] as Map<String, dynamic>? ?? {}),
       id: map['_id'] as String? ?? '',
       productName: map['productName'] as String? ?? '',
       shortDescription: map['shortDescription'] as String? ?? '',
@@ -151,15 +151,14 @@ class ProductDetailModel {
 
   @override
   String toString() {
-    return 'ProductDetailModel(discount: $discount, _id: $id, productName: $productName, shortDescription: $shortDescription, sizeType: $sizeType, variants: $variants, closureType: $closureType, material: $material, longDescription: $longDescription, giftPackaging: $giftPackaging, qr: $qr, gender: $gender, review: $review, category: $category, brand: $brand, deleted: $deleted, createdAt: $createdAt, updatedAt: $updatedAt, __v: $v)';
+    return 'ProductDetailModel( _id: $id, productName: $productName, shortDescription: $shortDescription, sizeType: $sizeType, variants: $variants, closureType: $closureType, material: $material, longDescription: $longDescription, giftPackaging: $giftPackaging, qr: $qr, gender: $gender, review: $review, category: $category, brand: $brand, deleted: $deleted, createdAt: $createdAt, updatedAt: $updatedAt, __v: $v)';
   }
 
   @override
   bool operator ==(covariant ProductDetailModel other) {
     if (identical(this, other)) return true;
 
-    return other.discount == discount &&
-        other.id == id &&
+    return other.id == id &&
         other.productName == productName &&
         other.shortDescription == shortDescription &&
         other.sizeType == sizeType &&
@@ -181,8 +180,7 @@ class ProductDetailModel {
 
   @override
   int get hashCode {
-    return discount.hashCode ^
-        id.hashCode ^
+    return id.hashCode ^
         productName.hashCode ^
         shortDescription.hashCode ^
         sizeType.hashCode ^
@@ -203,65 +201,65 @@ class ProductDetailModel {
   }
 }
 
-class Discount {
-  final String startDate;
-  final int discount;
-  final String endDate;
-  Discount({
-    required this.startDate,
-    required this.discount,
-    required this.endDate,
-  });
+// class Discount {
+//   final String startDate;
+//   final int discount;
+//   final String endDate;
+//   Discount({
+//     required this.startDate,
+//     required this.discount,
+//     required this.endDate,
+//   });
 
-  Discount copyWith({
-    String? startDate,
-    int? discount,
-    String? endDate,
-  }) {
-    return Discount(
-      startDate: startDate ?? this.startDate,
-      discount: discount ?? this.discount,
-      endDate: endDate ?? this.endDate,
-    );
-  }
+//   Discount copyWith({
+//     String? startDate,
+//     int? discount,
+//     String? endDate,
+//   }) {
+//     return Discount(
+//       startDate: startDate ?? this.startDate,
+//       discount: discount ?? this.discount,
+//       endDate: endDate ?? this.endDate,
+//     );
+//   }
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'startDate': startDate,
-      'discount': discount,
-      'endDate': endDate,
-    };
-  }
+//   Map<String, dynamic> toMap() {
+//     return <String, dynamic>{
+//       'startDate': startDate,
+//       'discount': discount,
+//       'endDate': endDate,
+//     };
+//   }
 
-  factory Discount.fromMap(Map<String, dynamic> map) {
-    return Discount(
-      startDate: map['startDate'] as String,
-      discount: map['discount'].toInt() as int,
-      endDate: map['endDate'] as String,
-    );
-  }
+//   factory Discount.fromMap(Map<String, dynamic> map) {
+//     return Discount(
+//       startDate: map['startDate'] as String,
+//       discount: map['discount'].toInt() as int,
+//       endDate: map['endDate'] as String,
+//     );
+//   }
 
-  String toJson() => json.encode(toMap());
+//   String toJson() => json.encode(toMap());
 
-  factory Discount.fromJson(String source) =>
-      Discount.fromMap(json.decode(source) as Map<String, dynamic>);
+//   factory Discount.fromJson(String source) =>
+//       Discount.fromMap(json.decode(source) as Map<String, dynamic>);
 
-  @override
-  String toString() =>
-      'Discount(startDate: $startDate, discount: $discount, endDate: $endDate)';
+//   @override
+//   String toString() =>
+//       'Discount(startDate: $startDate, discount: $discount, endDate: $endDate)';
 
-  @override
-  bool operator ==(covariant Discount other) {
-    if (identical(this, other)) return true;
+//   @override
+//   bool operator ==(covariant Discount other) {
+//     if (identical(this, other)) return true;
 
-    return other.startDate == startDate &&
-        other.discount == discount &&
-        other.endDate == endDate;
-  }
+//     return other.startDate == startDate &&
+//         other.discount == discount &&
+//         other.endDate == endDate;
+//   }
 
-  @override
-  int get hashCode => startDate.hashCode ^ discount.hashCode ^ endDate.hashCode;
-}
+//   @override
+//   int get hashCode => startDate.hashCode ^ discount.hashCode ^ endDate.hashCode;
+// }
 
 class Variant {
   final String color;

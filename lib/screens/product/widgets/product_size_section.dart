@@ -41,6 +41,7 @@ class ProductSizeSection extends GetView<ProductDetailController> {
           () => SizedBox(
             height: 12.0.getWidth(), // Adjust height according to your needs
             child: ListView.builder(
+              clipBehavior: Clip.antiAlias,
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               itemCount: controller.productDetail

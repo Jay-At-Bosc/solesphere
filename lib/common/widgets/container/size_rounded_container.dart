@@ -24,7 +24,7 @@ class SSizeRoundedContainer extends GetView<ProductDetailController> {
                   color: SColors.accent,
                   borderRadius: BorderRadius.circular(100),
                   boxShadow: const [
-                      BoxShadow(color: SColors.accent, blurRadius: 8)
+                      BoxShadow(color: SColors.accent, blurRadius: 5)
                     ])
               : BoxDecoration(
                   color: SColors.textHint,
