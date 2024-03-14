@@ -6,7 +6,7 @@ import '../../widgets/custom_accent_color_button.dart';
 import '../../widgets/custom_primary_color_button.dart';
 import '../auth_exports.dart';
 
-class SignInButton extends StatelessWidget {
+class SignInButton extends GetView<SignInController> {
   const SignInButton({super.key});
 
   @override
@@ -14,17 +14,20 @@ class SignInButton extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 5.0.getWidth()),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
               width: double.maxFinite,
               child: GetBuilder<SignInController>(
-                  id: "SignInButton",
+                  id: controller.signinButtonId,
                   builder: (controller) {
                     return CustomAccentColorButton(
-                        buttonLabel: SLabels.signIn,
-                        isLoading: controller.isLoad);
+                      buttonLabel: SLabels.signIn,
+                      isLoading: controller.isSignInLoading,
+                      onPressed: () async {
+                        await controller.signinWithEmailPassword();
+                      },
+                    );
                   })),
           SizedBox(
             height: 1.5.getHeight(),
@@ -33,12 +36,14 @@ class SignInButton extends StatelessWidget {
           SizedBox(
               width: double.maxFinite,
               child: GetBuilder<SignInController>(
-                  id: "SignInButton",
+                  id: controller.signinWithGoogleButtonId,
                   builder: (controller) {
                     return CustomPrimaryColorButton(
-                        buttonLabel: SLabels.signIn,
-                        isLoading: controller.isLoad
-                      );
+                        buttonLabel: SLabels.signInWithGooogle,
+                        onPressed: () async {
+                          await controller.signInWithGoogle();
+                        },
+                        isLoading: controller.isGoogleLoading);
                   })),
         ],
       ),

@@ -21,6 +21,7 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialBinding: GlobalBindings(),
       //home: const SignUpScreen(),
+      
     );
   }
 }

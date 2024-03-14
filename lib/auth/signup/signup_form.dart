@@ -26,7 +26,6 @@ class SignUpForm extends GetView<SignUpController> {
           ),
           CustomSimpleInput(
             controller: controller.username,
-         
             enable: !controller.isMainLoading,
             hintText: SLabels.username,
             keyboardType: TextInputType.text,
