@@ -14,6 +14,7 @@ class SIcons {
 
   // Search Icon
   static const String filterIcon = "assets/icons/search/ic_filter.svg";
+  
 }
 
 class SJsons {

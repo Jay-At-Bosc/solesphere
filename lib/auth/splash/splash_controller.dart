@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:solesphere/services/models/user_data_model.dart';
 import 'package:solesphere/services/repositories/authentication.dart';
@@ -32,7 +31,7 @@ class SplashController extends GetxController {
         Get.offAllNamed(Routes.onboard);
       }
     }).onError((error, stackTrace) {
-      log("jnnckjas");
+      _showDialog("Error", 'Please turn on your internet connection.');
     });
   }
 
@@ -50,9 +49,9 @@ class SplashController extends GetxController {
     } catch (e) {
       String errorMessage = e.toString();
       if (errorMessage.contains('SocketException')) {
-        _showErrorDialog('Please turn on your internet connection.');
+        _showDialog("Error", 'Please turn on your internet connection.');
       } else {
-        _showErrorDialog('Network request failed. Please try again later.');
+        _showDialog("Error", 'Network request failed. Please try again later.');
       }
       return false;
     }
@@ -64,27 +63,20 @@ class SplashController extends GetxController {
     return true;
   }
 
-  void _showErrorDialog(String message) {
-    Get.dialog(
+
+  void _showDialog(String title, String message) {
+    Get.defaultDialog(
       barrierDismissible: false,
-      AlertDialog(
-        content: Text(message),
-        actions: [
-          ElevatedButton(
-            onPressed: () {
-              Get.back(); // Close the dialog
-            },
-            child: const Text('OK'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              // Handle retry action
-              Get.back(); // Close the dialog
-            },
-            child: const Text('Retry'),
-          ),
-        ],
-      ),
+      title: title,
+      content: Text(message),
+      actions: [
+        ElevatedButton(
+          onPressed: () {
+            Get.back();
+          },
+          child: const Text('OK'),
+        ),
+      ],
     );
   }
 }

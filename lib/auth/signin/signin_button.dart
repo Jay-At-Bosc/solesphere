@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:solesphere/auth/signin/signin_controller.dart';
 
 import '../../utils/constants/labels.dart';
 import '../../utils/extensions/responsive_extension.dart';
@@ -18,13 +17,29 @@ class SignInButton extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const SizedBox(
+          SizedBox(
               width: double.maxFinite,
-              child: CustomAccentColorButton(buttonLabel: SLabels.signIn)),
+              child: GetBuilder<SignInController>(
+                  id: "SignInButton",
+                  builder: (controller) {
+                    return CustomAccentColorButton(
+                        buttonLabel: SLabels.signIn,
+                        isLoading: controller.isLoad);
+                  })),
           SizedBox(
             height: 1.5.getHeight(),
           ),
-          const CustomPrimaryColorButton(buttonLabel: SLabels.signInWithGooogle)
+          //const CustomPrimaryColorButton(buttonLabel: SLabels.signInWithGooogle)
+          SizedBox(
+              width: double.maxFinite,
+              child: GetBuilder<SignInController>(
+                  id: "SignInButton",
+                  builder: (controller) {
+                    return CustomPrimaryColorButton(
+                        buttonLabel: SLabels.signIn,
+                        isLoading: controller.isLoad
+                      );
+                  })),
         ],
       ),
     );

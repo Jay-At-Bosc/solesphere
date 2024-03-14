@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
@@ -13,34 +12,43 @@ class CustomPrimaryColorButton extends StatelessWidget {
     super.key,
     required this.buttonLabel,
     this.onPressed,
+    required this.isLoading,
   });
 
   final String buttonLabel;
+  final bool isLoading;
   final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: onPressed,
+      onPressed: !isLoading ? onPressed : null,
       style: SElevatedButtonTheme.elevatedButtonStyle.copyWith(
-              backgroundColor:
-                  const MaterialStatePropertyAll(SColors.primary),
-              foregroundColor:
-                  MaterialStatePropertyAll(SColors.textPrimaryWith80)),
-      child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SvgPicture.asset(
-                SIcons.googleIcon,
-                height: 24,
-                width: 24,
+          backgroundColor: const MaterialStatePropertyAll(SColors.primary),
+          foregroundColor: MaterialStatePropertyAll(SColors.textPrimaryWith80)),
+      child: isLoading
+          ? const SizedBox(
+              height: 30,
+              width: 30,
+              child: CircularProgressIndicator(
+                color: SColors.accent,
+                strokeWidth: 1.8,
               ),
-              SizedBox(
-                width: 2.0.getWidth(),
-              ),
-              CustomLabelText(labelText: buttonLabel),
-            ],
-          ),
+            )
+          : Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset(
+                  SIcons.googleIcon,
+                  height: 24,
+                  width: 24,
+                ),
+                SizedBox(
+                  width: 2.0.getWidth(),
+                ),
+                CustomLabelText(labelText: buttonLabel),
+              ],
+            ),
     );
   }
 }

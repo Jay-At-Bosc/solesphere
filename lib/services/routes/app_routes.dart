@@ -25,5 +25,4 @@ abstract class _Paths {
   static const String notification = '/notification';
   static const String cart = '/cart';
 
-
 }

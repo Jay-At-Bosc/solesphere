@@ -46,7 +46,7 @@ class CustomerReview extends GetView<ProductDetailController> {
                       .labelMedium!
                       .apply(color: Colors.black),
                 ),
-                SRatingBar(rating: 4)
+                const SRatingBar(rating: 4)
               ],
             ),
           ],

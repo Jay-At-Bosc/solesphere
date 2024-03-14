@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../utils/constants/colors.dart';
-import '../utils/constants/labels.dart';
 
 class CustomPasswordInput extends StatelessWidget {
   const CustomPasswordInput({
@@ -11,29 +10,33 @@ class CustomPasswordInput extends StatelessWidget {
     required this.controller,
     this.keyboardType,
     required this.hintText,
-    required this.node,
     required this.isObsecure,
     this.onIconTap,
+    this.validator,
+    this.enable = true,
   });
 
   final TextEditingController controller;
   final TextInputType? keyboardType;
+  final FormFieldValidator<String>? validator;
   final String hintText;
-  final FocusNode node;
   final bool isObsecure;
   final void Function()? onIconTap;
+  final bool enable;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
+      enabled: enable,
+      validator: validator,
       cursorColor: SColors.accent,
       cursorErrorColor: SColors.error,
       style: Theme.of(context).textTheme.titleSmall,
-      focusNode: node,
       obscureText: isObsecure,
       decoration: InputDecoration(
         suffixIcon: IconButton(
+          highlightColor: Colors.transparent,
           onPressed: onIconTap,
           icon: !isObsecure
               ? const Icon(Iconsax.eye)
@@ -52,22 +55,10 @@ class CustomPasswordInput extends StatelessWidget {
           borderRadius: BorderRadius.circular(50.0),
           borderSide: BorderSide.none,
         ),
-        hintText: node.hasFocus ? null : hintText,
-        errorText: getErrorText(controller),
+        hintText: hintText,
         hintStyle: Theme.of(context).textTheme.labelMedium,
         contentPadding: const EdgeInsets.all(16.0),
       ),
     );
-  }
-
-  String? getErrorText(TextEditingController controller) {
-    if (node.hasFocus) return null;
-    if (controller.text.trim().isEmpty) {
-      return null;
-    }
-    // if (validator == null) {
-    //   return null;
-    // }
-    return SLabels.hintText(hintText);
   }
 }

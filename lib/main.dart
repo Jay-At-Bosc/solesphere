@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:solesphere/app.dart';
 import 'package:solesphere/firebase_options.dart';
 import 'package:solesphere/services/repositories/authentication.dart';
+import 'package:solesphere/utils/helpers/network_manager.dart';
 import 'package:solesphere/utils/local_storage/app_storage.dart';
 
 Future<void> main() async {
@@ -24,7 +25,10 @@ Future<void> main() async {
   /// Firebase Initialization
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-  ).then((value) => Get.put(AuthenticationRepository()));
+  ).then((value) => {
+        Get.put(AuthenticationRepository()),
+        Get.put(NetworkManager()),
+      });
 
   runApp(const App());
 }

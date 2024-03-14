@@ -17,6 +17,7 @@ class SignInController extends GetxController {
   final FocusNode passwordNode = FocusNode();
 
   final isPasswordVisible = true.obs;
+  final RxBool isLoading = false.obs;
 
   void togglePasswordVisibility() {
     isPasswordVisible.value = !isPasswordVisible.value;
@@ -24,6 +25,7 @@ class SignInController extends GetxController {
   }
 
   bool get passwordVisible => isPasswordVisible.value;
+  bool get isLoad => isLoading.value;
 
   void skipSignIn() {
     // TODO: store user as null

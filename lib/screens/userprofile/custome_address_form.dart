@@ -29,7 +29,7 @@ class CustomAddressForm extends StatelessWidget {
         CustomSimpleInput(
           hintText: SLabels.addresslineOne,
           controller: TextEditingController(),
-          node: FocusNode(),
+          // node: FocusNode(),
           validator: (value) {
             return value;
           },
@@ -41,7 +41,7 @@ class CustomAddressForm extends StatelessWidget {
         CustomSimpleInput(
           hintText: SLabels.addresslineTwo,
           controller: TextEditingController(),
-         node: FocusNode(), keyboardType: TextInputType.multiline,maxLength: 2,
+         keyboardType: TextInputType.multiline,maxLength: 2,
         ),
 
         const SizedBox(
@@ -55,7 +55,7 @@ class CustomAddressForm extends StatelessWidget {
               child: CustomSimpleInput(
                 hintText: SLabels.state,
                 controller: TextEditingController(),
-         node: FocusNode(),
+        
                 maxLength: 1,
               ),
             ),
@@ -63,7 +63,7 @@ class CustomAddressForm extends StatelessWidget {
               child: CustomSimpleInput(
                 hintText: SLabels.zipcode,
                 controller: TextEditingController(),
-                node: FocusNode(),
+               
                 keyboardType: TextInputType.number,
                 maxLength: 6,
               ),
