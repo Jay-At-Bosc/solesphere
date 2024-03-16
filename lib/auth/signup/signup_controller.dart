@@ -5,18 +5,21 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:solesphere/services/models/user_data_model.dart';
 import 'package:solesphere/services/repositories/authentication.dart';
+import 'package:solesphere/services/repositories/db_authentication.dart';
 import 'package:solesphere/services/routes/app_pages.dart';
 
 class SignUpController extends GetxController {
   static SignUpController get instance => Get.find();
 
   /// Builder Id
-  final String signUpForm = "SignUpForm";
-  final String passwordId = "SignupPassword";
-  final String confirmpasswordId = "SignupConfirmPassword";
-  final String registerButtonId = "Register";
-  final String signupWithGoogleButtonId = "SignupWithGoogle";
+  static String get signupScreen => "SignUpScreen";
+  static String get signUpForm => "SignUpForm";
+  static String get passwordId => "SignupPassword";
+  static String get confirmpasswordId => "SignupConfirmPassword";
+  static String get registerButtonId => "Register";
+  static String get signupWithGoogleButtonId => "SignupWithGoogle";
 
   /// Input Controller
   final TextEditingController username = TextEditingController();
@@ -61,11 +64,21 @@ class SignUpController extends GetxController {
       checkFormValidation; // Checks All Fields Validations
 
       isRegisterLoading = true;
-      update([registerButtonId]);
+      update([signupScreen]);
 
       // User Creation API Call For Firebase
       final userCredential = await AuthenticationRepository.instance
           .signUpWithEmailAndPassword(email.text.trim(), password.text.trim());
+
+
+
+      final user = UserDataModel(
+          id: userCredential.user!.uid,
+          name: username.text.trim(),
+          email: email.text.trim());
+
+      // ignore: unused_local_variable
+      final userCreated = await DbAuthentication.instance.createUser(user);
 
       log("uid : ${userCredential.user!.uid}");
 
@@ -81,7 +94,7 @@ class SignUpController extends GetxController {
           duration: const Duration(seconds: 2));
     } finally {
       isRegisterLoading = false;
-      update([registerButtonId]);
+      update([signupScreen]);
     }
   }
 
@@ -91,23 +104,33 @@ class SignUpController extends GetxController {
     try {
       // repo call
       isGoogleLoading = true;
-      update([signupWithGoogleButtonId]);
+      update([signupScreen]);
 
       final creds = await AuthenticationRepository.instance.signUpWithGoogle();
-      log(" ${creds.credential!.accessToken}");
-      log(" ${creds.credential!.providerId}");
-      // log(" ${creds.credential!.}");
+     
 
+      final user = UserDataModel(
+          id: creds.user!.uid,
+          name: creds.user!.displayName ?? "Unknown",
+          email: creds.user!.email!);
+
+      // ignore: unused_local_variable
+      final userCreated = await DbAuthentication.instance.createUser(user);
+
+      //final appStorage = Get.find<AppStorage>();
+
+      //appStorage.setUserData(user);
+
+      
+      isGoogleLoading = false; // Sets Register Loading to false
+      update([signupScreen]);
       navigateToUserDetails();
     } catch (e) {
       // shown exception which is thrown
       Get.snackbar("Error", e.toString(),
           snackPosition: SnackPosition.BOTTOM,
           duration: const Duration(seconds: 2));
-    } finally {
-      isGoogleLoading = false; // Sets Register Loading to false
-      update([registerButtonId]);
-    }
+    } 
   }
 
   // Toggle Password
@@ -136,6 +159,12 @@ class SignUpController extends GetxController {
     super.onClose();
   }
 }
+
+
+ // log(" ${creds.credential!.accessToken}");
+      // log(" ${creds.credential!.providerId}");
+      // //log("${creds.additionalUserInfo.}");
+      // log(" ${creds.user!.uid}");
 
 // Check Internet Connectivity
 // final isConnected = await Get.find<NetworkManager>().isConnected();

@@ -17,7 +17,7 @@ class OnBoardingDotNavigation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    
     return SmoothPageIndicator(
       controller: OnBoardingController.instance.pageController,
       onDotClicked: OnBoardingController.instance.dotNavigationClick,

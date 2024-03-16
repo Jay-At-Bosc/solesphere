@@ -25,7 +25,7 @@ class AuthenticationRepository extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    screenRedirect();
+    //screenRedirect();
   }
 
   /// Function to Show Relevant Screen
@@ -134,4 +134,32 @@ class AuthenticationRepository extends GetxController {
   ///  LogoutUser - valid for any authentication
 
   ///  Delete user - Remove user Auth and Firebase Account
+
+  /// Forgot Password
+  Future<void> sendPasswordResetEmail(String email) async {
+    try {
+      return await _auth.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (e) {
+      throw SFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw SFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const SFormatException();
+    } catch (e) {
+      throw "Something went wrong.Please try again later.";
+    }
+  }
+
+  Future<void> signOut() async {
+    try {
+      await GoogleSignIn().signOut();
+      await _auth.signOut();
+
+      //log("${_auth.authStateChanges()}");
+    } catch (e) {
+      throw "Something went wrong.Please try again later.";
+    }
+  }
 }
+
+

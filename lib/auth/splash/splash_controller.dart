@@ -1,4 +1,3 @@
-
 import 'package:solesphere/services/models/user_data_model.dart';
 import 'package:solesphere/services/repositories/authentication.dart';
 import 'package:solesphere/services/routes/app_pages.dart';
@@ -21,12 +20,13 @@ class SplashController extends GetxController {
     ]).then((_) {
       bool hasOnboardCompleted = appStorage.hasOnBoardingCompleted;
       if (hasOnboardCompleted) {
-        UserDataModel? loggedInUser = appStorage.getUserData();
-        if (loggedInUser != null) {
-          Get.offAllNamed(Routes.home);
-        } else {
-          Get.offAllNamed(Routes.signin);
-        }
+        // UserDataModel? loggedInUser = appStorage.getUserData();
+        // if (loggedInUser != null) {
+        //   Get.offAllNamed(Routes.home);
+        // } else {
+        //   Get.offAllNamed(Routes.signin);
+        // }
+        Get.offAllNamed(Routes.signin);
       } else {
         Get.offAllNamed(Routes.onboard);
       }
@@ -62,7 +62,6 @@ class SplashController extends GetxController {
     await Future.delayed(const Duration(seconds: 0));
     return true;
   }
-
 
   void _showDialog(String title, String message) {
     Get.defaultDialog(
