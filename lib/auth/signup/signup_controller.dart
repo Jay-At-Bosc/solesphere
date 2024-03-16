@@ -70,8 +70,6 @@ class SignUpController extends GetxController {
       final userCredential = await AuthenticationRepository.instance
           .signUpWithEmailAndPassword(email.text.trim(), password.text.trim());
 
-
-
       final user = UserDataModel(
           id: userCredential.user!.uid,
           name: username.text.trim(),
@@ -107,7 +105,6 @@ class SignUpController extends GetxController {
       update([signupScreen]);
 
       final creds = await AuthenticationRepository.instance.signUpWithGoogle();
-     
 
       final user = UserDataModel(
           id: creds.user!.uid,
@@ -121,7 +118,6 @@ class SignUpController extends GetxController {
 
       //appStorage.setUserData(user);
 
-      
       isGoogleLoading = false; // Sets Register Loading to false
       update([signupScreen]);
       navigateToUserDetails();
@@ -130,7 +126,9 @@ class SignUpController extends GetxController {
       Get.snackbar("Error", e.toString(),
           snackPosition: SnackPosition.BOTTOM,
           duration: const Duration(seconds: 2));
-    } 
+      isGoogleLoading = false;
+      update([signupScreen]);
+    }
   }
 
   // Toggle Password

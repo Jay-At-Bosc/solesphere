@@ -95,6 +95,9 @@ class SignInController extends GetxController {
       Get.offAllNamed(Routes.home);
     } catch (e) {
       // shown exception which is thrown
+      isGoogleSigInLoading = false;
+      update([signInScreen, signinWithGoogleButtonId]);
+
       Get.snackbar("Error", e.toString(),
           snackPosition: SnackPosition.BOTTOM,
           duration: const Duration(seconds: 2));
