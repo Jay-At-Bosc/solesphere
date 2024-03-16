@@ -59,7 +59,7 @@ class SignUpForm extends GetView<SignUpController> {
             labelStyle: Theme.of(context).textTheme.labelLarge,
           ),
           GetBuilder<SignUpController>(
-              id: controller.passwordId,
+              id: SignUpController.passwordId,
               builder: (controller) {
                 return CustomPasswordInput(
                   controller: controller.password,
@@ -81,11 +81,10 @@ class SignUpForm extends GetView<SignUpController> {
             labelStyle: Theme.of(context).textTheme.labelLarge,
           ),
           GetBuilder<SignUpController>(
-              id: controller.confirmpasswordId,
+              id: SignUpController.confirmpasswordId,
               builder: (controller) {
                 return CustomPasswordInput(
                   controller: controller.confirmPassword,
-                
                   hintText: SLabels.confirmPassword,
                   enable: !controller.isMainLoading(),
                   keyboardType: TextInputType.text,

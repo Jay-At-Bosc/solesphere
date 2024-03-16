@@ -20,7 +20,7 @@ class SignUpButton extends GetView<SignUpController> {
           SizedBox(
             width: double.maxFinite,
             child: GetBuilder<SignUpController>(
-                id: controller.registerButtonId,
+                id: SignUpController.registerButtonId,
                 builder: (context) {
                   return CustomAccentColorButton(
                     buttonLabel: SLabels.register,
@@ -37,7 +37,7 @@ class SignUpButton extends GetView<SignUpController> {
           SizedBox(
             width: double.maxFinite,
             child: GetBuilder<SignUpController>(
-                id: controller.signupWithGoogleButtonId,
+                id: SignUpController.signupWithGoogleButtonId,
                 builder: (controller) {
                   return CustomPrimaryColorButton(
                     buttonLabel: SLabels.signUpWithGooogle,

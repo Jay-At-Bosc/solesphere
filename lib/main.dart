@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:solesphere/app.dart';
 import 'package:solesphere/firebase_options.dart';
 import 'package:solesphere/services/repositories/authentication.dart';
+import 'package:solesphere/services/repositories/db_authentication.dart';
 
 import 'package:solesphere/utils/local_storage/app_storage.dart';
 
@@ -27,6 +28,7 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   ).then((value) => {
         Get.put(AuthenticationRepository()),
+        Get.put(DbAuthentication()),
         // Get.put(NetworkManager()),
       });
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:solesphere/auth/signin/forgot_password_screen.dart';
 import 'package:solesphere/auth/signin/signin_controller.dart';
 
 import '../../utils/constants/colors.dart';
@@ -16,7 +17,11 @@ class SignInForgotPassword extends GetView<SignInController> {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         GestureDetector(
-          onTap: !controller.isMainLoading ? controller.forgotPassword : null,
+          onTap: !controller.isMainLoading
+              ? () {
+                  Get.to(() => const ForgotPasswordScreen());
+                }
+              : null,
           child: CustomLabelText(
             labelText: SLabels.forgotPassword,
             labelStyle: Theme.of(context).textTheme.displaySmall!.copyWith(

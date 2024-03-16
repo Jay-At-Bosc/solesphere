@@ -1,11 +1,12 @@
 class EndPoints {
-  static const String authBaseUrl = "";
-  static const String dbBaseUrl =
+  static const String baseUrl =
       "https://solesphere-backend.onrender.com/api/v1/";
 
-  static const String onboard = "$dbBaseUrl/onboard";
+  static const String onboard = "${baseUrl}onboard";
+  static const String createUser = "${baseUrl}auth/";
+
   static const String productDetail =
-      "$dbBaseUrl/products/product-detail?product_id";
+      "${baseUrl}products/product-detail?product_id";
 
 //return URL of Detailed Product
   static String getDetailedProduct({required String productID}) =>

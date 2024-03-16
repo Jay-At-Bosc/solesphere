@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:solesphere/services/repositories/authentication.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
 import '../../../services/routes/app_pages.dart';
@@ -34,8 +35,16 @@ class SDrawerOption extends StatelessWidget {
           SizedBox(width: 6.0.getWidth()),
           InkWell(
             splashColor: Colors.transparent,
-            onTap: () {
+            onTap: () async {
               if (route == Routes.signin) {
+                try {
+                  await AuthenticationRepository.instance.signOut();
+                  Get.offAllNamed(route);
+                } catch (e) {
+                  Get.snackbar("Error", e.toString(),
+                      snackPosition: SnackPosition.BOTTOM,
+                      duration: const Duration(seconds: 2));
+                }
                 Get.offAllNamed(route);
               }
               controller.navigateTo(route);

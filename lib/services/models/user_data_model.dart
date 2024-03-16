@@ -4,23 +4,23 @@ class UserDataModel {
   String id;
   String name;
   String email;
-  String phone;
-  String address;
-  String city;
-  String state;
-  String country;
-  String pincode;
+  String? phone;
+  String? address;
+  String? city;
+  String? state;
+  String? country;
+  String? pincode;
 
   UserDataModel({
     required this.id,
     required this.name,
     required this.email,
-    required this.phone,
-    required this.address,
-    required this.city,
-    required this.state,
-    required this.country,
-    required this.pincode,
+    this.phone,
+    this.address,
+    this.city,
+    this.state,
+    this.country,
+    this.pincode,
   });
 
   static UserDataModel? fromJson(String jsonString) {

@@ -21,56 +21,62 @@ class SignUpScreen extends GetView<SignUpController> {
     return Scaffold(
       body: SafeArea(
         maintainBottomViewPadding: true,
-        child: GestureDetector(
-          onTap: SHelperFunctions.hideKeyBoard,
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.only(
-                  left: 5.0.getWidth(),
-                  right: 5.0.getWidth(),
-                  top: 10.0.getHeight()),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  /// Greetings Texts
-                  const SignUpSignInGreetings(
-                    titleText: SLabels.signUpTitle,
-                    subTitleText: SLabels.signUpSubTitle,
+        child: GetBuilder<SignUpController>(
+            id: SignUpController.signupScreen,
+            builder: (context) {
+              return GestureDetector(
+                onTap: SHelperFunctions.hideKeyBoard,
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        left: 5.0.getWidth(),
+                        right: 5.0.getWidth(),
+                        top: 10.0.getHeight()),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        /// Greetings Texts
+                        const SignUpSignInGreetings(
+                          titleText: SLabels.signUpTitle,
+                          subTitleText: SLabels.signUpSubTitle,
+                        ),
+                        SizedBox(height: 3.0.getHeight()),
+
+                        /// Signup Form
+                        GetBuilder<SignUpController>(
+                          id: SignUpController.signUpForm,
+                          builder: (_) {
+                            return Form(
+                              key: controller.signupFormKey,
+                              // ignore: prefer_const_constructors
+                              child: SignUpForm(),
+                            );
+                          },
+                        ),
+                        SizedBox(height: 5.0.getHeight()),
+
+                        /// Buttons - Register & Signup With Google
+                        // ignore: prefer_const_constructors
+                        SignUpButton(),
+                        SizedBox(height: 5.0.getHeight()),
+
+                        /// Signin Page Navigation
+                        GetBuilder<SignUpController>(builder: (controller) {
+                          return CustomAuthNavigationText(
+                            label1: SLabels.alreadyHaveAnAccount,
+                            label2: SLabels.signIn,
+                            isLoading: controller.isMainLoading(),
+                            onTap: () => Get.offAllNamed(Routes.signin),
+                          );
+                        }),
+                        SizedBox(height: 2.0.getHeight()),
+                      ],
+                    ),
                   ),
-                  SizedBox(height: 3.0.getHeight()),
-
-                  /// Signup Form
-                  GetBuilder<SignUpController>(
-                    id: controller.signUpForm,
-                    builder: (_) {
-                      return Form(
-                        key: controller.signupFormKey,
-                        child: const SignUpForm(),
-                      );
-                    },
-                  ),
-                  SizedBox(height: 5.0.getHeight()),
-
-                  /// Buttons - Register & Signup With Google
-                  const SignUpButton(),
-                  SizedBox(height: 5.0.getHeight()),
-
-                  /// Signin Page Navigation
-                  GetBuilder<SignUpController>(builder: (controller) {
-                    return CustomAuthNavigationText(
-                      label1: SLabels.alreadyHaveAnAccount,
-                      label2: SLabels.signIn,
-                      isLoading: controller.isMainLoading(),
-                      onTap: () => Get.offAllNamed(Routes.signin),
-                    );
-                  }),
-                  SizedBox(height: 2.0.getHeight()),
-                ],
-              ),
-            ),
-          ),
-        ),
+                ),
+              );
+            }),
       ),
     );
   }
