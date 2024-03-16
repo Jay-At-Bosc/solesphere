@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-
 class Products {
   final String id;
   final String productName;
@@ -78,22 +77,21 @@ class Products {
       actualPrice: map['actual_price'].toInt() as int,
       discountedPrice: map['discounted_price'].toInt() as int,
       colors: map['colors'].toInt() as int,
-      category: Category.fromMap(map['category'] as Map<String,dynamic>),
-      brand: Brand.fromMap(map['brand'] as Map<String,dynamic>),
+      category: Category.fromMap(map['category'] as Map<String, dynamic>),
+      brand: Brand.fromMap(map['brand'] as Map<String, dynamic>),
       shortDescription: map['shortDescription'] as String,
-      avgRating: map['avgRating'] != null ? double.parse(map['avgRating'].toStringAsFixed(1)) : 0,
-      image: map['image'] as String,
+      avgRating: map['avgRating'] != null
+          ? double.parse(map['avgRating'].toStringAsFixed(1))
+          : 0,
+      image: map['image'] as String? ?? '',
       totalReview: map['totalReview'].toInt() as int,
     );
   }
 
-
-
-
-
   String toJson() => json.encode(toMap());
 
-  factory Products.fromJson(String source) => Products.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory Products.fromJson(String source) =>
+      Products.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
@@ -103,34 +101,33 @@ class Products {
   @override
   bool operator ==(covariant Products other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.id == id &&
-      other.productName == productName &&
-      other.actualPrice == actualPrice &&
-      other.discountedPrice == discountedPrice &&
-      other.colors == colors &&
-      other.category == category &&
-      other.brand == brand &&
-      other.shortDescription == shortDescription &&
-      other.avgRating == avgRating &&
-      other.image == image &&
-      other.totalReview == totalReview;
+
+    return other.id == id &&
+        other.productName == productName &&
+        other.actualPrice == actualPrice &&
+        other.discountedPrice == discountedPrice &&
+        other.colors == colors &&
+        other.category == category &&
+        other.brand == brand &&
+        other.shortDescription == shortDescription &&
+        other.avgRating == avgRating &&
+        other.image == image &&
+        other.totalReview == totalReview;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      productName.hashCode ^
-      actualPrice.hashCode ^
-      discountedPrice.hashCode ^
-      colors.hashCode ^
-      category.hashCode ^
-      brand.hashCode ^
-      shortDescription.hashCode ^
-      avgRating.hashCode ^
-      image.hashCode ^
-      totalReview.hashCode;
+        productName.hashCode ^
+        actualPrice.hashCode ^
+        discountedPrice.hashCode ^
+        colors.hashCode ^
+        category.hashCode ^
+        brand.hashCode ^
+        shortDescription.hashCode ^
+        avgRating.hashCode ^
+        image.hashCode ^
+        totalReview.hashCode;
   }
 }
 
@@ -168,7 +165,8 @@ class Category {
 
   String toJson() => json.encode(toMap());
 
-  factory Category.fromJson(String source) => Category.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory Category.fromJson(String source) =>
+      Category.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() => 'Category(_id: $id, category: $category)';
@@ -176,10 +174,8 @@ class Category {
   @override
   bool operator ==(covariant Category other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.id == id &&
-      other.category == category;
+
+    return other.id == id && other.category == category;
   }
 
   @override
@@ -220,7 +216,8 @@ class Brand {
 
   String toJson() => json.encode(toMap());
 
-  factory Brand.fromJson(String source) => Brand.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory Brand.fromJson(String source) =>
+      Brand.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() => 'Brand(_id: $id, brand: $brand)';
@@ -228,13 +225,10 @@ class Brand {
   @override
   bool operator ==(covariant Brand other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.id == id &&
-      other.brand == brand;
+
+    return other.id == id && other.brand == brand;
   }
 
   @override
   int get hashCode => id.hashCode ^ brand.hashCode;
 }
-

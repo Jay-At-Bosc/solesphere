@@ -1,17 +1,21 @@
 import 'package:iconsax/iconsax.dart';
+import 'package:lottie/lottie.dart';
 import 'package:solesphere/auth/auth_exports.dart';
 
 import 'package:solesphere/screens/home/controller/product_controller.dart';
 import 'package:solesphere/services/routes/app_route_exports.dart';
 import 'package:solesphere/utils/constants/sizes.dart';
+import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
 import '../../../common/widgets/app_bar/app_bar.dart';
 import '../../../common/widgets/brands/brand_categories.dart';
 import '../../../common/widgets/container/search_container.dart';
 import '../../../common/widgets/heading/section_heading.dart';
+import '../../../common/widgets/popup/shoes_loading.dart';
 import '../../../common/widgets/product/product_gride.dart';
 import '../../../utils/constants/colors.dart';
 
+import '../../../utils/constants/icons.dart';
 import '../controller/drawer_controller.dart';
 
 class HomeScreenContent extends StatelessWidget {
@@ -79,28 +83,25 @@ class HomeScreenContent extends StatelessWidget {
                     ),
                     //Categories
 
-                    Obx(() => controller.isLoading.value
-                        ? const Center(
-                            child: CircularProgressIndicator(),
-                          )
-                        : SHomeCategories(list: controller.brandList)),
-
-                    const SizedBox(
-                      height: SSizes.defaultSpace / 4,
-                    ),
-
-                    //Product
-                    const SSectionTitle(),
-
-                    //Card
-
                     Obx(
-                      () => controller.isProdcutLoading.value
-                          ? const Center(
-                              child: CircularProgressIndicator(),
-                            )
-                          : SProductGridView(
-                              list: controller.filterProductList,
+                      () => controller.isMainLoading()
+                          ? const ShoesLoading()
+                          : Column(
+                              children: [
+                                SHomeCategories(list: controller.brandList),
+                                const SizedBox(
+                                  height: SSizes.defaultSpace / 4,
+                                ),
+
+                                //Product
+                                const SSectionTitle(),
+
+                                //Card
+
+                                SProductGridView(
+                                  list: controller.filterProductList,
+                                ),
+                              ],
                             ),
                     ),
                   ],

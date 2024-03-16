@@ -3,12 +3,17 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:solesphere/common/widgets/popup/loaders.dart';
+import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
 import '../../../services/models/category_model.dart';
 import '../../../services/models/product_model.dart';
 import 'package:http/http.dart' as http;
+
+import '../../../utils/constants/icons.dart';
 
 class ProductController extends GetxController {
   static ProductController get instance => Get.find();
@@ -33,6 +38,36 @@ class ProductController extends GetxController {
     fetchBrands();
     fetchProducts();
     super.onInit();
+  }
+
+  bool isMainLoading() {
+    if (isLoading.value || isProdcutLoading.value) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  void showLoader() {
+    if (isMainLoading()) {
+      Get.dialog(
+        AlertDialog(
+          backgroundColor: Colors.white, // White background
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0), // Square shape
+          ),
+          icon: Lottie.asset(SJsons.loader,
+              width: 30.0.getWidth(), height: 30.0.getWidth()),
+          title: const Text(
+            'Loading',
+            style: TextStyle(color: Colors.black), // Black title
+          ),
+        ),
+        barrierDismissible: false,
+      );
+    } else {
+      Get.back();
+    }
   }
 
   //fetch data
