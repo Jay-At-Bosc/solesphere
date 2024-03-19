@@ -152,6 +152,7 @@ class AuthenticationRepository extends GetxController {
 
   Future<void> signOut() async {
     try {
+
       await GoogleSignIn().signOut();
       await _auth.signOut();
 
@@ -161,5 +162,3 @@ class AuthenticationRepository extends GetxController {
     }
   }
 }
-
-

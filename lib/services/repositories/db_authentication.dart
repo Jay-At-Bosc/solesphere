@@ -34,7 +34,10 @@ class DbAuthentication extends GetxController {
       } else {
         throw "User not created";
       }
-    } catch (e) {
+    } on DioException catch (_) {
+        throw DioException;
+    }
+     catch (e) {
       throw "Something Went Wrong";
     }
   }

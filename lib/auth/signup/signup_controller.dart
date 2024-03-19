@@ -1,7 +1,6 @@
 // import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:auth_google/signup/authentication_repository.dart';
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -9,9 +8,12 @@ import 'package:solesphere/services/models/user_data_model.dart';
 import 'package:solesphere/services/repositories/authentication.dart';
 import 'package:solesphere/services/repositories/db_authentication.dart';
 import 'package:solesphere/services/routes/app_pages.dart';
+import '../../utils/constants/labels.dart';
+import '../../utils/local_storage/app_storage.dart';
 
 class SignUpController extends GetxController {
   static SignUpController get instance => Get.find();
+  final appStorage = Get.find<AppStorage>();
 
   /// Builder Id
   static String get signupScreen => "SignUpScreen";
@@ -78,19 +80,17 @@ class SignUpController extends GetxController {
       // ignore: unused_local_variable
       final userCreated = await DbAuthentication.instance.createUser(user);
 
-      log("uid : ${userCredential.user!.uid}");
+      // Store data into local database
+      storeToLocal(user);
 
-      Get.snackbar("Success", "Account created Succefully",
-          duration: const Duration(seconds: 2),
-          snackPosition: SnackPosition.BOTTOM);
+      isRegisterLoading = false;
+      update([signupScreen]);
+
+      showMessage(SLabels.success, SLabels.accountCreated);
 
       navigateToUserDetails();
     } catch (e) {
-      // shown exception which is thrown
-      Get.snackbar("Error", e.toString(),
-          snackPosition: SnackPosition.BOTTOM,
-          duration: const Duration(seconds: 2));
-    } finally {
+      showMessage(SLabels.error, e.toString());
       isRegisterLoading = false;
       update([signupScreen]);
     }
@@ -114,21 +114,25 @@ class SignUpController extends GetxController {
       // ignore: unused_local_variable
       final userCreated = await DbAuthentication.instance.createUser(user);
 
-      //final appStorage = Get.find<AppStorage>();
-
-      //appStorage.setUserData(user);
+      // Store data into local database
+      storeToLocal(user);
 
       isGoogleLoading = false; // Sets Register Loading to false
       update([signupScreen]);
+
+      showMessage(SLabels.success, SLabels.accountCreated);
+
       navigateToUserDetails();
     } catch (e) {
-      // shown exception which is thrown
-      Get.snackbar("Error", e.toString(),
-          snackPosition: SnackPosition.BOTTOM,
-          duration: const Duration(seconds: 2));
+      showMessage(SLabels.error, e.toString());
       isGoogleLoading = false;
       update([signupScreen]);
     }
+  }
+
+  void storeToLocal(UserDataModel user) {
+    appStorage.setUserData(user);
+    log(appStorage.getUserData().toString());
   }
 
   // Toggle Password
@@ -141,6 +145,12 @@ class SignUpController extends GetxController {
   void toggleConfirmPasswordVisibility() {
     _isConfirmPasswordVisible.value = !_isConfirmPasswordVisible.value;
     update([confirmpasswordId]);
+  }
+
+  showMessage(String title, String message) {
+    return Get.snackbar(title, message,
+        duration: const Duration(seconds: 2),
+        snackPosition: SnackPosition.BOTTOM);
   }
 
   // Navigation Signup to UserDetails
@@ -157,6 +167,8 @@ class SignUpController extends GetxController {
     super.onClose();
   }
 }
+
+
 
 
  // log(" ${creds.credential!.accessToken}");
@@ -185,3 +197,18 @@ class SignUpController extends GetxController {
 //     ),
 //   ),
 // );
+
+
+// Strore Data into local Storage
+  // Future<void> storeToLocal(UserDataModel user) async {
+  //   try {
+  //     String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
+  //     appStorage.setUserData(user);
+  //     appStorage.setString(StorageKey.kAuthToken, token!);
+  //     log(appStorage.getUserData().toString());
+  //     log(appStorage.getString(StorageKey.kAuthToken)!);
+  //     return ;
+  //   } catch (e) {
+  //     throw "Data not store in local storage";
+  //   }
+  // }

@@ -95,4 +95,5 @@ class StorageKey {
   static const String kHasOnBoardingCompleted = "hasOnBoardingCompleted";
   static const String kUserData = "userData";
   static const String kOnBoardingItems = "onBoardingItems";
+  static const String kAuthToken = "AuthToken";
 }

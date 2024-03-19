@@ -31,7 +31,9 @@ class SLabels {
   static const String signUpWithGooogle = "Sign up with Google";
   static const String register = "Register";
   static const String signIn = "Sign In";
-  
+  static const String success = "Success";
+  static const String accountCreated = "Account created Succefully";
+  static const String error = "Error";
 
   // User Details
   static const String userDetails = "User Details";
@@ -97,29 +99,28 @@ class SLabels {
   static const String myOrder = "My Order";
   static const String orderId = "Order ID: ";
   static const String orderDate = "Order Date: ";
-  static const String quantity = "Qty: " ;
+  static const String quantity = "Qty: ";
   static const String orderDetails = "Order Details";
-
 
   // Checkout
   static const String selectAddress = "Select Address";
   static const String payment = "Payment";
   static const String summary = "Summary";
   static const String paymentMethod = "Payment Method";
-  static const String selectPaymentMethod = "Select ${SLabels.paymentMethod}" ;
+  static const String selectPaymentMethod = "Select ${SLabels.paymentMethod}";
   static const String cashOnDelivery = "Cash On Delivery";
   static const String checkout = "Checkout";
   static const String itemDetails = "Item Details";
   static const String deliveryAddress = "Delivery Address";
   static const String orderSummary = "Order Summary";
   static const String discount = "Discount";
-  static const String deliveryFree = "Delivery Free" ;
-  static const String grandTotal = "Grand Total" ;
-  static const String paymentSuccessful = "Your Payment is Sucessful" ;
+  static const String deliveryFree = "Delivery Free";
+  static const String grandTotal = "Grand Total";
+  static const String paymentSuccessful = "Your Payment is Sucessful";
 
   // User Profile
   static const String profile = "Profile";
-  static const String account = "Account" ;
+  static const String account = "Account";
   static const String shippingAddress = "Shipping Address";
   static const String paymentInfo = "Payment Info";
   static const String notificationSetting = "Notification Setting";
@@ -145,17 +146,17 @@ class SLabels {
   static const String getStarted = "Get Started";
   static const String yes = "Yes";
   static const String no = "No";
-  static const String orderReturn = "Return" ;
+  static const String orderReturn = "Return";
   static const String review = "Write A Review";
   static const String payNow = "Pay Now";
   static const String backToShopping = "Back To Shopping";
   static const String proceedToCheckout = "Proceed To Checkout";
   static const String addToCart = "Add To Cart";
   static const String buyNow = "Buy Now";
-  
+
   static const String viewDetails = "View Details";
   static const String reorder = "Reorder";
- 
+
   static String hintText(String text) {
     return 'Enter $text';
   }
