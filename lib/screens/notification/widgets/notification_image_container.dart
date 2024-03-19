@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:solesphere/auth/auth_exports.dart';
+import 'package:solesphere/screens/cart/cart_controller.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/images.dart';
 
-class NotificationImageContainer extends StatelessWidget {
+class NotificationImageContainer extends GetView<CartController> {
   const NotificationImageContainer({
     super.key,
+    required this.url,
   });
+  final String url;
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +27,8 @@ class NotificationImageContainer extends StatelessWidget {
       ),
       child: ClipRRect(
         child: Center(
-          child: Image.asset(
-            SImages.shoe1,
+          child: Image.network(
+            url,
             fit: BoxFit.contain,
           ),
         ),

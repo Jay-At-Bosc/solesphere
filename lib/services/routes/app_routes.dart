@@ -11,6 +11,7 @@ abstract class Routes {
    static const String productDetail = _Paths.productDetail;
    static const String notification = _Paths.notification;
    static const String cart = _Paths.cart;
+   static const String userProfile = _Paths.userProfile;
 }
 
 abstract class _Paths {
@@ -24,5 +25,6 @@ abstract class _Paths {
   static const String productDetail = '/product_details';
   static const String notification = '/notification';
   static const String cart = '/cart';
+  static const String userProfile = '/user-profile';
 
 }

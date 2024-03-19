@@ -155,8 +155,8 @@ class AuthenticationRepository extends GetxController {
 
       await GoogleSignIn().signOut();
       await _auth.signOut();
-
-      //log("${_auth.authStateChanges()}");
+      Get.offAllNamed(Routes.signin);
+      // log("${_auth.authStateChanges()}");
     } catch (e) {
       throw "Something went wrong.Please try again later.";
     }

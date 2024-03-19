@@ -21,7 +21,7 @@ class DrawerMenu extends StatelessWidget {
           const SDrawerOption(
             icon: Iconsax.user,
             text: "Profile",
-            route: Routes.home,
+            route: Routes.userProfile,
           ),
           const SDrawerOption(
             icon: Iconsax.home_1,

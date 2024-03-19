@@ -140,4 +140,51 @@ class ProductDetailController extends GetxController {
     return discountPercentage
         .floor(); // Round the double value to the nearest integer
   }
+
+  Future<void> addToCartApi(String id, String name, String image, String color,
+      int size, int qty, int price) async {
+    try {
+      // isCartLoading.value = true;
+      update(['CartList']);
+
+      var url =
+          "https://solesphere-backend.onrender.com/api/v1/products/add-to-cart";
+
+      final response = await http.post(
+        Uri.parse(url),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'auth-token':
+              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWUxODJmMGE0ODRlNjcwYzY4ODcwNTciLCJlbWFpbCI6ImtpcnRhbmRhdmVAYm9zY3RlY2hsYWJzLmNvbSIsImlhdCI6MTcwOTI3NzkzNn0.apiL-taCwpQs_6KFYYbgMx-ATLNd3RMQQG8YjlHzC68'
+        },
+        body: jsonEncode({
+          'product_id': id,
+          'productName': name,
+          'image_url': image,
+          'color': color,
+          'size': size,
+          'quantity': qty,
+          'price': price,
+        }),
+      );
+      if (response.statusCode == 200) {
+        // Map<String, dynamic> jsonResponse = json.decode(response.body);
+        // final List<dynamic> cartItemsJson = jsonResponse['data']['cartItems'];
+
+        // for (var item in cartItemsJson) {
+        //   CartModel cartItem = CartModel.fromMap(item);
+        //   totalAmount += (cartItem.discounted_price * cartItem.quantity);
+        //   cartItemsList.add(cartItem);
+        // }
+        // log("cart-data ${cartItemsList}");
+        // isCartLoading.value = false;
+        // update(['CartList']);
+        log("Oooooooooooook");
+      }
+    } catch (e) {
+      // isCartLoading.value = false;
+      // update(['CartList']);
+      log(e.toString());
+    }
+  }
 }
