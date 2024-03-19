@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:solesphere/auth/auth_exports.dart';
+import 'package:solesphere/screens/cart/cart_controller.dart';
 
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
 import '../../../common/widgets/text/text_style.dart';
+import '../../../services/models/cart_model.dart';
 import '../../notification/widgets/notification_image_container.dart';
 import 'increament_section.dart';
 
-class CartItem extends StatelessWidget {
+class CartItem extends GetView<CartController> {
   const CartItem({
     super.key,
+    required this.product,
   });
+  final CartModel product;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +24,9 @@ class CartItem extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const NotificationImageContainer(),
+          NotificationImageContainer(
+            url: product.image_url,
+          ),
           SizedBox(
             width: 2.0.getWidth(),
           ),
@@ -30,24 +37,30 @@ class CartItem extends StatelessWidget {
               SizedBox(
                 width: 50.0.getWidth(),
                 child: STextStyle(
-                  text: "Air Jordan",
+                  text: product.productName,
                   style: Theme.of(context).textTheme.labelMedium,
                   maxLine: 1,
                 ),
               ),
 
               STextStyle(
-                text: "₹499",
+                text: "₹${product.discounted_price}",
                 style: Theme.of(context).textTheme.labelMedium,
                 maxLine: 2,
               ),
 
               //add or minus car
-              const IncreamentSection(),
+              IncreamentSection(product: product),
             ],
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              controller.deleteFromCartApi(
+                product.productName,
+                product.color,
+                product.size,
+              );
+            },
             icon: const Icon(
               Iconsax.trash,
               color: Colors.red,

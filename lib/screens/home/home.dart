@@ -5,6 +5,7 @@ import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/screens/cart/cart_screen.dart';
 import 'package:solesphere/screens/favorite/favorite_screen.dart';
 import 'package:solesphere/screens/drawer/drawer_screen.dart';
+import 'package:solesphere/screens/user_profile/user_profile_screen.dart';
 
 import 'widgets/home_content.dart';
 
@@ -74,6 +75,6 @@ class NavigationController extends GetxController {
     // ),
     // Container(color: const Color.fromARGB(255, 0, 0, 0)),
     Container(color: Colors.red),
-    Container(color: Colors.amberAccent),
+    const UserProfileScreen(),
   ];
 }

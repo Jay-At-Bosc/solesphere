@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
 import '../../../common/widgets/text/text_style.dart';
@@ -18,7 +19,7 @@ class NotificationTile extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         // crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const NotificationImageContainer(),
+          const NotificationImageContainer(url: SImages.shoe1,),
           SizedBox(
             width: 1.0.getWidth(),
           ),

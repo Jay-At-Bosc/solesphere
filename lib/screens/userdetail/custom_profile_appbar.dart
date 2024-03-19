@@ -1,6 +1,7 @@
+import 'package:iconsax/iconsax.dart';
 import 'package:solesphere/auth/auth_exports.dart';
-
 import '../../services/routes/app_pages.dart';
+import '../../utils/constants/colors.dart';
 
 import '../../utils/constants/labels.dart';
 import '../../utils/theme/widget_themes/text_theme.dart';
