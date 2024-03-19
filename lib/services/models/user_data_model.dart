@@ -52,4 +52,18 @@ class UserDataModel {
       'pincode': pincode,
     };
   }
+
+  factory UserDataModel.fromMap(Map<String, dynamic> map) {
+  return UserDataModel(
+    id: map['id'] as String,
+    name: map['name'] as String,
+    email: map['email'] as String,
+    phone: map['phone'] as String?,
+    address: map['address'] as String?,
+    city: map['city'] as String?,
+    state: map['state'] as String?,
+    country: map['country'] as String?,
+    pincode: map['pincode'] as String?,
+  );
+}
 }

@@ -132,7 +132,8 @@ class SignUpController extends GetxController {
 
   void storeToLocal(UserDataModel user) {
     appStorage.setUserData(user);
-    log(appStorage.getUserData().toString());
+    log(" data from read : ${appStorage.getUserData()!.email}");
+    log("user created on local storage");
   }
 
   // Toggle Password

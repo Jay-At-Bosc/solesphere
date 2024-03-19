@@ -12,11 +12,11 @@ class DbAuthentication extends GetxController {
 
   Future<bool?> createUser(UserDataModel user) async {
     try {
-      String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
+      // String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
 
-      var headers = {
-        'Content-Type': token
-      };
+      // var headers = {
+      //   'Content-Type': token
+      // };
       
       Map<String, dynamic> data = {
         'UID': user.id,
@@ -26,10 +26,10 @@ class DbAuthentication extends GetxController {
       final jsonData = jsonEncode(data);
 
       var dio = Dio();
-      var response = await dio.request(EndPoints.createUser,options: Options(method: 'POST',headers: headers),data: jsonData);
+      var response = await dio.request(EndPoints.createUser,options: Options(method: 'POST'),data: jsonData);
      
       if (response.statusCode == 201) {
-        log('Success: $response');
+        log('Success to mongo : $response');
         return true;
       } else {
         throw "User not created";
