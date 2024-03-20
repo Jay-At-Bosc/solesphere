@@ -23,9 +23,11 @@ class IncreamentSection extends GetView<CartController> {
       children: [
         IncreaseItemButton(
           icon: Iconsax.minus,
-          onTap: () {
-            controller.decreaseQuantity(product);
+          onTap: () async {
+            await controller.deleteFromCartApi(product, 0);
+            Get.back();
           },
+          isLoading: controller.isDecrement.value,
           // color: SColors.accent,
         ),
         const SizedBox(
@@ -46,9 +48,11 @@ class IncreamentSection extends GetView<CartController> {
         ),
         IncreaseItemButton(
           icon: Iconsax.add,
-          onTap: () {
-             controller.increaseQuantity(product);
+          onTap: () async {
+            await controller.increaseQuantity(product);
+            Get.back();
           },
+          isLoading: controller.isIncreament.value,
           color: SColors.accent,
           iconColor: SColors.primary,
         ),

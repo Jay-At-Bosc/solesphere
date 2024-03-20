@@ -87,6 +87,7 @@ class SignInController extends GetxController {
       update([signInScreen, signinWithGoogleButtonId]);
 
       final creds = await AuthenticationRepository.instance.signUpWithGoogle();
+      
       log("access token:  ${creds.credential!.accessToken}");
       // var token = await FirebaseAuth.instance.currentUser?.getIdToken();
       // log("idToken:  ${token}");

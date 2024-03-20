@@ -5,6 +5,7 @@ class EndPoints {
   static const String onboard = "${baseUrl}onboard";
   static const String createUser = "${baseUrl}auth/";
   static const String addToCart = "${baseUrl}products/add-to-cart/";
+  static const String deleteToCart = "${baseUrl}products/delete-cart-item";
 
   static const String productDetail =
       "${baseUrl}products/product-detail?product_id";

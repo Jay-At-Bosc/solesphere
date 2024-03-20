@@ -2,8 +2,11 @@ import 'dart:convert';
 import 'dart:developer';
 // import 'dart:developer';
 
+import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lottie/lottie.dart';
 import 'package:solesphere/auth/auth_exports.dart';
+import 'package:solesphere/services/api/end_points.dart';
 
 import 'package:solesphere/utils/constants/icons.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
@@ -142,31 +145,29 @@ class ProductDetailController extends GetxController {
   }
 
   Future<void> addToCartApi(String id, String name, String image, String color,
-      int size, int qty, int price) async {
+      int size, int qty, int discounted_price, int actual_price) async {
     try {
       // isCartLoading.value = true;
       update(['CartList']);
+      String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
 
-      var url =
-          "https://solesphere-backend.onrender.com/api/v1/products/add-to-cart";
+      var headers = {'auth-token': token, 'Content-Type': 'application/json'};
+      Map<String, dynamic> data = {
+        'product_id': id,
+        'productName': name,
+        'image_url': image,
+        'color': color,
+        'size': size,
+        'quantity': qty,
+        'discounted_price': discounted_price,
+        'actual_price': actual_price,
+      };
+      final jsonData = jsonEncode(data);
 
-      final response = await http.post(
-        Uri.parse(url),
-        headers: <String, String>{
-          'Content-Type': 'application/json',
-          'auth-token':
-              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWUxODJmMGE0ODRlNjcwYzY4ODcwNTciLCJlbWFpbCI6ImtpcnRhbmRhdmVAYm9zY3RlY2hsYWJzLmNvbSIsImlhdCI6MTcwOTI3NzkzNn0.apiL-taCwpQs_6KFYYbgMx-ATLNd3RMQQG8YjlHzC68'
-        },
-        body: jsonEncode({
-          'product_id': id,
-          'productName': name,
-          'image_url': image,
-          'color': color,
-          'size': size,
-          'quantity': qty,
-          'price': price,
-        }),
-      );
+      var dio = Dio();
+      var response = await dio.request(EndPoints.addToCart,
+          options: Options(method: 'POST', headers: headers), data: jsonData);
+
       if (response.statusCode == 200) {
         // Map<String, dynamic> jsonResponse = json.decode(response.body);
         // final List<dynamic> cartItemsJson = jsonResponse['data']['cartItems'];
@@ -181,10 +182,13 @@ class ProductDetailController extends GetxController {
         // update(['CartList']);
         log("Oooooooooooook");
       }
+    } on DioException catch (_) {
+      // isDecrement.value = false;
+      print(DioException);
+      throw DioException;
     } catch (e) {
-      // isCartLoading.value = false;
-      // update(['CartList']);
-      log(e.toString());
+      // isDecrement.value = false;
+      throw "Something Went Wrong";
     }
   }
 }

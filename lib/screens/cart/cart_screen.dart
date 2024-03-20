@@ -1,11 +1,15 @@
-import 'package:get/get.dart';
 import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/common/widgets/popup/shoes_loading.dart';
+
 import 'package:solesphere/screens/cart/cart_controller.dart';
+import 'package:solesphere/services/routes/app_pages.dart';
 import 'package:solesphere/services/routes/app_route_exports.dart';
 
+import '../../common/widgets/heading/label_and_price.dart';
 import '../../utils/constants/labels.dart';
 import '../../utils/theme/widget_themes/text_theme.dart';
+import '../../widgets/custom_accent_color_button.dart';
+
 import 'widgets/cart_item.dart';
 
 class CartScreen extends GetView<CartController> {
@@ -68,9 +72,46 @@ class CartScreen extends GetView<CartController> {
                             ),
                           ),
                           GetBuilder<CartController>(
-                              id: 'amount',
-                              builder: (controller) =>
-                                  Text("Total ${controller.totalAmount}")),
+                            id: 'amount',
+                            builder: (ctx) => Padding(
+                              padding: const EdgeInsets.only(
+                                  bottom: kBottomNavigationBarHeight,
+                                  left: 0,
+                                  right: 0),
+                              child: SizedBox(
+                                width: double.infinity,
+                                // color: Colors.red,
+                                child: Column(
+                                  children: [
+                                    LabelAndPrice(
+                                      title: 'Subtotal',
+                                      price: ctx.totalAmount.value,
+                                    ),
+                                    LabelAndPrice(
+                                      title: 'Shipping',
+                                      price: ctx.totalAmount.value < 499
+                                          ? ctx.deliveryCharge.value
+                                          : 0,
+                                    ),
+                                    const Divider(),
+                                    LabelAndPrice(
+                                      title: 'Total Cost',
+                                      price: ctx.totalAmount.value < 499
+                                          ? ctx.totalAmount.value +
+                                              ctx.deliveryCharge.value
+                                          : ctx.totalAmount.value,
+                                    ),
+                                    CustomAccentColorButton(
+                                      buttonLabel: 'Process Checkout',
+                                      isLoading: false,
+                                      onPressed: () =>
+                                          Get.toNamed(Routes.order),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
           ),

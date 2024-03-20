@@ -4,6 +4,7 @@ import 'package:solesphere/screens/favorite/favorite_screen.dart';
 import 'package:solesphere/screens/home/home.dart';
 import 'package:solesphere/screens/home/home_binding.dart';
 import 'package:solesphere/screens/notification/notification_screen.dart';
+import 'package:solesphere/screens/order-checkout/select_address.dart';
 import 'package:solesphere/screens/product/product_detail_screen.dart';
 import 'package:solesphere/screens/userdetail/user_detail_binding.dart';
 
@@ -13,8 +14,12 @@ import '../../auth/signup/signup_binding.dart';
 import '../../auth/signup/signup_screen.dart';
 import '../../screens/favorite/favorite_binding.dart';
 import '../../screens/notification/notification_binding.dart';
+import '../../screens/order-checkout/order_binding.dart';
 import '../../screens/product/product_detail_binding.dart';
-import '../../screens/userprofile/user_detail.dart';
+import '../../screens/user_profile/user_profile_binding.dart';
+import '../../screens/user_profile/user_profile_screen.dart';
+import '../../screens/userdetail/user_detail._screen.dart';
+
 import 'app_route_exports.dart';
 
 part 'app_routes.dart';
@@ -104,6 +109,14 @@ class AppPages {
       name: _Paths.userProfile,
       page: () => const UserProfileScreen(),
       binding: UserProfileBinding(),
+      //transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 300),
+      curve: Curves.easeIn,
+    ),
+    GetPage(
+      name: _Paths.order,
+      page: () => const AddressSelection(),
+      binding: OrderBinding(),
       //transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
       curve: Curves.easeIn,

@@ -59,7 +59,12 @@ class ProductBuySection extends GetView<ProductDetailController> {
                         .productDetail
                         .variants[controller.selectedVarient.value]
                         .sizes[controller.selectedSize.value]
-                        .discounted_price);
+                        .discounted_price,
+                    controller
+                        .productDetail
+                        .variants[controller.selectedVarient.value]
+                        .sizes[controller.selectedSize.value]
+                        .actual_price);
               }),
         ),
         const SizedBox(

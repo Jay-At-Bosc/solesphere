@@ -56,10 +56,10 @@ class CartItem extends GetView<CartController> {
           IconButton(
             onPressed: () {
               controller.deleteFromCartApi(
-                product.productName,
-                product.color,
-                product.size,
+                product,
+                1,
               );
+              Get.back();
             },
             icon: const Icon(
               Iconsax.trash,
