@@ -1,13 +1,11 @@
-import 'dart:convert';
 
-import 'package:flutter/material.dart';
+
 import 'package:solesphere/auth/auth_exports.dart';
-import 'package:solesphere/screens/cart/cart_controller.dart';
-import 'package:solesphere/screens/cart/widgets/cart_item.dart';
+
 import 'package:solesphere/screens/product/product_detail_controller.dart';
 
 import '../../../auth/signup/signup_screen.dart';
-import '../../../services/models/cart_model.dart';
+
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
 import 'soled_by_rich_text.dart';

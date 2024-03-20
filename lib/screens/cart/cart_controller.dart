@@ -256,7 +256,7 @@ class CartController extends GetxController {
       }
     } on DioException catch (_) {
       isDecrement.value = false;
-      print(DioException);
+      // log(DioException);
       throw DioException;
     } catch (e) {
       isDecrement.value = false;

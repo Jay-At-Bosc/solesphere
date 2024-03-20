@@ -115,7 +115,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.order,
-      page: () => const AddressSelection(),
+      page: () => AddressSelection(),
       binding: OrderBinding(),
       //transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),

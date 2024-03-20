@@ -1,4 +1,4 @@
-import 'package:solesphere/services/models/user_data_model.dart';
+
 import 'package:solesphere/services/repositories/authentication.dart';
 import 'package:solesphere/services/routes/app_pages.dart';
 import 'package:solesphere/services/routes/app_route_exports.dart';

@@ -32,10 +32,11 @@ dependencies:
   firebase_core: ^2.24.2
   carousel_slider: ^4.2.1
   connectivity_plus: ^5.0.2
-  lottie: ^3.1.0
+  lottie: 
   firebase_auth: ^4.17.9
   google_sign_in: ^6.2.1
   dio: ^5.4.1
+  easy_stepper: ^0.8.3
 
   # Product Specific
 
@@ -71,7 +72,7 @@ flutter:
   fonts:
     - family: AirbnbCereal
       fonts:
-        - asset: assets/fonts/AirbnbCereal_W_Bd.otf
+        - asset: assets/fonts/AirbnbCereal_W_Bk.otf
           weight: 300
         - asset: assets/fonts/AirbnbCereal_W_Md.otf
           weight: 500

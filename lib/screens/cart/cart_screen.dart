@@ -55,12 +55,12 @@ class CartScreen extends GetView<CartController> {
             builder: (controller) => controller.isCartLoading.value
                 ? const ShoesLoading()
                 : controller.cartItemsList.isEmpty
-                    ? Center(child: Text("Cart Is Empty"))
+                    ? const Center(child: Text("Cart Is Empty"))
                     : Column(
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
+                          SizedBox(
                             height: Get.height / 2,
                             // color: Colors.red,
                             child: ListView.builder(

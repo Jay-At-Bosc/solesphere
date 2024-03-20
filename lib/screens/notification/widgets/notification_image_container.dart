@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
+
 import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/screens/cart/cart_controller.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
 import '../../../utils/constants/colors.dart';
-import '../../../utils/constants/images.dart';
+
 
 class NotificationImageContainer extends GetView<CartController> {
   const NotificationImageContainer({

@@ -184,7 +184,7 @@ class ProductDetailController extends GetxController {
       }
     } on DioException catch (_) {
       // isDecrement.value = false;
-      print(DioException);
+      // print(DioException);
       throw DioException;
     } catch (e) {
       // isDecrement.value = false;
