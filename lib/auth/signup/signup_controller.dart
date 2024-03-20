@@ -61,34 +61,34 @@ class SignUpController extends GetxController {
   Future<void> signupWithEmailPassword() async {
     log("signupWithEmailPassword method called");
     try {
-      isPasswordMatched; // Checks Password is matched or not
+      // isPasswordMatched; // Checks Password is matched or not
 
-      checkFormValidation; // Checks All Fields Validations
+      // checkFormValidation; // Checks All Fields Validations
 
-      isRegisterLoading = true;
-      update([signupScreen]);
+      // isRegisterLoading = true;
+      // update([signupScreen]);
 
-      // User Creation API Call For Firebase
-      final userCredential = await AuthenticationRepository.instance
-          .signUpWithEmailAndPassword(email.text.trim(), password.text.trim());
+      // // User Creation API Call For Firebase
+      // final userCredential = await AuthenticationRepository.instance
+      //     .signUpWithEmailAndPassword(email.text.trim(), password.text.trim());
 
-      final user = UserDataModel(
-          id: userCredential.user!.uid,
-          name: username.text.trim(),
-          email: email.text.trim());
+      // final user = UserDataModel(
+      //     id: userCredential.user!.uid,
+      //     name: username.text.trim(),
+      //     email: email.text.trim());
 
-      // ignore: unused_local_variable
-      final userCreated = await DbAuthentication.instance.createUser(user);
+      // // ignore: unused_local_variable
+      // final userCreated = await DbAuthentication.instance.createUser(user);
 
-      // Store data into local database
-      storeToLocal(user);
+      // // Store data into local database
+      // storeToLocal(user);
 
-      isRegisterLoading = false;
-      update([signupScreen]);
+      // isRegisterLoading = false;
+      // update([signupScreen]);
 
-      showMessage(SLabels.success, SLabels.accountCreated);
+      // showMessage(SLabels.success, SLabels.accountCreated);
 
-      navigateToUserDetails();
+      navigateToUserDetails(username.text, email.text);
     } catch (e) {
       showMessage(SLabels.error, e.toString());
       isRegisterLoading = false;
@@ -122,7 +122,7 @@ class SignUpController extends GetxController {
 
       showMessage(SLabels.success, SLabels.accountCreated);
 
-      navigateToUserDetails();
+      navigateToUserDetails(creds.user!.displayName!, creds.user!.email!);
     } catch (e) {
       showMessage(SLabels.error, e.toString());
       isGoogleLoading = false;
@@ -132,7 +132,8 @@ class SignUpController extends GetxController {
 
   void storeToLocal(UserDataModel user) {
     appStorage.setUserData(user);
-    log(appStorage.getUserData().toString());
+    log(" data from read : ${appStorage.getUserData()!.email}");
+    log("user created on local storage");
   }
 
   // Toggle Password
@@ -154,7 +155,15 @@ class SignUpController extends GetxController {
   }
 
   // Navigation Signup to UserDetails
-  void navigateToUserDetails() => Get.offAllNamed(Routes.userDetail);
+  void navigateToUserDetails(String? username, String? userEmail) =>
+    Get.offAllNamed(
+      Routes.userDetail,
+      // change to params 
+      arguments: {
+        'username': username?.isNotEmpty == true ? username : 'Unknown',
+        'useremail': userEmail?.isNotEmpty == true ? userEmail : 'Unknown',
+      },
+    );
 
   @override
   void onClose() {

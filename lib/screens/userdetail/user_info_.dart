@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:solesphere/auth/auth_exports.dart';
+import 'package:solesphere/screens/userdetail/user_detail_controller.dart';
+import 'package:solesphere/utils/extensions/responsive_extension.dart';
 import 'package:solesphere/widgets/custom_label.dart';
 
 import '../../utils/constants/labels.dart';
 
-
 import '../../widgets/custom_simple_input.dart';
 
-
-class UserInfo extends StatelessWidget {
+class UserInfo extends GetView<UserDetailsController> {
   const UserInfo({
     super.key,
   });
@@ -17,29 +18,36 @@ class UserInfo extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const CustomLabelText(labelText: SLabels.username),
+        /// UserName label & input Field
+        CustomLabelText(
+          labelText: SLabels.username,
+          labelStyle: Theme.of(context).textTheme.labelLarge,
+        ),
         CustomSimpleInput(
-          hintText: SLabels.username,
-         controller: TextEditingController(),
-         
+          controller: TextEditingController(text: controller.username),
+          enable: false,
         ),
-        const SizedBox(
-          height: 8.0,
+        SizedBox(
+          height: 1.0.getHeight(),
         ),
-        const CustomLabelText(labelText: SLabels.email),
+
+        // User Email
+        CustomLabelText(
+          labelText: SLabels.email,
+          labelStyle: Theme.of(context).textTheme.labelLarge,
+        ),
         CustomSimpleInput(
-          hintText: SLabels.email,
-          controller: TextEditingController(),
-        
+          controller: TextEditingController(text: controller.useremail),
+          enable: false,
         ),
-        const SizedBox(
-          height: 8.0,
+        SizedBox(
+          height: 1.0.getHeight(),
         ),
+
         const CustomLabelText(labelText: SLabels.mobileNumber),
         CustomSimpleInput(
             hintText: SLabels.mobileNumber,
-           controller: TextEditingController(),
-        
+            controller: TextEditingController(),
             keyboardType: TextInputType.phone,
             maxLength: 10),
         const SizedBox(

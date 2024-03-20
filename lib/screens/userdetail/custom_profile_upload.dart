@@ -1,21 +1,23 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+
 // import 'package:solesphere/pages/user_detail/user_detail_controller.dart';
 
 import '../../utils/constants/colors.dart';
 
 import 'user_detail_controller.dart';
 
-class CustomProfileUpload extends StatelessWidget {
+class CustomProfileUpload extends GetView<UserDetailsController> {
   const CustomProfileUpload({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(UserDetailsController());
     return Center(
       child: Stack(
         alignment: Alignment.center, // Align the stack at the center
@@ -29,20 +31,19 @@ class CustomProfileUpload extends StatelessWidget {
                 color: SColors.textSecondary,
                 shape: BoxShape.circle,
               ),
-              child: Obx(
-                () => controller.selectedImage.value != null
+              child: GetBuilder<UserDetailsController>(
+                id: UserDetailsController.userProfilePictureId,
+                builder: (controller) => controller.selectedImage.value != null
                     ? ClipRRect(
-                        borderRadius:
-                            BorderRadius.circular(45.0), // Adjust as needed
+                        borderRadius: BorderRadius.circular(45.0),
                         child: Image.file(
                           controller.selectedImage.value!,
-                          width: 90,
                           height: 90,
-                          fit:
-                              BoxFit.cover, // Ensure image covers the container
+                          width: 90,
+                          fit: BoxFit.cover,
                         ),
                       )
-                    : const Text(''),
+                    : SizedBox(),
               ),
             ),
           ),

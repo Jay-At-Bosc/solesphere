@@ -14,10 +14,7 @@ import '../../auth/signup/signup_screen.dart';
 import '../../screens/favorite/favorite_binding.dart';
 import '../../screens/notification/notification_binding.dart';
 import '../../screens/product/product_detail_binding.dart';
-import '../../screens/user_profile/user_profile_binding.dart';
-import '../../screens/user_profile/user_profile_screen.dart';
-import '../../screens/userdetail/user_detail.dart';
-
+import '../../screens/userprofile/user_detail.dart';
 import 'app_route_exports.dart';
 
 part 'app_routes.dart';
@@ -57,7 +54,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.userDetail,
-      page: () => const UserDetails(),
+      page: () => const UserDetailScreen(),
       binding: UserDetailBinding(),
       //transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
