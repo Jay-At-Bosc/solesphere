@@ -7,7 +7,7 @@ class CustomAccentColorButton extends StatelessWidget {
   const CustomAccentColorButton({
     super.key,
     required this.buttonLabel,
-    this.onPressed,
+    required this.onPressed,
     required this.isLoading,
   });
 

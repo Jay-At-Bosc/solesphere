@@ -9,7 +9,7 @@ class CustomSimpleInput extends StatelessWidget {
     this.keyboardType,
     this.validator,
     this.maxLength,
-    required this.hintText,
+    this.hintText,
     this.enable=true,
   });
 
@@ -17,7 +17,7 @@ class CustomSimpleInput extends StatelessWidget {
   final TextInputType? keyboardType;
   final FormFieldValidator<String>? validator;
   final int? maxLength;
-  final String hintText;
+  final String? hintText;
 
   final bool enable;
 

@@ -1,8 +1,8 @@
-import 'package:iconsax/iconsax.dart';
 import 'package:solesphere/auth/auth_exports.dart';
+import 'package:solesphere/utils/extensions/responsive_extension.dart';
 import '../../services/routes/app_pages.dart';
-import '../../utils/constants/colors.dart';
 
+import '../../utils/constants/colors.dart';
 import '../../utils/constants/labels.dart';
 import '../../utils/theme/widget_themes/text_theme.dart';
 
@@ -14,26 +14,27 @@ class CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      automaticallyImplyLeading: false,
       centerTitle: true,
-      titleTextStyle: STextTheme.lightTextTheme.bodyLarge,
-      leadingWidth: 64.0,
-     
+      titleTextStyle: STextTheme.lightTextTheme.displayMedium!
+          .copyWith(color: SColors.textPrimaryWith80),
       title: const Text(
         SLabels.userDetails,
         overflow: TextOverflow.ellipsis,
         textScaler: TextScaler.linear(1),
       ),
-      backgroundColor: Colors.transparent,
+      backgroundColor: SColors.textWhite,
       actions: [
         Padding(
-          padding: const EdgeInsets.only(right: 20.0),
+          padding: EdgeInsets.only(right: 2.0.getWidth()),
           child: TextButton(
-            onPressed: () {
-              Get.offAllNamed(Routes.home);
-            },
+            onPressed: () => Get.offAllNamed(Routes.home),
             child: Text(
               SLabels.skip,
-              style: Theme.of(context).textTheme.bodyLarge,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium!
+                  .copyWith(color: SColors.textPrimaryWith60),
               overflow: TextOverflow.ellipsis,
               textScaler: const TextScaler.linear(1),
             ),
