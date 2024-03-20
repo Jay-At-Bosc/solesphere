@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -86,8 +87,10 @@ class SignInController extends GetxController {
       update([signInScreen, signinWithGoogleButtonId]);
 
       final creds = await AuthenticationRepository.instance.signUpWithGoogle();
-      log(" ${creds.credential!.accessToken}");
-      log(" ${creds.credential!.providerId}");
+      log("access token:  ${creds.credential!.accessToken}");
+      // var token = await FirebaseAuth.instance.currentUser?.getIdToken();
+      // log("idToken:  ${token}");
+      // log("access Token:  ${creds.credential!.providerId}");
 
       isGoogleSigInLoading = false; // Sets Register Loading to false
       update([signInScreen, signinWithGoogleButtonId]);

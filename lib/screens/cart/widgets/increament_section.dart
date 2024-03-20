@@ -47,7 +47,7 @@ class IncreamentSection extends GetView<CartController> {
         IncreaseItemButton(
           icon: Iconsax.add,
           onTap: () {
-            controller.increaseQuantity(product);
+             controller.increaseQuantity(product);
           },
           color: SColors.accent,
           iconColor: SColors.primary,
