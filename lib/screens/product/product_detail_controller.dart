@@ -1,16 +1,19 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 // import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lottie/lottie.dart';
 import 'package:solesphere/auth/auth_exports.dart';
+import 'package:solesphere/common/widgets/popup/loaders.dart';
 import 'package:solesphere/services/api/end_points.dart';
 
 import 'package:solesphere/utils/constants/icons.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
+import '../../common/widgets/popup/shoes_loading.dart';
 import '../../services/models/product_detail_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -23,6 +26,7 @@ class ProductDetailController extends GetxController {
   late ProductDetailModel productDetail;
   List<String> imageUrls = [];
   RxBool isLoading = false.obs;
+  RxBool isCartLoading = false.obs;
   RxInt selectedVarient = 0.obs;
   RxInt selectedSize = 0.obs;
 
@@ -147,8 +151,11 @@ class ProductDetailController extends GetxController {
   Future<void> addToCartApi(String id, String name, String image, String color,
       int size, int qty, int discounted_price, int actual_price) async {
     try {
-      // isCartLoading.value = true;
-      update(['CartList']);
+      isCartLoading.value = true;
+      // if (isCartLoading.value == true) {
+      //   const ShoesLoading();
+      // }
+      update(['CartList','cartBtn']);
       String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
 
       var headers = {'auth-token': token, 'Content-Type': 'application/json'};
@@ -178,17 +185,24 @@ class ProductDetailController extends GetxController {
         //   cartItemsList.add(cartItem);
         // }
         // log("cart-data ${cartItemsList}");
-        // isCartLoading.value = false;
-        // update(['CartList']);
+        isCartLoading.value = false;
+        // if (isCartLoading.value == false) {
+        //   Get.back();
+        // }
+        update(['CartList','cartBtn']);
         log("Oooooooooooook");
+        TLoaders.successSnackBar(
+            title: "Wow 🎉", message: "$name is added to the cart");
       }
-    } on DioException catch (_) {
-      // isDecrement.value = false;
-      // print(DioException);
-      throw DioException;
+    } on SocketException catch (e) {
+      // Handle SocketException (e.g., no internet connection)
+      print('SocketException: $e');
+    } on HttpException catch (e) {
+      // Handle HttpException (e.g., 404 Not Found)
+      print('HttpException: $e');
     } catch (e) {
-      // isDecrement.value = false;
-      throw "Something Went Wrong";
+      // Catch any other error that might occur
+      print('Error: $e');
     }
   }
 }

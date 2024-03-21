@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:solesphere/screens/product/product_detail_controller.dart';
 
 import '../../services/routes/app_pages.dart';
 import '../../utils/constants/icons.dart';
@@ -84,7 +85,7 @@ class SignUpScreen extends GetView<SignUpController> {
 
 // --------------------------- Start Custom Button ---------------------------
 
-class CustomButton extends StatelessWidget {
+class CustomButton extends GetView<ProductDetailController> {
   final String btnText;
   final Color foregroundColor;
   final Color backgroundColor;
@@ -139,10 +140,14 @@ class CustomButton extends StatelessWidget {
                   ),
                 ],
               )
-            : Text(
-                btnText,
-                textAlign: TextAlign.end,
-                textScaler: const TextScaler.linear(1),
+            : GetBuilder<ProductDetailController>(
+                builder: (controller) => controller.isCartLoading.value
+                    ? CircularProgressIndicator()
+                    : Text(
+                        btnText,
+                        textAlign: TextAlign.end,
+                        textScaler: const TextScaler.linear(1),
+                      ),
               ),
       ),
     );

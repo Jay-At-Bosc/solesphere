@@ -30,19 +30,20 @@ class AddressSelection extends GetView<OrderController> {
       builder: (ctx) => SizedBox(
         height: Get.size.height * 0.5,
         child: ListView.builder(
-          itemCount: 3,
+          itemCount: ctx.userAddresses.length,
           itemBuilder: (context, index) {
-            final option = 'Option ${index + 1}';
+            // final option = 'Option ${index + 1}';
             return CustomRadioListTile(
-              option: option,
-              title: SLabels.work,
-              subTitle: '4517 Washington Ave. Manchester, Kentuky 39495',
+              option: index.toString(),
+              title: ctx.userAddresses[index].adType,
+              subTitle:
+                  "${ctx.userAddresses[index].house},${ctx.userAddresses[index].area},${ctx.userAddresses[index].pincode}, ${ctx.userAddresses[index].town},${ctx.userAddresses[index].state}",
             );
           },
         ),
       ),
     ),
-    const PaymentSelection(),
+    PaymentSelection(),
     const OrderSummary(),
   ];
 
@@ -75,9 +76,13 @@ class AddressSelection extends GetView<OrderController> {
               //Page Contents
               GetBuilder<OrderController>(
                 id: 'pageContent',
-                builder: (controller) => SizedBox(
-                  child: pageContent[controller.activeStep.value],
-                ),
+                builder: (controller) => controller.isMainLoading()
+                    ? const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : SizedBox(
+                        child: pageContent[controller.activeStep.value],
+                      ),
               ),
 
               //Process Button

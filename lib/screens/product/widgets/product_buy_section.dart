@@ -1,5 +1,3 @@
-
-
 import 'package:solesphere/auth/auth_exports.dart';
 
 import 'package:solesphere/screens/product/product_detail_controller.dart';
@@ -33,6 +31,7 @@ class ProductBuySection extends GetView<ProductDetailController> {
           height: SSizes.spaceBtwItems,
         ),
         GetBuilder<ProductDetailController>(
+          id: 'cartBtn',
           builder: (controller) => CustomButton(
               btnText: "Add To Cart",
               foregroundColor: Colors.black,

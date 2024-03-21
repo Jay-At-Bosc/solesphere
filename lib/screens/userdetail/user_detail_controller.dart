@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-
 class UserDetailsController extends GetxController {
   static UserDetailsController get instance => Get.find();
 
@@ -26,5 +25,5 @@ class UserDetailsController extends GetxController {
     update([userProfilePictureId]);
   }
 
-  saveUserData() {}
+  // saveUserData() {}
 }

@@ -106,7 +106,7 @@ class AppPages {
       curve: Curves.easeIn,
     ),
     GetPage(
-      name: _Paths.userProfile,
+      name: _Paths.userProfileDetail,
       page: () => const UserProfileScreen(),
       binding: UserProfileBinding(),
       //transition: Transition.fadeIn,
