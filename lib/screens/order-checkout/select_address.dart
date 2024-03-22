@@ -12,17 +12,11 @@ import 'package:solesphere/utils/extensions/responsive_extension.dart';
 import '../../services/routes/app_pages.dart';
 import '../../widgets/custom_accent_color_button.dart';
 import 'select_payment.dart';
-import 'widgets/radioTile.dart';
+import 'widgets/radio_tile.dart';
 
 // ignore: must_be_immutable
 class AddressSelection extends GetView<OrderController> {
   AddressSelection({super.key});
-
-  List<String> title = [
-    SLabels.selectAddress,
-    SLabels.selectPaymentMethod,
-    SLabels.checkout,
-  ];
 
   List<Widget> pageContent = <Widget>[
     GetBuilder<OrderController>(
@@ -36,14 +30,13 @@ class AddressSelection extends GetView<OrderController> {
             return CustomRadioListTile(
               option: index.toString(),
               title: ctx.userAddresses[index].adType,
-              subTitle:
-                  "${ctx.userAddresses[index].house},${ctx.userAddresses[index].area},${ctx.userAddresses[index].pincode}, ${ctx.userAddresses[index].town},${ctx.userAddresses[index].state}",
+              subTitle: ctx.fullAddress(),
             );
           },
         ),
       ),
     ),
-    PaymentSelection(),
+    const PaymentSelection(),
     const OrderSummary(),
   ];
 
@@ -55,7 +48,7 @@ class AddressSelection extends GetView<OrderController> {
         title: GetBuilder<OrderController>(
           id: 'title',
           builder: (controller) => Text(
-            title[controller.activeStep.value],
+            controller.pageTitle[controller.activeStep.value],
             style: Theme.of(context).textTheme.titleMedium,
           ),
         ),
@@ -65,12 +58,13 @@ class AddressSelection extends GetView<OrderController> {
           padding:
               EdgeInsets.only(top: 2.0.getHeight(), left: 20.0, right: 20.0),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               //custom Stepper
               const CustomeStepper(),
 
               SizedBox(
-                height: 4.0.getHeight(),
+                height: 1.0.getHeight(),
               ),
 
               //Page Contents
@@ -84,22 +78,28 @@ class AddressSelection extends GetView<OrderController> {
                         child: pageContent[controller.activeStep.value],
                       ),
               ),
-
+              // SizedBox(
+              //   height: 5.0.getHeight(),
+              // ),
               //Process Button
               GetBuilder<OrderController>(
                 id: 'btn',
-                builder: (controller) => SizedBox(
-                  width: double.infinity,
-                  // height: 10.0.getHeight(),
-                  child: CustomAccentColorButton(
-                    buttonLabel: controller.activeStep.value != 2
-                        ? SLabels.next
-                        : SLabels.payNow,
-                    isLoading: false,
-                    onPressed: () {
-                      controller.setActiveStep(controller.activeStep.value + 1);
-                      Get.toNamed(Routes.order);
-                    },
+                builder: (controller) => Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 5.0.getWidth()),
+                  child: SizedBox(
+                    width: double.maxFinite,
+                    // height: 10.0.getHeight(),
+                    child: CustomAccentColorButton(
+                      buttonLabel: controller.activeStep.value != 2
+                          ? SLabels.next
+                          : SLabels.payNow,
+                      isLoading: false,
+                      onPressed: () {
+                        controller
+                            .setActiveStep(controller.activeStep.value + 1);
+                        Get.toNamed(Routes.order);
+                      },
+                    ),
                   ),
                 ),
               ),

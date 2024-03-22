@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
@@ -7,14 +6,29 @@ import 'package:solesphere/auth/auth_exports.dart';
 
 import '../../services/api/end_points.dart';
 import '../../services/models/user_address_model.dart';
+import '../../utils/constants/labels.dart';
 
 class OrderController extends GetxController {
   static OrderController get instance => Get.find<OrderController>();
   RxInt activeStep = 0.obs;
-  var selectedOption = ''.obs;
+  var selectedOption = '0'.obs;
+  var selectedPaymentMode = '0'.obs;
   // final List<Useraddress> addressList = [];
   RxBool isAddressLoading = false.obs;
   List<Useraddress> userAddresses = <Useraddress>[].obs;
+  List<String> paymentTitle = ['Razorpay', 'Cash On Delivery'];
+  List<String> pageTitle = [
+    SLabels.selectAddress,
+    SLabels.selectPaymentMethod,
+    SLabels.checkout,
+  ];
+
+  String fullAddress() {
+    var data = userAddresses[int.parse(selectedOption.value)];
+    String address =
+        '${data.house},${data.area},${data.town},${data.state} - ${data.pincode}';
+    return address;
+  }
 
   @override
   void onInit() async {
@@ -32,8 +46,14 @@ class OrderController extends GetxController {
 
   void setSelectedOption(String value) {
     selectedOption.value = value;
-    log('selected: ${selectedOption.value}');
+    log('selected Address: ${selectedOption.value}');
     update(['address']);
+  }
+
+  void setPaymentMode(String value) {
+    selectedPaymentMode.value = value;
+    log('selected Payment Mode: ${selectedPaymentMode.value}');
+    update(['payment']);
   }
 
   void setActiveStep(int index) {

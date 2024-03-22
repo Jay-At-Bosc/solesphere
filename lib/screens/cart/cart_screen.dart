@@ -4,6 +4,7 @@ import 'package:solesphere/common/widgets/popup/shoes_loading.dart';
 import 'package:solesphere/screens/cart/cart_controller.dart';
 import 'package:solesphere/services/routes/app_pages.dart';
 import 'package:solesphere/services/routes/app_route_exports.dart';
+import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
 import '../../common/widgets/heading/label_and_price.dart';
 import '../../utils/constants/labels.dart';
@@ -84,10 +85,14 @@ class CartScreen extends GetView<CartController> {
                                 child: Column(
                                   children: [
                                     LabelAndPrice(
+                                      style:
+                                          Theme.of(context).textTheme.bodyLarge,
                                       title: 'Subtotal',
                                       price: ctx.totalAmount.value,
                                     ),
                                     LabelAndPrice(
+                                      style:
+                                          Theme.of(context).textTheme.bodyLarge,
                                       title: 'Shipping',
                                       price: ctx.totalAmount.value < 499
                                           ? ctx.deliveryCharge.value
@@ -95,6 +100,8 @@ class CartScreen extends GetView<CartController> {
                                     ),
                                     const Divider(),
                                     LabelAndPrice(
+                                      style:
+                                          Theme.of(context).textTheme.bodyLarge,
                                       title: 'Total Cost',
                                       price: ctx.totalAmount.value < 499
                                           ? ctx.totalAmount.value +

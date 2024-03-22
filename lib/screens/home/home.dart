@@ -17,6 +17,7 @@ class HomeScreen extends StatelessWidget {
     final controller = Get.put(NavigationController());
 
     return Scaffold(
+      body: Obx(() => controller.screens[controller.page.value]),
       bottomNavigationBar: Obx(
         () => CurvedNavigationBar(
           key: controller.bottomNavigationKey,
@@ -32,11 +33,11 @@ class HomeScreen extends StatelessWidget {
             ),
             CurvedNavigationBarItem(
               child: Icon(Iconsax.shopping_cart),
-              // label: 'Chat',
+              label: null,
             ),
             CurvedNavigationBarItem(
               child: Icon(Iconsax.shopping_bag),
-              // label: 'Feed',
+              // label: '5',
             ),
             CurvedNavigationBarItem(
               child: Icon(Iconsax.user),
@@ -54,7 +55,6 @@ class HomeScreen extends StatelessWidget {
           letIndexChange: (index) => true,
         ),
       ),
-      body: Obx(() => controller.screens[controller.page.value]),
     );
   }
 }
@@ -74,7 +74,7 @@ class NavigationController extends GetxController {
     //   ),
     // ),
     // Container(color: const Color.fromARGB(255, 0, 0, 0)),
-    Container(color: Colors.red),
     const UserProfileScreen(),
+    Container(color: Colors.red),
   ];
 }

@@ -1,13 +1,9 @@
 import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/screens/order-checkout/order_controller.dart';
+import 'package:solesphere/screens/order-checkout/widgets/payment_%20tile.dart';
 
-import 'widgets/radioTile.dart';
-
-// ignore: must_be_immutable
 class PaymentSelection extends GetView<OrderController> {
-  PaymentSelection({super.key});
-
-  List<String> title = ['Razorpay', 'Cash On Delivery'];
+  const PaymentSelection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,11 +14,9 @@ class PaymentSelection extends GetView<OrderController> {
         child: ListView.builder(
           itemCount: 2,
           itemBuilder: (context, index) {
-            final option = 'Option ${index + 1}';
-            return CustomRadioListTile(
-              option: option,
-              title: title[index],
-              subTitle: '',
+            return CustomRadioListPaymentTile(
+              option: index.toString(),
+              title: controller.paymentTitle[index],
             );
           },
         ),

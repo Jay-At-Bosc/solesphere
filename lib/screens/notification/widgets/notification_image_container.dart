@@ -1,10 +1,8 @@
-
 import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/screens/cart/cart_controller.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
 import '../../../utils/constants/colors.dart';
-
 
 class NotificationImageContainer extends GetView<CartController> {
   const NotificationImageContainer({
@@ -27,7 +25,7 @@ class NotificationImageContainer extends GetView<CartController> {
       ),
       child: ClipRRect(
         child: Center(
-          child: Image.network(
+          child: Image.asset(
             url,
             fit: BoxFit.contain,
           ),
