@@ -75,6 +75,8 @@ class SignInController extends GetxController {
       Get.snackbar("Error", e.toString(),
           snackPosition: SnackPosition.BOTTOM,
           duration: const Duration(seconds: 2));
+      isSigInLoading = false; // Sets Register Loading to false
+      update([signInScreen, signinButtonId]);
     }
   }
 
