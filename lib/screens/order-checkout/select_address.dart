@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:solesphere/auth/auth_exports.dart';
 
 import 'package:solesphere/screens/order-checkout/order_controller.dart';
@@ -30,7 +32,7 @@ class AddressSelection extends GetView<OrderController> {
             return CustomRadioListTile(
               option: index.toString(),
               title: ctx.userAddresses[index].adType,
-              subTitle: ctx.fullAddress(),
+              subTitle: ctx.fullAddress(index),
             );
           },
         ),
@@ -43,6 +45,7 @@ class AddressSelection extends GetView<OrderController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // bottomSheet: ,
       backgroundColor: SColors.lightBackground.withOpacity(0.99),
       appBar: AppBar(
         title: GetBuilder<OrderController>(
@@ -53,58 +56,73 @@ class AddressSelection extends GetView<OrderController> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding:
-              EdgeInsets.only(top: 2.0.getHeight(), left: 20.0, right: 20.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              //custom Stepper
-              const CustomeStepper(),
+      bottomNavigationBar: GetBuilder<OrderController>(
+        id: 'btn',
+        builder: (controller) => BottomAppBar(
+          surfaceTintColor: Colors.white,
+          height: 10.0.getHeight(),
+          child: CustomAccentColorButton(
+            buttonLabel: controller.activeStep.value != 2
+                ? SLabels.next
+                : SLabels.payNow,
+            isLoading: false,
+            onPressed: () async {
+              // log("Active Before is: ${controller.activeStep.value}");
 
-              SizedBox(
-                height: 1.0.getHeight(),
-              ),
+              // log("Active  After is: ${controller.activeStep.value}");
+              if (controller.activeStep.value == 1) {
+                await controller.getOrderSummary();
+              }
+              if (controller.activeStep.value == 2) {
+                await controller.processOrder();
+                return;
+              }
+              controller.setActiveStep(controller.activeStep.value + 1);
+              Get.toNamed(Routes.order);
+            },
+          ),
+        ),
+      ),
 
-              //Page Contents
-              GetBuilder<OrderController>(
-                id: 'pageContent',
-                builder: (controller) => controller.isMainLoading()
-                    ? const Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : SizedBox(
-                        child: pageContent[controller.activeStep.value],
+      body: SafeArea(
+        maintainBottomViewPadding: true,
+        child: Column(
+          children: [
+            const CustomeStepper(),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      //custom Stepper
+
+                      SizedBox(
+                        height: 1.0.getHeight(),
                       ),
-              ),
-              // SizedBox(
-              //   height: 5.0.getHeight(),
-              // ),
-              //Process Button
-              GetBuilder<OrderController>(
-                id: 'btn',
-                builder: (controller) => Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 5.0.getWidth()),
-                  child: SizedBox(
-                    width: double.maxFinite,
-                    // height: 10.0.getHeight(),
-                    child: CustomAccentColorButton(
-                      buttonLabel: controller.activeStep.value != 2
-                          ? SLabels.next
-                          : SLabels.payNow,
-                      isLoading: false,
-                      onPressed: () {
-                        controller
-                            .setActiveStep(controller.activeStep.value + 1);
-                        Get.toNamed(Routes.order);
-                      },
-                    ),
+
+                      //Page Contents
+                      GetBuilder<OrderController>(
+                        id: 'pageContent',
+                        builder: (controller) => controller.isMainLoading()
+                            ? const Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : SizedBox(
+                                child: pageContent[controller.activeStep.value],
+                              ),
+                      ),
+                      // SizedBox(
+                      //   height: 2.0.getHeight(),
+                      // ),
+                      //Process Button
+                    ],
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

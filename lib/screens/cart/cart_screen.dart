@@ -4,7 +4,8 @@ import 'package:solesphere/common/widgets/popup/shoes_loading.dart';
 import 'package:solesphere/screens/cart/cart_controller.dart';
 import 'package:solesphere/services/routes/app_pages.dart';
 import 'package:solesphere/services/routes/app_route_exports.dart';
-import 'package:solesphere/utils/extensions/responsive_extension.dart';
+import 'package:solesphere/utils/constants/icons.dart';
+
 
 import '../../common/widgets/heading/label_and_price.dart';
 import '../../utils/constants/labels.dart';
@@ -54,7 +55,7 @@ class CartScreen extends GetView<CartController> {
             init: CartController(),
             id: 'CartList',
             builder: (controller) => controller.isCartLoading.value
-                ? const ShoesLoading()
+                ? const ShoesLoading(loader: SJsons.loader,)
                 : controller.cartItemsList.isEmpty
                     ? const Center(child: Text("Cart Is Empty"))
                     : Column(

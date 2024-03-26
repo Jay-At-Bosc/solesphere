@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:solesphere/utils/extensions/responsive_extension.dart';
-
-import '../../../utils/theme/widget_themes/text_theme.dart';
 import '../text/text_style.dart';
 
 class LabelAndPrice extends StatelessWidget {

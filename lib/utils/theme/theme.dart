@@ -13,7 +13,7 @@ class SAppTheme {
     fontFamily: 'AirbnbCereal',
     brightness: Brightness.light,
     scaffoldBackgroundColor: SColors.lightBackground,
-    cardTheme: CardTheme(surfaceTintColor: Colors.yellow),
+    cardTheme: const CardTheme(surfaceTintColor: Colors.white),
     textTheme: STextTheme.lightTextTheme,
     // chipTheme: TChipTheme.lightChipTheme,
     // scaffoldBackgroundColor: TColors.white,

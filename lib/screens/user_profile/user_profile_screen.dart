@@ -8,7 +8,7 @@ import 'package:solesphere/utils/constants/colors.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
 import '../../utils/theme/widget_themes/text_theme.dart';
-import '../userdetail/custom_profile_upload.dart';
+
 import 'widgets/profile_menu_item.dart';
 
 class UserProfileScreen extends StatelessWidget {

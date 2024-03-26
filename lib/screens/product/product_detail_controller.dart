@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-// import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lottie/lottie.dart';
@@ -13,7 +11,6 @@ import 'package:solesphere/services/api/end_points.dart';
 import 'package:solesphere/utils/constants/icons.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
-import '../../common/widgets/popup/shoes_loading.dart';
 import '../../services/models/product_detail_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -155,7 +152,7 @@ class ProductDetailController extends GetxController {
       // if (isCartLoading.value == true) {
       //   const ShoesLoading();
       // }
-      update(['CartList','cartBtn']);
+      update(['CartList', 'cartBtn']);
       String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
 
       var headers = {'auth-token': token, 'Content-Type': 'application/json'};
@@ -189,7 +186,7 @@ class ProductDetailController extends GetxController {
         // if (isCartLoading.value == false) {
         //   Get.back();
         // }
-        update(['CartList','cartBtn']);
+        update(['CartList', 'cartBtn']);
         log("Oooooooooooook");
         TLoaders.successSnackBar(
             title: "Wow 🎉", message: "$name is added to the cart");

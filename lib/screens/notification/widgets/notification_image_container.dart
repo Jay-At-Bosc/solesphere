@@ -25,7 +25,7 @@ class NotificationImageContainer extends GetView<CartController> {
       ),
       child: ClipRRect(
         child: Center(
-          child: Image.asset(
+          child: Image.network(
             url,
             fit: BoxFit.contain,
           ),

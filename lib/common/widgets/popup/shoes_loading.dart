@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
-import '../../../utils/constants/icons.dart';
+
 
 class ShoesLoading extends StatelessWidget {
-  const ShoesLoading({super.key});
+  const ShoesLoading({super.key, required this.loader});
+  final String loader;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class ShoesLoading extends StatelessWidget {
         content: Column(
           children: [
             Lottie.asset(
-              SJsons.loader,
+              loader,
               width: 30.0.getWidth(),
               height: 30.0.getWidth(),
             ),

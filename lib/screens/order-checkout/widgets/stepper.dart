@@ -2,6 +2,7 @@ import 'package:easy_stepper/easy_stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/labels.dart';
@@ -14,23 +15,23 @@ class CustomeStepper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
-      // height: 100,
-      color: Colors.white,
+      height: 13.0.getHeight(),
+      // color: Colors.white,
       child: GetBuilder<OrderController>(
         id: 'stepper',
         builder: (ctx) => EasyStepper(
           activeStep: ctx.activeStep.value,
           stepShape: StepShape.rRectangle,
-          stepBorderRadius: 15,
+          stepBorderRadius: 3.0.getWidth(),
           borderThickness: 2,
-          padding: const EdgeInsets.all(20.0),
-          stepRadius: 28,
-          finishedStepBorderColor: SColors.accent,
-          finishedStepTextColor: SColors.accent,
+          // padding: const EdgeInsets.all(0.0),
+          stepRadius: 3.4.getHeight(),
+          // finishedStepBorderColor: SColors.accent,
+          // finishedStepTextColor: SColors.accent,
           finishedStepBackgroundColor: SColors.accent,
-          activeStepIconColor: SColors.accent,
+          // activeStepIconColor: SColors.accent,
           unreachedStepBackgroundColor: SColors.buttonDisabled,
           showLoadingAnimation: false,
           steps: [
@@ -41,9 +42,7 @@ class CustomeStepper extends StatelessWidget {
                   opacity: ctx.activeStep.value >= 0 ? 1 : 0.3,
                   child: Icon(
                     Iconsax.location,
-                    color: ctx.activeStep.value == 1
-                        ? SColors.textWhite
-                        : null,
+                    color: ctx.activeStep.value == 1 ? SColors.textWhite : null,
                   ),
                 ),
               ),
@@ -59,9 +58,7 @@ class CustomeStepper extends StatelessWidget {
                   opacity: ctx.activeStep.value >= 1 ? 1 : 0.3,
                   child: Icon(
                     Iconsax.card,
-                    color: ctx.activeStep.value == 2
-                        ? SColors.textWhite
-                        : null,
+                    color: ctx.activeStep.value == 2 ? SColors.textWhite : null,
                   ),
                 ),
               ),
@@ -84,7 +81,10 @@ class CustomeStepper extends StatelessWidget {
               ),
             ),
           ],
-          onStepReached: (index) => ctx.setActiveStep(index),
+          onStepReached: (index) async {
+            await ctx.setActiveStep(index);
+            await ctx.getOrderSummary();
+          },
         ),
       ),
     );
