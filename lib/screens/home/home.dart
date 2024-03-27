@@ -74,7 +74,7 @@ class NavigationController extends GetxController {
     //   ),
     // ),
     // Container(color: const Color.fromARGB(255, 0, 0, 0)),
-    const UserProfileScreen(),
     Container(color: Colors.red),
+    const UserProfileScreen(),
   ];
 }

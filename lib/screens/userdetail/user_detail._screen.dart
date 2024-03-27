@@ -40,7 +40,7 @@ class UserDetailScreen extends GetView<UserDetailsController> {
                     top: 2.0.getHeight()),
                 child: Column(
                   children: [
-                    CustomProfileUpload(),
+                    const CustomProfileUpload(),
                     SizedBox(
                       height: 2.0.getHeight(),
                     ),
@@ -52,9 +52,9 @@ class UserDetailScreen extends GetView<UserDetailsController> {
                           return Form(
                             child: Column(
                               children: [
-                                UserInfo(),
+                                const UserInfo(),
 
-                                CustomAddressForm(),
+                                const CustomAddressForm(),
                                 
                                 GetBuilder<UserDetailsController>(
                                   id: UserDetailsController.saveButtonId,

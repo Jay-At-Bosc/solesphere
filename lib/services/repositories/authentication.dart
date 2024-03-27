@@ -22,11 +22,11 @@ class AuthenticationRepository extends GetxController {
 
   final appStorage = Get.find<AppStorage>();
 
-  @override
-  void onInit() {
-    super.onInit();
-    //screenRedirect();
-  }
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  //   //screenRedirect();
+  // }
 
   /// Function to Show Relevant Screen
   Future<void> screenRedirect() async {

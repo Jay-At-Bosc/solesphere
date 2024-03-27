@@ -82,8 +82,10 @@ class CustomeStepper extends StatelessWidget {
             ),
           ],
           onStepReached: (index) async {
-            await ctx.setActiveStep(index);
-            await ctx.getOrderSummary();
+            if (ctx.userAddresses.isNotEmpty) {
+              await ctx.setActiveStep(index);
+              await ctx.getOrderSummary();
+            }
           },
         ),
       ),

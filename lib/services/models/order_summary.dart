@@ -5,16 +5,16 @@ import 'package:flutter/foundation.dart';
 class OrderSummaryModel {
   final Address address;
   final String paymentMethod;
-  final int TotalActualAmount;
-  final int TotalDiscountedAmount;
+  final int totalActualAmount;
+  final int totalDiscountedAmount;
   final int totalDiscount;
   final int deliveryCharge;
   final List<CartItem> cartItems;
   OrderSummaryModel({
     required this.address,
     required this.paymentMethod,
-    required this.TotalActualAmount,
-    required this.TotalDiscountedAmount,
+    required this.totalActualAmount,
+    required this.totalDiscountedAmount,
     required this.totalDiscount,
     required this.deliveryCharge,
     required this.cartItems,
@@ -23,8 +23,8 @@ class OrderSummaryModel {
   OrderSummaryModel copyWith({
     Address? address,
     String? paymentMethod,
-    int? TotalActualAmount,
-    int? TotalDiscountedAmount,
+    int? totalActualAmount,
+    int? totalDiscountedAmount,
     int? totalDiscount,
     int? deliveryCharge,
     List<CartItem>? cartItems,
@@ -32,9 +32,9 @@ class OrderSummaryModel {
     return OrderSummaryModel(
       address: address ?? this.address,
       paymentMethod: paymentMethod ?? this.paymentMethod,
-      TotalActualAmount: TotalActualAmount ?? this.TotalActualAmount,
-      TotalDiscountedAmount:
-          TotalDiscountedAmount ?? this.TotalDiscountedAmount,
+      totalActualAmount: totalActualAmount ?? this.totalActualAmount,
+      totalDiscountedAmount:
+          totalDiscountedAmount ?? this.totalDiscountedAmount,
       totalDiscount: totalDiscount ?? this.totalDiscount,
       deliveryCharge: deliveryCharge ?? this.deliveryCharge,
       cartItems: cartItems ?? this.cartItems,
@@ -45,8 +45,8 @@ class OrderSummaryModel {
     return <String, dynamic>{
       'address': address.toMap(),
       'paymentMethod': paymentMethod,
-      'TotalActualAmount': TotalActualAmount,
-      'TotalDiscountedAmount': TotalDiscountedAmount,
+      'TotalActualAmount': totalActualAmount,
+      'TotalDiscountedAmount': totalDiscountedAmount,
       'totalDiscount': totalDiscount,
       'deliveryCharge': deliveryCharge,
       'cartItems': cartItems.map((x) => x.toMap()).toList(),
@@ -57,8 +57,8 @@ class OrderSummaryModel {
     return OrderSummaryModel(
       address: Address.fromMap(map['address'] as Map<String, dynamic>),
       paymentMethod: map['paymentMethod'] as String,
-      TotalActualAmount: map['TotalActualAmount'].toInt() as int,
-      TotalDiscountedAmount: map['TotalDiscountedAmount'].toInt() as int,
+      totalActualAmount: map['TotalActualAmount'].toInt() as int,
+      totalDiscountedAmount: map['TotalDiscountedAmount'].toInt() as int,
       totalDiscount: map['totalDiscount'].toInt() as int,
       deliveryCharge: map['deliveryCharge'].toInt() as int,
       cartItems: (map['cartItems'] as List<dynamic>)
@@ -75,7 +75,7 @@ class OrderSummaryModel {
 
   @override
   String toString() {
-    return 'OrderSummaryModel(address: $address, paymentMethod: $paymentMethod, TotalActualAmount: $TotalActualAmount, TotalDiscountedAmount: $TotalDiscountedAmount, totalDiscount: $totalDiscount, deliveryCharge: $deliveryCharge, cartItems: $cartItems)';
+    return 'OrderSummaryModel(address: $address, paymentMethod: $paymentMethod, TotalActualAmount: $totalActualAmount, TotalDiscountedAmount: $totalDiscountedAmount, totalDiscount: $totalDiscount, deliveryCharge: $deliveryCharge, cartItems: $cartItems)';
   }
 
   @override
@@ -84,8 +84,8 @@ class OrderSummaryModel {
 
     return other.address == address &&
         other.paymentMethod == paymentMethod &&
-        other.TotalActualAmount == TotalActualAmount &&
-        other.TotalDiscountedAmount == TotalDiscountedAmount &&
+        other.totalActualAmount == totalActualAmount &&
+        other.totalDiscountedAmount == totalDiscountedAmount &&
         other.totalDiscount == totalDiscount &&
         other.deliveryCharge == deliveryCharge &&
         listEquals(other.cartItems, cartItems);
@@ -95,8 +95,8 @@ class OrderSummaryModel {
   int get hashCode {
     return address.hashCode ^
         paymentMethod.hashCode ^
-        TotalActualAmount.hashCode ^
-        TotalDiscountedAmount.hashCode ^
+        totalActualAmount.hashCode ^
+        totalDiscountedAmount.hashCode ^
         totalDiscount.hashCode ^
         deliveryCharge.hashCode ^
         cartItems.hashCode;
@@ -201,9 +201,9 @@ class Address {
 }
 
 class CartItem {
-  final String product_id;
+  final String productId;
   final String productName;
-  final String image_url;
+  final String imgUrl;
   final String color;
   final int size;
   final int quantity;
@@ -211,9 +211,9 @@ class CartItem {
   final int discounted_price;
   final String id;
   CartItem({
-    required this.product_id,
+    required this.productId,
     required this.productName,
-    required this.image_url,
+    required this.imgUrl,
     required this.color,
     required this.size,
     required this.quantity,
@@ -223,9 +223,9 @@ class CartItem {
   });
 
   CartItem copyWith({
-    String? product_id,
+    String? productId,
     String? productName,
-    String? image_url,
+    String? imgUrl,
     String? color,
     int? size,
     int? quantity,
@@ -234,9 +234,9 @@ class CartItem {
     String? id,
   }) {
     return CartItem(
-      product_id: product_id ?? this.product_id,
+      productId: productId ?? this.productId,
       productName: productName ?? this.productName,
-      image_url: image_url ?? this.image_url,
+      imgUrl: imgUrl ?? this.imgUrl,
       color: color ?? this.color,
       size: size ?? this.size,
       quantity: quantity ?? this.quantity,
@@ -248,9 +248,9 @@ class CartItem {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'product_id': product_id,
+      'product_id': productId,
       'productName': productName,
-      'image_url': image_url,
+      'image_url': imgUrl,
       'color': color,
       'size': size,
       'quantity': quantity,
@@ -262,9 +262,9 @@ class CartItem {
 
   factory CartItem.fromMap(Map<String, dynamic> map) {
     return CartItem(
-      product_id: map['product_id'] as String,
+      productId: map['product_id'] as String,
       productName: map['productName'] as String,
-      image_url: map['image_url'] as String,
+      imgUrl: map['image_url'] as String,
       color: map['color'] as String,
       size: map['size'].toInt() as int,
       quantity: map['quantity'].toInt() as int,
@@ -281,16 +281,16 @@ class CartItem {
 
   @override
   String toString() {
-    return 'CartItem(product_id: $product_id, productName: $productName, image_url: $image_url, color: $color, size: $size, quantity: $quantity, actual_price: $actual_price, discounted_price: $discounted_price, _id: $id)';
+    return 'CartItem(product_id: $productId, productName: $productName, image_url: $imgUrl, color: $color, size: $size, quantity: $quantity, actual_price: $actual_price, discounted_price: $discounted_price, _id: $id)';
   }
 
   @override
   bool operator ==(covariant CartItem other) {
     if (identical(this, other)) return true;
 
-    return other.product_id == product_id &&
+    return other.productId == productId &&
         other.productName == productName &&
-        other.image_url == image_url &&
+        other.imgUrl == imgUrl &&
         other.color == color &&
         other.size == size &&
         other.quantity == quantity &&
@@ -301,9 +301,9 @@ class CartItem {
 
   @override
   int get hashCode {
-    return product_id.hashCode ^
+    return productId.hashCode ^
         productName.hashCode ^
-        image_url.hashCode ^
+        imgUrl.hashCode ^
         color.hashCode ^
         size.hashCode ^
         quantity.hashCode ^

@@ -63,7 +63,7 @@ class OrderSummary extends GetView<OrderController> {
               ),
               GetBuilder<OrderController>(
                 id: 'updateAddress',
-                builder: (ctx) =>  ListTile(
+                builder: (ctx) => ListTile(
                   contentPadding: EdgeInsets.all(4.0.getWidth()),
                   tileColor: SColors.primary,
                   title: STextStyle(
@@ -126,7 +126,7 @@ class OrderSummary extends GetView<OrderController> {
                   ),
                   LabelAndPrice(
                     title: SLabels.totalAmount,
-                    price: ctx.orderSummary[0].TotalActualAmount,
+                    price: ctx.orderSummary[0].totalActualAmount,
                     padding: 0,
                     style: Theme.of(context)
                         .textTheme
@@ -154,7 +154,7 @@ class OrderSummary extends GetView<OrderController> {
                   const Divider(),
                   LabelAndPrice(
                     title: SLabels.grandTotal,
-                    price: ctx.orderSummary[0].TotalDiscountedAmount +
+                    price: ctx.orderSummary[0].totalDiscountedAmount +
                         ctx.orderSummary[0].deliveryCharge,
                     padding: 0,
                     style: Theme.of(context)
@@ -189,7 +189,7 @@ class SummaryItemTile extends GetView<OrderController> {
         child: Row(
           children: [
             NotificationImageContainer(
-              url: controller.orderSummary[0].cartItems[index].image_url,
+              url: controller.orderSummary[0].cartItems[index].imgUrl,
             ),
             SizedBox(
               width: 3.0.getWidth(),

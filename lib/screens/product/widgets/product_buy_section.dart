@@ -1,6 +1,7 @@
 import 'package:solesphere/auth/auth_exports.dart';
 
 import 'package:solesphere/screens/product/product_detail_controller.dart';
+import 'package:solesphere/services/routes/app_pages.dart';
 
 import '../../../auth/signup/signup_screen.dart';
 
@@ -43,7 +44,7 @@ class ProductBuySection extends GetView<ProductDetailController> {
                     controller
                         .productDetail
                         .variants[controller.selectedVarient.value]
-                        .image_urls[0],
+                        .imageUrls[0],
                     controller.productDetail
                         .variants[controller.selectedVarient.value].color,
                     controller
@@ -71,7 +72,32 @@ class ProductBuySection extends GetView<ProductDetailController> {
             btnText: "Buy Now",
             foregroundColor: Colors.black,
             backgroundColor: SColors.buyBtnColor,
-            onPressed: () {}),
+            onPressed: () {
+              controller.addToCartApi(
+                  controller.productDetail.id,
+                  controller.productDetail.productName,
+                  controller.productDetail
+                      .variants[controller.selectedVarient.value].imageUrls[0],
+                  controller.productDetail
+                      .variants[controller.selectedVarient.value].color,
+                  controller
+                      .productDetail
+                      .variants[controller.selectedVarient.value]
+                      .sizes[controller.selectedSize.value]
+                      .size,
+                  1,
+                  controller
+                      .productDetail
+                      .variants[controller.selectedVarient.value]
+                      .sizes[controller.selectedSize.value]
+                      .discounted_price,
+                  controller
+                      .productDetail
+                      .variants[controller.selectedVarient.value]
+                      .sizes[controller.selectedSize.value]
+                      .actual_price);
+              Get.toNamed(Routes.order);
+            }),
         const SoledByRichText(),
       ],
     );

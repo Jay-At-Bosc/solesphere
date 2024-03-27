@@ -51,6 +51,7 @@ class HomeController extends GetxController {
 
   Future<void> fetchLocation() async {
     Position position = await _getCurrentLocation();
+    // ignore: unnecessary_null_comparison
     if (position != null) {
       List<Placemark> placemarks = await _getAddressFromLocation(position);
       if (placemarks.isNotEmpty) {

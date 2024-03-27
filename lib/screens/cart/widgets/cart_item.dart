@@ -25,7 +25,7 @@ class CartItem extends GetView<CartController> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           NotificationImageContainer(
-            url: product.image_url,
+            url: product.imgUrl,
           ),
           SizedBox(
             width: 2.0.getWidth(),
@@ -44,7 +44,7 @@ class CartItem extends GetView<CartController> {
               ),
 
               STextStyle(
-                text: "₹${product.discounted_price}",
+                text: "₹${product.discountedPrice}",
                 style: Theme.of(context).textTheme.labelMedium,
                 maxLine: 2,
               ),

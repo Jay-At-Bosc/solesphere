@@ -35,6 +35,15 @@ class ProductController extends GetxController {
     super.onInit();
   }
 
+  bool isMainLoading() {
+    // ignore: unrelated_type_equality_checks
+    if (isLoading == true || isProdcutLoading == true) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   //fetch data
   Future<void> fetchBrands() async {
     isLoading.value = true;
@@ -64,7 +73,7 @@ class ProductController extends GetxController {
       TLoaders.errorSnackBar(title: "Oops!", message: "Failed to load data");
       // throw Exception('Failed to load data');
     }
-    update();
+    update(['home']);
   }
 
   //end
@@ -87,6 +96,7 @@ class ProductController extends GetxController {
 
       throw Exception('Failed to load products');
     }
+    update(['home']);
   }
   //end product
 

@@ -81,8 +81,6 @@ class ProductDetailController extends GetxController {
           ),
           barrierDismissible: false,
         );
-      } else {
-        Get.back();
       }
       //update([id]);
       final response = await http.get(
@@ -106,9 +104,13 @@ class ProductDetailController extends GetxController {
       isLoading.value = false;
       log('Error during API request: $error');
       // Handle error
+    } finally {
+      if (isLoading.value == false) {
+        Get.back();
+      }
     }
     //false
-    //update
+    update();
   }
 
   //calculate total rating of product
@@ -131,7 +133,7 @@ class ProductDetailController extends GetxController {
     // Iterate over each Variant in the current ProductDetailModel
     for (Variant variant in productDetail.variants) {
       // Add all image URLs from the current Variant to allImagesList
-      imageUrls.addAll(variant.image_urls);
+      imageUrls.addAll(variant.imageUrls);
     }
 
     log('total images: ${imageUrls.length}');
@@ -146,7 +148,7 @@ class ProductDetailController extends GetxController {
   }
 
   Future<void> addToCartApi(String id, String name, String image, String color,
-      int size, int qty, int discounted_price, int actual_price) async {
+      int size, int qty, int discountedPrice, int actualPrice) async {
     try {
       isCartLoading.value = true;
       // if (isCartLoading.value == true) {
@@ -163,8 +165,8 @@ class ProductDetailController extends GetxController {
         'color': color,
         'size': size,
         'quantity': qty,
-        'discounted_price': discounted_price,
-        'actual_price': actual_price,
+        'discounted_price': discountedPrice,
+        'actual_price': actualPrice,
       };
       final jsonData = jsonEncode(data);
 
@@ -193,13 +195,13 @@ class ProductDetailController extends GetxController {
       }
     } on SocketException catch (e) {
       // Handle SocketException (e.g., no internet connection)
-      print('SocketException: $e');
+      log('SocketException: $e');
     } on HttpException catch (e) {
       // Handle HttpException (e.g., 404 Not Found)
-      print('HttpException: $e');
+      log('HttpException: $e');
     } catch (e) {
       // Catch any other error that might occur
-      print('Error: $e');
+      log('Error: $e');
     }
   }
 }

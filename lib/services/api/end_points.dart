@@ -9,6 +9,7 @@ class EndPoints {
   static const String deleteToCart = "${baseUrl}products/delete-cart-item";
   static String orderSummary = "${baseUrl}products/order-summary";
   static String placeOrder = "${baseUrl}orders";
+  static String razorpayOrder = "${baseUrl}payments/razorpay-orders";
 
   static const String productDetail =
       "${baseUrl}products/product-detail?product_id";

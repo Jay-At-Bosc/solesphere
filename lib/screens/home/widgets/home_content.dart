@@ -1,8 +1,11 @@
+
 import 'package:iconsax/iconsax.dart';
 import 'package:solesphere/auth/auth_exports.dart';
+import 'package:solesphere/common/widgets/popup/shoes_loading.dart';
 
 import 'package:solesphere/screens/home/controller/product_controller.dart';
 import 'package:solesphere/services/routes/app_route_exports.dart';
+import 'package:solesphere/utils/constants/icons.dart';
 import 'package:solesphere/utils/constants/sizes.dart';
 
 import '../../../common/widgets/app_bar/app_bar.dart';
@@ -19,7 +22,7 @@ class HomeScreenContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(ProductController());
+    // final controller = Get.put(ProductController());
     // final productController = Get.put(ProductDetailController());
     final controllerDrawer = Get.put(CustomDrawerController());
 
@@ -79,30 +82,43 @@ class HomeScreenContent extends StatelessWidget {
                     ),
                     //Categories
 
-                    Obx(() => controller.isLoading.value
-                        ? const Center(
-                            child: CircularProgressIndicator(),
-                          )
-                        : SHomeCategories(list: controller.brandList)),
+                    // Obx(() => controller.isLoading.value
+                    //     ? const Center(
+                    //         child: CircularProgressIndicator(),
+                    //       )
+                    //     : SHomeCategories(list: controller.brandList)),
 
-                    const SizedBox(
-                      height: SSizes.defaultSpace / 4,
-                    ),
+                    // const SizedBox(
+                    //   height: SSizes.defaultSpace / 4,
+                    // ),
 
                     //Product
-                    const SSectionTitle(),
+                    GetBuilder<ProductController>(
+                      id: 'home',
+                      builder: (controller) => controller.isMainLoading()
+                          ? const ShoesLoading(loader: SJsons.loader)
+                          : Column(
+                              children: [
+                                SHomeCategories(list: controller.brandList),
+                                const SSectionTitle(),
+                                SProductGridView(
+                                  list: controller.filterProductList,
+                                )
+                              ],
+                            ),
+                    ),
 
                     //Card
 
-                    Obx(
-                      () => controller.isProdcutLoading.value
-                          ? const Center(
-                              child: CircularProgressIndicator(),
-                            )
-                          : SProductGridView(
-                              list: controller.filterProductList,
-                            ),
-                    ),
+                    // Obx(
+                    //   () => controller.isProdcutLoading.value
+                    //       ? const Center(
+                    //           child: CircularProgressIndicator(),
+                    //         )
+                    //       : SProductGridView(
+                    //           list: controller.filterProductList,
+                    //         ),
+                    // ),
                   ],
                 ),
               ),

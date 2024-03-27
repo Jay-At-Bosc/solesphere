@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:solesphere/auth/auth_exports.dart';
 
 import 'package:solesphere/screens/order-checkout/order_controller.dart';
@@ -23,19 +21,28 @@ class AddressSelection extends GetView<OrderController> {
   List<Widget> pageContent = <Widget>[
     GetBuilder<OrderController>(
       id: 'address',
-      builder: (ctx) => SizedBox(
-        height: Get.size.height * 0.5,
-        child: ListView.builder(
-          itemCount: ctx.userAddresses.length,
-          itemBuilder: (context, index) {
-            // final option = 'Option ${index + 1}';
-            return CustomRadioListTile(
-              option: index.toString(),
-              title: ctx.userAddresses[index].adType,
-              subTitle: ctx.fullAddress(index),
-            );
-          },
-        ),
+      builder: (ctx) => Column(
+        children: [
+          SizedBox(
+            height: Get.size.height * 0.5,
+            child: ListView.builder(
+              itemCount: ctx.userAddresses.length,
+              itemBuilder: (context, index) {
+                // final option = 'Option ${index + 1}';
+                return CustomRadioListTile(
+                  option: index.toString(),
+                  title: ctx.userAddresses[index].adType,
+                  subTitle: ctx.fullAddress(index),
+                );
+              },
+            ),
+          ),
+          if (ctx.userAddresses.length != 3)
+            TextButton(
+              onPressed: () {},
+              child: const Text("Add Address"),
+            )
+        ],
       ),
     ),
     const PaymentSelection(),
@@ -77,8 +84,10 @@ class AddressSelection extends GetView<OrderController> {
                 await controller.processOrder();
                 return;
               }
-              controller.setActiveStep(controller.activeStep.value + 1);
-              Get.toNamed(Routes.order);
+              if (controller.userAddresses.isNotEmpty) {
+                controller.setActiveStep(controller.activeStep.value + 1);
+                Get.toNamed(Routes.order);
+              }
             },
           ),
         ),

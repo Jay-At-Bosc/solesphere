@@ -104,7 +104,7 @@ class CartController extends GetxController {
           );
         }
         Map<String, dynamic> data = {
-          'product_id': cartItemsList[index].product_id,
+          'product_id': cartItemsList[index].productId,
           'productName': cartItemsList[index].productName,
           'color': cartItemsList[index].color,
           'size': cartItemsList[index].size,
@@ -122,7 +122,7 @@ class CartController extends GetxController {
           log("Updated......................");
           log("cart-data $cartItemsList");
           cartItemsList[index].quantity++;
-          totalAmount.value += cartItemsList[index].discounted_price;
+          totalAmount.value += cartItemsList[index].discountedPrice;
 
           isIncreament.value = false;
           update(['amount']);
@@ -198,16 +198,16 @@ class CartController extends GetxController {
             flag == 0 &&
             cartItemsList[index].quantity > 1) {
           cartItemsList[index].quantity--;
-          totalAmount -= cartItemsList[index].discounted_price;
+          totalAmount -= cartItemsList[index].discountedPrice;
         } else if (response.statusCode == 200 &&
             flag == 0 &&
             cartItemsList[index].quantity == 1) {
-          totalAmount -= cartItemsList[index].discounted_price;
+          totalAmount -= cartItemsList[index].discountedPrice;
           cartItemsList.removeAt(index);
           // isDecrement.value = false;
           // update(['quantity', 'CartList']);
         } else if (response.statusCode == 200 && flag == 1) {
-          totalAmount -= (cartItemsList[index].discounted_price *
+          totalAmount -= (cartItemsList[index].discountedPrice *
               cartItemsList[index].quantity);
           cartItemsList.removeAt(index);
         } else {
