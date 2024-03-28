@@ -21,7 +21,7 @@ class CustomAddressForm extends StatelessWidget {
       children: [
         const CustomLabelText(labelText: SLabels.address),
         //TabBar of Address
-        const CustomAddressTab(),
+        CustomAddressTab(),
         const SizedBox(
           height: 8.0,
         ),

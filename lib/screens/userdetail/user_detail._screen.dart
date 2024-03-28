@@ -4,14 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:solesphere/screens/userdetail/user_detail_controller.dart';
 
-import 'package:solesphere/utils/constants/colors.dart';
 
 import 'package:solesphere/utils/constants/labels.dart';
 import 'package:solesphere/utils/constants/sizes.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
 import 'package:solesphere/widgets/custom_accent_color_button.dart';
 
-import '../../auth/signup/signup_screen.dart';
+
 
 import 'custom_profile_appbar.dart';
 import 'custom_profile_upload.dart';
