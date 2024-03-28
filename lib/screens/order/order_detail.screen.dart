@@ -1,0 +1,170 @@
+import 'package:easy_stepper/easy_stepper.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:solesphere/auth/auth_exports.dart';
+import 'package:solesphere/screens/order/widget/my_order_card.dart';
+import 'package:solesphere/utils/extensions/responsive_extension.dart';
+
+import '../../common/widgets/heading/label_and_price.dart';
+import '../../common/widgets/text/text_style.dart';
+import '../../utils/constants/colors.dart';
+import '../../utils/constants/labels.dart';
+
+class OrderDetailScreen extends StatelessWidget {
+  const OrderDetailScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: SColors.lightBackground.withOpacity(0.99),
+      appBar: AppBar(
+        title: Text(
+          SLabels.orderDetails,
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const MyOrderCard(
+                child: const OrderStatusStepper(),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  STextStyle(
+                    text: SLabels.orderSummary,
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelLarge!
+                        .apply(fontSizeFactor: 1.1)
+                        .copyWith(fontWeight: FontWeight.w700),
+                    maxLine: 1,
+                  ),
+                  SizedBox(
+                    height: 1.0.getHeight(),
+                  ),
+                  LabelAndPrice(
+                    title: SLabels.totalAmount,
+                    price: 998,
+                    padding: 0,
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelMedium!
+                        .copyWith(fontWeight: FontWeight.w300),
+                  ),
+                  LabelAndPrice(
+                    title: SLabels.discount,
+                    price: 40,
+                    padding: 0,
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelMedium!
+                        .copyWith(fontWeight: FontWeight.w300),
+                  ),
+                  LabelAndPrice(
+                    title: "Delivery Fees / Shipping Cost",
+                    price: 0,
+                    padding: 0,
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelMedium!
+                        .copyWith(fontWeight: FontWeight.w300),
+                  ),
+                  const Divider(),
+                  LabelAndPrice(
+                    title: SLabels.grandTotal,
+                    price: 958,
+                    padding: 0,
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelLarge!
+                        .apply(fontSizeFactor: 1.1)
+                        .copyWith(fontWeight: FontWeight.w700),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class OrderStatusStepper extends StatelessWidget {
+  const OrderStatusStepper({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return EasyStepper(
+      activeStep: 2,
+      stepShape: StepShape.rRectangle,
+      stepBorderRadius: 3.0.getWidth(),
+      borderThickness: 2,
+      // padding: const EdgeInsets.all(0.0),
+      stepRadius: 3.4.getHeight(),
+      finishedStepBorderColor: SColors.accent,
+      // finishedStepTextColor: SColors.accent,
+      finishedStepBackgroundColor: Colors.white,
+
+      // activeStepIconColor: SColors.accent,
+      // unreachedStepBackgroundColor: SColors.buttonDisabled,
+      showLoadingAnimation: false,
+      steps: [
+        EasyStep(
+          customStep: ClipRRect(
+            borderRadius: BorderRadius.circular(15),
+            child: Opacity(
+              opacity: 1,
+              child: Icon(
+                Iconsax.box,
+                size: 8.0.getWidth(),
+                color: 1 == 1 ? SColors.accent : null,
+              ),
+            ),
+          ),
+          customTitle: const Text(
+            SLabels.placed,
+            textAlign: TextAlign.center,
+          ),
+        ),
+        EasyStep(
+          customStep: ClipRRect(
+            borderRadius: BorderRadius.circular(15),
+            child: Opacity(
+              opacity: 1,
+              child: Icon(
+                Iconsax.truck_fast,
+                size: 8.0.getWidth(),
+                color: 0 == 2 ? SColors.accent : Colors.black,
+              ),
+            ),
+          ),
+          customTitle: const Text(
+            SLabels.shipped,
+            textAlign: TextAlign.center,
+          ),
+        ),
+        EasyStep(
+          customStep: ClipRRect(
+            borderRadius: BorderRadius.circular(15),
+            child: Opacity(
+              opacity: 1,
+              child: Icon(Iconsax.truck_tick,
+                  color: 0 == 2 ? SColors.accent : Colors.black,
+                  size: 8.0.getWidth()),
+            ),
+          ),
+          customTitle: const Text(
+            SLabels.delivered,
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ],
+    );
+  }
+}

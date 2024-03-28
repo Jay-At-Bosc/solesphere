@@ -74,9 +74,6 @@ class AddressSelection extends GetView<OrderController> {
                 : SLabels.payNow,
             isLoading: false,
             onPressed: () async {
-              // log("Active Before is: ${controller.activeStep.value}");
-
-              // log("Active  After is: ${controller.activeStep.value}");
               if (controller.activeStep.value == 1) {
                 await controller.getOrderSummary();
               }
@@ -122,10 +119,7 @@ class AddressSelection extends GetView<OrderController> {
                                 child: pageContent[controller.activeStep.value],
                               ),
                       ),
-                      // SizedBox(
-                      //   height: 2.0.getHeight(),
-                      // ),
-                      //Process Button
+                      
                     ],
                   ),
                 ),

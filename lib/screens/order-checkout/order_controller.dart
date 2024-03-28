@@ -199,7 +199,7 @@ class OrderController extends GetxController {
         ),
         barrierDismissible: false,
       );
-
+//-----
       String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
       var headers = {'auth-token': token, 'Content-Type': 'application/json'};
 
@@ -214,12 +214,14 @@ class OrderController extends GetxController {
           ),
         );
         if (response.statusCode == 200) {
+//-----
+          log(response.data.toString());
           final Map<String, dynamic> responseData =
               response.data['data'] as Map<String, dynamic>;
 
           PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
-          var options = {
+          Map<String, dynamic> options = {
             "key": "rzp_test_rA1Ir43322K9yU",
             "order_id": responseData['id'],
             "amount": responseData['amount'],
@@ -232,8 +234,10 @@ class OrderController extends GetxController {
               "email": user!.email,
             }
           };
+//-----
 
           _razorpay.open(options);
+
           _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS,
               (PaymentSuccessResponse response) async {
             log("Payment Success: ${response.paymentId}");
@@ -244,6 +248,7 @@ class OrderController extends GetxController {
 
             Get.offAllNamed(Routes.home);
           });
+
           _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR,
               (PaymentFailureResponse response) {
             log("Payment Error: ${response.code} - ${response.message}");
@@ -252,6 +257,7 @@ class OrderController extends GetxController {
                 title: "Failed",
                 message: "Payment Failed. Please Try Again..!");
           });
+
           _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET,
               (ExternalWalletResponse response) {
             log("External Wallet: ${response.walletName}");

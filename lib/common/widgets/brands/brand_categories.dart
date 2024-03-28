@@ -46,7 +46,8 @@ class SHomeCategories extends StatelessWidget {
                       image: controller.brandList[index].brandIcon,
                       textColor: SColors.primary,
                       backgroundColor: SColors.primary,
-                      title: controller.brandList[index].brand,
+                      title: controller.brandList[index].brand.capitalize
+                          .toString(),
                       index: controller.brandList[index].id,
                     ),
                   );

@@ -13,6 +13,7 @@ abstract class Routes {
    static const String cart = _Paths.cart;
    static const String userProfile = _Paths.userProfileDetail;
    static const String order = _Paths.order;
+   static const String viewOrder = _Paths.viewOrder;
 }
 
 abstract class _Paths {
@@ -28,5 +29,6 @@ abstract class _Paths {
   static const String cart = '/cart';
   static const String userProfileDetail = '/user-profile-detail';
   static const String order = '/order';
+  static const String viewOrder = '/view-orders';
 
 }

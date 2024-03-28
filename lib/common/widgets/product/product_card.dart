@@ -83,8 +83,10 @@ class SProductCardVertical extends StatelessWidget {
               ),
             ),
             //Details
-            SProductDetails(
-              product: product,
+            SizedBox(
+              child: SProductDetails(
+                product: product,
+              ),
             ),
           ],
         ),

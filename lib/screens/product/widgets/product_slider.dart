@@ -22,7 +22,7 @@ class ProductSlider extends GetView<ProductDetailController> {
               .textTheme
               .headlineSmall!
               .apply(color: SColors.textSecondary.withOpacity(0.9)),
-          maxLines: 3,
+          maxLines: 5,
           overflow: TextOverflow.ellipsis,
         ),
         const SizedBox(

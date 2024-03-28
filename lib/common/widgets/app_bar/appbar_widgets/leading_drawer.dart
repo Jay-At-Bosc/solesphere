@@ -5,14 +5,14 @@ import 'package:iconsax/iconsax.dart';
 import '../../../../screens/home/controller/drawer_controller.dart';
 import '../../../../utils/constants/colors.dart';
 
-class SLeadingDrawer extends StatelessWidget {
+class SLeadingDrawer extends GetView<CustomDrawerController> {
   const SLeadingDrawer({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<CustomDrawerController>();
+    // final controller = Get.find<CustomDrawerController>();
     return Container(
       margin: const EdgeInsets.only(left: 10),
       decoration: const BoxDecoration(
@@ -22,8 +22,8 @@ class SLeadingDrawer extends StatelessWidget {
       child: IconButton(
         icon: const Icon(Iconsax.menu5),
         color: SColors.textSecondary,
-        onPressed: () {
-          controller.isDrawerOpen.value
+        onPressed: () async {
+          controller.isDrawerOpen
               ? controller.closeDrawer()
               : controller.openDrawer();
           // Scaffold.of(context).openDrawer();

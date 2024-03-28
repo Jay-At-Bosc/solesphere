@@ -58,15 +58,15 @@ class CartController extends GetxController {
         deliveryCharge.value = jsonResponse['data']['deliveryCharge'];
         log("cart-data $cartItemsList");
         isCartLoading.value = false;
-        update(['CartList', 'amount']);
+        update(['CartList', 'amount', 'cart_count']);
       } else {
         Get.snackbar("Opps1", "Cart is empty");
         isCartLoading.value = false;
-        update(['CartList', 'amount']);
+        update(['CartList', 'amount', 'cart_count']);
       }
     } catch (e) {
       isCartLoading.value = false;
-      update(['CartList']);
+      update(['CartList', 'cart_count']);
       log(e.toString());
     }
   }

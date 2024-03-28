@@ -7,7 +7,7 @@ import '../../../services/routes/app_pages.dart';
 import '../../../utils/constants/colors.dart';
 import '../../home/controller/drawer_controller.dart';
 
-class SDrawerOption extends StatelessWidget {
+class SDrawerOption extends GetView<CustomDrawerController> {
   const SDrawerOption({
     super.key,
     required this.icon,
@@ -19,7 +19,7 @@ class SDrawerOption extends StatelessWidget {
   final String route;
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(CustomDrawerController());
+    // final controller = Get.put(CustomDrawerController());
     return Padding(
       padding: EdgeInsets.only(bottom: 4.0.getHeight()),
       child: Row(
@@ -40,14 +40,18 @@ class SDrawerOption extends StatelessWidget {
                 try {
                   await AuthenticationRepository.instance.signOut();
                   Get.offAllNamed(route);
+                  return;
                 } catch (e) {
                   Get.snackbar("Error", e.toString(),
                       snackPosition: SnackPosition.BOTTOM,
                       duration: const Duration(seconds: 2));
                 }
                 Get.offAllNamed(route);
+              } else {
+                print('Drawwer_option :vishal');
+
+                controller.navigateTo(route);
               }
-              controller.navigateTo(route);
             },
             child: Text(
               text,

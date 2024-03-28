@@ -101,6 +101,9 @@ class SLabels {
   static const String orderDate = "Order Date: ";
   static const String quantity = "Qty: ";
   static const String orderDetails = "Order Details";
+  static const String placed = "Placed";
+  static const String shipped = "Shipped";
+  static const String delivered = "Delivered";
 
   // Checkout
   static const String selectAddress = "Select Address";

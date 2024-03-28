@@ -80,6 +80,7 @@ class ProductController extends GetxController {
 
   //Fetch Products
   Future<void> fetchProducts() async {
+    filterProductList.clear();
     isProdcutLoading.value = true;
     final response = await http.get(
         Uri.parse('https://solesphere-backend.onrender.com/api/v1/products/'));
