@@ -43,42 +43,47 @@ class HomeScreen extends StatelessWidget {
               // label: 'Search',
             ),
             CurvedNavigationBarItem(
-                child: Stack(
-              children: [
-                Positioned(
-                  right: controller.page.value == 2
-                      ? 2.0.getWidth()
-                      : 0.9.getWidth(),
-                  top: controller.page.value == 2
-                      ? 1.9.getWidth()
-                      : 0.3.getWidth(),
-                  child: Container(
-                    width: controller.page.value == 2
-                        ? 4.0.getWidth()
-                        : 4.0.getWidth(),
-                    height: controller.page.value == 2
-                        ? 4.0.getWidth()
-                        : 4.0.getWidth(),
-                    decoration:
-                        BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                    child: GetBuilder<CartController>(
-                      id: 'cart_count',
-                      builder: (ctx) => Center(
-                        child: Text(
-                          ctx.cartItemsList.length.toString(),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Icon(
-                  Iconsax.shopping_cart,
-                  size: controller.page.value == 2 ? 34 : 24,
-                ),
-              ],
-            )
-                // label: '5',
-                ),
+              child:
+                  //     child: Stack(
+                  //   children: [
+                  //     Positioned(
+                  //       right: controller.page.value == 2
+                  //           ? 2.0.getWidth()
+                  //           : 0.9.getWidth(),
+                  //       top: controller.page.value == 2
+                  //           ? 1.9.getWidth()
+                  //           : 0.3.getWidth(),
+                  //       child: Container(
+                  //         width: controller.page.value == 2
+                  //             ? 4.0.getWidth()
+                  //             : 4.0.getWidth(),
+                  //         height: controller.page.value == 2
+                  //             ? 4.0.getWidth()
+                  //             : 4.0.getWidth(),
+                  //         decoration:
+                  //             BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                  //         child: GetBuilder<CartController>(
+                  //           id: 'cart_count',
+                  //           builder: (ctx) => Center(
+                  //             child: Text(
+                  //               ctx.cartItemsList.length.toString(),
+                  //             ),
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //     Icon(
+                  //       Iconsax.shopping_cart,
+                  //       size: controller.page.value == 2 ? 34 : 24,
+                  //     ),
+                  //   ],
+                  // )
+                  Icon(
+                Iconsax.shopping_cart,
+                size: controller.page.value == 2 ? 34 : 24,
+              ),
+              // label: '5',
+            ),
             const CurvedNavigationBarItem(
               child: Icon(Iconsax.shopping_bag),
               // label: '5',
@@ -115,4 +120,10 @@ class NavigationController extends GetxController {
     const ViewOrderScreen(),
     const UserProfileScreen(),
   ];
+
+  @override
+  void onInit() async {
+    await CartController.instance.loadCartFromApi();
+    super.onInit();
+  }
 }

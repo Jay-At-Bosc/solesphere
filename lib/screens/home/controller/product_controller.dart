@@ -10,6 +10,8 @@ import '../../../services/models/category_model.dart';
 import '../../../services/models/product_model.dart';
 import 'package:http/http.dart' as http;
 
+import '../../cart/cart_controller.dart';
+
 class ProductController extends GetxController {
   static ProductController get instance => Get.find();
 
@@ -27,11 +29,12 @@ class ProductController extends GetxController {
   // RxInt selectedItem = (-1).obs;
 
   @override
-  void onInit() {
+  void onInit() async {
     // productList.value.addAll(productsData);
     // categories.addAll(categoryList);
     fetchBrands();
     fetchProducts();
+    await CartController.instance.loadCartFromApi();
     super.onInit();
   }
 

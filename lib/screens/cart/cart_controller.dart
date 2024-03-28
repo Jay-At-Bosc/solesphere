@@ -27,6 +27,7 @@ class CartController extends GetxController {
   @override
   void onInit() async {
     await loadCartFromApi();
+    update(['cart_count']);
     // calculateTotalAmount();
     super.onInit();
   }
