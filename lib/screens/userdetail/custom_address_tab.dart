@@ -25,10 +25,6 @@ class CustomAddressTab extends GetView<UserDetailsController> {
           ButtonsTabBar(
             elevation: 1.0,
             controller: UserDetailsController.instance.controller,
-            onTap: (v) {
-              log("$v");
-              log("controller index : ${UserDetailsController.instance.controller!.index}");
-            },
             contentPadding: EdgeInsets.symmetric(horizontal: 4.0.getWidth()),
             splashColor: Colors.transparent,
             decoration: const BoxDecoration(

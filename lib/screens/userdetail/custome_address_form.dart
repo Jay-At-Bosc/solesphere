@@ -1,7 +1,10 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:solesphere/screens/userdetail/user_detail_controller.dart';
 import 'package:solesphere/utils/theme/widget_themes/text_theme.dart';
 import 'package:solesphere/widgets/custom_simple_input.dart';
-
 
 import '../../utils/constants/labels.dart';
 import '../../utils/theme/widget_themes/checkbox_theme.dart';
@@ -9,7 +12,7 @@ import '../../utils/theme/widget_themes/checkbox_theme.dart';
 import '../../widgets/custom_label.dart';
 import 'custom_address_tab.dart';
 
-class CustomAddressForm extends StatelessWidget {
+class CustomAddressForm extends GetView<UserDetailsController> {
   const CustomAddressForm({
     super.key,
   });
@@ -26,24 +29,39 @@ class CustomAddressForm extends StatelessWidget {
           height: 8.0,
         ),
 
+        // Addressline 1
         CustomSimpleInput(
           hintText: SLabels.addresslineOne,
-          controller: TextEditingController(),
-          // node: FocusNode(),
+          controller: controller.addressLine1,
+          
           validator: (value) {
             return value;
           },
-          keyboardType: TextInputType.multiline,maxLength: 2,
+          keyboardType: TextInputType.multiline,
+          maxLength: 1,
         ),
         const SizedBox(
           height: 8.0,
         ),
+
+        // Addressline 2
         CustomSimpleInput(
           hintText: SLabels.addresslineTwo,
-          controller: TextEditingController(),
-         keyboardType: TextInputType.multiline,maxLength: 2,
+          controller: controller.addressLine2,
+          keyboardType: TextInputType.multiline,
+          maxLength: 2,
+        ),
+        const SizedBox(
+          height: 8.0,
         ),
 
+        // City
+        CustomSimpleInput(
+          hintText: SLabels.city,
+          controller: controller.city,
+          keyboardType: TextInputType.multiline,
+          maxLength: 2,
+        ),
         const SizedBox(
           height: 8.0,
         ),
@@ -54,16 +72,14 @@ class CustomAddressForm extends StatelessWidget {
             Expanded(
               child: CustomSimpleInput(
                 hintText: SLabels.state,
-                controller: TextEditingController(),
-        
+                controller: controller.state,
                 maxLength: 1,
               ),
             ),
             Expanded(
               child: CustomSimpleInput(
                 hintText: SLabels.zipcode,
-                controller: TextEditingController(),
-               
+                controller: controller.zipcode,
                 keyboardType: TextInputType.number,
                 maxLength: 6,
               ),

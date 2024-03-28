@@ -47,7 +47,7 @@ class UserInfo extends GetView<UserDetailsController> {
         const CustomLabelText(labelText: SLabels.mobileNumber),
         CustomSimpleInput(
             hintText: SLabels.mobileNumber,
-            controller: TextEditingController(),
+            controller: controller.phoneNo,
             keyboardType: TextInputType.phone,
             maxLength: 10),
         const SizedBox(

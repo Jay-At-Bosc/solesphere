@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -37,7 +39,7 @@ class CustomProfileUpload extends GetView<UserDetailsController> {
                     ? ClipRRect(
                         borderRadius: BorderRadius.circular(45.0),
                         child: Image.file(
-                          controller.selectedImage.value!,
+                          File(controller.selectedImage.value!.path),
                           height: 90,
                           width: 90,
                           fit: BoxFit.cover,

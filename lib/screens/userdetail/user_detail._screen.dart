@@ -1,16 +1,15 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:solesphere/screens/userdetail/user_detail_controller.dart';
-
 
 import 'package:solesphere/utils/constants/labels.dart';
 import 'package:solesphere/utils/constants/sizes.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
 import 'package:solesphere/widgets/custom_accent_color_button.dart';
-
-
 
 import 'custom_profile_appbar.dart';
 import 'custom_profile_upload.dart';
@@ -43,18 +42,15 @@ class UserDetailScreen extends GetView<UserDetailsController> {
                     SizedBox(
                       height: 2.0.getHeight(),
                     ),
-
-
                     GetBuilder<UserDetailsController>(
                         id: UserDetailsController.userDetailFormId,
                         builder: (context) {
                           return Form(
+                            key: controller.userdetailKey,
                             child: Column(
                               children: [
                                 UserInfo(),
-
                                 CustomAddressForm(),
-                                
                                 GetBuilder<UserDetailsController>(
                                   id: UserDetailsController.saveButtonId,
                                   builder: (controller) => Padding(
@@ -65,7 +61,10 @@ class UserDetailScreen extends GetView<UserDetailsController> {
                                       child: CustomAccentColorButton(
                                         buttonLabel: SLabels.save,
                                         isLoading: false,
-                                        onPressed: () {},
+                                        onPressed: () async {
+                                          log("button pressed");
+                                          await controller.saveUserData();
+                                        },
                                       ),
                                     ),
                                   ),
