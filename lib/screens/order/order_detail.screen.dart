@@ -1,6 +1,7 @@
 import 'package:easy_stepper/easy_stepper.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:solesphere/auth/auth_exports.dart';
+import 'package:solesphere/screens/order/view_order_controller.dart';
 import 'package:solesphere/screens/order/widget/my_order_card.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
@@ -9,11 +10,13 @@ import '../../common/widgets/text/text_style.dart';
 import '../../utils/constants/colors.dart';
 import '../../utils/constants/labels.dart';
 
-class OrderDetailScreen extends StatelessWidget {
+class OrderDetailScreen extends GetView<ViewOrderController> {
   const OrderDetailScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final Map args = Get.arguments ?? {};
+    final int index = args['index'] ?? 0;
     return Scaffold(
       backgroundColor: SColors.lightBackground.withOpacity(0.99),
       appBar: AppBar(
@@ -27,7 +30,8 @@ class OrderDetailScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              const MyOrderCard(
+              MyOrderCard(
+                j: index,
                 child: const OrderStatusStepper(),
               ),
               Column(
@@ -47,7 +51,7 @@ class OrderDetailScreen extends StatelessWidget {
                   ),
                   LabelAndPrice(
                     title: SLabels.totalAmount,
-                    price: 998,
+                    price: 110,
                     padding: 0,
                     style: Theme.of(context)
                         .textTheme
@@ -75,7 +79,9 @@ class OrderDetailScreen extends StatelessWidget {
                   const Divider(),
                   LabelAndPrice(
                     title: SLabels.grandTotal,
-                    price: 958,
+                    price: int.parse(
+                        double.parse(controller.orders[index].totalAmount)
+                            .toStringAsFixed(0)),
                     padding: 0,
                     style: Theme.of(context)
                         .textTheme

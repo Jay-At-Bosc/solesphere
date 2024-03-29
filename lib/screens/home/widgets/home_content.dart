@@ -3,7 +3,7 @@ import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/common/widgets/popup/shoes_loading.dart';
 
 import 'package:solesphere/screens/home/controller/product_controller.dart';
-import 'package:solesphere/screens/product/product_detail_controller.dart';
+
 import 'package:solesphere/services/routes/app_route_exports.dart';
 import 'package:solesphere/utils/constants/icons.dart';
 import 'package:solesphere/utils/constants/sizes.dart';
@@ -34,7 +34,7 @@ class HomeScreenContent extends GetView<CustomDrawerController> {
       // init: CustomDrawerController(),
       id: "drawer",
       builder: (controller1) {
-        print('home content:vishal');
+        // print('home content:vishal');
 
         return AnimatedContainer(
           //  if(controllerDrawer.isDrawerOpen.value)

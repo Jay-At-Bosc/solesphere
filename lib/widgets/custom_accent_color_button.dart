@@ -22,13 +22,11 @@ class CustomAccentColorButton extends StatelessWidget {
       style: SElevatedButtonTheme.elevatedButtonStyle,
       child: isLoading
           ? const SizedBox(
-              height: 30,
-              width: 30,
+              height: 21,
+              width: 21,
               child: CircularProgressIndicator(
-                color: Colors.white,
-                strokeWidth: 1.8,
-              ),
-            )
+                strokeWidth: 2,
+              ))
           : CustomLabelText(labelText: buttonLabel),
     );
   }

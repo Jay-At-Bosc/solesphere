@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/screens/order/order_detail.screen.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
@@ -11,19 +10,23 @@ class SecondaryButton extends StatelessWidget {
     this.elevation = 0,
     required this.style,
     required this.label,
+    required this.index,
   });
   final Color forground;
   final Color background;
   final double? elevation;
   final TextStyle style;
   final String label;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: 38.0.getWidth(),
       child: ElevatedButton(
-        onPressed: () => Get.to(const OrderDetailScreen()),
+        onPressed: () {
+          Get.to(() => const OrderDetailScreen(), arguments: {'index': index});
+        },
         style: ElevatedButton.styleFrom(
           foregroundColor: forground,
           backgroundColor: background,

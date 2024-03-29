@@ -7,6 +7,8 @@ import 'package:lottie/lottie.dart';
 import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/common/widgets/popup/loaders.dart';
 import 'package:solesphere/services/api/end_points.dart';
+import 'package:solesphere/services/routes/app_pages.dart';
+import 'package:solesphere/services/routes/app_route_exports.dart';
 
 import 'package:solesphere/utils/constants/icons.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
@@ -26,12 +28,15 @@ class ProductDetailController extends GetxController {
   RxBool isCartLoading = false.obs;
   RxInt selectedVarient = 0.obs;
   RxInt selectedSize = 0.obs;
+  // String productId = '';
 
-  @override
-  void onInit() {
-    //call api and initialize the productDetail
-    super.onInit();
-  }
+  // @override
+  // void onInit() async {
+  //   await fetchProductDetails(productId);
+  //   getImagesList();
+  //   //call api and initialize the productDetail
+  //   super.onInit();
+  // }
 
   // Iterate over each ProductDetailModel in productDetailList
 
@@ -65,6 +70,7 @@ class ProductDetailController extends GetxController {
   Future<void> fetchProductDetails(String productId) async {
     try {
       isLoading.value = true;
+      // Get.toNamed(Routes.productDetail);
       if (isLoading.value == true) {
         Get.dialog(
           AlertDialog(

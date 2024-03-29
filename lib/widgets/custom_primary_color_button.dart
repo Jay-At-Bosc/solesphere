@@ -28,13 +28,11 @@ class CustomPrimaryColorButton extends StatelessWidget {
           foregroundColor: MaterialStatePropertyAll(SColors.textPrimaryWith80)),
       child: isLoading
           ? const SizedBox(
-              height: 30,
-              width: 30,
+              height: 21,
+              width: 21,
               child: CircularProgressIndicator(
-                color: SColors.accent,
-                strokeWidth: 1.8,
-              ),
-            )
+                strokeWidth: 2,
+              ))
           : Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

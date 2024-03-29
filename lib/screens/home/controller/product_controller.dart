@@ -5,6 +5,8 @@ import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:solesphere/common/widgets/popup/loaders.dart';
+import 'package:solesphere/screens/product/product_detail_controller.dart';
+import 'package:solesphere/screens/product/product_detail_screen.dart';
 
 import '../../../services/models/category_model.dart';
 import '../../../services/models/product_model.dart';
@@ -32,6 +34,7 @@ class ProductController extends GetxController {
   void onInit() async {
     // productList.value.addAll(productsData);
     // categories.addAll(categoryList);
+    // ProductDetailController pd = ProductDetailController();
     fetchBrands();
     fetchProducts();
     await CartController.instance.loadCartFromApi();

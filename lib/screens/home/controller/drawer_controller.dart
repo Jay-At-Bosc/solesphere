@@ -15,7 +15,7 @@ class CustomDrawerController extends GetxController {
     isDrawerOpen = true;
     // log(xOffset.toString());
     // log(yOffset.toString());
-    print('open drawer :vishal');
+    // print('open drawer :vishal');
 
     update(['drawer']);
   }
@@ -24,7 +24,7 @@ class CustomDrawerController extends GetxController {
     // xOffset.value = 0.0;
     // yOffset.value = 0.0;
     isDrawerOpen = false;
-    print('close drawer : vishal');
+    // print('close drawer : vishal');
 
     update(['drawer']);
     // log(xOffset.toString());

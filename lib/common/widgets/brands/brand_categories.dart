@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
+
 import 'package:solesphere/screens/home/controller/product_controller.dart';
 import '../../../../../utils/constants/colors.dart';
 import 'widgets/vertical_image_text.dart';

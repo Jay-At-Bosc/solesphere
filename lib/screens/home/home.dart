@@ -1,7 +1,6 @@
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:iconsax/iconsax.dart';
 import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/screens/cart/cart_controller.dart';
@@ -21,7 +20,8 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(NavigationController());
-    print('Home :vishal');
+    // final ctx = Get.lazyPut(() => CartController());
+    // print('Home :vishal');
 
     return Scaffold(
       body: Obx(() => controller.screens[controller.page.value]),
@@ -30,12 +30,12 @@ class HomeScreen extends StatelessWidget {
           iconPadding: 20,
           key: controller.bottomNavigationKey,
           index: controller.page.value,
-          items: [
-            const CurvedNavigationBarItem(
+          items: const [
+            CurvedNavigationBarItem(
               child: Icon(Iconsax.home_1),
               // label: 'Home',
             ),
-            const CurvedNavigationBarItem(
+            CurvedNavigationBarItem(
               child: Icon(
                 Iconsax.heart,
               ),
@@ -46,49 +46,37 @@ class HomeScreen extends StatelessWidget {
               child:
                   //     child: Stack(
                   //   children: [
-                  //     Positioned(
-                  //       right: controller.page.value == 2
-                  //           ? 2.0.getWidth()
-                  //           : 0.9.getWidth(),
-                  //       top: controller.page.value == 2
-                  //           ? 1.9.getWidth()
-                  //           : 0.3.getWidth(),
-                  //       child: Container(
-                  //         width: controller.page.value == 2
-                  //             ? 4.0.getWidth()
-                  //             : 4.0.getWidth(),
-                  //         height: controller.page.value == 2
-                  //             ? 4.0.getWidth()
-                  //             : 4.0.getWidth(),
-                  //         decoration:
-                  //             BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                  //         child: GetBuilder<CartController>(
-                  //           id: 'cart_count',
-                  //           builder: (ctx) => Center(
-                  //             child: Text(
-                  //               ctx.cartItemsList.length.toString(),
-                  //             ),
+                  //     GetBuilder<CartController>(
+                  //       id: 'cart_count',
+                  //       builder: (c) => Positioned(
+                  //         top: 0.3.getWidth(),
+                  //         left: 1.3.getWidth(),
+                  //         child: SizedBox(
+                  //           width: 4.0.getWidth(),
+                  //           height: 4.0.getWidth(),
+                  //           child: Center(
+                  //             child: Text(c.initialized
+                  //                 ? c.cartItemsList.length.toString()
+                  //                 : '0'),
                   //           ),
                   //         ),
                   //       ),
                   //     ),
-                  //     Icon(
+                  //     const Icon(
                   //       Iconsax.shopping_cart,
-                  //       size: controller.page.value == 2 ? 34 : 24,
                   //     ),
                   //   ],
                   // )
                   Icon(
                 Iconsax.shopping_cart,
-                size: controller.page.value == 2 ? 34 : 24,
               ),
               // label: '5',
             ),
-            const CurvedNavigationBarItem(
+             CurvedNavigationBarItem(
               child: Icon(Iconsax.shopping_bag),
               // label: '5',
             ),
-            const CurvedNavigationBarItem(
+             CurvedNavigationBarItem(
               child: Icon(Iconsax.user),
               // label: 'Personal',
             ),
@@ -109,9 +97,17 @@ class HomeScreen extends StatelessWidget {
 }
 
 class NavigationController extends GetxController {
+  static NavigationController get instance => Get.find();
+
   final page = 0.obs;
   final GlobalKey<CurvedNavigationBarState> bottomNavigationKey = GlobalKey();
   final controllerDrawer = Get.put(CustomDrawerController());
+
+  @override
+  void onInit() async {
+    // CartController.instance.loadCartFromApi();
+    super.onInit();
+  }
 
   final screens = [
     const Stack(children: [DrawerScreen(), HomeScreenContent()]),
@@ -120,10 +116,4 @@ class NavigationController extends GetxController {
     const ViewOrderScreen(),
     const UserProfileScreen(),
   ];
-
-  @override
-  void onInit() async {
-    await CartController.instance.loadCartFromApi();
-    super.onInit();
-  }
 }

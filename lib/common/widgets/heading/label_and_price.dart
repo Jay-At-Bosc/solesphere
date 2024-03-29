@@ -7,11 +7,13 @@ class LabelAndPrice extends StatelessWidget {
       required this.title,
       required this.price,
       this.padding = 0.0,
-      this.style});
+      this.style,
+      this.sign = ""});
   final String title;
   final int price;
   final double? padding;
   final TextStyle? style;
+  final String? sign;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class LabelAndPrice extends StatelessWidget {
             maxLine: 1,
           ),
           STextStyle(
-            text: "₹$price.00",
+            text: "${sign} ₹$price.00",
             style: style,
             maxLine: 1,
           )

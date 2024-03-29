@@ -48,7 +48,7 @@ class SDrawerOption extends GetView<CustomDrawerController> {
                 }
                 Get.offAllNamed(route);
               } else {
-                print('Drawwer_option :vishal');
+                // print('Drawwer_option :vishal');
 
                 controller.navigateTo(route);
               }

@@ -142,7 +142,12 @@ class CustomButton extends GetView<ProductDetailController> {
               )
             : GetBuilder<ProductDetailController>(
                 builder: (controller) => controller.isCartLoading.value
-                    ? const CircularProgressIndicator()
+                    ? SizedBox(
+                        height: 21,
+                        width: 21,
+                        child: const CircularProgressIndicator(
+                          strokeWidth: 2,
+                        ))
                     : Text(
                         btnText,
                         textAlign: TextAlign.end,

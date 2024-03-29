@@ -128,28 +128,24 @@ class OrderSummary extends GetView<OrderController> {
                     title: SLabels.totalAmount,
                     price: ctx.orderSummary[0].totalActualAmount,
                     padding: 0,
-                    style: Theme.of(context)
-                        .textTheme
-                        .labelMedium!
-                        .copyWith(fontWeight: FontWeight.w300),
+                    style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                        fontWeight: FontWeight.w300, color: Colors.black),
                   ),
                   LabelAndPrice(
                     title: SLabels.discount,
                     price: ctx.orderSummary[0].totalDiscount,
                     padding: 0,
-                    style: Theme.of(context)
-                        .textTheme
-                        .labelMedium!
-                        .copyWith(fontWeight: FontWeight.w300),
+                    style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                        fontWeight: FontWeight.w300, color: SColors.warning),
+                    sign: "-",
                   ),
                   LabelAndPrice(
                     title: "Delivery Fees / Shipping Cost",
                     price: ctx.orderSummary[0].deliveryCharge,
                     padding: 0,
-                    style: Theme.of(context)
-                        .textTheme
-                        .labelMedium!
-                        .copyWith(fontWeight: FontWeight.w300),
+                    style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                        fontWeight: FontWeight.w300, color: SColors.success),
+                    sign: "+",
                   ),
                   const Divider(),
                   LabelAndPrice(

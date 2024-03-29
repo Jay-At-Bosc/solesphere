@@ -4,8 +4,8 @@ import 'package:solesphere/common/widgets/popup/shoes_loading.dart';
 import 'package:solesphere/screens/cart/cart_controller.dart';
 import 'package:solesphere/services/routes/app_pages.dart';
 import 'package:solesphere/services/routes/app_route_exports.dart';
+import 'package:solesphere/utils/constants/colors.dart';
 import 'package:solesphere/utils/constants/icons.dart';
-
 
 import '../../common/widgets/heading/label_and_price.dart';
 import '../../utils/constants/labels.dart';
@@ -55,7 +55,9 @@ class CartScreen extends GetView<CartController> {
             init: CartController(),
             id: 'CartList',
             builder: (controller) => controller.isCartLoading.value
-                ? const ShoesLoading(loader: SJsons.loader,)
+                ? const ShoesLoading(
+                    loader: SJsons.loader,
+                  )
                 : controller.cartItemsList.isEmpty
                     ? const Center(child: Text("Cart Is Empty"))
                     : Column(
@@ -92,12 +94,15 @@ class CartScreen extends GetView<CartController> {
                                       price: ctx.totalAmount.value,
                                     ),
                                     LabelAndPrice(
-                                      style:
-                                          Theme.of(context).textTheme.bodyLarge,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge!
+                                          .apply(color: SColors.success),
                                       title: 'Shipping',
                                       price: ctx.totalAmount.value < 499
                                           ? ctx.deliveryCharge.value
                                           : 0,
+                                      sign: "+",
                                     ),
                                     const Divider(),
                                     LabelAndPrice(

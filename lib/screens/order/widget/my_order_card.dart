@@ -1,17 +1,19 @@
-import 'package:flutter/material.dart';
+import 'package:solesphere/auth/auth_exports.dart';
+
+import 'package:solesphere/screens/order/view_order_controller.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
 import '../../../common/widgets/buttons/secondary_button.dart';
 import '../../../common/widgets/text/text_style.dart';
 import '../../../utils/constants/colors.dart';
-import '../../../utils/constants/images.dart';
+
 import '../../../utils/constants/labels.dart';
 import '../../notification/widgets/notification_image_container.dart';
 
-class MyOrderCard extends StatelessWidget {
+class MyOrderCard extends GetView<ViewOrderController> {
   const MyOrderCard({
     super.key,
-    this.j = 1,
+    this.j = 0,
     this.child = const SizedBox(),
   });
 
@@ -30,7 +32,8 @@ class MyOrderCard extends StatelessWidget {
           children: [
             //order id
             STextStyle(
-              text: "${SLabels.orderId} 1234567",
+              text: "${SLabels.orderId} ${controller.orders[j].id}",
+              maxLine: 1,
               style: Theme.of(context)
                   .textTheme
                   .labelMedium!
@@ -39,7 +42,8 @@ class MyOrderCard extends StatelessWidget {
 
             //Order date
             STextStyle(
-              text: "${SLabels.orderDate} Jan 26, 2024",
+              text:
+                  "${SLabels.orderDate}  ${controller.changeDateFormat(controller.orders[j].createdAt)}",
               style: Theme.of(context)
                   .textTheme
                   .labelSmall!
@@ -47,13 +51,13 @@ class MyOrderCard extends StatelessWidget {
             ),
 
             //Ordered Product List
-            for (int i = 0; i < j + 1; i++)
+            for (int i = 0; i < controller.orders[j].products.length; i++)
               Padding(
                 padding: EdgeInsets.only(top: 2.0.getHeight()),
                 child: Row(
                   children: [
-                    const NotificationImageContainer(
-                      url: SImages.shoe1,
+                    NotificationImageContainer(
+                      url: controller.orders[j].products[i].image_url,
                     ),
                     SizedBox(
                       width: 3.0.getWidth(),
@@ -63,7 +67,7 @@ class MyOrderCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           STextStyle(
-                            text: "name of product",
+                            text: controller.orders[j].products[i].productName,
                             style: Theme.of(context)
                                 .textTheme
                                 .labelMedium!
@@ -71,7 +75,8 @@ class MyOrderCard extends StatelessWidget {
                             maxLine: 1,
                           ),
                           STextStyle(
-                            text: "₹123",
+                            text:
+                                "₹${controller.orders[j].products[i].discounted_price}",
                             style: Theme.of(context).textTheme.labelMedium,
                             maxLine: 1,
                           ),
@@ -82,7 +87,7 @@ class MyOrderCard extends StatelessWidget {
                                 color:
                                     SColors.textPrimaryWith60.withOpacity(0.1)),
                             child: STextStyle(
-                              text: "Placed",
+                              text: controller.orders[j].orderStatus,
                               style: Theme.of(context)
                                   .textTheme
                                   .labelSmall!
@@ -94,7 +99,7 @@ class MyOrderCard extends StatelessWidget {
                       ),
                     ),
                     STextStyle(
-                      text: "Qty: 1",
+                      text: "Qty: ${controller.orders[j].products[i].quantity}",
                       style: Theme.of(context)
                           .textTheme
                           .labelMedium!
@@ -119,12 +124,14 @@ class MyOrderCard extends StatelessWidget {
                 SecondaryButton(
                   label: SLabels.viewDetails,
                   style: Theme.of(context).textTheme.labelMedium!,
+                  index: j,
                 ),
                 SecondaryButton(
                   label: SLabels.reorder,
                   style: Theme.of(context).textTheme.labelMedium!,
                   forground: SColors.textWhite,
                   background: SColors.accent,
+                  index: j,
                 ),
               ],
             )
