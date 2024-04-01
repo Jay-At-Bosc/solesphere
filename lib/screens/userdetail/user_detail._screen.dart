@@ -32,47 +32,47 @@ class UserDetailScreen extends GetView<UserDetailsController> {
           builder: (context) {
             return SingleChildScrollView(
               child: Padding(
-                padding: EdgeInsets.only(
-                    left: 5.0.getWidth(),
-                    right: 5.0.getWidth(),
-                    top: 2.0.getHeight()),
+                padding: mainPadding,
                 child: Column(
                   children: [
+                    // Profile Picture Upload Component
                     CustomProfileUpload(),
                     SizedBox(
                       height: 2.0.getHeight(),
                     ),
+
+                    // User Information - Username, Email Address, Mobile No.
+                    UserInfo(),
+
+                    // User Address details and Phone No.
                     GetBuilder<UserDetailsController>(
-                        id: UserDetailsController.userDetailFormId,
-                        builder: (context) {
-                          return Form(
-                            key: controller.userdetailKey,
-                            child: Column(
-                              children: [
-                                UserInfo(),
-                                CustomAddressForm(),
-                                GetBuilder<UserDetailsController>(
-                                  id: UserDetailsController.saveButtonId,
-                                  builder: (controller) => Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 10.0.getWidth()),
-                                    child: SizedBox(
-                                      width: double.maxFinite,
-                                      child: CustomAccentColorButton(
-                                        buttonLabel: SLabels.save,
-                                        isLoading: false,
-                                        onPressed: () async {
-                                          log("button pressed");
-                                          await controller.saveUserData();
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        }),
+                      id: UserDetailsController.userDetailFormId,
+                      builder: (context) {
+                        return Form(
+                          key: controller.userdetailKey,
+                          child: CustomAddressForm(),
+                        );
+                      },
+                    ),
+
+                    // Save Button
+                    GetBuilder<UserDetailsController>(
+                      id: UserDetailsController.saveButtonId,
+                      builder: (controller) => Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 10.0.getWidth()),
+                        child: SizedBox(
+                          width: double.maxFinite,
+                          child: CustomAccentColorButton(
+                            buttonLabel: SLabels.save,
+                            isLoading: controller.isMainLoading,
+                            onPressed: () async {
+                              await controller.saveUserData();
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -80,4 +80,10 @@ class UserDetailScreen extends GetView<UserDetailsController> {
           }),
     );
   }
+
+  EdgeInsets get mainPadding => EdgeInsets.only(
+        left: 5.0.getWidth(),
+        right: 5.0.getWidth(),
+        top: 2.0.getHeight(),
+      );
 }

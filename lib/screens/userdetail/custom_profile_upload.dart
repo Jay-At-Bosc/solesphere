@@ -30,22 +30,20 @@ class CustomProfileUpload extends GetView<UserDetailsController> {
               width: 90.0,
               height: 90.0,
               decoration: const BoxDecoration(
-                color: SColors.textSecondary,
+                color: SColors.primary,
                 shape: BoxShape.circle,
               ),
               child: GetBuilder<UserDetailsController>(
                 id: UserDetailsController.userProfilePictureId,
-                builder: (controller) => controller.selectedImage.value != null
-                    ? ClipRRect(
-                        borderRadius: BorderRadius.circular(45.0),
-                        child: Image.file(
-                          File(controller.selectedImage.value!.path),
-                          height: 90,
-                          width: 90,
-                          fit: BoxFit.cover,
-                        ),
-                      )
-                    : SizedBox(),
+                builder: (controller) => ClipRRect(
+                  borderRadius: BorderRadius.circular(45.0),
+                  child: Image.network(
+                    controller.selectedImage.path,
+                    height: 90,
+                    width: 90,
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
             ),
           ),

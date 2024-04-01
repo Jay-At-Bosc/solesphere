@@ -6,9 +6,8 @@ class SValidationRules {
   static final hasDigit = RegExp(r'[0-9]');
   static final hasSpecialChar = RegExp(r'[!@#$%^&*]');
   static final hasWhitespace = RegExp(r'\s');
-  static final emojiRegex = RegExp(
-  r'[^\u0000-\uFFFF]',
-);
+  static final hasIndianPhoneNo = RegExp(r'^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$');
+  static final hasIndianZipCode = RegExp(r'^\d{6}$');
 }
 
 class SValidator {
@@ -74,4 +73,35 @@ class SValidator {
 
     return null;
   }
+
+  static String? validateIndianPhoneNumber(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Mobile No. is required';
+    }
+    if (!value.startsWith("+91")) {
+      return 'Mobile No. must start with +91';
+    }
+    if (!SValidationRules.hasIndianPhoneNo.hasMatch(value) || value.length > 13 || value.length < 13) {
+      return 'Enter a valid Mobile No.';
+    }
+    return null;
+  }
+
+  static String? validateAddress(String? value,String label) {
+    if (value == null || value.isEmpty) {
+      return '$label is required';
+    }
+    return null;
+  }
+
+  static String? validateIndianZipCode(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Zip Code is required';
+    }
+    if (!SValidationRules.hasIndianZipCode.hasMatch(value)) {
+      return 'Enter a valid Zip Code';
+    }
+    return null;
+  }
+
 }

@@ -14,6 +14,7 @@ import 'package:solesphere/services/models/user_data_model.dart';
 
 class DbAuthentication extends GetxController {
   static DbAuthentication get instance => Get.find();
+  var diox = dio.Dio();
 
   Future<bool?> createUser(UserDataModel user) async {
     try {
@@ -30,7 +31,6 @@ class DbAuthentication extends GetxController {
       };
       final jsonData = jsonEncode(data);
 
-      var diox = dio.Dio();
       var response = await diox.request(EndPoints.createUser,
           options: dio.Options(method: 'POST'), data: jsonData);
 
@@ -75,7 +75,7 @@ class DbAuthentication extends GetxController {
 
       final jsonData = jsonEncode(data);
       log("api call : ${data.values}");
-      var diox = dio.Dio();
+
       var response = await diox.request(
         EndPoints.userDetail,
         options: dio.Options(method: 'POST', headers: headers),
@@ -95,38 +95,39 @@ class DbAuthentication extends GetxController {
     }
   }
 
-  Future<bool?> uploadImage(XFile? pickerFile) async {
+  Future<String> uploadImage(XFile? pickerFile) async {
+    String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
     try {
       var headers = {
         'Content-Type': 'multipart/form-data',
+        'auth-token': token,
       };
-      var diox = dio.Dio();
 
       if (pickerFile != null) {
         var data = dio.FormData.fromMap({
-          'images': [
+          'profilePic': [
             await dio.MultipartFile.fromFile(pickerFile.path,
                 filename: pickerFile.name)
           ],
         });
-       
-        var response = await diox.post(
-         EndPoints.userProfilePicture,
+
+        var response = await diox.put(
+          EndPoints.userProfilePicture,
           options: dio.Options(headers: headers),
           data: data,
         );
 
-        
         if (response.statusCode == 200) {
-          log(response.data.toString());
-          return response.data[0];
+          return response.data['data'];
         } else {
-          throw response.statusMessage.toString();
+          return "";
         }
       }
+    } on dio.DioException catch (e) {
+      throw e.message.toString();
     } catch (e) {
       throw e.toString();
     }
-    return null;
+    return "";
   }
 }

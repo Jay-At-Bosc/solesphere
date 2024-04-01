@@ -2,12 +2,15 @@
 
 import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
+
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../../services/models/user_data_model.dart';
 import '../../services/repositories/db_authentication.dart';
+import '../../utils/constants/enums.dart';
 import '../../utils/constants/labels.dart';
 
 class UserDetailsController extends GetxController
@@ -34,7 +37,13 @@ class UserDetailsController extends GetxController
 
   GlobalKey<FormState> userdetailKey = GlobalKey<FormState>();
 
+  /// Button Loader
+  bool isSaveLoading = false;
+  bool isAcceptPolicies = false;
+
   late TabController? controller;
+  XFile selectedImage = XFile(
+      "https://res.cloudinary.com/dz9ga1vmp/image/upload/v1711712801/xhd9shno8fzua1iqrnaa.png");
 
   @override
   onInit() {
@@ -42,14 +51,33 @@ class UserDetailsController extends GetxController
     controller = TabController(length: 3, vsync: this);
   }
 
-  Rx<XFile?> selectedImage = Rx(null);
+  /// Getters
+  void get checkFormValidation =>
+      !userdetailKey.currentState!.validate() ? throw "" : null;
+
+  void get acceptPolicies =>
+      !isAcceptPolicies ? throw "Please accept the terms and conditions" : null;
+  bool get isMainLoading => isSaveLoading;
+
   Future<void> pickImage() async {
-    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      selectedImage.value = XFile(image.path);
+    try {
+      checkPermission(); // check for permission
+
+      // Image 
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+
+      if (image != null) {
+        await DbAuthentication.instance.uploadImage(image).then((isUpload) =>
+            selectedImage =
+                isUpload.isNotEmpty ? XFile(isUpload) : selectedImage);
+        update([userProfilePictureId]);
+      } else {
+        throw "Image Not Selected";
+      }
+    } catch (e) {
+      showMessage("Error", e.toString());
     }
 
-    update([userProfilePictureId]);
   }
 
   checkPermission() async {
@@ -62,23 +90,28 @@ class UserDetailsController extends GetxController
 
     if (permissionStatus[Permission.camera] != PermissionStatus.granted ||
         permissionStatus[Permission.storage] != PermissionStatus.granted) {
-      return;
+      throw "Your Permission Required";
     }
   }
 
   void skip() {}
 
   Future<void> saveUserData() async {
-    log("save method called");
     final String id = FirebaseAuth.instance.currentUser!.uid;
     try {
-      log("inside try");
+      checkFormValidation; // Checks All Fields Validations
+
+      acceptPolicies; // Check For accepting Policies
+
+      isSaveLoading = true;
+      update([userDetailScreenId]);
+
       final user = UserDataModel(
         id: id,
         name: username,
         email: useremail,
         phone: phoneNo.text,
-        addressType: "Home", //getStringRepresentation(controller!.index),
+        addressType: getStringRepresentation(controller!.index),
         area: addressLine2.text,
         city: city.text,
         pincode: zipcode.text,
@@ -86,13 +119,16 @@ class UserDetailsController extends GetxController
         state: state.text,
       );
 
-      log(user.phone.toString());
+      // final userDetailAdded = await DbAuthentication.instance
+      //     .createUserDetails(user, selectedImage);
 
-      final userDetailAdded = await DbAuthentication.instance
-          .createUserDetails(user, selectedImage.value);
+      isSaveLoading = false;
+      update([userDetailScreenId]);
 
       // Get.offAllNamed(Routes.home);
     } catch (e) {
+      isSaveLoading = false;
+      update([userDetailScreenId]);
       showMessage(SLabels.error, e.toString());
     }
   }

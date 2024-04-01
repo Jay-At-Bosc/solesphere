@@ -71,6 +71,8 @@ class AppStorage {
   set hasOnBoardingCompleted(bool value) =>
       setBool(StorageKey.kHasOnBoardingCompleted, value);
 
+
+
   // onboardingItems
   // Future<void> setOnboardingItems(List<OnboardingItem> items) {
   //   final jsonString = jsonEncode(items);
