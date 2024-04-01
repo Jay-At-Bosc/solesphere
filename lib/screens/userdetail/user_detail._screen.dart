@@ -1,16 +1,12 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
-import 'dart:developer';
+// ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:solesphere/screens/userdetail/user_detail_controller.dart';
 
-import 'package:solesphere/utils/constants/labels.dart';
-import 'package:solesphere/utils/constants/sizes.dart';
-import 'package:solesphere/utils/extensions/responsive_extension.dart';
-import 'package:solesphere/widgets/custom_accent_color_button.dart';
-
+import '../../utils/constants/labels.dart';
+import '../../utils/constants/sizes.dart';
+import '../../utils/extensions/responsive_extension.dart';
+import '../../widgets/custom_accent_color_button.dart';
 import 'custom_profile_appbar.dart';
 import 'custom_profile_upload.dart';
 import 'custome_address_form.dart';
@@ -36,8 +32,6 @@ class UserDetailScreen extends GetView<UserDetailsController> {
                 child: Column(
                   children: [
                     const CustomProfileUpload(),
-                    // Profile Picture Upload Component
-                    CustomProfileUpload(),
                     SizedBox(
                       height: 2.0.getHeight(),
                     ),
@@ -47,34 +41,6 @@ class UserDetailScreen extends GetView<UserDetailsController> {
 
                     // User Address details and Phone No.
                     GetBuilder<UserDetailsController>(
-                        id: UserDetailsController.userDetailFormId,
-                        builder: (context) {
-                          return Form(
-                            child: Column(
-                              children: [
-                                const UserInfo(),
-
-                                const CustomAddressForm(),
-                                
-                                GetBuilder<UserDetailsController>(
-                                  id: UserDetailsController.saveButtonId,
-                                  builder: (controller) => Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 10.0.getWidth()),
-                                    child: SizedBox(
-                                      width: double.maxFinite,
-                                      child: CustomAccentColorButton(
-                                        buttonLabel: SLabels.save,
-                                        isLoading: false,
-                                        onPressed: () {},
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        }),
                       id: UserDetailsController.userDetailFormId,
                       builder: (context) {
                         return Form(

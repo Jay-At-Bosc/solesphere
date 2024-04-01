@@ -3,11 +3,11 @@
 import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+
 import '../../services/models/user_data_model.dart';
 import '../../services/repositories/db_authentication.dart';
 import '../../utils/constants/enums.dart';

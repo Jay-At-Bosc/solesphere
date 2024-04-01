@@ -3,7 +3,6 @@ import 'package:iconsax/iconsax.dart';
 import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/screens/cart/cart_controller.dart';
 import 'package:solesphere/services/routes/app_route_exports.dart';
-import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
 import '../../../common/widgets/text/text_style.dart';
 import '../../../services/models/cart_model.dart';
