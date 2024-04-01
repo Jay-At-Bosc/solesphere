@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,6 +18,8 @@ class SignInController extends GetxController {
   final String signinWithGoogleButtonId = "SignupWithGoogle";
   final String signinToSignupId = "SigninToSignupId";
   final String forgetPAsswordButtonId = "ForgetPAsswordButtonId";
+
+  late var user_info;
 
   /// Input Controller
   final TextEditingController email = TextEditingController();

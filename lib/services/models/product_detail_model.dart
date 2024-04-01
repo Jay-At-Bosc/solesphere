@@ -263,25 +263,25 @@ class ProductDetailModel {
 
 class Variant {
   final String color;
-  final List<String> image_urls;
+  final List<String> imageUrls;
   final List<Size> sizes;
   final String id;
   Variant({
     required this.color,
-    required this.image_urls,
+    required this.imageUrls,
     required this.sizes,
     required this.id,
   });
 
   Variant copyWith({
     String? color,
-    List<String>? image_urls,
+    List<String>? imageUrls,
     List<Size>? sizes,
     String? id,
   }) {
     return Variant(
       color: color ?? this.color,
-      image_urls: image_urls ?? this.image_urls,
+      imageUrls: imageUrls ?? this.imageUrls,
       sizes: sizes ?? this.sizes,
       id: id ?? this.id,
     );
@@ -290,7 +290,7 @@ class Variant {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'color': color,
-      'image_urls': image_urls,
+      'image_urls': imageUrls,
       'sizes': sizes.map((x) => x.toMap()).toList(),
       '_id': id,
     };
@@ -299,7 +299,7 @@ class Variant {
   factory Variant.fromMap(Map<String, dynamic> map) {
     return Variant(
       color: map['color'] as String,
-      image_urls: List<String>.from(map['image_urls'] as List<dynamic>),
+      imageUrls: List<String>.from(map['image_urls'] as List<dynamic>),
       sizes: List<Size>.from(
         (map['sizes'] as List<dynamic>).map<Size>(
           (size) => Size.fromMap(size as Map<String, dynamic>),
@@ -316,7 +316,7 @@ class Variant {
 
   @override
   String toString() {
-    return 'Variant(color: $color, image_urls: $image_urls, sizes: $sizes, _id: $id)';
+    return 'Variant(color: $color, image_urls: $imageUrls, sizes: $sizes, _id: $id)';
   }
 
   @override
@@ -324,14 +324,14 @@ class Variant {
     if (identical(this, other)) return true;
 
     return other.color == color &&
-        listEquals(other.image_urls, image_urls) &&
+        listEquals(other.imageUrls, imageUrls) &&
         listEquals(other.sizes, sizes) &&
         other.id == id;
   }
 
   @override
   int get hashCode {
-    return color.hashCode ^ image_urls.hashCode ^ sizes.hashCode ^ id.hashCode;
+    return color.hashCode ^ imageUrls.hashCode ^ sizes.hashCode ^ id.hashCode;
   }
 }
 

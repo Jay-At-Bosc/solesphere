@@ -35,12 +35,11 @@ class SProductCardVertical extends StatelessWidget {
 
     return GestureDetector(
       onTap: () async {
-        
+        Get.toNamed(Routes.productDetail);
         await details.fetchProductDetails(product.id);
         details.getImagesList();
-        log("product id: ${product.id}");
-        Get.toNamed(Routes.productDetail);
-        
+        // log("product id: ${product.id}");
+        // Get.back();
       },
       child: Container(
         width: 190,
@@ -84,8 +83,10 @@ class SProductCardVertical extends StatelessWidget {
               ),
             ),
             //Details
-            SProductDetails(
-              product: product,
+            SizedBox(
+              child: SProductDetails(
+                product: product,
+              ),
             ),
           ],
         ),

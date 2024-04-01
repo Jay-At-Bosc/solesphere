@@ -6,8 +6,13 @@ class EndPoints {
   static const String createUser = "${baseUrl}auth/";
   static const String userDetail = "${baseUrl}users/";
   static const String userProfilePicture = "${baseUrl}users/profile";
+  static const String getUser = "${baseUrl}users/";
   static const String addToCart = "${baseUrl}products/add-to-cart/";
   static const String deleteToCart = "${baseUrl}products/delete-cart-item";
+  static String orderSummary = "${baseUrl}products/order-summary";
+  static String placeOrder = "${baseUrl}orders";
+  static String razorpayOrder = "${baseUrl}payments/razorpay-orders";
+  static String userOrders = "${baseUrl}orders";
 
   static const String productDetail =
       "${baseUrl}products/product-detail?product_id";

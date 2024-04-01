@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
+
 import 'package:solesphere/screens/home/controller/product_controller.dart';
 import '../../../../../utils/constants/colors.dart';
 import 'widgets/vertical_image_text.dart';
@@ -46,7 +46,8 @@ class SHomeCategories extends StatelessWidget {
                       image: controller.brandList[index].brandIcon,
                       textColor: SColors.primary,
                       backgroundColor: SColors.primary,
-                      title: controller.brandList[index].brand,
+                      title: controller.brandList[index].brand.capitalize
+                          .toString(),
                       index: controller.brandList[index].id,
                     ),
                   );

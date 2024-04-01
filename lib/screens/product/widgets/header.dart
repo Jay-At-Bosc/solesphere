@@ -43,7 +43,7 @@ class ProductDetailHeader extends GetView<ProductDetailController> {
               SizedBox(
                 width: 50.0.getWidth(),
                 child: Text(
-                  controller.productDetail.productName,
+                  controller.productDetail.productName.capitalize.toString(),
                   style: Theme.of(context)
                       .textTheme
                       .displayMedium!

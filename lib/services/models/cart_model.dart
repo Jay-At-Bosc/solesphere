@@ -1,75 +1,75 @@
 import 'dart:convert';
 
 class CartModel {
-  final String product_id;
+  final String productId;
   final String productName;
-  final String image_url;
+  final String imgUrl;
   final String color;
   final int size;
    int quantity;
-  final int actual_price;
-  final int discounted_price;
+  final int actualPrice;
+  final int discountedPrice;
   final String id;
   CartModel({
-    required this.product_id,
+    required this.productId,
     required this.productName,
-    required this.image_url,
+    required this.imgUrl,
     required this.color,
     required this.size,
     required this.quantity,
-    required this.actual_price,
-    required this.discounted_price,
+    required this.actualPrice,
+    required this.discountedPrice,
     required this.id,
   });
 
   CartModel copyWith({
-    String? product_id,
+    String? productId,
     String? productName,
-    String? image_url,
+    String? imgUrl,
     String? color,
     int? size,
     int? quantity,
-    int? actual_price,
-    int? discounted_price,
+    int? actualPrice,
+    int? discountedPrice,
     String? id,
   }) {
     return CartModel(
-      product_id: product_id ?? this.product_id,
+      productId: productId ?? this.productId,
       productName: productName ?? this.productName,
-      image_url: image_url ?? this.image_url,
+      imgUrl: imgUrl ?? this.imgUrl,
       color: color ?? this.color,
       size: size ?? this.size,
       quantity: quantity ?? this.quantity,
-      actual_price: actual_price ?? this.actual_price,
-      discounted_price: discounted_price ?? this.discounted_price,
+      actualPrice: actualPrice ?? this.actualPrice,
+      discountedPrice: discountedPrice ?? this.discountedPrice,
       id: id ?? this.id,
     );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'product_id': product_id,
+      'product_id': productId,
       'productName': productName,
-      'image_url': image_url,
+      'image_url': imgUrl,
       'color': color,
       'size': size,
       'quantity': quantity,
-      'actual_price': actual_price,
-      'discounted_price': discounted_price,
+      'actual_price': actualPrice,
+      'discounted_price': discountedPrice,
       '_id': id,
     };
   }
 
   factory CartModel.fromMap(Map<String, dynamic> map) {
     return CartModel(
-      product_id: map['product_id'] as String,
+      productId: map['product_id'] as String,
       productName: map['productName'] as String,
-      image_url: map['image_url'] as String,
+      imgUrl: map['image_url'] as String,
       color: map['color'] as String,
       size: map['size'].toInt() as int,
       quantity: map['quantity'].toInt() as int,
-      actual_price: map['actual_price'].toInt() as int,
-      discounted_price: map['discounted_price'].toInt() as int,
+      actualPrice: map['actual_price'].toInt() as int,
+      discountedPrice: map['discounted_price'].toInt() as int,
       id: map['_id'] as String,
     );
   }
@@ -80,7 +80,7 @@ class CartModel {
 
   @override
   String toString() {
-    return 'CartModel(product_id: $product_id, productName: $productName, image_url: $image_url, color: $color, size: $size, quantity: $quantity, actual_price: $actual_price, discounted_price: $discounted_price, _id: $id)';
+    return 'CartModel(product_id: $productId, productName: $productName, image_url: $imgUrl, color: $color, size: $size, quantity: $quantity, actual_price: $actualPrice, discounted_price: $discountedPrice, _id: $id)';
   }
 
   @override
@@ -88,27 +88,27 @@ class CartModel {
     if (identical(this, other)) return true;
   
     return 
-      other.product_id == product_id &&
+      other.productId == productId &&
       other.productName == productName &&
-      other.image_url == image_url &&
+      other.imgUrl == imgUrl &&
       other.color == color &&
       other.size == size &&
       other.quantity == quantity &&
-      other.actual_price == actual_price &&
-      other.discounted_price == discounted_price &&
+      other.actualPrice == actualPrice &&
+      other.discountedPrice == discountedPrice &&
       other.id == id;
   }
 
   @override
   int get hashCode {
-    return product_id.hashCode ^
+    return productId.hashCode ^
       productName.hashCode ^
-      image_url.hashCode ^
+      imgUrl.hashCode ^
       color.hashCode ^
       size.hashCode ^
       quantity.hashCode ^
-      actual_price.hashCode ^
-      discounted_price.hashCode ^
+      actualPrice.hashCode ^
+      discountedPrice.hashCode ^
       id.hashCode;
   }
 }

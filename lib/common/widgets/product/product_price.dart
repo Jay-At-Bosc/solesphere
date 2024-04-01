@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:solesphere/screens/home/controller/product_controller.dart';
 
@@ -28,7 +27,7 @@ class SProductPrice extends StatelessWidget {
           width: 2.0,
         ),
         STextStyle(
-          text: product.actualPrice.toString(),
+          text: "₹${product.actualPrice.toString()}",
           style: Theme.of(context).textTheme.labelSmall!.apply(
                 color: SColors.textPrimaryWith60,
                 fontSizeFactor: 0.9,

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:solesphere/auth/auth_exports.dart';
 
 import '../../../services/models/product_model.dart';
 import '../../../utils/constants/colors.dart';
@@ -17,7 +17,7 @@ class SProductName extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         STextStyle(
-          text: product.productName.toString(),
+          text: product.productName.capitalize.toString(),
           style: Theme.of(context)
               .textTheme
               .labelLarge!

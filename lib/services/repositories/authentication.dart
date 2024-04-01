@@ -22,15 +22,15 @@ class AuthenticationRepository extends GetxController {
 
   final appStorage = Get.find<AppStorage>();
 
-  @override
-  void onInit() {
-    super.onInit();
-    //screenRedirect();
-  }
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  //   //screenRedirect();
+  // }
 
   /// Function to Show Relevant Screen
   Future<void> screenRedirect() async {
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
     bool hasOnboardCompleted = appStorage.hasOnBoardingCompleted;
 
     if (hasOnboardCompleted) {

@@ -55,6 +55,24 @@ class ProductDealOfTheDay extends GetView<ProductDetailController> {
                 decoration: TextDecoration.lineThrough),
           ),
         ),
+        RichText(
+          text: TextSpan(
+            style: Theme.of(context).textTheme.labelSmall!.apply(
+                  color: SColors.textPrimaryWith80,
+                ),
+            children: <TextSpan>[
+              TextSpan(
+                text: "FREE delivery",
+                style: Theme.of(context).textTheme.labelSmall!.apply(
+                      color: SColors.accent,
+                    ),
+              ),
+              const TextSpan(
+                text: ' on order above ₹500 ',
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }

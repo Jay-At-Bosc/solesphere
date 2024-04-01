@@ -2,9 +2,7 @@
 
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:dio/dio.dart' as dio;
-
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:get/get.dart';
@@ -31,6 +29,7 @@ class DbAuthentication extends GetxController {
       };
       final jsonData = jsonEncode(data);
 
+      
       var response = await diox.request(EndPoints.createUser,
           options: dio.Options(method: 'POST'), data: jsonData);
 

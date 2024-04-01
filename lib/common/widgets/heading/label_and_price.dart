@@ -1,31 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:solesphere/utils/extensions/responsive_extension.dart';
-
 import '../text/text_style.dart';
 
 class LabelAndPrice extends StatelessWidget {
-  const LabelAndPrice({
-    super.key,
-    required this.title,
-    required this.price,
-  });
+  const LabelAndPrice(
+      {super.key,
+      required this.title,
+      required this.price,
+      this.padding = 0.0,
+      this.style,
+      this.sign = ""});
   final String title;
   final int price;
+  final double? padding;
+  final TextStyle? style;
+  final String? sign;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 2.0.getHeight()),
+      padding: EdgeInsets.only(bottom: padding!),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           STextStyle(
             text: title,
-            style: Theme.of(context).textTheme.bodyLarge,
+            style: style,
+            maxLine: 1,
           ),
           STextStyle(
-            text: "₹$price.00",
-            style: Theme.of(context).textTheme.titleMedium,
+            text: "${sign} ₹$price.00",
+            style: style,
+            maxLine: 1,
           )
         ],
       ),

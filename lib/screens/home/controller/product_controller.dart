@@ -10,6 +10,8 @@ import '../../../services/models/category_model.dart';
 import '../../../services/models/product_model.dart';
 import 'package:http/http.dart' as http;
 
+import '../../cart/cart_controller.dart';
+
 class ProductController extends GetxController {
   static ProductController get instance => Get.find();
 
@@ -27,12 +29,23 @@ class ProductController extends GetxController {
   // RxInt selectedItem = (-1).obs;
 
   @override
-  void onInit() {
+  void onInit() async {
     // productList.value.addAll(productsData);
     // categories.addAll(categoryList);
+    // ProductDetailController pd = ProductDetailController();
     fetchBrands();
     fetchProducts();
+    await CartController.instance.loadCartFromApi();
     super.onInit();
+  }
+
+  bool isMainLoading() {
+    // ignore: unrelated_type_equality_checks
+    if (isLoading == true || isProdcutLoading == true) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   //fetch data
@@ -64,13 +77,14 @@ class ProductController extends GetxController {
       TLoaders.errorSnackBar(title: "Oops!", message: "Failed to load data");
       // throw Exception('Failed to load data');
     }
-    update();
+    update(['home']);
   }
 
   //end
 
   //Fetch Products
   Future<void> fetchProducts() async {
+    filterProductList.clear();
     isProdcutLoading.value = true;
     final response = await http.get(
         Uri.parse('https://solesphere-backend.onrender.com/api/v1/products/'));
@@ -87,6 +101,7 @@ class ProductController extends GetxController {
 
       throw Exception('Failed to load products');
     }
+    update(['home']);
   }
   //end product
 

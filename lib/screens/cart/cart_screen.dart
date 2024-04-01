@@ -4,6 +4,8 @@ import 'package:solesphere/common/widgets/popup/shoes_loading.dart';
 import 'package:solesphere/screens/cart/cart_controller.dart';
 import 'package:solesphere/services/routes/app_pages.dart';
 import 'package:solesphere/services/routes/app_route_exports.dart';
+import 'package:solesphere/utils/constants/colors.dart';
+import 'package:solesphere/utils/constants/icons.dart';
 
 import '../../common/widgets/heading/label_and_price.dart';
 import '../../utils/constants/labels.dart';
@@ -53,14 +55,16 @@ class CartScreen extends GetView<CartController> {
             init: CartController(),
             id: 'CartList',
             builder: (controller) => controller.isCartLoading.value
-                ? const ShoesLoading()
+                ? const ShoesLoading(
+                    loader: SJsons.loader,
+                  )
                 : controller.cartItemsList.isEmpty
-                    ? Center(child: Text("Cart Is Empty"))
+                    ? const Center(child: Text("Cart Is Empty"))
                     : Column(
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
+                          SizedBox(
                             height: Get.height / 2,
                             // color: Colors.red,
                             child: ListView.builder(
@@ -84,17 +88,26 @@ class CartScreen extends GetView<CartController> {
                                 child: Column(
                                   children: [
                                     LabelAndPrice(
+                                      style:
+                                          Theme.of(context).textTheme.bodyLarge,
                                       title: 'Subtotal',
                                       price: ctx.totalAmount.value,
                                     ),
                                     LabelAndPrice(
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge!
+                                          .apply(color: SColors.success),
                                       title: 'Shipping',
                                       price: ctx.totalAmount.value < 499
                                           ? ctx.deliveryCharge.value
                                           : 0,
+                                      sign: "+",
                                     ),
                                     const Divider(),
                                     LabelAndPrice(
+                                      style:
+                                          Theme.of(context).textTheme.bodyLarge,
                                       title: 'Total Cost',
                                       price: ctx.totalAmount.value < 499
                                           ? ctx.totalAmount.value +

@@ -1,4 +1,3 @@
-
 import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/screens/product/product_detail_controller.dart';
 
@@ -21,7 +20,7 @@ class SoledByRichText extends GetView<ProductDetailController> {
               ),
           children: <TextSpan>[
             TextSpan(
-              text: controller.productDetail.brand.brand,
+              text: controller.productDetail.brand.brand.capitalize,
               style: Theme.of(context).textTheme.labelSmall!.apply(
                     color: SColors.accent,
                   ),

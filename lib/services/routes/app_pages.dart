@@ -5,6 +5,8 @@ import 'package:solesphere/screens/home/home.dart';
 import 'package:solesphere/screens/home/home_binding.dart';
 import 'package:solesphere/screens/notification/notification_screen.dart';
 import 'package:solesphere/screens/order-checkout/select_address.dart';
+import 'package:solesphere/screens/order/view_order_binding.dart';
+import 'package:solesphere/screens/order/view_order_screen.dart';
 import 'package:solesphere/screens/product/product_detail_screen.dart';
 import 'package:solesphere/screens/userdetail/user_detail_binding.dart';
 
@@ -106,7 +108,7 @@ class AppPages {
       curve: Curves.easeIn,
     ),
     GetPage(
-      name: _Paths.userProfile,
+      name: _Paths.userProfileDetail,
       page: () => const UserProfileScreen(),
       binding: UserProfileBinding(),
       //transition: Transition.fadeIn,
@@ -115,8 +117,16 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.order,
-      page: () => const AddressSelection(),
+      page: () => AddressSelection(),
       binding: OrderBinding(),
+      //transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 300),
+      curve: Curves.easeIn,
+    ),
+    GetPage(
+      name: _Paths.viewOrder,
+      page: () => const ViewOrderScreen(),
+      binding: OrderScreenBinding(),
       //transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 300),
       curve: Curves.easeIn,

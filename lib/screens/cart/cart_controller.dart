@@ -15,27 +15,19 @@ import 'package:http/http.dart' as http;
 
 class CartController extends GetxController {
   static CartController get instance => Get.find<CartController>();
-  // CartRepository cartRepository = CartRepository();
+
   var cartItemsList = <CartModel>[].obs;
   RxBool isCartLoading = false.obs;
   RxBool isIncreament = false.obs;
   RxBool isDecrement = false.obs;
-  RxBool flag = false.obs;
+
   RxInt totalAmount = 0.obs;
   RxInt deliveryCharge = 0.obs;
 
-  // loadCartFromApi() async {
-  //   var cartItemList = cartRepository.loadCartFromApi();
-
-  //   for (var item in cartItemList) {
-  //     CartModel cartItem = CartModel.fromMap(item);
-  //     cartItemsList.add(cartItem);
-  //   }
-  //   log(cartItemsList.toString());
-  // }
   @override
-  void onInit() async {
-    await loadCartFromApi();
+  void onInit() {
+    loadCartFromApi();
+    update(['cart_count']);
     // calculateTotalAmount();
     super.onInit();
   }
@@ -67,24 +59,18 @@ class CartController extends GetxController {
         deliveryCharge.value = jsonResponse['data']['deliveryCharge'];
         log("cart-data $cartItemsList");
         isCartLoading.value = false;
-        update(['CartList']);
+        update(['CartList', 'amount', 'cart_count']);
+      } else {
+        Get.snackbar("Opps1", "Cart is empty");
+        isCartLoading.value = false;
+        update(['CartList', 'amount', 'cart_count']);
       }
     } catch (e) {
       isCartLoading.value = false;
-      update(['CartList']);
+      update(['CartList', 'cart_count']);
       log(e.toString());
     }
   }
-
-  // void addToCart(CartModel product) {
-  //   final index = cartItemsList.indexWhere((item) => item.id == product.id);
-  //   if (index != -1) {
-  //     cartItemsList[index].quantity++;
-  //     update(['quantity']);
-  //   } else {
-  //     cartItemsList.add(product);
-  //   }
-  // }
 
   Future<void> increaseQuantity(CartModel product) async {
     final index = cartItemsList.indexWhere((item) => item.id == product.id);
@@ -107,9 +93,7 @@ class CartController extends GetxController {
                     width: 30.0.getWidth(),
                     height: 30.0.getWidth(),
                   ),
-                  const SizedBox(
-                      height:
-                          10.0), // Add some space between Lottie animation and text
+                  const SizedBox(height: 10.0),
                   const Text(
                     'Loading',
                     style: TextStyle(color: Colors.black),
@@ -121,7 +105,7 @@ class CartController extends GetxController {
           );
         }
         Map<String, dynamic> data = {
-          'product_id': cartItemsList[index].product_id,
+          'product_id': cartItemsList[index].productId,
           'productName': cartItemsList[index].productName,
           'color': cartItemsList[index].color,
           'size': cartItemsList[index].size,
@@ -138,18 +122,13 @@ class CartController extends GetxController {
         if (response.statusCode == 200) {
           log("Updated......................");
           log("cart-data $cartItemsList");
-          // isCartLoading.value = false;
-          // update(['CartList']);
-
           cartItemsList[index].quantity++;
-          // totalAmount.value =
-          totalAmount.value += cartItemsList[index].discounted_price;
-          // calculateTotalAmount();
+          totalAmount.value += cartItemsList[index].discountedPrice;
+
           isIncreament.value = false;
           update(['amount']);
         } else {
           log(response.statusCode.toString());
-          // log(response.body);
         }
 
         update(['quantity']);
@@ -164,21 +143,6 @@ class CartController extends GetxController {
       throw "Something Went Wrong";
     }
   }
-
-  // Future<void> decreaseQuantity(CartModel product) async {
-  //   final index = cartItemsList.indexWhere((item) => item.id == product.id);
-
-  //   if (cartItemsList[index].quantity > 1) {
-  //     cartItemsList[index].quantity--;
-
-  //     // totalAmount -= cartItemsList[index].discounted_price;
-  //   } else {
-  //     cartItemsList.removeAt(index);
-  //   }
-
-  //   // calculateTotalAmount();
-  //   update(['CartList', 'quantity']);
-  // }
 
   Future<void> deleteFromCartApi(CartModel product, int flag) async {
     final index = cartItemsList.indexWhere((item) => item.id == product.id);
@@ -235,16 +199,16 @@ class CartController extends GetxController {
             flag == 0 &&
             cartItemsList[index].quantity > 1) {
           cartItemsList[index].quantity--;
-          totalAmount -= cartItemsList[index].discounted_price;
+          totalAmount -= cartItemsList[index].discountedPrice;
         } else if (response.statusCode == 200 &&
             flag == 0 &&
             cartItemsList[index].quantity == 1) {
-          totalAmount -= cartItemsList[index].discounted_price;
+          totalAmount -= cartItemsList[index].discountedPrice;
           cartItemsList.removeAt(index);
           // isDecrement.value = false;
           // update(['quantity', 'CartList']);
         } else if (response.statusCode == 200 && flag == 1) {
-          totalAmount -= (cartItemsList[index].discounted_price *
+          totalAmount -= (cartItemsList[index].discountedPrice *
               cartItemsList[index].quantity);
           cartItemsList.removeAt(index);
         } else {
@@ -256,7 +220,7 @@ class CartController extends GetxController {
       }
     } on DioException catch (_) {
       isDecrement.value = false;
-      print(DioException);
+      // log(DioException);
       throw DioException;
     } catch (e) {
       isDecrement.value = false;
@@ -264,21 +228,21 @@ class CartController extends GetxController {
     }
   }
 
-  void calculateTotalAmount() {
-    totalAmount = calculateShippmentCharge()
-        ? flag.value
-            ? (totalAmount + deliveryCharge.value)
-            : (totalAmount - deliveryCharge.value)
-        : totalAmount;
-    update(['amount']);
-  }
+  // void calculateTotalAmount() {
+  //   totalAmount = calculateShippmentCharge()
+  //       ? flag.value
+  //           ? (totalAmount + deliveryCharge.value)
+  //           : (totalAmount - deliveryCharge.value)
+  //       : totalAmount;
+  //   update(['amount']);
+  // }
 
-  bool calculateShippmentCharge() {
-    if (totalAmount > 499) {
-      return false;
-    } else {
-      flag.value = true;
-      return true;
-    }
-  }
+  // bool calculateShippmentCharge() {
+  //   if (totalAmount > 499) {
+  //     return false;
+  //   } else {
+  //     flag.value = true;
+  //     return true;
+  //   }
+  // }
 }

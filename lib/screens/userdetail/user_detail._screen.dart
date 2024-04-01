@@ -14,7 +14,7 @@ import 'package:solesphere/widgets/custom_accent_color_button.dart';
 import 'custom_profile_appbar.dart';
 import 'custom_profile_upload.dart';
 import 'custome_address_form.dart';
-
+import 'user_detail_controller.dart';
 import 'user_info_.dart';
 
 class UserDetailScreen extends GetView<UserDetailsController> {
@@ -35,6 +35,7 @@ class UserDetailScreen extends GetView<UserDetailsController> {
                 padding: mainPadding,
                 child: Column(
                   children: [
+                    const CustomProfileUpload(),
                     // Profile Picture Upload Component
                     CustomProfileUpload(),
                     SizedBox(
@@ -46,6 +47,34 @@ class UserDetailScreen extends GetView<UserDetailsController> {
 
                     // User Address details and Phone No.
                     GetBuilder<UserDetailsController>(
+                        id: UserDetailsController.userDetailFormId,
+                        builder: (context) {
+                          return Form(
+                            child: Column(
+                              children: [
+                                const UserInfo(),
+
+                                const CustomAddressForm(),
+                                
+                                GetBuilder<UserDetailsController>(
+                                  id: UserDetailsController.saveButtonId,
+                                  builder: (controller) => Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 10.0.getWidth()),
+                                    child: SizedBox(
+                                      width: double.maxFinite,
+                                      child: CustomAccentColorButton(
+                                        buttonLabel: SLabels.save,
+                                        isLoading: false,
+                                        onPressed: () {},
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        }),
                       id: UserDetailsController.userDetailFormId,
                       builder: (context) {
                         return Form(
