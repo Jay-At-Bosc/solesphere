@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
 import '../utils/theme/widget_themes/elevated_button_theme.dart';
 import 'custom_label.dart';
@@ -27,7 +28,10 @@ class CustomAccentColorButton extends StatelessWidget {
               child: CircularProgressIndicator(
                 strokeWidth: 2,
               ))
-          : CustomLabelText(labelText: buttonLabel),
+          : CustomLabelText(
+              labelText: buttonLabel,
+              labelStyle: TextStyle(fontSize: 4.5.getWidth()),
+            ),
     );
   }
 }

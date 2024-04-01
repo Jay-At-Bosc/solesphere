@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
@@ -204,6 +205,12 @@ class OrderController extends GetxController {
       var headers = {'auth-token': token, 'Content-Type': 'application/json'};
 
       var dio = Dio();
+      final Map<String, dynamic> data = {
+        'totalAmount': orderSummary[0]
+            .totalActualAmount, // Replace with actual total amount
+        'discount':
+            orderSummary[0].totalDiscount, // Replace with actual discount value
+      };
 
       if (selectedPaymentMode.value == '0') {
         var response = await dio.request(
@@ -212,6 +219,7 @@ class OrderController extends GetxController {
             method: 'POST',
             headers: headers,
           ),
+          data: jsonEncode(data),
         );
         if (response.statusCode == 200) {
 //-----

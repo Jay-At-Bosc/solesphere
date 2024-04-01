@@ -27,7 +27,7 @@ class ViewOrderScreen extends GetView<ViewOrderController> {
             init: ViewOrderController(),
             id: 'orders',
             builder: (controller) => controller.isLoading
-                ? ShoesLoading(loader: SJsons.loader)
+                ? const ShoesLoading(loader: SJsons.loader)
                 : Column(
                     children: [
                       if (controller.orders.isNotEmpty)

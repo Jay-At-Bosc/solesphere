@@ -11,12 +11,30 @@ import '../../services/models/order_model.dart';
 class ViewOrderController extends GetxController {
   static ViewOrderController get instance => Get.find();
   List<ViewOrderModel> orders = <ViewOrderModel>[];
+  int orderStatus = 1;
   bool isLoading = false;
 
   @override
   void onInit() async {
     await getUserOrders();
     super.onInit();
+  }
+
+  Future<void> getOrderStatus(int index) async {
+    String currentStatus = orders[index].orderStatus;
+
+    switch (currentStatus) {
+      case 'Placed':
+        orderStatus = 1;
+        break;
+      case 'Shipped':
+        orderStatus = 2;
+        break;
+      case 'Delivered':
+        orderStatus = 3;
+        break;
+    }
+    update(['orderStatus']);
   }
 
   Future<void> getUserOrders() async {
@@ -44,7 +62,7 @@ class ViewOrderController extends GetxController {
         orders = dataList.map((data) => ViewOrderModel.fromMap(data)).toList();
         log(orders.length.toString());
         isLoading = false;
-        update(['orders']);
+        update(['orders', 'orderStatus']);
       } else {
         TLoaders.warningSnackBar(
           title: "Opps",

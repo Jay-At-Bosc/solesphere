@@ -119,7 +119,6 @@ class AddressSelection extends GetView<OrderController> {
                                 child: pageContent[controller.activeStep.value],
                               ),
                       ),
-                      
                     ],
                   ),
                 ),

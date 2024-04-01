@@ -1,14 +1,18 @@
 import 'package:solesphere/auth/auth_exports.dart';
+import 'package:solesphere/screens/order/order_detail.screen.dart';
 
 import 'package:solesphere/screens/order/view_order_controller.dart';
+import 'package:solesphere/services/routes/app_route_exports.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
 import '../../../common/widgets/buttons/secondary_button.dart';
 import '../../../common/widgets/text/text_style.dart';
+import '../../../services/routes/app_pages.dart';
 import '../../../utils/constants/colors.dart';
 
 import '../../../utils/constants/labels.dart';
 import '../../notification/widgets/notification_image_container.dart';
+import '../../product/product_detail_controller.dart';
 
 class MyOrderCard extends GetView<ViewOrderController> {
   const MyOrderCard({
@@ -56,8 +60,19 @@ class MyOrderCard extends GetView<ViewOrderController> {
                 padding: EdgeInsets.only(top: 2.0.getHeight()),
                 child: Row(
                   children: [
-                    NotificationImageContainer(
-                      url: controller.orders[j].products[i].image_url,
+                    GestureDetector(
+                      onTap: () async {
+                        Get.toNamed(Routes.productDetail);
+                        await ProductDetailController.instance
+                            .fetchProductDetails(
+                                controller.orders[j].products[i].product_id);
+                        ProductDetailController.instance.getImagesList();
+                        // log("product id: ${product.id}");
+                        // Get.back();
+                      },
+                      child: NotificationImageContainer(
+                        url: controller.orders[j].products[i].image_url,
+                      ),
                     ),
                     SizedBox(
                       width: 3.0.getWidth(),
@@ -122,16 +137,28 @@ class MyOrderCard extends GetView<ViewOrderController> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SecondaryButton(
-                  label: SLabels.viewDetails,
-                  style: Theme.of(context).textTheme.labelMedium!,
-                  index: j,
-                ),
+                    label: Get.currentRoute == '/OrderDetailScreen'
+                        ? SLabels.cancel
+                        : SLabels.viewDetails,
+                    style: Theme.of(context).textTheme.labelMedium!,
+                    index: j,
+                    onPress: Get.currentRoute == '/OrderDetailScreen'
+                        ? () {
+                            Get.back();
+                          }
+                        : () {
+                            Get.to(() => const OrderDetailScreen(),
+                                arguments: {'index': j});
+                          }),
                 SecondaryButton(
-                  label: SLabels.reorder,
+                  label: Get.currentRoute == '/OrderDetailScreen'
+                      ? SLabels.review
+                      : SLabels.reorder,
                   style: Theme.of(context).textTheme.labelMedium!,
                   forground: SColors.textWhite,
                   background: SColors.accent,
                   index: j,
+                  onPress: () {},
                 ),
               ],
             )

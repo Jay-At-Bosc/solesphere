@@ -11,6 +11,7 @@ class SecondaryButton extends StatelessWidget {
     required this.style,
     required this.label,
     required this.index,
+    required this.onPress,
   });
   final Color forground;
   final Color background;
@@ -18,6 +19,7 @@ class SecondaryButton extends StatelessWidget {
   final TextStyle style;
   final String label;
   final int index;
+  final Function onPress;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class SecondaryButton extends StatelessWidget {
       width: 38.0.getWidth(),
       child: ElevatedButton(
         onPressed: () {
-          Get.to(() => const OrderDetailScreen(), arguments: {'index': index});
+          onPress();
         },
         style: ElevatedButton.styleFrom(
           foregroundColor: forground,

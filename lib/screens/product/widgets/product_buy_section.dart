@@ -38,31 +38,33 @@ class ProductBuySection extends GetView<ProductDetailController> {
               foregroundColor: Colors.black,
               backgroundColor: SColors.cartBtnColor,
               onPressed: () {
-                controller.addToCartApi(
-                    controller.productDetail.id,
-                    controller.productDetail.productName,
-                    controller
-                        .productDetail
-                        .variants[controller.selectedVarient.value]
-                        .imageUrls[0],
-                    controller.productDetail
-                        .variants[controller.selectedVarient.value].color,
-                    controller
-                        .productDetail
-                        .variants[controller.selectedVarient.value]
-                        .sizes[controller.selectedSize.value]
-                        .size,
-                    1,
-                    controller
-                        .productDetail
-                        .variants[controller.selectedVarient.value]
-                        .sizes[controller.selectedSize.value]
-                        .discounted_price,
-                    controller
-                        .productDetail
-                        .variants[controller.selectedVarient.value]
-                        .sizes[controller.selectedSize.value]
-                        .actual_price);
+                controller.isCartLoading.value
+                    ? null
+                    : controller.addToCartApi(
+                        controller.productDetail.id,
+                        controller.productDetail.productName,
+                        controller
+                            .productDetail
+                            .variants[controller.selectedVarient.value]
+                            .imageUrls[0],
+                        controller.productDetail
+                            .variants[controller.selectedVarient.value].color,
+                        controller
+                            .productDetail
+                            .variants[controller.selectedVarient.value]
+                            .sizes[controller.selectedSize.value]
+                            .size,
+                        1,
+                        controller
+                            .productDetail
+                            .variants[controller.selectedVarient.value]
+                            .sizes[controller.selectedSize.value]
+                            .discounted_price,
+                        controller
+                            .productDetail
+                            .variants[controller.selectedVarient.value]
+                            .sizes[controller.selectedSize.value]
+                            .actual_price);
               }),
         ),
         const SizedBox(
@@ -73,29 +75,33 @@ class ProductBuySection extends GetView<ProductDetailController> {
             foregroundColor: Colors.black,
             backgroundColor: SColors.buyBtnColor,
             onPressed: () {
-              controller.addToCartApi(
-                  controller.productDetail.id,
-                  controller.productDetail.productName,
-                  controller.productDetail
-                      .variants[controller.selectedVarient.value].imageUrls[0],
-                  controller.productDetail
-                      .variants[controller.selectedVarient.value].color,
-                  controller
-                      .productDetail
-                      .variants[controller.selectedVarient.value]
-                      .sizes[controller.selectedSize.value]
-                      .size,
-                  1,
-                  controller
-                      .productDetail
-                      .variants[controller.selectedVarient.value]
-                      .sizes[controller.selectedSize.value]
-                      .discounted_price,
-                  controller
-                      .productDetail
-                      .variants[controller.selectedVarient.value]
-                      .sizes[controller.selectedSize.value]
-                      .actual_price);
+              controller.isCartLoading.value
+                  ? null
+                  : controller.addToCartApi(
+                      controller.productDetail.id,
+                      controller.productDetail.productName,
+                      controller
+                          .productDetail
+                          .variants[controller.selectedVarient.value]
+                          .imageUrls[0],
+                      controller.productDetail
+                          .variants[controller.selectedVarient.value].color,
+                      controller
+                          .productDetail
+                          .variants[controller.selectedVarient.value]
+                          .sizes[controller.selectedSize.value]
+                          .size,
+                      1,
+                      controller
+                          .productDetail
+                          .variants[controller.selectedVarient.value]
+                          .sizes[controller.selectedSize.value]
+                          .discounted_price,
+                      controller
+                          .productDetail
+                          .variants[controller.selectedVarient.value]
+                          .sizes[controller.selectedSize.value]
+                          .actual_price);
               Get.toNamed(Routes.order);
             }),
         const SoledByRichText(),

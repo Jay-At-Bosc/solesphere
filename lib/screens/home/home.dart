@@ -1,16 +1,16 @@
+
+
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
-
 import 'package:iconsax/iconsax.dart';
 import 'package:solesphere/auth/auth_exports.dart';
-import 'package:solesphere/screens/cart/cart_controller.dart';
 import 'package:solesphere/screens/cart/cart_screen.dart';
+
 import 'package:solesphere/screens/favorite/favorite_screen.dart';
 import 'package:solesphere/screens/drawer/drawer_screen.dart';
 import 'package:solesphere/screens/home/controller/drawer_controller.dart';
 import 'package:solesphere/screens/order/view_order_screen.dart';
 import 'package:solesphere/screens/user_profile/user_profile_screen.dart';
-import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
 import 'widgets/home_content.dart';
 
@@ -20,7 +20,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(NavigationController());
-    // final ctx = Get.lazyPut(() => CartController());
+   
     // print('Home :vishal');
 
     return Scaffold(
@@ -72,11 +72,11 @@ class HomeScreen extends StatelessWidget {
               ),
               // label: '5',
             ),
-             CurvedNavigationBarItem(
+            CurvedNavigationBarItem(
               child: Icon(Iconsax.shopping_bag),
               // label: '5',
             ),
-             CurvedNavigationBarItem(
+            CurvedNavigationBarItem(
               child: Icon(Iconsax.user),
               // label: 'Personal',
             ),
