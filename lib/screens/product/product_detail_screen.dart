@@ -1,13 +1,17 @@
+import 'package:iconsax/iconsax.dart';
 import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/common/widgets/popup/shoes_loading.dart';
+import 'package:solesphere/common/widgets/text/text_style.dart';
 import 'package:solesphere/screens/product/product_detail_controller.dart';
 import 'package:solesphere/screens/product/widgets/Reviews/customer_review.dart';
 import 'package:solesphere/services/routes/app_route_exports.dart';
 
 import 'package:solesphere/utils/constants/colors.dart';
 import 'package:solesphere/utils/constants/icons.dart';
+import 'package:solesphere/utils/constants/labels.dart';
 
 import 'package:solesphere/utils/constants/sizes.dart';
+import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
 import '../../common/widgets/heading/section_heading1.dart';
 
@@ -102,9 +106,23 @@ class ProductDetail extends GetView<ProductDetailController> {
                                     .displayMedium!
                                     .apply(color: Colors.black),
                               ),
+                              Padding(
+                                padding:
+                                    EdgeInsets.only(bottom: 2.0.getHeight()),
+                                child: ListTile(
+                                  shape: RoundedRectangleBorder(
+                                      side:
+                                          const BorderSide(color: Colors.grey),
+                                      borderRadius: BorderRadius.circular(6.0)),
+                                  tileColor: SColors.textWhite,
+                                  title: const STextStyle(text: SLabels.review),
+                                  trailing: const Icon(Iconsax.arrow_right_3),
+                                ),
+                              ),
                               SizedBox(
-                                height: 300,
+                                // height: 300,
                                 child: ListView.builder(
+                                    shrinkWrap: true,
                                     itemCount:
                                         controller.productDetail.review.length,
                                     itemBuilder: (context, index) =>
