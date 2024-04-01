@@ -1,35 +1,46 @@
+import 'dart:developer';
+
 import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:iconsax/iconsax.dart';
+import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
 import '../../utils/constants/colors.dart';
 
 import '../../utils/theme/widget_themes/text_theme.dart';
+import 'user_detail_controller.dart';
 
-class CustomAddressTab extends StatelessWidget {
-  const CustomAddressTab({
-    super.key,
-  });
+class CustomAddressTab extends GetView<UserDetailsController> {
+  const CustomAddressTab({super.key});
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 3,
-      child: Column(
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
         children: <Widget>[
           ButtonsTabBar(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20), color: SColors.accent),
-            unselectedDecoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
+            elevation: 1.0,
+            controller: UserDetailsController.instance.controller,
+            contentPadding: EdgeInsets.symmetric(horizontal: 4.0.getWidth()),
+            splashColor: Colors.transparent,
+            decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+                color: SColors.accent),
+            unselectedDecoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(20),
+                ),
                 color: SColors.textWhite),
-            contentPadding: const EdgeInsets.symmetric(horizontal: 24),
             labelStyle: STextTheme.lightTextTheme.bodySmall!
                 .copyWith(color: SColors.textWhite),
             unselectedLabelStyle: STextTheme.lightTextTheme.bodySmall!
                 .copyWith(color: SColors.secondary),
-            tabs: const  [
+            tabs: const [
               Tab(
                 icon: Icon(Iconsax.home),
                 text: "Home",

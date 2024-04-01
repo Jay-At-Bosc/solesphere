@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import '../../services/routes/app_pages.dart';
 import '../../utils/constants/labels.dart';
 import '../../utils/extensions/responsive_extension.dart';
@@ -61,7 +63,7 @@ class SigninScreen extends GetView<SignInController> {
                         SizedBox(height: 12.0.getHeight()),
 
                         /// Buttons - Signin Email,Password & Signin With Google
-                        const SignInButton(),
+                        SignInButton(),
                         SizedBox(height: 3.0.getHeight()),
 
                         /// Signin Page Navigation

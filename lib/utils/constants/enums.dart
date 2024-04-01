@@ -7,6 +7,29 @@ enum CustomerStatus { prime, nonPrime }
 // Customer Gender
 enum CustomerGender { kids, women, men }
 
+// Customer Address Type
+enum CustomerAddressType {
+  home,
+  office,
+  other,
+
+  
+}
+
+String getStringRepresentation(int value) {
+  switch (value) {
+    case 0:
+      return "Home";
+    case 1:
+      return "Office";
+    case 2:
+      return "Other";
+    default:
+      return "Home"; // Handle other cases if necessary
+  }
+}
+
+
 // Footwear Type
 enum FootwearType {
   sneakers,

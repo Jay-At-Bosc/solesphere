@@ -42,7 +42,7 @@ class SLabels {
   static const String home = "Home";
   static const String work = "Work";
   static const String other = "Other";
-  static const String defaultAddress = "Make this my default address.";
+  static const String termsAndConditions = "I agree to the terms and conditions.";
   static const String skip = "Skip";
 
   // Home Page

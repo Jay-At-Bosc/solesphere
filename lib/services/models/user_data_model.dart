@@ -5,10 +5,11 @@ class UserDataModel {
   String name;
   String email;
   String? phone;
-  String? address;
+  String? house;
+  String? addressType; // Home, Office, Other
   String? city;
   String? state;
-  String? country;
+  String? area;
   String? pincode;
 
   UserDataModel({
@@ -16,10 +17,11 @@ class UserDataModel {
     required this.name,
     required this.email,
     this.phone,
-    this.address,
+    this.house,
+    this.addressType,
     this.city,
     this.state,
-    this.country,
+    this.area,
     this.pincode,
   });
 
@@ -30,10 +32,11 @@ class UserDataModel {
       name: jsonMap['name'],
       email: jsonMap['email'],
       phone: jsonMap['phone'],
-      address: jsonMap['address'],
+      house: jsonMap['house'],
+      addressType: jsonMap['addressType'],
       city: jsonMap['city'],
       state: jsonMap['state'],
-      country: jsonMap['country'],
+      area: jsonMap['area'],
       pincode: jsonMap['pincode'],
     );
   }
@@ -45,25 +48,27 @@ class UserDataModel {
       'name': name,
       'email': email,
       'phone': phone,
-      'address': address,
+      'house': house,
+      'addresstype': addressType,
       'city': city,
       'state': state,
-      'country': country,
+      'area': area,
       'pincode': pincode,
     };
   }
 
   factory UserDataModel.fromMap(Map<String, dynamic> map) {
-  return UserDataModel(
-    id: map['id'] as String,
-    name: map['name'] as String,
-    email: map['email'] as String,
-    phone: map['phone'] as String?,
-    address: map['address'] as String?,
-    city: map['city'] as String?,
-    state: map['state'] as String?,
-    country: map['country'] as String?,
-    pincode: map['pincode'] as String?,
-  );
-}
+    return UserDataModel(
+      id: map['id'] as String,
+      name: map['name'] as String,
+      email: map['email'] as String,
+      phone: map['phone'] as String?,
+      house: map['address'] as String?,
+      addressType: map['addressType'] as String?,
+      city: map['city'] as String?,
+      state: map['state'] as String?,
+      area: map['area'] as String?,
+      pincode: map['pincode'] as String?,
+    );
+  }
 }

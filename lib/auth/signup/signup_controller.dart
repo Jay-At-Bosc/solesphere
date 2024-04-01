@@ -61,32 +61,32 @@ class SignUpController extends GetxController {
   Future<void> signupWithEmailPassword() async {
     log("signupWithEmailPassword method called");
     try {
-      // isPasswordMatched; // Checks Password is matched or not
+      isPasswordMatched; // Checks Password is matched or not
 
-      // checkFormValidation; // Checks All Fields Validations
+      checkFormValidation; // Checks All Fields Validations
 
-      // isRegisterLoading = true;
-      // update([signupScreen]);
+      isRegisterLoading = true;
+      update([signupScreen]);
 
-      // // User Creation API Call For Firebase
-      // final userCredential = await AuthenticationRepository.instance
-      //     .signUpWithEmailAndPassword(email.text.trim(), password.text.trim());
+      // User Creation API Call For Firebase
+      final userCredential = await AuthenticationRepository.instance
+          .signUpWithEmailAndPassword(email.text.trim(), password.text.trim());
 
-      // final user = UserDataModel(
-      //     id: userCredential.user!.uid,
-      //     name: username.text.trim(),
-      //     email: email.text.trim());
+      final user = UserDataModel(
+          id: userCredential.user!.uid,
+          name: username.text.trim(),
+          email: email.text.trim());
 
-      // // ignore: unused_local_variable
-      // final userCreated = await DbAuthentication.instance.createUser(user);
+      // ignore: unused_local_variable
+      final userCreated = await DbAuthentication.instance.createUser(user);
 
-      // // Store data into local database
-      // storeToLocal(user);
+      // Store data into local database
+      storeToLocal(user);
 
-      // isRegisterLoading = false;
-      // update([signupScreen]);
+      isRegisterLoading = false;
+      update([signupScreen]);
 
-      // showMessage(SLabels.success, SLabels.accountCreated);
+      showMessage(SLabels.success, SLabels.accountCreated);
 
       navigateToUserDetails(username.text, email.text);
     } catch (e) {

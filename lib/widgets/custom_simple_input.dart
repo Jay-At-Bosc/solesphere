@@ -27,6 +27,7 @@ class CustomSimpleInput extends StatelessWidget {
       enabled: enable,
       controller: controller,
       validator: validator,
+      maxLines: maxLength,
       cursorColor: SColors.accent,
       cursorErrorColor: SColors.error,
       style: Theme.of(context).textTheme.titleSmall,

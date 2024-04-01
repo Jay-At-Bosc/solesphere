@@ -55,7 +55,7 @@ class SignInController extends GetxController {
       checkFormValidation; // Checks All Fields Validations
 
       isSigInLoading = true;
-      update([signInScreen, signinButtonId]);
+      update([signInScreen]);
 
       // User Creation API Call For Firebase
       final userCredential = await AuthenticationRepository.instance
@@ -68,7 +68,7 @@ class SignInController extends GetxController {
           snackPosition: SnackPosition.BOTTOM);
 
       isSigInLoading = false; // Sets Register Loading to false
-      update([signInScreen, signinButtonId]);
+      update([signInScreen]);
 
       Get.offAllNamed(Routes.home);
     } catch (e) {
@@ -77,7 +77,7 @@ class SignInController extends GetxController {
           snackPosition: SnackPosition.BOTTOM,
           duration: const Duration(seconds: 2));
       isSigInLoading = false; // Sets Register Loading to false
-      update([signInScreen, signinButtonId]);
+      update([signInScreen]);
     }
   }
 
@@ -85,25 +85,22 @@ class SignInController extends GetxController {
   Future<void> signInWithGoogle() async {
     log("signupWithGoogle method called");
     try {
-      // repo call
+ 
       isGoogleSigInLoading = true;
-      update([signInScreen, signinWithGoogleButtonId]);
+      update([signInScreen]);
 
       final creds = await AuthenticationRepository.instance.signUpWithGoogle();
 
       log("access token:  ${creds.credential!.accessToken}");
-      // var token = await FirebaseAuth.instance.currentUser?.getIdToken();
-      // log("idToken:  ${token}");
-      // log("access Token:  ${creds.credential!.providerId}");
 
       isGoogleSigInLoading = false; // Sets Register Loading to false
-      update([signInScreen, signinWithGoogleButtonId]);
+      update([signInScreen]);
 
       Get.offAllNamed(Routes.home);
     } catch (e) {
       // shown exception which is thrown
       isGoogleSigInLoading = false;
-      update([signInScreen, signinWithGoogleButtonId]);
+      update([signInScreen]);
 
       Get.snackbar("Error", e.toString(),
           snackPosition: SnackPosition.BOTTOM,
