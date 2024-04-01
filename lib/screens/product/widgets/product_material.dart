@@ -1,11 +1,9 @@
-
 import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/screens/product/product_detail_controller.dart';
 
 import '../../../common/widgets/heading/section_heading1.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
-
 
 class ProductmaterialType extends GetView<ProductDetailController> {
   const ProductmaterialType({
@@ -29,7 +27,7 @@ class ProductmaterialType extends GetView<ProductDetailController> {
               padding: 0,
             ),
             SectionHeading(
-              text: controller.productDetail.material,
+              text: controller.productDetail.material.capitalize.toString(),
               style: Theme.of(context)
                   .textTheme
                   .labelMedium!
@@ -50,7 +48,7 @@ class ProductmaterialType extends GetView<ProductDetailController> {
               padding: 0,
             ),
             SectionHeading(
-              text: controller.productDetail.closureType,
+              text: controller.productDetail.closureType.capitalize.toString(),
               style: Theme.of(context)
                   .textTheme
                   .labelMedium!
