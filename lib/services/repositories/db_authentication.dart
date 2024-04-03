@@ -29,7 +29,6 @@ class DbAuthentication extends GetxController {
       };
       final jsonData = jsonEncode(data);
 
-      
       var response = await diox.request(EndPoints.createUser,
           options: dio.Options(method: 'POST'), data: jsonData);
 
@@ -53,13 +52,10 @@ class DbAuthentication extends GetxController {
     var headers = {'auth-token': token};
 
     try {
-      log("upload image method called");
-      final imageUrl = await uploadImage(file);
-      log("upload image method calleded : $imageUrl");
+     
 
       Map<String, dynamic> data = {
         'phone': user.phone,
-        'profilepic': imageUrl,
         'address': [
           {
             "house": user.house,

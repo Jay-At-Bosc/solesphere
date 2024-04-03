@@ -60,7 +60,9 @@ class OrderDetailScreen extends GetView<ViewOrderController> {
                       ),
                       LabelAndPrice(
                         title: SLabels.totalAmount,
-                        price: 110,
+                        price: int.parse(
+                            double.parse(controller.orders[index].totalAmount)
+                                .toStringAsFixed(0)),
                         padding: 0,
                         style: Theme.of(context)
                             .textTheme
@@ -69,7 +71,9 @@ class OrderDetailScreen extends GetView<ViewOrderController> {
                       ),
                       LabelAndPrice(
                         title: SLabels.discount,
-                        price: 40,
+                        price: int.parse(
+                            double.parse(controller.orders[index].totalDiscount)
+                                .toStringAsFixed(0)),
                         padding: 0,
                         style: Theme.of(context)
                             .textTheme
@@ -78,7 +82,12 @@ class OrderDetailScreen extends GetView<ViewOrderController> {
                       ),
                       LabelAndPrice(
                         title: "Delivery Fees / Shipping Cost",
-                        price: 0,
+                        price: int.parse(double.parse(
+                                        controller.orders[index].totalAmount)
+                                    .toStringAsFixed(0)) <
+                                500
+                            ? 40
+                            : 0,
                         padding: 0,
                         style: Theme.of(context)
                             .textTheme
@@ -88,9 +97,18 @@ class OrderDetailScreen extends GetView<ViewOrderController> {
                       const Divider(),
                       LabelAndPrice(
                         title: SLabels.grandTotal,
-                        price: int.parse(
-                            double.parse(controller.orders[index].totalAmount)
-                                .toStringAsFixed(0)),
+                        price: (int.parse(double.parse(
+                                    controller.orders[index].totalAmount)
+                                .toStringAsFixed(0))) -
+                            (int.parse(double.parse(
+                                    controller.orders[index].totalDiscount)
+                                .toStringAsFixed(0))) +
+                            (int.parse(double.parse(controller
+                                            .orders[index].totalAmount)
+                                        .toStringAsFixed(0)) <
+                                    500
+                                ? 40
+                                : 0),
                         padding: 0,
                         style: Theme.of(context)
                             .textTheme

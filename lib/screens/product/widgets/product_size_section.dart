@@ -37,6 +37,9 @@ class ProductSizeSection extends GetView<ProductDetailController> {
             ),
           ],
         ),
+        const SizedBox(
+          height: SSizes.spaceBtwItems / 2,
+        ),
         Obx(
           () => SizedBox(
             height: 12.0.getWidth(), // Adjust height according to your needs

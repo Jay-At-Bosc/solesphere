@@ -1,5 +1,4 @@
 import 'package:solesphere/auth/auth_exports.dart';
-import 'package:solesphere/screens/order/order_detail.screen.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
 class SecondaryButton extends StatelessWidget {

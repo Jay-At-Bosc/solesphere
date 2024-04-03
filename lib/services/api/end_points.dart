@@ -13,6 +13,7 @@ class EndPoints {
   static String placeOrder = "${baseUrl}orders";
   static String razorpayOrder = "${baseUrl}payments/razorpay-orders";
   static String userOrders = "${baseUrl}orders";
+  static String updateAddress = "${baseUrl}users/update-address";
 
   static const String productDetail =
       "${baseUrl}products/product-detail?product_id";

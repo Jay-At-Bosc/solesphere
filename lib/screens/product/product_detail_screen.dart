@@ -33,106 +33,110 @@ class ProductDetail extends GetView<ProductDetailController> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      body: GetBuilder<ProductDetailController>(
-        builder: (controller) => SingleChildScrollView(
-          child: SafeArea(
-            child: controller.isLoading.value
-                ? const ShoesLoading(loader: SJsons.loader)
-                : Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const ProductDetailHeader(),
+      body: Center(
+        child: GetBuilder<ProductDetailController>(
+          builder: (controller) => SingleChildScrollView(
+            child: SafeArea(
+              child: controller.isLoading.value
+                  ? const ShoesLoading(loader: SJsons.loader)
+                  : Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const ProductDetailHeader(),
 
-                        //Short Description of product and slider
-                        const ProductSlider(),
+                          //Short Description of product and slider
+                          const ProductSlider(),
 
-                        //Colors of Brand
-                        const SProductColors(),
-                        const SizedBox(
-                          height: SSizes.spaceBtwSections / 2,
-                        ),
+                          //Colors of Brand
+                          const SProductColors(),
+                          const SizedBox(
+                            height: SSizes.spaceBtwSections / 2,
+                          ),
 
-                        //Sizes
-                        const ProductSizeSection(),
+                          //Sizes
+                          const ProductSizeSection(),
 
-                        //Deal of the day
-                        const ProductDealOfTheDay(),
-                        const Divider(),
+                          //Deal of the day
+                          const ProductDealOfTheDay(),
+                          const Divider(),
 
-                        //Buy Section
-                        const ProductBuySection(),
-                        const Divider(),
+                          //Buy Section
+                          const ProductBuySection(),
+                          const Divider(),
 
-                        //Product Details section
-                        SectionHeading(
-                          text: 'Product Details',
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayMedium!
-                              .apply(color: Colors.black),
-                        ),
-
-                        const ProductmaterialType(),
-                        const Divider(),
-
-                        //About Product Section
-                        SectionHeading(
-                            text: 'About Product',
+                          //Product Details section
+                          SectionHeading(
+                            text: 'Product Details',
                             style: Theme.of(context)
                                 .textTheme
                                 .displayMedium!
-                                .apply(color: Colors.black)),
-                        Text(
-                          controller.productDetail.longDescription,
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelSmall!
-                              .apply(color: SColors.textPrimaryWith60),
-                          textScaler: const TextScaler.linear(1),
-                        ),
-                        const Divider(),
-
-                        //Customer review
-                        if (controller.productDetail.review.isNotEmpty)
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SectionHeading(
-                                text: 'Customer Reviews',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displayMedium!
-                                    .apply(color: Colors.black),
-                              ),
-                              Padding(
-                                padding:
-                                    EdgeInsets.only(bottom: 2.0.getHeight()),
-                                child: ListTile(
-                                  shape: RoundedRectangleBorder(
-                                      side:
-                                          const BorderSide(color: Colors.grey),
-                                      borderRadius: BorderRadius.circular(6.0)),
-                                  tileColor: SColors.textWhite,
-                                  title: const STextStyle(text: SLabels.review),
-                                  trailing: const Icon(Iconsax.arrow_right_3),
-                                ),
-                              ),
-                              SizedBox(
-                                // height: 300,
-                                child: ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount:
-                                        controller.productDetail.review.length,
-                                    itemBuilder: (context, index) =>
-                                        CustomerReview(index: index)),
-                              ),
-                            ],
+                                .apply(color: Colors.black),
                           ),
-                      ],
+
+                          const ProductmaterialType(),
+                          const Divider(),
+
+                          //About Product Section
+                          SectionHeading(
+                              text: 'About Product',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayMedium!
+                                  .apply(color: Colors.black)),
+                          Text(
+                            controller.productDetail.longDescription,
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelSmall!
+                                .apply(color: SColors.textPrimaryWith60),
+                            textScaler: const TextScaler.linear(1),
+                          ),
+                          const Divider(),
+
+                          //Customer review
+                          if (controller.productDetail.review.isNotEmpty)
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SectionHeading(
+                                  text: 'Customer Reviews',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayMedium!
+                                      .apply(color: Colors.black),
+                                ),
+                                Padding(
+                                  padding:
+                                      EdgeInsets.only(bottom: 2.0.getHeight()),
+                                  child: ListTile(
+                                    shape: RoundedRectangleBorder(
+                                        side: const BorderSide(
+                                            color: Colors.grey),
+                                        borderRadius:
+                                            BorderRadius.circular(6.0)),
+                                    tileColor: SColors.textWhite,
+                                    title:
+                                        const STextStyle(text: SLabels.review),
+                                    trailing: const Icon(Iconsax.arrow_right_3),
+                                  ),
+                                ),
+                                SizedBox(
+                                  // height: 300,
+                                  child: ListView.builder(
+                                      shrinkWrap: true,
+                                      itemCount: controller
+                                          .productDetail.review.length,
+                                      itemBuilder: (context, index) =>
+                                          CustomerReview(index: index)),
+                                ),
+                              ],
+                            ),
+                        ],
+                      ),
                     ),
-                  ),
+            ),
           ),
         ),
       ),

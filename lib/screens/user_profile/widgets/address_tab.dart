@@ -1,17 +1,14 @@
 import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
 import 'package:iconsax/iconsax.dart';
+import 'package:solesphere/auth/auth_exports.dart';
+import 'package:solesphere/screens/user_profile/shipping_address_controller.dart';
+import 'package:solesphere/utils/constants/colors.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
+import 'package:solesphere/utils/theme/widget_themes/text_theme.dart';
 
-import '../../utils/constants/colors.dart';
-
-import '../../utils/theme/widget_themes/text_theme.dart';
-import 'user_detail_controller.dart';
-
-class CustomAddressTab extends GetView<UserDetailsController> {
-  const CustomAddressTab({super.key});
+class AddressTab extends GetView<ShippingAdddressController> {
+  const AddressTab({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +19,7 @@ class CustomAddressTab extends GetView<UserDetailsController> {
         children: <Widget>[
           ButtonsTabBar(
             elevation: 1.0,
-            controller: UserDetailsController.instance.controller,
+            controller: controller.adType,
             contentPadding: EdgeInsets.symmetric(horizontal: 4.0.getWidth()),
             splashColor: Colors.transparent,
             decoration: const BoxDecoration(

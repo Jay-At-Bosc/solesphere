@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:solesphere/utils/local_storage/app_storage.dart';
 
 import '../../../../screens/home/controller/drawer_controller.dart';
 import '../../../../utils/constants/colors.dart';
@@ -23,6 +26,11 @@ class SLeadingDrawer extends GetView<CustomDrawerController> {
         icon: const Icon(Iconsax.menu5),
         color: SColors.textSecondary,
         onPressed: () async {
+          log("user data");
+          final appStorage = Get.find<AppStorage>();
+          final user = appStorage.getUserData();
+          
+
           controller.isDrawerOpen
               ? controller.closeDrawer()
               : controller.openDrawer();

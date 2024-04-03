@@ -2,7 +2,7 @@ import 'dart:convert';
 
 class UserDataModel {
   String id;
-  String name;
+  String? name;
   String email;
   String? phone;
   String? house;
@@ -11,10 +11,11 @@ class UserDataModel {
   String? state;
   String? area;
   String? pincode;
+  
 
   UserDataModel({
     required this.id,
-    required this.name,
+    this.name,
     required this.email,
     this.phone,
     this.house,

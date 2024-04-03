@@ -14,7 +14,7 @@ class SoledByRichText extends GetView<ProductDetailController> {
       padding: const EdgeInsets.only(top: 12.0, bottom: 12.0),
       child: RichText(
         text: TextSpan(
-          text: 'Soled by ',
+          text: 'Sold by ',
           style: Theme.of(context).textTheme.labelSmall!.apply(
                 color: SColors.textPrimaryWith80,
               ),
@@ -29,7 +29,7 @@ class SoledByRichText extends GetView<ProductDetailController> {
               text: ' and Fulfilled by ',
             ),
             TextSpan(
-              text: 'Solesphere',
+              text: 'SoleSphere',
               style: Theme.of(context).textTheme.labelSmall!.apply(
                     color: SColors.accent,
                   ),

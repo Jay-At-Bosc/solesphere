@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:solesphere/services/routes/app_pages.dart';
 
 import '../../services/models/user_data_model.dart';
 import '../../services/repositories/db_authentication.dart';
@@ -63,13 +64,14 @@ class UserDetailsController extends GetxController
     try {
       checkPermission(); // check for permission
 
-      // Image 
+      // Image
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
 
       if (image != null) {
         await DbAuthentication.instance.uploadImage(image).then((isUpload) =>
             selectedImage =
                 isUpload.isNotEmpty ? XFile(isUpload) : selectedImage);
+        log(selectedImage.path);
         update([userProfilePictureId]);
       } else {
         throw "Image Not Selected";
@@ -77,7 +79,6 @@ class UserDetailsController extends GetxController
     } catch (e) {
       showMessage("Error", e.toString());
     }
-
   }
 
   checkPermission() async {
@@ -119,13 +120,13 @@ class UserDetailsController extends GetxController
         state: state.text,
       );
 
-      // final userDetailAdded = await DbAuthentication.instance
-      //     .createUserDetails(user, selectedImage);
+      final userDetailAdded = await DbAuthentication.instance
+          .createUserDetails(user, selectedImage);
 
       isSaveLoading = false;
       update([userDetailScreenId]);
 
-      // Get.offAllNamed(Routes.home);
+      Get.offAllNamed(Routes.home);
     } catch (e) {
       isSaveLoading = false;
       update([userDetailScreenId]);

@@ -10,10 +10,12 @@ class CustomSimpleInput extends StatelessWidget {
     this.validator,
     this.maxLength,
     this.hintText,
-    this.enable=true,
+    this.enable = true,
+    this.value,
   });
 
   final TextEditingController controller;
+  final String? value;
   final TextInputType? keyboardType;
   final FormFieldValidator<String>? validator;
   final int? maxLength;
@@ -24,6 +26,7 @@ class CustomSimpleInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      // initialValue: value,
       enabled: enable,
       controller: controller,
       validator: validator,
@@ -45,12 +48,10 @@ class CustomSimpleInput extends StatelessWidget {
           borderRadius: BorderRadius.circular(50.0),
           borderSide: BorderSide.none,
         ),
-        hintText:  hintText,
+        hintText: hintText,
         hintStyle: Theme.of(context).textTheme.labelMedium,
         contentPadding: const EdgeInsets.all(16.0),
       ),
     );
   }
-
-  
 }

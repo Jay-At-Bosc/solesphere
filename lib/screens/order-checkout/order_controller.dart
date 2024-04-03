@@ -251,10 +251,14 @@ class OrderController extends GetxController {
             log("Payment Success: ${response.paymentId}");
             TLoaders.successSnackBar(
                 title: "Success", message: "Payment success");
-            await createOrder(selectedPaymentMode.value, response.paymentId,
-                (responseData['amount'] / 100).toString(), true);
+            await createOrder(
+                selectedPaymentMode.value,
+                response.paymentId,
+                (responseData['amount'] / 100).toString(),
+                true,
+                orderSummary[0].totalDiscount.toString());
 
-            Get.offAllNamed(Routes.home);
+            Get.offAllNamed(Routes.viewOrder);
           });
 
           _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR,
@@ -274,8 +278,10 @@ class OrderController extends GetxController {
           isOrderProcessLoading.value = false;
         }
       } else {
-        await createOrder(selectedPaymentMode.value, null, null, false);
+        await createOrder(selectedPaymentMode.value, null, null, false,
+            orderSummary[0].totalDiscount.toString());
         isOrderProcessLoading.value = false;
+        Get.offAllNamed(Routes.viewOrder);
       }
     } catch (e) {
       isOrderProcessLoading.value = false;
@@ -290,7 +296,7 @@ class OrderController extends GetxController {
   }
 
   Future<void> createOrder(String paymentMethod, String? transactionId,
-      String? amount, bool status) async {
+      String? amount, bool status, String? discount) async {
     try {
       String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
       if (token == null) {
@@ -315,11 +321,12 @@ class OrderController extends GetxController {
           'transaction_id': transactionId,
           'paymentStatus': status,
           'totalAmount': amount,
+          'totalDiscount': discount
         },
       );
 
       if (response.statusCode == 201) {
-        // Get.offAllNamed(Routes.home);
+        Get.offAllNamed(Routes.viewOrder);
         TLoaders.successSnackBar(
             title: "Congratulations!", message: "Your Order Has Been Placed");
       } else {

@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
+
 import 'package:iconsax/iconsax.dart';
 
 import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/common/widgets/text/text_style.dart';
+import 'package:solesphere/screens/drawer/user_info_controller.dart';
 
 import 'package:solesphere/utils/constants/colors.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
@@ -11,7 +12,7 @@ import '../../utils/theme/widget_themes/text_theme.dart';
 
 import 'widgets/profile_menu_item.dart';
 
-class UserProfileScreen extends StatelessWidget {
+class UserProfileScreen extends GetView<UserInfoController> {
   const UserProfileScreen({super.key});
 
   @override
@@ -80,14 +81,14 @@ class UserProfileScreen extends StatelessWidget {
 
               //User Name and Email
               STextStyle(
-                text: 'John Anderson',
+                text: controller.user!.name.toString(),
                 style: Theme.of(context)
                     .textTheme
                     .displayMedium!
                     .apply(color: SColors.textPrimaryWith80),
               ),
               STextStyle(
-                text: 'johnanderson@gmail.com',
+                text: controller.user!.email.toString(),
                 style: Theme.of(context)
                     .textTheme
                     .bodyLarge!

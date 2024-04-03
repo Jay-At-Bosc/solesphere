@@ -51,82 +51,87 @@ class CartScreen extends GetView<CartController> {
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: SingleChildScrollView(
-          child: GetBuilder<CartController>(
-            init: CartController(),
-            id: 'CartList',
-            builder: (controller) => controller.isCartLoading.value
-                ? const ShoesLoading(
-                    loader: SJsons.loader,
-                  )
-                : controller.cartItemsList.isEmpty
-                    ? const Center(child: Text("Cart Is Empty"))
-                    : Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: Get.height / 2,
-                            // color: Colors.red,
-                            child: ListView.builder(
-                              itemCount: controller.cartItemsList.length,
-                              itemBuilder: (context, index) {
-                                final product = controller.cartItemsList[index];
-                                return CartItem(product: product);
-                              },
+          child: Center(
+            child: GetBuilder<CartController>(
+              init: CartController(),
+              id: 'CartList',
+              builder: (controller) => controller.isCartLoading.value
+                  ? const ShoesLoading(
+                      loader: SJsons.loader,
+                    )
+                  : controller.cartItemsList.isEmpty
+                      ? const Center(child: Text("Cart Is Empty"))
+                      : Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: Get.height / 2,
+                              // color: Colors.red,
+                              child: ListView.builder(
+                                itemCount: controller.cartItemsList.length,
+                                itemBuilder: (context, index) {
+                                  final product =
+                                      controller.cartItemsList[index];
+                                  return CartItem(product: product);
+                                },
+                              ),
                             ),
-                          ),
-                          GetBuilder<CartController>(
-                            id: 'amount',
-                            builder: (ctx) => Padding(
-                              padding: const EdgeInsets.only(
-                                  bottom: kBottomNavigationBarHeight,
-                                  left: 0,
-                                  right: 0),
-                              child: SizedBox(
-                                width: double.infinity,
-                                // color: Colors.red,
-                                child: Column(
-                                  children: [
-                                    LabelAndPrice(
-                                      style:
-                                          Theme.of(context).textTheme.bodyLarge,
-                                      title: 'Subtotal',
-                                      price: ctx.totalAmount.value,
-                                    ),
-                                    LabelAndPrice(
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyLarge!
-                                          .apply(color: SColors.success),
-                                      title: 'Shipping',
-                                      price: ctx.totalAmount.value < 499
-                                          ? ctx.deliveryCharge.value
-                                          : 0,
-                                      sign: "+",
-                                    ),
-                                    const Divider(),
-                                    LabelAndPrice(
-                                      style:
-                                          Theme.of(context).textTheme.bodyLarge,
-                                      title: 'Total Cost',
-                                      price: ctx.totalAmount.value < 499
-                                          ? ctx.totalAmount.value +
-                                              ctx.deliveryCharge.value
-                                          : ctx.totalAmount.value,
-                                    ),
-                                    CustomAccentColorButton(
-                                      buttonLabel: 'Process Checkout',
-                                      isLoading: false,
-                                      onPressed: () =>
-                                          Get.toNamed(Routes.order),
-                                    ),
-                                  ],
+                            GetBuilder<CartController>(
+                              id: 'amount',
+                              builder: (ctx) => Padding(
+                                padding: const EdgeInsets.only(
+                                    bottom: kBottomNavigationBarHeight,
+                                    left: 0,
+                                    right: 0),
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  // color: Colors.red,
+                                  child: Column(
+                                    children: [
+                                      LabelAndPrice(
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge,
+                                        title: 'Subtotal',
+                                        price: ctx.totalAmount.value,
+                                      ),
+                                      LabelAndPrice(
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge!
+                                            .apply(color: SColors.success),
+                                        title: 'Shipping',
+                                        price: ctx.totalAmount.value < 499
+                                            ? ctx.deliveryCharge.value
+                                            : 0,
+                                        sign: "+",
+                                      ),
+                                      const Divider(),
+                                      LabelAndPrice(
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge,
+                                        title: 'Total Cost',
+                                        price: ctx.totalAmount.value < 499
+                                            ? ctx.totalAmount.value +
+                                                ctx.deliveryCharge.value
+                                            : ctx.totalAmount.value,
+                                      ),
+                                      CustomAccentColorButton(
+                                        buttonLabel: 'Process Checkout',
+                                        isLoading: false,
+                                        onPressed: () =>
+                                            Get.toNamed(Routes.order),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
+                          ],
+                        ),
+            ),
           ),
         ),
       ),

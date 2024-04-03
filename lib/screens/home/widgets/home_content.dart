@@ -82,7 +82,7 @@ class HomeScreenContent extends GetView<CustomDrawerController> {
                           const Padding(
                             padding: EdgeInsets.only(top: 38.0),
                             child: TSearchContainer(
-                              text: "Looking for a shoes",
+                              text: "Search in SoleSphere",
                               icon: Iconsax.search_normal,
                               isSuffix: true,
                               suffixIcon: Iconsax.microphone,

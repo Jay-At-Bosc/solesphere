@@ -40,7 +40,7 @@ class ProductmaterialType extends GetView<ProductDetailController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SectionHeading(
-              text: 'Clouser type',
+              text: 'Closure type',
               style: Theme.of(context)
                   .textTheme
                   .labelMedium!
