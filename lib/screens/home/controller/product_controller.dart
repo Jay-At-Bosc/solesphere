@@ -93,6 +93,8 @@ class ProductController extends GetxController {
       final List<dynamic> data = json.decode(response.body)['data'];
       productList.value =
           data.map((item) => Products.fromMap(item)).toList().obs;
+      // ignore: invalid_use_of_protected_member
+      productList.value.sort((a, b) => b.id.compareTo(a.id));
       filterProductList.addAll(productList);
       isProdcutLoading.value = false;
       log(productList.length.toString());

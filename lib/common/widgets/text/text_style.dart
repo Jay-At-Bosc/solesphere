@@ -20,6 +20,7 @@ class STextStyle extends StatelessWidget {
       textScaler: const TextScaler.linear(1),
       maxLines: maxLine,
       textAlign: TextAlign.left,
+      
     );
   }
 }

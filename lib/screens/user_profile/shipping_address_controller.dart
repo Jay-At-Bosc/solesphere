@@ -29,7 +29,7 @@ class ShippingAdddressController extends GetxController
   @override
   void onInit() async {
     await getUserAddress(); // Call getUserAddress on init
-    adType = TabController(length: 3, vsync: this);
+    adType = TabController(length: 3, vsync: this, initialIndex: 1);
     super.onInit();
   }
 
@@ -38,6 +38,7 @@ class ShippingAdddressController extends GetxController
 
   void setInitialValue(int index) {
     if (index != -1) {
+      adType = TabController(length: 3, vsync: this, initialIndex: index);
       addressLine1.text = user[index].house.toString();
       addressLine2.text = user[index].area.toString();
       city.text = user[index].town.toString();

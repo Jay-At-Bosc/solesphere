@@ -60,6 +60,7 @@ class ViewOrderController extends GetxController {
         final jsonResponse = response.data as Map<String, dynamic>;
         final List<dynamic> dataList = jsonResponse['data'];
         orders = dataList.map((data) => ViewOrderModel.fromMap(data)).toList();
+        orders.sort(((a, b) => b.id.compareTo(a.id)));
         log(orders.length.toString());
         isLoading = false;
         update(['orders', 'orderStatus']);

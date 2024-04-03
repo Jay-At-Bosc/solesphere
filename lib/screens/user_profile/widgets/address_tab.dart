@@ -42,7 +42,7 @@ class AddressTab extends GetView<ShippingAdddressController> {
               ),
               Tab(
                 icon: Icon(Iconsax.bank),
-                text: "Work",
+                text: "Office",
               ),
               Tab(
                 icon: Icon(Iconsax.location),

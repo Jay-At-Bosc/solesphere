@@ -9,10 +9,10 @@ import '../../../utils/constants/labels.dart';
 import '../../../utils/validators/validations.dart';
 import '../../../widgets/custom_label.dart';
 import '../../../widgets/custom_simple_input.dart';
-import '../../userdetail/custom_address_tab.dart';
+
 
 class AddressBottomSheet extends GetView<ShippingAdddressController> {
-  const AddressBottomSheet( {super.key, required this.index});
+  const AddressBottomSheet({super.key, required this.index});
   final int index;
 
   SizedBox get paddingBetweenFields => SizedBox(height: 2.0.getHeight());
@@ -55,7 +55,7 @@ class AddressBottomSheet extends GetView<ShippingAdddressController> {
                         child: Text(index != -1 ? "Update" : "Save"))
                   ],
                 ),
-                if (index == -1) const AddressTab(), //TabBar of Address
+                const AddressTab(), //TabBar of Address
                 paddingBetweenFields,
 
                 // Addressline 1
