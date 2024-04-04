@@ -129,6 +129,7 @@ class AuthenticationRepository extends GetxController {
     } on FormatException catch (_) {
       throw const SFormatException();
     } catch (e) {
+      await GoogleSignIn().signOut();
       rethrow;
     }
   }
@@ -150,6 +151,7 @@ class AuthenticationRepository extends GetxController {
     } on FormatException catch (_) {
       throw const SFormatException();
     } catch (e) {
+      
       rethrow;
     }
   }

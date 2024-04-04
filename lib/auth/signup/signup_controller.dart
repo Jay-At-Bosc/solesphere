@@ -119,8 +119,7 @@ class SignUpController extends GetxController {
 
       final userCredential =
           await AuthenticationRepository.instance.signUpWithGoogle();
-      // ignore: unused_local_variable
-      //final userCreated = await DbAuthentication.instance.createUser(user);
+     
       final user = userCredential.user;
       if (user != null) {
         final userStatus = await DbAuthentication.instance.checkUser(user);

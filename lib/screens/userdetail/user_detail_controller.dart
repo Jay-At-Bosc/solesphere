@@ -64,7 +64,7 @@ class UserDetailsController extends GetxController
 
   Future<void> pickImage() async {
     try {
-      checkPermission(); // check for permission
+      await checkPermission(); // check for permission
 
       // Image
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -95,7 +95,10 @@ class UserDetailsController extends GetxController
 
     if (permissionStatus[Permission.camera] != PermissionStatus.granted ||
         permissionStatus[Permission.storage] != PermissionStatus.granted) {
-      throw "Your Permission Required";
+      throw CustomException(
+          title: "Permissions Required",
+          message:
+              "Please grant camera and storage permissions to upload your profile picture.");
     }
   }
 
