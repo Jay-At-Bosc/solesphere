@@ -12,15 +12,15 @@ class UserInfoController extends GetxController {
 
   @override
   void onInit() {
-    getuser();
+    // getuser();
     super.onInit();
   }
 
   final appStorage = Get.find<AppStorage>();
 
-  void getuser() {
-    user = appStorage.getUserData()!;
-    log("User Details fromd asdf  adhfiuh");
-    // log(user!.name);
-  }
+  // void getuser() {
+  //   user = appStorage.getUserData()!;
+  //   log("User Details fromd asdf  adhfiuh");
+  //   // log(user!.name);
+  // }
 }

@@ -1,10 +1,11 @@
 import 'package:iconsax/iconsax.dart';
 import 'package:solesphere/auth/auth_exports.dart';
+import 'package:solesphere/screens/home/controller/drawer_controller.dart';
 import 'package:solesphere/services/routes/app_pages.dart';
 
 import '../../../../utils/constants/colors.dart';
 
-class SNotificationIcon extends StatelessWidget {
+class SNotificationIcon extends GetView<CustomDrawerController> {
   const SNotificationIcon({
     super.key,
   });
@@ -14,6 +15,7 @@ class SNotificationIcon extends StatelessWidget {
     return Stack(
       children: [
         Container(
+          key: controller.notification,
           margin: const EdgeInsets.symmetric(horizontal: 20),
           decoration: const BoxDecoration(
             shape: BoxShape.circle,

@@ -42,87 +42,93 @@ class ShippingAddress extends GetView<ShippingAdddressController> {
                 child: const Icon(Iconsax.add),
               ),
         body: SingleChildScrollView(
-          child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-            child: GetBuilder<ShippingAdddressController>(
-              id: 'user_address',
-              builder: (ctx) => ctx.user.isEmpty
-                  ? const Text("Not Found")
-                  : SizedBox(
-                      child: ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: ctx.user.length,
-                        itemBuilder: (context, index) => Padding(
-                          padding: const EdgeInsets.only(bottom: 10.0),
-                          child: ListTile(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              side: const BorderSide(
-                                width: 1,
-                                color: Colors.black,
+          child: GetBuilder<ShippingAdddressController>(
+            id: 'user_address',
+            builder: (ctx) => ctx.isAddressLoading
+                ? LinearProgressIndicator(
+                    color: SColors.accent,
+                    backgroundColor: SColors.accent.withOpacity(0.6),
+                  )
+                : ctx.user.isEmpty
+                    ? const Text("Not Found")
+                    : Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20.0, vertical: 20.0),
+                        child: SizedBox(
+                          child: ListView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: ctx.user.length,
+                            itemBuilder: (context, index) => Padding(
+                              padding: const EdgeInsets.only(bottom: 10.0),
+                              child: ListTile(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  side: const BorderSide(
+                                    width: 1,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                contentPadding: const EdgeInsets.all(10),
+                                title: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    STextStyle(
+                                      text: ctx.user[index].adType,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge!
+                                          .copyWith(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w600),
+                                      maxLine: 1,
+                                    ),
+                                    STextStyle(
+                                      text: ctx.fullAddress(index),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelLarge!
+                                          .copyWith(
+                                              fontWeight: FontWeight.w300),
+                                      maxLine: 6,
+                                    ),
+                                  ],
+                                ),
+                                trailing: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    IconButton(
+                                      tooltip: "Update Address",
+                                      splashColor: Colors.transparent,
+                                      onPressed: () {
+                                        ctx.setInitialValue(index);
+                                        Get.bottomSheet(AddressBottomSheet(
+                                          index: index,
+                                        ));
+                                      },
+                                      icon: const Icon(
+                                        Iconsax.edit,
+                                        color: SColors.accent,
+                                      ),
+                                    ),
+                                    IconButton(
+                                      tooltip: "Delete Address",
+                                      splashColor: Colors.transparent,
+                                      onPressed: () {
+                                        controller.deleteAddress(index);
+                                      },
+                                      icon: const Icon(
+                                        Iconsax.trash,
+                                        color: SColors.error,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                            contentPadding: const EdgeInsets.all(10),
-                            title: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                STextStyle(
-                                  text: ctx.user[index].adType,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleLarge!
-                                      .copyWith(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w600),
-                                  maxLine: 1,
-                                ),
-                                STextStyle(
-                                  text: ctx.fullAddress(index),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .labelLarge!
-                                      .copyWith(fontWeight: FontWeight.w300),
-                                  maxLine: 6,
-                                ),
-                              ],
-                            ),
-                            trailing: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                IconButton(
-                                  tooltip: "Update Address",
-                                  splashColor: Colors.transparent,
-                                  onPressed: () {
-                                    ctx.setInitialValue(index);
-                                    Get.bottomSheet(AddressBottomSheet(
-                                      index: index,
-                                    ));
-                                  },
-                                  icon: const Icon(
-                                    Iconsax.edit,
-                                    color: SColors.accent,
-                                  ),
-                                ),
-                                IconButton(
-                                  tooltip: "Delete Address",
-                                  splashColor: Colors.transparent,
-                                  onPressed: () {
-                                    controller.deleteAddress(index);
-                                  },
-                                  icon: const Icon(
-                                    Iconsax.trash,
-                                    color: SColors.error,
-                                  ),
-                                ),
-                              ],
                             ),
                           ),
                         ),
                       ),
-                    ),
-            ),
           ),
         ),
       ),
