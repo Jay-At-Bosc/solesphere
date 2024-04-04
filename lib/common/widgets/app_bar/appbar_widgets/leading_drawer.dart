@@ -28,6 +28,7 @@ class SLeadingDrawer extends GetView<CustomDrawerController> {
         onPressed: () async {
           log("user data");
           final appStorage = Get.find<AppStorage>();
+          // ignore: unused_local_variable
           final user = appStorage.getUserData();
           
 

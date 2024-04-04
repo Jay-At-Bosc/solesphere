@@ -1,14 +1,10 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
-//import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/services/api/end_points.dart';
-import 'package:solesphere/services/repositories/network.dart';
 
 import 'package:solesphere/services/routes/app_route_exports.dart';
 import 'package:solesphere/utils/exceptions/custom_exception.dart';
@@ -46,6 +42,7 @@ class AuthenticationRepository extends GetxController {
 
   Future<bool> fetchOnboardingItems() async {
     try {
+      // ignore: no_leading_underscores_for_local_identifiers
       final _response = await http.get(Uri.parse(EndPoints.onboard));
 
       if (_response.statusCode == 200) {

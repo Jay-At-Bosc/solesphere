@@ -12,6 +12,7 @@ class ViewOrderScreen extends GetView<ViewOrderController> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     final ct = Get.put(ViewOrderController());
     return Scaffold(
       backgroundColor: SColors.lightBackground.withOpacity(0.99),

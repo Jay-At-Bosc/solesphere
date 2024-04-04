@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/screens/home/controller/product_controller.dart';
 import 'package:solesphere/utils/constants/sizes.dart';
