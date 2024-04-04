@@ -8,7 +8,9 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/services/api/end_points.dart';
+
 import 'package:solesphere/services/routes/app_route_exports.dart';
+import 'package:solesphere/utils/exceptions/custom_exception.dart';
 import 'package:solesphere/utils/exceptions/format_exceptions.dart';
 import '../../utils/exceptions/firebase_auth_exceptions.dart';
 import '../../utils/exceptions/firebase_exceptions.dart';
@@ -41,10 +43,9 @@ class AuthenticationRepository extends GetxController {
   }
 
   Future<bool> fetchOnboardingItems() async {
-    final _response = await http.get(Uri.parse(EndPoints.onboard));
-
-    // TODO: make this private and reuse from single instance, same for the API call
     try {
+      final _response = await http.get(Uri.parse(EndPoints.onboard));
+
       if (_response.statusCode == 200) {
         final Map<String, dynamic> responseData = jsonDecode(_response.body);
         final List<dynamic> data = responseData['data'];
@@ -52,13 +53,11 @@ class AuthenticationRepository extends GetxController {
         await appStorage.setOnboardingItems(jsonString);
         return true;
       } else {
-        log('Failed to load onboarding items: ${_response.statusCode}');
-        throw Exception(
-            'Failed to load onboarding items: ${_response.statusCode}');
+        throw CustomException(
+            title: "Error", message: "Faild to fetch onboard item");
       }
     } catch (e) {
-      log('Error fetching onboarding items: $e');
-      throw Exception('Error fetching onboarding items: $e');
+      rethrow;
     }
   }
 
@@ -152,7 +151,6 @@ class AuthenticationRepository extends GetxController {
 
   Future<void> signOut() async {
     try {
-
       await GoogleSignIn().signOut();
       await _auth.signOut();
       Get.offAllNamed(Routes.signin);
@@ -161,4 +159,7 @@ class AuthenticationRepository extends GetxController {
       throw "Something went wrong.Please try again later.";
     }
   }
+
+  
+
 }

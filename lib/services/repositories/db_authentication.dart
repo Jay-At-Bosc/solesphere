@@ -14,6 +14,24 @@ class DbAuthentication extends GetxController {
   static DbAuthentication get instance => Get.find();
   var diox = dio.Dio();
 
+  Future<bool> checkUser(User user) async {
+    try {
+      //Map<String, dynamic> data = {"UID": "MhmRiSxCY5QYBwGUEiu2H9Wm71t1", "email": "test@test.com"};
+      Map<String, dynamic> data = {"UID": user.uid, "email": user.email};
+
+      final jsonData = jsonEncode(data);
+      var response = await diox.request(EndPoints.isUser,
+          options: dio.Options(method: 'POST'), data: jsonData);
+      log(response.statusCode.toString());
+      if (response.statusCode == 200) {
+        return true;
+      }
+      return false;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<bool?> createUser(UserDataModel user) async {
     try {
       // String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
@@ -29,8 +47,7 @@ class DbAuthentication extends GetxController {
       };
       final jsonData = jsonEncode(data);
 
-      
-      var response = await diox.request(EndPoints.createUser,
+      var response = await diox.request(EndPoints.isUser,
           options: dio.Options(method: 'POST'), data: jsonData);
 
       if (response.statusCode == 201) {

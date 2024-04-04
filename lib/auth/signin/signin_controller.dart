@@ -19,7 +19,7 @@ class SignInController extends GetxController {
   final String signinToSignupId = "SigninToSignupId";
   final String forgetPAsswordButtonId = "ForgetPAsswordButtonId";
 
-  late var user_info;
+  
 
   /// Input Controller
   final TextEditingController email = TextEditingController();

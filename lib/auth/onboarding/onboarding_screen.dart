@@ -3,10 +3,10 @@ import 'package:solesphere/auth/onboarding/onboarding_controller.dart';
 import 'package:solesphere/services/routes/app_route_exports.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
-
 import '../../utils/constants/labels.dart';
 import '../../utils/theme/theme.dart';
 import '../../utils/theme/widget_themes/elevated_button_theme.dart';
+import '../../widgets/custom_label.dart';
 import 'onboarding_image.dart';
 import 'onbording_dotnavigation.dart';
 
@@ -47,22 +47,19 @@ class OnBoardingScreen extends GetView<OnBoardingController> {
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
-                                controller.onboardingItems[index].title,
-                                //SLabels.onBoardingTitle1,
-                                style: Get.isDarkMode
-                                    ? SAppTheme.darkTheme.textTheme.displayLarge
-                                    : SAppTheme
-                                        .lightTheme.textTheme.displayLarge,
+                              CustomLabelText(
+                                labelText:
+                                    controller.onboardingItems[index].title,
+                                labelStyle:
+                                    Theme.of(context).textTheme.displayLarge,
+                                maxLines: 2,
                               ),
-                              Text(
-                                controller.onboardingItems[index].subtitle,
-                                //SLabels.onBoardingSubTitle1,
-                                style: Get.isDarkMode
-                                    ? SAppTheme
-                                        .darkTheme.textTheme.displayMedium
-                                    : SAppTheme
-                                        .lightTheme.textTheme.displayMedium,
+                              CustomLabelText(
+                                labelText:
+                                    controller.onboardingItems[index].subtitle,
+                                labelStyle:
+                                    Theme.of(context).textTheme.displayMedium,
+                                maxLines: 2,
                               ),
                             ],
                           ),
@@ -90,7 +87,7 @@ class OnBoardingScreen extends GetView<OnBoardingController> {
                       () => ElevatedButton(
                         onPressed: () =>
                             OnBoardingController.instance.nextPage(),
-                            style: SElevatedButtonTheme.elevatedButtonStyle,
+                        style: SElevatedButtonTheme.elevatedButtonStyle,
                         child:
                             OnBoardingController.instance.currentIndex.value ==
                                     OnBoardingController

@@ -1,59 +1,98 @@
+import 'package:firebase_auth/firebase_auth.dart';
 
+import 'package:flutter/services.dart';
 import 'package:solesphere/services/repositories/authentication.dart';
+import 'package:solesphere/services/repositories/network.dart';
 import 'package:solesphere/services/routes/app_pages.dart';
 import 'package:solesphere/services/routes/app_route_exports.dart';
+import 'package:solesphere/utils/exceptions/custom_exception.dart';
 
+import '../../services/repositories/db_authentication.dart';
 import '../../utils/local_storage/app_storage.dart';
 import '../auth_exports.dart';
 
 class SplashController extends GetxController {
   final appStorage = Get.find<AppStorage>();
   final authRepository = Get.find<AuthenticationRepository>();
+  final checkConnection = Get.find<NetworkController>();
 
   @override
   void onInit() {
     super.onInit();
+    checkMainProcess();
+  }
+
+  void checkMainProcess() {
     Future.wait([
-      getUserData(),
-      getfetchOnboardingItems(),
+      /// Check internet connection
+      checkConnection.checkInternetConnection(),
+
+      /// Fatch user data from
+      //getUserData(),
+
+       if (!appStorage.hasOnBoardingCompleted) getfetchOnboardingItems(),
       Future.delayed(const Duration(seconds: 3)),
-    ]).then((_) {
+    ]).then((_) async {
       bool hasOnboardCompleted = appStorage.hasOnBoardingCompleted;
       if (hasOnboardCompleted) {
-        // UserDataModel? loggedInUser = appStorage.getUserData();
-        // if (loggedInUser != null) {
-        //   Get.offAllNamed(Routes.home);
-        // } else {
-        //   Get.offAllNamed(Routes.signin);
-        // }
-        Get.offAllNamed(Routes.signin);
+        final user = FirebaseAuth.instance.currentUser;
+        if (user != null) {
+          final userStatus = await DbAuthentication.instance.checkUser(user);
+          if (userStatus) {
+            Get.offAllNamed(Routes.home);
+          } else {
+            Get.offAllNamed(Routes.signin);
+            throw CustomException(
+              title: "Unauthorized",
+              message: "This user blocked by admin.Please contact Admin."
+            );
+          }
+        } else {
+          Get.offAllNamed(Routes.signin);
+        }
       } else {
         Get.offAllNamed(Routes.onboard);
       }
-    }).onError((error, stackTrace) {
-      _showDialog("Error", 'Please turn on your internet connection.');
+    }).onError((e, stackTrace) {
+      if (e is CustomInternetException) {
+        Get.defaultDialog(
+          title: e.title,
+          middleText: e.message,
+          onWillPop: () async => false,
+          textConfirm: "Retry",
+          textCancel: "Exit",
+          barrierDismissible: false,
+          radius: 50,
+          onConfirm: () async {
+            Get.back();
+            checkMainProcess();
+          },
+          onCancel: () {
+            Get.back();
+            SystemNavigator.pop();
+          },
+        );
+      } else if (e is CustomException) {
+         Get.snackbar(e.title,e.message, snackPosition: SnackPosition.BOTTOM);
+      } else {
+        Get.snackbar("Error", "something went wrong",snackPosition: SnackPosition.BOTTOM);
+      }
     });
   }
 
-  Future<bool> getfetchOnboardingItems() async {
+  Future<void> getfetchOnboardingItems() async {
     bool hasOnboardCompleted = appStorage.hasOnBoardingCompleted;
     if (hasOnboardCompleted) {
-      return true;
+      return;
     }
 
-    // TODO: make this private and reuse from single instance, same for the API call
-
     try {
-      await authRepository.fetchOnboardingItems();
-      return true;
-    } catch (e) {
-      String errorMessage = e.toString();
-      if (errorMessage.contains('SocketException')) {
-        _showDialog("Error", 'Please turn on your internet connection.');
-      } else {
-        _showDialog("Error", 'Network request failed. Please try again later.');
+      bool isDataFatched = await authRepository.fetchOnboardingItems();
+      if (isDataFatched) {
+        return;
       }
-      return false;
+    } catch (e) {
+      rethrow;
     }
   }
 
@@ -63,7 +102,7 @@ class SplashController extends GetxController {
     return true;
   }
 
-  void _showDialog(String title, String message) {
+  void showDialog(String title, String message) {
     Get.defaultDialog(
       barrierDismissible: false,
       title: title,
@@ -78,4 +117,29 @@ class SplashController extends GetxController {
       ],
     );
   }
+
+  customSnackbar(String? message) {
+    Get.snackbar(
+      "No Internet Connection",
+      message!,
+      isDismissible: false,
+      snackPosition: SnackPosition.BOTTOM,
+      mainButton: TextButton(
+        onPressed: () {
+          checkConnection.checkInternetConnection();
+        },
+        child: const Text("Retry"),
+      ),
+    );
+  }
 }
+
+// UserDataModel? loggedInUser = appStorage.getUserData();
+//         if (loggedInUser != null) {
+         
+//           Get.offAllNamed(Routes.home);
+//         } else {
+//           Get.offAllNamed(Routes.signin);
+//         }
+
+

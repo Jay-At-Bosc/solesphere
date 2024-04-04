@@ -19,7 +19,6 @@ class OnBoardingController extends GetxController {
 
   @override
   void onInit() {
-    //fetchOnboardingItems();
     getOnboardingItemsFromStorage();
     pageController.addListener(_handlePageChange);
     super.onInit();

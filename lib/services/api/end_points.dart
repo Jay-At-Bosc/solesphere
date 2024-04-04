@@ -3,7 +3,7 @@ class EndPoints {
       "https://solesphere-backend.onrender.com/api/v1/";
 
   static const String onboard = "${baseUrl}onboard";
-  static const String createUser = "${baseUrl}auth/";
+  static const String isUser = "${baseUrl}auth/isuser";
   static const String userDetail = "${baseUrl}users/";
   static const String userProfilePicture = "${baseUrl}users/profile";
   static const String getUser = "${baseUrl}users/";
