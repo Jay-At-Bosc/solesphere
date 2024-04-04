@@ -5,6 +5,8 @@ import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:solesphere/common/widgets/popup/loaders.dart';
+import 'package:solesphere/screens/order-checkout/order_controller.dart';
 import 'package:solesphere/services/api/end_points.dart';
 import 'package:solesphere/utils/constants/enums.dart';
 
@@ -20,8 +22,10 @@ class ShippingAdddressController extends GetxController
   TextEditingController state = TextEditingController();
   TextEditingController zipcode = TextEditingController();
   GlobalKey<FormState> address = GlobalKey<FormState>();
+  OrderController controller = Get.put(OrderController());
 
-  late TabController? adType;
+  late TabController? adType =
+      TabController(length: 3, vsync: this, initialIndex: 0);
 
   bool isAddressLoading = false;
   List<Useraddress> user = <Useraddress>[];
@@ -29,7 +33,7 @@ class ShippingAdddressController extends GetxController
   @override
   void onInit() async {
     await getUserAddress(); // Call getUserAddress on init
-    adType = TabController(length: 3, vsync: this, initialIndex: 1);
+
     super.onInit();
   }
 
@@ -45,6 +49,7 @@ class ShippingAdddressController extends GetxController
       state.text = user[index].state.toString();
       zipcode.text = user[index].pincode.toString();
     } else {
+      adType = TabController(length: 3, vsync: this, initialIndex: 0);
       addressLine1.text = "";
       addressLine2.text = '';
       city.text = '';
@@ -108,9 +113,7 @@ class ShippingAdddressController extends GetxController
           "pincode": zipcode.text,
           "town": city.text,
           "state": state.text,
-          "adType": index != -1
-              ? user[index].adType
-              : getStringRepresentation(adType!.index),
+          "adType": getStringRepresentation(adType!.index),
         },
         "index": index != -1 ? index.toString() : user.length.toString()
       });
@@ -121,12 +124,36 @@ class ShippingAdddressController extends GetxController
       if (response.statusCode == 200) {
         log("message");
         await getUserAddress();
+        await controller.getUserAddress();
         Get.back();
       } else {
         log("wrong");
       }
     } catch (e) {
       log(e.toString());
+    }
+  }
+
+  Future<void> deleteAddress(int index) async {
+    try {
+      String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
+      var headers = {'auth-token': token, 'Content-Type': 'application/json'};
+      var data = json.encode({"index": index.toString()});
+      var dio = Dio();
+      var response = await dio.request(EndPoints.deleteAddress,
+          options: Options(method: 'DELETE', headers: headers), data: data);
+
+      if (response.statusCode == 200) {
+        log("Deleted");
+        await getUserAddress();
+        await controller.getUserAddress();
+      } else {
+        TLoaders.errorSnackBar(
+            title: "Opps!!", message: response.statusMessage);
+      }
+    } catch (e) {
+      log(e.toString());
+      TLoaders.errorSnackBar(title: "Opps!!", message: e);
     }
   }
 }

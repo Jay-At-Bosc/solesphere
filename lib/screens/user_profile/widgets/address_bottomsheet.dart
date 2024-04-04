@@ -10,7 +10,6 @@ import '../../../utils/validators/validations.dart';
 import '../../../widgets/custom_label.dart';
 import '../../../widgets/custom_simple_input.dart';
 
-
 class AddressBottomSheet extends GetView<ShippingAdddressController> {
   const AddressBottomSheet({super.key, required this.index});
   final int index;
@@ -67,7 +66,8 @@ class AddressBottomSheet extends GetView<ShippingAdddressController> {
                           hintText: SLabels.addresslineOne,
                           controller: controller.addressLine1,
                           // enable: controller.isSaveLoading,
-                          // validator: (v) {},
+                          validator: (v) => SValidator.validateAddress(
+                              v, SLabels.addresslineOne),
                           keyboardType: TextInputType.multiline,
                           maxLength: 1,
                         ),

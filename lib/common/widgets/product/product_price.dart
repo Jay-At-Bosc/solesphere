@@ -20,7 +20,7 @@ class SProductPrice extends StatelessWidget {
             text: "₹${product.discountedPrice.toString()}",
             style: Theme.of(context).textTheme.labelLarge!.apply(
               color: Colors.black,
-              fontSizeFactor: 1.5,
+              fontSizeFactor: 1,
               fontFeatures: [const FontFeature.superscripts()],
             ),
           ),
@@ -38,17 +38,14 @@ class SProductPrice extends StatelessWidget {
           const SizedBox(
             width: 2.0,
           ),
-          // SizedBox(
-          //   width: 40,
-          //   child: STextStyle(
-          //     text:
-          //         "(${ProductController.instance.calculateDiscount(product.actualPrice, product.discountedPrice)}%)",
-          //     style: Theme.of(context).textTheme.labelSmall!.apply(
-          //           color: SColors.textPrimaryWith60,
-          //           fontSizeFactor: 0.7,
-          //         ),
-          //   ),
-          // ),
+          STextStyle(
+            text:
+                "(${ProductController.instance.calculateDiscount(product.actualPrice, product.discountedPrice)}%)",
+            style: Theme.of(context).textTheme.labelSmall!.apply(
+                  color: SColors.textPrimaryWith60,
+                  fontSizeFactor: 0.7,
+                ),
+          ),
         ],
       ),
     );

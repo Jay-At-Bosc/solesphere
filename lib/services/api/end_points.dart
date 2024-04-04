@@ -14,6 +14,8 @@ class EndPoints {
   static String razorpayOrder = "${baseUrl}payments/razorpay-orders";
   static String userOrders = "${baseUrl}orders";
   static String updateAddress = "${baseUrl}users/update-address";
+  static String deleteAddress = "${baseUrl}users/address";
+  static String search = "${baseUrl}products/search";
 
   static const String productDetail =
       "${baseUrl}products/product-detail?product_id";

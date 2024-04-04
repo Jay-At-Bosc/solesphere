@@ -46,7 +46,8 @@ class ShippingAddress extends GetView<ShippingAdddressController> {
               ),
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
             child: GetBuilder<ShippingAdddressController>(
               id: 'user_address',
               builder: (ctx) => ctx.user.isEmpty
@@ -111,7 +112,7 @@ class ShippingAddress extends GetView<ShippingAdddressController> {
                                   tooltip: "Delete Address",
                                   splashColor: Colors.transparent,
                                   onPressed: () {
-                                    log(ctx.user[index].id);
+                                    controller.deleteAddress(index);
                                   },
                                   icon: const Icon(
                                     Iconsax.trash,

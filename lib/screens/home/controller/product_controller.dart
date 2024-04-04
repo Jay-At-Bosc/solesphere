@@ -3,8 +3,11 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:dio/dio.dart';
 import 'package:get/get.dart';
+import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/common/widgets/popup/loaders.dart';
+import 'package:solesphere/services/api/end_points.dart';
 
 import '../../../services/models/category_model.dart';
 import '../../../services/models/product_model.dart';
@@ -14,6 +17,7 @@ import '../../cart/cart_controller.dart';
 
 class ProductController extends GetxController {
   static ProductController get instance => Get.find();
+  TextEditingController searchProduct = TextEditingController();
 
   final selectedCategory = ''.obs;
   final isLoading = false.obs;
@@ -22,6 +26,7 @@ class ProductController extends GetxController {
 
   final productList = <Products>[].obs;
   final filterProductList = <Products>[].obs;
+  final searchProductList = <Products>[].obs;
   // final categoryProducts = RxList<Product>([]).obs;
   final favoriteList = RxList<Products>([]).obs;
 
@@ -161,6 +166,25 @@ class ProductController extends GetxController {
         (((actualPrice - discountedPrice) / actualPrice) * 100).toDouble();
     String formattedDiscountPercentage = discountPercentage.toStringAsFixed(0);
     return formattedDiscountPercentage;
+  }
+
+  Future<void> search(String query) async {
+    searchProductList.clear();
+    var dio = Dio();
+    var response = await dio.request(EndPoints.search,
+        options: Options(
+          method: 'GET',
+        ),
+        queryParameters: {
+          'q': query,
+        });
+
+    if (response.statusCode == 200) {
+      print(json.encode(response.data));
+    } else {
+      print(response.statusMessage);
+    }
+    update(['search']);
   }
 }
 
