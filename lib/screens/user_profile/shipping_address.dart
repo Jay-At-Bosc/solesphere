@@ -1,11 +1,7 @@
-import 'dart:developer';
-
 import 'package:iconsax/iconsax.dart';
-
 import 'package:solesphere/screens/user_profile/shipping_address_controller.dart';
 import 'package:solesphere/screens/user_profile/widgets/address_bottomsheet.dart';
 import 'package:solesphere/services/routes/app_route_exports.dart';
-
 import '../../common/widgets/text/text_style.dart';
 import '../../utils/constants/colors.dart';
 import '../../utils/constants/labels.dart';
@@ -15,6 +11,7 @@ class ShippingAddress extends GetView<ShippingAdddressController> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     final controller = Get.put(ShippingAdddressController());
 
     return GetBuilder<ShippingAdddressController>(

@@ -4,7 +4,6 @@ import 'package:solesphere/services/routes/app_route_exports.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
 import '../../utils/constants/labels.dart';
-import '../../utils/theme/theme.dart';
 import '../../utils/theme/widget_themes/elevated_button_theme.dart';
 import '../../widgets/custom_label.dart';
 import 'onboarding_image.dart';

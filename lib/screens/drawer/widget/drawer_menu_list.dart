@@ -40,7 +40,7 @@ class DrawerMenu extends StatelessWidget {
           ),
           const SDrawerOption(
             icon: Iconsax.truck_fast,
-            text: "Orders", route: Routes.home,
+            text: "Orders", route: Routes.viewOrder,
             // onTap: () {},
           ),
           const SDrawerOption(

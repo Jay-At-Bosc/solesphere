@@ -1,18 +1,12 @@
-// product_controller.dart
-
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:dio/dio.dart';
-import 'package:get/get.dart';
 import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/common/widgets/popup/loaders.dart';
 import 'package:solesphere/services/api/end_points.dart';
-
 import '../../../services/models/category_model.dart';
 import '../../../services/models/product_model.dart';
 import 'package:http/http.dart' as http;
-
 import '../../cart/cart_controller.dart';
 
 class ProductController extends GetxController {
@@ -21,12 +15,15 @@ class ProductController extends GetxController {
 
   final selectedCategory = ''.obs;
   final isLoading = false.obs;
+  final isSearching = false.obs;
   final isProdcutLoading = false.obs;
   final brandName = ''.obs;
 
   final productList = <Products>[].obs;
-  final filterProductList = <Products>[].obs;
-  final searchProductList = <Products>[].obs;
+  var filterProductList = <Products>[].obs;
+  // var searchProductList = <Products>[].obs;
+  List<Products> searchProductList = <Products>[].obs;
+
   // final categoryProducts = RxList<Product>([]).obs;
   final favoriteList = RxList<Products>([]).obs;
 
@@ -112,7 +109,7 @@ class ProductController extends GetxController {
   }
   //end product
 
-//onTap categories
+  //onTap categories
   void onItemClick(String id, String name) {
     selectedCategory.value = id;
     if (selectedCategory.value != '') {
@@ -169,22 +166,38 @@ class ProductController extends GetxController {
   }
 
   Future<void> search(String query) async {
-    searchProductList.clear();
-    var dio = Dio();
-    var response = await dio.request(EndPoints.search,
-        options: Options(
-          method: 'GET',
-        ),
-        queryParameters: {
-          'q': query,
-        });
+    try {
+      isSearching.value = true;
+      searchProductList.clear();
+      update(['search']);
+      var dio = Dio();
+      var response = await dio.request(EndPoints.search,
+          options: Options(
+            method: 'GET',
+          ),
+          queryParameters: {
+            'q': query,
+          });
 
-    if (response.statusCode == 200) {
-      print(json.encode(response.data));
-    } else {
-      print(response.statusMessage);
+      if (response.statusCode == 200) {
+        List<dynamic> responseData = response.data['data']['responseData'];
+        List<Products> productsList =
+            responseData.map((json) => Products.fromMap(json)).toList();
+        searchProductList = productsList;
+        // productsList.forEach((product) {
+        //   print(product.productName);
+        // });
+        log('length ${searchProductList.length}');
+      } else {
+        log(response.statusMessage.toString());
+      }
+      isSearching.value = false;
+    } catch (e) {
+      log(e.toString());
+    } finally {
+      update(['search']);
+      isSearching.value = false;
     }
-    update(['search']);
   }
 }
 

@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-
 class Products {
   final String id;
   final String productName;
   final int actualPrice;
   final int discountedPrice;
   final int colors;
+  final int size;
   final Category category;
   final Brand brand;
   final String shortDescription;
@@ -19,6 +19,7 @@ class Products {
     required this.actualPrice,
     required this.discountedPrice,
     required this.colors,
+    required this.size,
     required this.category,
     required this.brand,
     required this.shortDescription,
@@ -33,6 +34,7 @@ class Products {
     int? actualPrice,
     int? discountedPrice,
     int? colors,
+    int? size,
     Category? category,
     Brand? brand,
     String? shortDescription,
@@ -46,6 +48,7 @@ class Products {
       actualPrice: actualPrice ?? this.actualPrice,
       discountedPrice: discountedPrice ?? this.discountedPrice,
       colors: colors ?? this.colors,
+      size: size ?? this.size,
       category: category ?? this.category,
       brand: brand ?? this.brand,
       shortDescription: shortDescription ?? this.shortDescription,
@@ -62,6 +65,7 @@ class Products {
       'actual_price': actualPrice,
       'discounted_price': discountedPrice,
       'colors': colors,
+      'size': size,
       'category': category.toMap(),
       'brand': brand.toMap(),
       'shortDescription': shortDescription,
@@ -75,62 +79,78 @@ class Products {
     return Products(
       id: map['_id'] as String,
       productName: map['productName'] as String,
-      actualPrice: map['actual_price'].toInt() as int,
-      discountedPrice: map['discounted_price'].toInt() as int,
-      colors: map['colors'].toInt() as int,
-      category: Category.fromMap(map['category'] as Map<String,dynamic>),
-      brand: Brand.fromMap(map['brand'] as Map<String,dynamic>),
+      actualPrice: map['actual_price'] is int
+          ? map['actual_price'] as int
+          : int.tryParse(map['actual_price'].toString()) ?? 0,
+      discountedPrice: map['discounted_price'] is int
+          ? map['discounted_price'] as int
+          : int.tryParse(map['discounted_price'].toString()) ?? 0,
+      colors: map['colors'] is int
+          ? map['colors'] as int
+          : int.tryParse(map['colors'].toString()) ?? 0,
+      size: map['size'] is int
+          ? map['size'] as int
+          : int.tryParse(map['size'].toString()) ?? 0,
+      category:
+          map['category'] != null && map['category'] is Map<String, dynamic>
+              ? Category.fromMap(map['category'] as Map<String, dynamic>)
+              : Category(id: '', category: ''),
+      brand: map['brand'] != null && map['brand'] is Map<String, dynamic>
+          ? Brand.fromMap(map['brand'] as Map<String, dynamic>)
+          : Brand(id: '', brand: ''),
       shortDescription: map['shortDescription'] as String,
-      avgRating: map['avgRating'] != null ? double.parse(map['avgRating'].toStringAsFixed(1)) : 0,
+      avgRating: map['avgRating'] is double
+          ? double.parse(map['avgRating'].toStringAsFixed(1))
+          : double.tryParse(map['avgRating'].toString()) ?? 0,
       image: map['image'] as String,
-      totalReview: map['totalReview'].toInt() as int,
+      totalReview: map['totalReview'] is int
+          ? map['totalReview'] as int
+          : int.tryParse(map['totalReview'].toString()) ?? 0,
     );
   }
 
-
-
-
-
   String toJson() => json.encode(toMap());
 
-  factory Products.fromJson(String source) => Products.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory Products.fromJson(String source) =>
+      Products.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
-    return 'Products(_id: $id, productName: $productName, actual_price: $actualPrice, discounted_price: $discountedPrice, colors: $colors, category: $category, brand: $brand, shortDescription: $shortDescription, avgRating: $avgRating, image: $image, totalReview: $totalReview)';
+    return 'Products(_id: $id, productName: $productName, actual_price: $actualPrice, discounted_price: $discountedPrice, colors: $colors,size: $size, category: $category, brand: $brand, shortDescription: $shortDescription, avgRating: $avgRating, image: $image, totalReview: $totalReview)';
   }
 
   @override
   bool operator ==(covariant Products other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.id == id &&
-      other.productName == productName &&
-      other.actualPrice == actualPrice &&
-      other.discountedPrice == discountedPrice &&
-      other.colors == colors &&
-      other.category == category &&
-      other.brand == brand &&
-      other.shortDescription == shortDescription &&
-      other.avgRating == avgRating &&
-      other.image == image &&
-      other.totalReview == totalReview;
+
+    return other.id == id &&
+        other.productName == productName &&
+        other.actualPrice == actualPrice &&
+        other.discountedPrice == discountedPrice &&
+        other.colors == colors &&
+        other.size == size &&
+        other.category == category &&
+        other.brand == brand &&
+        other.shortDescription == shortDescription &&
+        other.avgRating == avgRating &&
+        other.image == image &&
+        other.totalReview == totalReview;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      productName.hashCode ^
-      actualPrice.hashCode ^
-      discountedPrice.hashCode ^
-      colors.hashCode ^
-      category.hashCode ^
-      brand.hashCode ^
-      shortDescription.hashCode ^
-      avgRating.hashCode ^
-      image.hashCode ^
-      totalReview.hashCode;
+        productName.hashCode ^
+        actualPrice.hashCode ^
+        discountedPrice.hashCode ^
+        colors.hashCode ^
+        size.hashCode ^
+        category.hashCode ^
+        brand.hashCode ^
+        shortDescription.hashCode ^
+        avgRating.hashCode ^
+        image.hashCode ^
+        totalReview.hashCode;
   }
 }
 
@@ -168,7 +188,8 @@ class Category {
 
   String toJson() => json.encode(toMap());
 
-  factory Category.fromJson(String source) => Category.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory Category.fromJson(String source) =>
+      Category.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() => 'Category(_id: $id, category: $category)';
@@ -176,10 +197,8 @@ class Category {
   @override
   bool operator ==(covariant Category other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.id == id &&
-      other.category == category;
+
+    return other.id == id && other.category == category;
   }
 
   @override
@@ -220,7 +239,8 @@ class Brand {
 
   String toJson() => json.encode(toMap());
 
-  factory Brand.fromJson(String source) => Brand.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory Brand.fromJson(String source) =>
+      Brand.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() => 'Brand(_id: $id, brand: $brand)';
@@ -228,13 +248,10 @@ class Brand {
   @override
   bool operator ==(covariant Brand other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.id == id &&
-      other.brand == brand;
+
+    return other.id == id && other.brand == brand;
   }
 
   @override
   int get hashCode => id.hashCode ^ brand.hashCode;
 }
-
