@@ -2,8 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:solesphere/services/models/user_data_model.dart';
-import 'package:solesphere/utils/local_storage/app_storage.dart';
+
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 class CustomDrawerController extends GetxController {

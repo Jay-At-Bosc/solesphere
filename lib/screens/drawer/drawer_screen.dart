@@ -12,7 +12,7 @@ class DrawerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final controller = Get.put<UserInfoController>(UserInfoController());
+    final controller = Get.put(NavigationController());
     // log(7.0.getHeight());
     return Scaffold(
       backgroundColor: Colors.black,
@@ -36,7 +36,7 @@ class DrawerScreen extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(45.0),
                   child: Image.network(
-                    NavigationController.instance.userData[0]['profile'],
+                    controller.userData['data']['profilePic'],
                     height: 90,
                     width: 90,
                     fit: BoxFit.cover,
@@ -55,7 +55,7 @@ class DrawerScreen extends StatelessWidget {
                     },
                     errorBuilder: (BuildContext context, Object error,
                         StackTrace? stackTrace) {
-                      return Column(
+                      return const Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
@@ -82,7 +82,7 @@ class DrawerScreen extends StatelessWidget {
                 width: 45.0.getWidth(),
                 // color: Colors.red,
                 child: Text(
-                  NavigationController.instance.userData[0]['name'],
+                  controller.userData['data']['username'],
                   style: Theme.of(context)
                       .textTheme
                       .headlineLarge!
