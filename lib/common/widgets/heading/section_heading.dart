@@ -27,9 +27,8 @@ class SSectionTitle extends StatelessWidget {
           children: [
             Text(
               ctx.selectedCategory.value != ''
-                  ? ctx.brandName.value
+                  ? ctx.brandName.value.capitalize!.toString()
                   : SLabels.newArrivals,
-              
               overflow: TextOverflow.ellipsis,
               textScaler: const TextScaler.linear(1),
               style: Theme.of(context).textTheme.bodyLarge,

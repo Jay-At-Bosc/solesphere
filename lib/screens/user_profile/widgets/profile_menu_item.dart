@@ -1,9 +1,11 @@
-import 'package:flutter/material.dart';
+
 import 'package:iconsax/iconsax.dart';
+import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
 import '../../../services/repositories/authentication.dart';
 import '../../../utils/constants/colors.dart';
+import '../shipping_address.dart';
 import 'custom_divider.dart';
 import 'custom_list_tile.dart';
 
@@ -37,7 +39,9 @@ class ProfileMenuItems extends StatelessWidget {
                 .textTheme
                 .labelLarge!
                 .apply(color: SColors.textPrimaryWith80),
-            onTap: () {},
+            onTap: () {
+              Get.to(() => const ShippingAddress());
+            },
           ),
           const CustomDivider(),
           CustomListTile(

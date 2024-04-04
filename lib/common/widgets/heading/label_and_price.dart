@@ -28,7 +28,7 @@ class LabelAndPrice extends StatelessWidget {
             maxLine: 1,
           ),
           STextStyle(
-            text: "${sign} ₹$price.00",
+            text: "$sign ₹$price.00",
             style: style,
             maxLine: 1,
           )

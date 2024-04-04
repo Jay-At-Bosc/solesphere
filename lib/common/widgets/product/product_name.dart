@@ -1,4 +1,5 @@
 import 'package:solesphere/auth/auth_exports.dart';
+import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
 import '../../../services/models/product_model.dart';
 import '../../../utils/constants/colors.dart';
@@ -23,12 +24,17 @@ class SProductName extends StatelessWidget {
               .labelLarge!
               .apply(color: Colors.black),
         ),
+        SizedBox(
+          height: 0.2.getHeight(),
+        ),
         STextStyle(
           text: product.shortDescription.toString(),
+          maxLine: 2,
           style: Theme.of(context)
               .textTheme
               .labelSmall!
-              .apply(color: SColors.textPrimaryWith60),
+              .apply(color: SColors.textPrimaryWith60)
+              .copyWith(height: 1.1),
         ),
       ],
     );

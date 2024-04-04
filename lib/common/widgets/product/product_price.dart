@@ -13,39 +13,41 @@ class SProductPrice extends StatelessWidget {
   final Products product;
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        STextStyle(
-          text: "₹${product.discountedPrice.toString()}",
-          style: Theme.of(context).textTheme.labelLarge!.apply(
-            color: Colors.black,
-            fontSizeFactor: 1.5,
-            fontFeatures: [const FontFeature.superscripts()],
+    return SizedBox(
+      child: Row(
+        children: [
+          STextStyle(
+            text: "₹${product.discountedPrice.toString()}",
+            style: Theme.of(context).textTheme.labelLarge!.apply(
+              color: Colors.black,
+              fontSizeFactor: 1,
+              fontFeatures: [const FontFeature.superscripts()],
+            ),
           ),
-        ),
-        const SizedBox(
-          width: 2.0,
-        ),
-        STextStyle(
-          text: "₹${product.actualPrice.toString()}",
-          style: Theme.of(context).textTheme.labelSmall!.apply(
-                color: SColors.textPrimaryWith60,
-                fontSizeFactor: 0.9,
-                decoration: TextDecoration.lineThrough,
-              ),
-        ),
-        const SizedBox(
-          width: 2.0,
-        ),
-        STextStyle(
-          text:
-              "(${ProductController.instance.calculateDiscount(product.actualPrice, product.discountedPrice)}%)",
-          style: Theme.of(context).textTheme.labelSmall!.apply(
-                color: SColors.textPrimaryWith60,
-                fontSizeFactor: 0.9,
-              ),
-        ),
-      ],
+          const SizedBox(
+            width: 2.0,
+          ),
+          STextStyle(
+            text: "₹${product.actualPrice.toString()}",
+            style: Theme.of(context).textTheme.labelSmall!.apply(
+                  color: SColors.textPrimaryWith60,
+                  fontSizeFactor: 0.9,
+                  decoration: TextDecoration.lineThrough,
+                ),
+          ),
+          const SizedBox(
+            width: 2.0,
+          ),
+          STextStyle(
+            text:
+                "(${ProductController.instance.calculateDiscount(product.actualPrice, product.discountedPrice)}%)",
+            style: Theme.of(context).textTheme.labelSmall!.apply(
+                  color: SColors.textPrimaryWith60,
+                  fontSizeFactor: 0.7,
+                ),
+          ),
+        ],
+      ),
     );
   }
 }

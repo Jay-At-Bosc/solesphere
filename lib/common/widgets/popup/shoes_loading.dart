@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
-
-
 class ShoesLoading extends StatelessWidget {
   const ShoesLoading({super.key, required this.loader});
   final String loader;

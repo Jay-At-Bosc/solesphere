@@ -42,7 +42,7 @@ class CustomAddressForm extends GetView<UserDetailsController> {
         CustomSimpleInput(
           hintText: SLabels.addresslineOne,
           controller: controller.addressLine1,
-          enable: controller.isSaveLoading,
+          // enable: controller.isSaveLoading,
           validator: (v) =>
               SValidator.validateAddress(v, SLabels.addresslineOne),
           keyboardType: TextInputType.multiline,

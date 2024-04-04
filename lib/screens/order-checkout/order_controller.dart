@@ -205,12 +205,12 @@ class OrderController extends GetxController {
       var headers = {'auth-token': token, 'Content-Type': 'application/json'};
 
       var dio = Dio();
-      final Map<String, dynamic> data = {
-        'totalAmount': orderSummary[0]
-            .totalActualAmount, // Replace with actual total amount
-        'discount':
-            orderSummary[0].totalDiscount, // Replace with actual discount value
-      };
+      // final Map<String, dynamic> data = {
+      //   'totalAmount': orderSummary[0]
+      //       .totalActualAmount, // Replace with actual total amount
+      //   'discount':
+      //       orderSummary[0].totalDiscount, // Replace with actual discount value
+      // };
 
       if (selectedPaymentMode.value == '0') {
         var response = await dio.request(
@@ -219,10 +219,9 @@ class OrderController extends GetxController {
             method: 'POST',
             headers: headers,
           ),
-          data: jsonEncode(data),
+          // data: jsonEncode(data),
         );
         if (response.statusCode == 200) {
-//-----
           log(response.data.toString());
           final Map<String, dynamic> responseData =
               response.data['data'] as Map<String, dynamic>;
@@ -242,7 +241,6 @@ class OrderController extends GetxController {
               "email": user!.email,
             }
           };
-//-----
 
           _razorpay.open(options);
 
@@ -251,10 +249,14 @@ class OrderController extends GetxController {
             log("Payment Success: ${response.paymentId}");
             TLoaders.successSnackBar(
                 title: "Success", message: "Payment success");
-            await createOrder(selectedPaymentMode.value, response.paymentId,
-                (responseData['amount'] / 100).toString(), true);
+            await createOrder(
+                selectedPaymentMode.value,
+                response.paymentId,
+                (responseData['amount'] / 100).toString(),
+                true,
+                orderSummary[0].totalDiscount.toString());
 
-            Get.offAllNamed(Routes.home);
+            Get.offAllNamed(Routes.viewOrder);
           });
 
           _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR,
@@ -272,10 +274,15 @@ class OrderController extends GetxController {
             // Handle external wallet selection here
           });
           isOrderProcessLoading.value = false;
+        } else {
+          TLoaders.errorSnackBar(
+              title: "Failed", message: response.statusMessage);
         }
       } else {
-        await createOrder(selectedPaymentMode.value, null, null, false);
+        await createOrder(selectedPaymentMode.value, null, null, false,
+            orderSummary[0].totalDiscount.toString());
         isOrderProcessLoading.value = false;
+        Get.offAllNamed(Routes.viewOrder);
       }
     } catch (e) {
       isOrderProcessLoading.value = false;
@@ -283,14 +290,16 @@ class OrderController extends GetxController {
       log("Error in processOrder: ${e.toString()}");
       TLoaders.errorSnackBar(
           title: "Error", message: "An error occurred. Please try again.");
-    } finally {
-      isOrderProcessLoading.value = false;
-      Get.back();
+      rethrow;
     }
+    // } finally {
+    //   isOrderProcessLoading.value = false;
+    //   Get.back();
+    // }
   }
 
   Future<void> createOrder(String paymentMethod, String? transactionId,
-      String? amount, bool status) async {
+      String? amount, bool status, String? discount) async {
     try {
       String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
       if (token == null) {
@@ -315,11 +324,12 @@ class OrderController extends GetxController {
           'transaction_id': transactionId,
           'paymentStatus': status,
           'totalAmount': amount,
+          'totalDiscount': discount
         },
       );
 
       if (response.statusCode == 201) {
-        // Get.offAllNamed(Routes.home);
+        Get.offAllNamed(Routes.viewOrder);
         TLoaders.successSnackBar(
             title: "Congratulations!", message: "Your Order Has Been Placed");
       } else {

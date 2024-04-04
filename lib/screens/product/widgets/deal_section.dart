@@ -68,7 +68,7 @@ class ProductDealOfTheDay extends GetView<ProductDetailController> {
                     ),
               ),
               const TextSpan(
-                text: ' on order above ₹500 ',
+                text: ' on orders above ₹500 ',
               ),
             ],
           ),

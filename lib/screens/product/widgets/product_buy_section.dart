@@ -19,18 +19,18 @@ class ProductBuySection extends GetView<ProductDetailController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Obx(
-          () => Text(
-            'Total: ₹${controller.productDetail.variants[controller.selectedVarient.value].sizes[controller.selectedSize.value].discounted_price}',
-            style: Theme.of(context)
-                .textTheme
-                .headlineLarge!
-                .apply(color: Colors.black),
-          ),
-        ),
-        const SizedBox(
-          height: SSizes.spaceBtwItems,
-        ),
+        // Obx(
+        //   () => Text(
+        //     'Total: ₹${controller.productDetail.variants[controller.selectedVarient.value].sizes[controller.selectedSize.value].discounted_price}',
+        //     style: Theme.of(context)
+        //         .textTheme
+        //         .headlineLarge!
+        //         .apply(color: Colors.black),
+        //   ),
+        // ),
+        // const SizedBox(
+        //   height: SSizes.spaceBtwItems,
+        // ),
         GetBuilder<ProductDetailController>(
           id: 'cartBtn',
           builder: (controller) => CustomButton(

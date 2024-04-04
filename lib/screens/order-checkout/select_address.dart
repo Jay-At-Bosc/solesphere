@@ -3,6 +3,7 @@ import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/screens/order-checkout/order_controller.dart';
 import 'package:solesphere/screens/order-checkout/order_summary.dart';
 import 'package:solesphere/screens/order-checkout/widgets/stepper.dart';
+import 'package:solesphere/screens/user_profile/shipping_address_controller.dart';
 import 'package:solesphere/services/routes/app_route_exports.dart';
 import 'package:solesphere/utils/constants/colors.dart';
 import 'package:solesphere/utils/constants/labels.dart';
@@ -11,6 +12,7 @@ import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
 import '../../services/routes/app_pages.dart';
 import '../../widgets/custom_accent_color_button.dart';
+import '../user_profile/widgets/address_bottomsheet.dart';
 import 'select_payment.dart';
 import 'widgets/radio_tile.dart';
 
@@ -24,23 +26,35 @@ class AddressSelection extends GetView<OrderController> {
       builder: (ctx) => Column(
         children: [
           SizedBox(
-            height: Get.size.height * 0.5,
             child: ListView.builder(
+              shrinkWrap: true,
               itemCount: ctx.userAddresses.length,
               itemBuilder: (context, index) {
                 // final option = 'Option ${index + 1}';
-                return CustomRadioListTile(
-                  option: index.toString(),
-                  title: ctx.userAddresses[index].adType,
-                  subTitle: ctx.fullAddress(index),
+                return Column(
+                  children: [
+                    CustomRadioListTile(
+                      option: index.toString(),
+                      title: ctx.userAddresses[index].adType,
+                      subTitle: ctx.fullAddress(index),
+                    ),
+                  ],
                 );
               },
             ),
           ),
           if (ctx.userAddresses.length != 3)
-            TextButton(
-              onPressed: () {},
-              child: const Text("Add Address"),
+            GetBuilder<ShippingAdddressController>(
+              init: ShippingAdddressController(),
+              builder: (sctx) => TextButton(
+                onPressed: () {
+                  sctx.setInitialValue(-1);
+                  Get.bottomSheet(const AddressBottomSheet(
+                    index: -1,
+                  ));
+                },
+                child: const Text("Add Address"),
+              ),
             )
         ],
       ),

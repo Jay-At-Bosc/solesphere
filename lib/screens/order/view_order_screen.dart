@@ -12,6 +12,7 @@ class ViewOrderScreen extends GetView<ViewOrderController> {
 
   @override
   Widget build(BuildContext context) {
+    final ct = Get.put(ViewOrderController());
     return Scaffold(
       backgroundColor: SColors.lightBackground.withOpacity(0.99),
       appBar: AppBar(
@@ -22,25 +23,32 @@ class ViewOrderScreen extends GetView<ViewOrderController> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        child: SingleChildScrollView(
-          child: GetBuilder<ViewOrderController>(
-            init: ViewOrderController(),
-            id: 'orders',
-            builder: (controller) => controller.isLoading
-                ? const ShoesLoading(loader: SJsons.loader)
-                : Column(
-                    children: [
-                      if (controller.orders.isNotEmpty)
-                        for (int i = 0; i < controller.orders.length; i++)
-                          MyOrderCard(
-                            j: i,
-                          ),
-                      if (controller.orders.isEmpty)
-                        const Center(
-                          child: Text("No Order Found"),
-                        )
-                    ],
-                  ),
+        child: RefreshIndicator(
+          onRefresh: () async {
+            await controller.getUserOrders();
+          },
+          child: SingleChildScrollView(
+            child: Center(
+              child: GetBuilder<ViewOrderController>(
+                init: ViewOrderController(),
+                id: 'orders',
+                builder: (controller) => controller.isLoading
+                    ? const ShoesLoading(loader: SJsons.loader)
+                    : Column(
+                        children: [
+                          if (controller.orders.isNotEmpty)
+                            for (int i = 0; i < controller.orders.length; i++)
+                              MyOrderCard(
+                                j: i,
+                              ),
+                          if (controller.orders.isEmpty)
+                            const Center(
+                              child: Text("No Order Found"),
+                            )
+                        ],
+                      ),
+              ),
+            ),
           ),
         ),
       ),

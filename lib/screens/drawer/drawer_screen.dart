@@ -1,4 +1,5 @@
 import 'package:solesphere/auth/auth_exports.dart';
+import 'package:solesphere/screens/drawer/user_info_controller.dart';
 
 import 'package:solesphere/services/routes/app_route_exports.dart';
 import 'package:solesphere/utils/constants/colors.dart';
@@ -6,11 +7,12 @@ import 'package:solesphere/utils/constants/sizes.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
 import 'widget/drawer_menu_list.dart';
 
-class DrawerScreen extends StatelessWidget {
+class DrawerScreen extends GetView<UserInfoController> {
   const DrawerScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put<UserInfoController>(UserInfoController());
     // log(7.0.getHeight());
     return Scaffold(
       backgroundColor: Colors.black,
@@ -46,7 +48,7 @@ class DrawerScreen extends StatelessWidget {
                 width: 45.0.getWidth(),
                 // color: Colors.red,
                 child: Text(
-                  "John Anderson",
+                  controller.user!.name.toString(),
                   style: Theme.of(context)
                       .textTheme
                       .headlineLarge!

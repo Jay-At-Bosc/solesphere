@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:solesphere/auth/auth_exports.dart';
+import 'package:solesphere/screens/home/controller/product_controller.dart';
 import 'package:solesphere/utils/constants/sizes.dart';
 import '../../../../utils/device/device_utility.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/helpers/helper_function.dart';
 
-class TSearchContainer extends StatelessWidget {
+class TSearchContainer extends GetView<ProductController> {
   const TSearchContainer({
     super.key,
     required this.text,
@@ -13,6 +15,8 @@ class TSearchContainer extends StatelessWidget {
     this.showBorder = false,
     this.isSuffix = false,
     this.suffixIcon,
+    this.suffixOnTap,
+    this.prefficOnTap,
   });
 
   final String text;
@@ -20,6 +24,8 @@ class TSearchContainer extends StatelessWidget {
   final bool showBackground, showBorder;
   final bool isSuffix;
   final IconData? suffixIcon;
+  final Function()? suffixOnTap;
+  final Function()? prefficOnTap;
 
   @override
   Widget build(BuildContext context) {
@@ -38,15 +44,21 @@ class TSearchContainer extends StatelessWidget {
               : Colors.transparent,
           borderRadius: BorderRadius.circular(SSizes.buttonRadius),
           border: showBorder
-              ? Border.all(color: dark ? SColors.darkBackground : SColors.secondary)
+              ? Border.all(
+                  color: dark ? SColors.darkBackground : SColors.secondary)
               : null,
         ),
         child: Row(
           // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Icon(
-              icon,
-              color: SColors.textSecondary,
+            InkWell(
+              onTap: () {
+                prefficOnTap!();
+              },
+              child: Icon(
+                icon,
+                color: SColors.textSecondary,
+              ),
             ),
             const SizedBox(
               width: SSizes.spaceBtwItems,
@@ -57,12 +69,12 @@ class TSearchContainer extends StatelessWidget {
                   top: 14.0,
                 ),
                 child: TextField(
+                  controller: controller.searchProduct,
                   decoration: InputDecoration(
                     hintText: text,
                     hintStyle: Theme.of(context).textTheme.bodyMedium!.apply(
                           color: SColors.textSecondary.withOpacity(0.7),
                           fontFamily: 'AirbnbCereal',
-                        
                           overflow: TextOverflow.ellipsis,
                         ),
                     border: InputBorder.none,
@@ -77,7 +89,9 @@ class TSearchContainer extends StatelessWidget {
             // const Spacer(),
             if (isSuffix)
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  suffixOnTap!();
+                },
                 child: Icon(
                   suffixIcon,
                   color: SColors.textSecondary,

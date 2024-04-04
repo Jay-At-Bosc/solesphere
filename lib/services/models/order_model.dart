@@ -8,6 +8,7 @@ class ViewOrderModel {
   final String user;
   final List<Product> products;
   final String totalAmount;
+  final String totalDiscount;
   final String orderStatus;
   final bool paymentMethod;
   final String paymentStatus;
@@ -20,6 +21,7 @@ class ViewOrderModel {
     required this.user,
     required this.products,
     required this.totalAmount,
+    required this.totalDiscount,
     required this.orderStatus,
     required this.paymentMethod,
     required this.paymentStatus,
@@ -34,6 +36,7 @@ class ViewOrderModel {
     String? user,
     List<Product>? products,
     String? totalAmount,
+    String? totalDiscount,
     String? orderStatus,
     bool? paymentMethod,
     String? paymentStatus,
@@ -47,6 +50,7 @@ class ViewOrderModel {
       user: user ?? this.user,
       products: products ?? this.products,
       totalAmount: totalAmount ?? this.totalAmount,
+      totalDiscount: totalDiscount ?? this.totalDiscount,
       orderStatus: orderStatus ?? this.orderStatus,
       paymentMethod: paymentMethod ?? this.paymentMethod,
       paymentStatus: paymentStatus ?? this.paymentStatus,
@@ -63,6 +67,7 @@ class ViewOrderModel {
       'user': user,
       'products': products.map((x) => x.toMap()).toList(),
       'totalAmount': totalAmount,
+      'totalDiscount': totalDiscount,
       'orderStatus': orderStatus,
       'paymentMethod': paymentMethod,
       'paymentStatus': paymentStatus,
@@ -83,12 +88,13 @@ class ViewOrderModel {
         ),
       ),
       totalAmount: map['totalAmount'] as String,
+      totalDiscount: map['totalDiscount'] as String,
       orderStatus: map['orderStatus'] as String,
       paymentMethod: map['paymentMethod'] as bool,
       paymentStatus: map['paymentStatus'] as String,
       createdAt: map['createdAt'] as String,
       updatedAt: map['updatedAt'] as String,
-      v: map['__v'].toInt() as int,
+      v: map['__v'] as int,
     );
   }
 
@@ -99,7 +105,7 @@ class ViewOrderModel {
 
   @override
   String toString() {
-    return 'ViewOrderModel(_id: $id, transaction_id: $transaction_id, user: $user, products: $products, totalAmount: $totalAmount, orderStatus: $orderStatus, paymentMethod: $paymentMethod, paymentStatus: $paymentStatus, createdAt: $createdAt, updatedAt: $updatedAt, __v: $v)';
+    return 'ViewOrderModel(_id: $id, transaction_id: $transaction_id, user: $user, products: $products, totalAmount: $totalAmount, totalDiscount: $totalDiscount, orderStatus: $orderStatus, paymentMethod: $paymentMethod, paymentStatus: $paymentStatus, createdAt: $createdAt, updatedAt: $updatedAt, __v: $v)';
   }
 
   @override
@@ -112,6 +118,7 @@ class ViewOrderModel {
         other.user == user &&
         listEquals(other.products, products) &&
         other.totalAmount == totalAmount &&
+        other.totalDiscount == totalDiscount &&
         other.orderStatus == orderStatus &&
         other.paymentMethod == paymentMethod &&
         other.paymentStatus == paymentStatus &&
@@ -127,6 +134,7 @@ class ViewOrderModel {
         user.hashCode ^
         products.hashCode ^
         totalAmount.hashCode ^
+        totalDiscount.hashCode ^
         orderStatus.hashCode ^
         paymentMethod.hashCode ^
         paymentStatus.hashCode ^
@@ -202,10 +210,10 @@ class Product {
       productName: map['productName'] as String,
       image_url: map['image_url'] as String,
       color: map['color'] as String,
-      size: map['size'].toInt() as int,
-      quantity: map['quantity'].toInt() as int,
-      actual_price: map['actual_price'].toInt() as int,
-      discounted_price: map['discounted_price'].toInt() as int,
+      size: map['size'] as int,
+      quantity: map['quantity'] as int,
+      actual_price: map['actual_price'] as int,
+      discounted_price: map['discounted_price'] as int,
       id: map['_id'] as String,
     );
   }

@@ -3,6 +3,7 @@ import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/common/widgets/popup/shoes_loading.dart';
 
 import 'package:solesphere/screens/home/controller/product_controller.dart';
+import 'package:solesphere/screens/search/search.dart';
 
 import 'package:solesphere/services/routes/app_route_exports.dart';
 import 'package:solesphere/utils/constants/icons.dart';
@@ -79,13 +80,18 @@ class HomeScreenContent extends GetView<CustomDrawerController> {
                       padding: const EdgeInsets.symmetric(horizontal: 20.0),
                       child: Column(
                         children: [
-                          const Padding(
-                            padding: EdgeInsets.only(top: 38.0),
-                            child: TSearchContainer(
-                              text: "Looking for a shoes",
-                              icon: Iconsax.search_normal,
-                              isSuffix: true,
-                              suffixIcon: Iconsax.microphone,
+                          Padding(
+                            padding: const EdgeInsets.only(top: 38.0),
+                            child: InkWell(
+                              onTap: () {
+                                Get.to(() => const Search());
+                              },
+                              child: const TSearchContainer(
+                                text: "Search in SoleSphere",
+                                icon: Iconsax.search_normal,
+                                isSuffix: true,
+                                suffixIcon: Iconsax.microphone,
+                              ),
                             ),
                           ),
 
@@ -110,6 +116,7 @@ class HomeScreenContent extends GetView<CustomDrawerController> {
                             builder: (controller) => controller.isMainLoading()
                                 ? const ShoesLoading(loader: SJsons.loader)
                                 : Column(
+                                    mainAxisSize: MainAxisSize.max,
                                     children: [
                                       SHomeCategories(
                                           list: controller.brandList),

@@ -70,13 +70,10 @@ class DbAuthentication extends GetxController {
     var headers = {'auth-token': token};
 
     try {
-      log("upload image method called");
-      final imageUrl = await uploadImage(file);
-      log("upload image method calleded : $imageUrl");
+     
 
       Map<String, dynamic> data = {
         'phone': user.phone,
-        'profilepic': imageUrl,
         'address': [
           {
             "house": user.house,
