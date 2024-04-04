@@ -13,6 +13,7 @@ import '../../utils/exceptions/firebase_auth_exceptions.dart';
 import '../../utils/exceptions/firebase_exceptions.dart';
 import '../../utils/local_storage/app_storage.dart';
 import '../routes/app_pages.dart';
+import 'network.dart';
 
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
