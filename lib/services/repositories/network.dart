@@ -18,18 +18,18 @@ class NetworkController extends GetxController {
 
       if (connectivityResult.first == ConnectivityResult.none) {
         log("Condition is check ");
-        throw CustomException(
+        throw CustomInternetException(
           title: "No Internet Connection",
           message: "Please check your internet connection and try again.",
         );
       } else if (connectivityResult.first == ConnectivityResult.vpn) {
         log("condition not done");
-        throw CustomException(
+        throw CustomInternetException(
             title: "VPN Founded",
             message:
                 "Insecure connection detected. Please disable any active VPN connections");
       } else if (connectivityResult.first == ConnectivityResult.other) {
-        throw CustomException(
+        throw CustomInternetException(
             title: "Unsecure Connection",
             message: "Please connect using a secure internet connection");
       } else {

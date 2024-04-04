@@ -90,7 +90,6 @@ class OnBordingImage extends StatelessWidget {
             },
             errorBuilder:
                 (BuildContext context, Object error, StackTrace? stackTrace) {
-              // Image failed to load, show red container instead
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

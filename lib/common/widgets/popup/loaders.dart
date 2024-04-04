@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -6,7 +7,27 @@ import '../../../utils/constants/colors.dart';
 import '../../../utils/helpers/helper_function.dart';
 
 class TLoaders {
-  static errorSnackBar({required title, message = ''}) {
+  static errorDialog({required String title,required String message,required Function() ontap}){
+    Get.defaultDialog(
+          title: title,
+          middleText: message,
+          onWillPop: () async => false,
+          textConfirm: "Retry",
+          textCancel: "Exit",
+          barrierDismissible: false,
+          radius: 50,
+          onConfirm: () async {
+            Get.back();
+            ontap();
+          },
+          onCancel: () {
+            Get.back();
+            SystemNavigator.pop();
+          },
+        );
+  }
+
+  static errorSnackBar({title = "Error", message = "something went wrong"}) {
     Get.snackbar(
       title,
       message,

@@ -1,11 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/services.dart';
+import 'package:solesphere/common/widgets/popup/loaders.dart';
 import 'package:solesphere/services/repositories/authentication.dart';
 import 'package:solesphere/services/repositories/network.dart';
 import 'package:solesphere/services/routes/app_pages.dart';
 import 'package:solesphere/services/routes/app_route_exports.dart';
 import 'package:solesphere/utils/exceptions/custom_exception.dart';
+import 'package:solesphere/utils/exceptions/exception_handler.dart';
 
 import '../../services/repositories/db_authentication.dart';
 import '../../utils/local_storage/app_storage.dart';
@@ -30,7 +32,7 @@ class SplashController extends GetxController {
       /// Fatch user data from
       //getUserData(),
 
-       if (!appStorage.hasOnBoardingCompleted) getfetchOnboardingItems(),
+      if (!appStorage.hasOnBoardingCompleted) getfetchOnboardingItems(),
       Future.delayed(const Duration(seconds: 3)),
     ]).then((_) async {
       bool hasOnboardCompleted = appStorage.hasOnBoardingCompleted;
@@ -38,14 +40,17 @@ class SplashController extends GetxController {
         final user = FirebaseAuth.instance.currentUser;
         if (user != null) {
           final userStatus = await DbAuthentication.instance.checkUser(user);
-          if (userStatus) {
+          if (userStatus == 200) {
+            TLoaders.successSnackBar(
+              title: "Welcome Back!",
+              message:
+                  "Congratulations! You've successfully logged in to your account.");
             Get.offAllNamed(Routes.home);
           } else {
             Get.offAllNamed(Routes.signin);
             throw CustomException(
-              title: "Unauthorized",
-              message: "This user blocked by admin.Please contact Admin."
-            );
+                title: "Unauthorized",
+                message: "This user blocked by admin.Please contact Admin.");
           }
         } else {
           Get.offAllNamed(Routes.signin);
@@ -54,29 +59,7 @@ class SplashController extends GetxController {
         Get.offAllNamed(Routes.onboard);
       }
     }).onError((e, stackTrace) {
-      if (e is CustomInternetException) {
-        Get.defaultDialog(
-          title: e.title,
-          middleText: e.message,
-          onWillPop: () async => false,
-          textConfirm: "Retry",
-          textCancel: "Exit",
-          barrierDismissible: false,
-          radius: 50,
-          onConfirm: () async {
-            Get.back();
-            checkMainProcess();
-          },
-          onCancel: () {
-            Get.back();
-            SystemNavigator.pop();
-          },
-        );
-      } else if (e is CustomException) {
-         Get.snackbar(e.title,e.message, snackPosition: SnackPosition.BOTTOM);
-      } else {
-        Get.snackbar("Error", "something went wrong",snackPosition: SnackPosition.BOTTOM);
-      }
+      ExceptionHandler.errorHandler(e, () => checkMainProcess());
     });
   }
 

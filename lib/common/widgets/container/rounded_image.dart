@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
 
 import '../../../utils/constants/colors.dart';
@@ -49,13 +51,33 @@ class TRoundedImage extends StatelessWidget {
               : BorderRadius.zero,
           child: Image.network(
             imageUrl,
+            loadingBuilder: (BuildContext context, Widget child,
+                ImageChunkEvent? loadingProgress) {
+              if (loadingProgress == null) {
+                return child;
+              } else {
+                // Image is still loading
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: SColors.accent,
+                  ),
+                );
+              }
+            },
+            errorBuilder:
+                (BuildContext context, Object error, StackTrace? stackTrace) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.error_outline,
+                    color: SColors.accent,
+                  ),
+                ],
+              );
+            },
             fit: fit,
           ),
-          // child: Image(
-          //     fit: fit,
-          //     image: isNetworkImage
-          //         ? NetworkImage(imageUrl)
-          //         : AssetImage(imageUrl) as ImageProvider),
         ),
       ),
     );

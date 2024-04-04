@@ -8,6 +8,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/services/api/end_points.dart';
+import 'package:solesphere/services/repositories/network.dart';
 
 import 'package:solesphere/services/routes/app_route_exports.dart';
 import 'package:solesphere/utils/exceptions/custom_exception.dart';
@@ -23,6 +24,7 @@ class AuthenticationRepository extends GetxController {
   final _auth = FirebaseAuth.instance;
 
   final appStorage = Get.find<AppStorage>();
+  final connection = Get.find<NetworkController>();
 
   // @override
   // void onInit() {
@@ -67,6 +69,7 @@ class AuthenticationRepository extends GetxController {
   Future<UserCredential> signInWithEmailAndPassword(
       String email, String password) async {
     try {
+      connection.checkInternetConnection();
       return await _auth.signInWithEmailAndPassword(
           email: email, password: password);
     } on FirebaseAuthException catch (e) {
@@ -76,7 +79,7 @@ class AuthenticationRepository extends GetxController {
     } on FormatException catch (_) {
       throw const SFormatException();
     } catch (e) {
-      throw "Something went wrong.Please try again later.";
+      rethrow;
     }
   }
 
@@ -84,6 +87,7 @@ class AuthenticationRepository extends GetxController {
   Future<UserCredential> signUpWithEmailAndPassword(
       String email, String password) async {
     try {
+      connection.checkInternetConnection();
       return await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
     } on FirebaseAuthException catch (e) {
@@ -93,7 +97,7 @@ class AuthenticationRepository extends GetxController {
     } on FormatException catch (_) {
       throw const SFormatException();
     } catch (e) {
-      throw "Something went wrong.Please try again later.";
+      rethrow;
     }
   }
 
@@ -104,6 +108,7 @@ class AuthenticationRepository extends GetxController {
   ///  GoogleAunthentication - SignIn/SignUp
   Future<UserCredential> signUpWithGoogle() async {
     try {
+      connection.checkInternetConnection();
       // Popup with User alreday logged in accounts
       final GoogleSignInAccount? userAccount = await GoogleSignIn().signIn();
 
@@ -125,7 +130,7 @@ class AuthenticationRepository extends GetxController {
     } on FormatException catch (_) {
       throw const SFormatException();
     } catch (e) {
-      throw "Something went wrong.Please try again later.";
+      rethrow;
     }
   }
   /* ------------------------------ User Logout ------------------------------ */
@@ -137,6 +142,7 @@ class AuthenticationRepository extends GetxController {
   /// Forgot Password
   Future<void> sendPasswordResetEmail(String email) async {
     try {
+      connection.checkInternetConnection();
       return await _auth.sendPasswordResetEmail(email: email);
     } on FirebaseAuthException catch (e) {
       throw SFirebaseAuthException(e.code).message;
@@ -145,21 +151,19 @@ class AuthenticationRepository extends GetxController {
     } on FormatException catch (_) {
       throw const SFormatException();
     } catch (e) {
-      throw "Something went wrong.Please try again later.";
+      rethrow;
     }
   }
 
   Future<void> signOut() async {
     try {
+      connection.checkInternetConnection();
       await GoogleSignIn().signOut();
       await _auth.signOut();
       Get.offAllNamed(Routes.signin);
       // log("${_auth.authStateChanges()}");
     } catch (e) {
-      throw "Something went wrong.Please try again later.";
+      rethrow;
     }
   }
-
-  
-
 }
