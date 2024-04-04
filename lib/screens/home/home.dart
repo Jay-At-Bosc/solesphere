@@ -1,7 +1,7 @@
-
-
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
+import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/screens/cart/cart_screen.dart';
@@ -11,6 +11,7 @@ import 'package:solesphere/screens/drawer/drawer_screen.dart';
 import 'package:solesphere/screens/home/controller/drawer_controller.dart';
 import 'package:solesphere/screens/order/view_order_screen.dart';
 import 'package:solesphere/screens/user_profile/user_profile_screen.dart';
+import 'package:solesphere/services/api/end_points.dart';
 
 import 'widgets/home_content.dart';
 
@@ -20,7 +21,8 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(NavigationController());
-   
+    // final drawer = Get.put(CustomDrawerController());
+
     // print('Home :vishal');
 
     return Scaffold(
@@ -102,10 +104,12 @@ class NavigationController extends GetxController {
   final page = 0.obs;
   final GlobalKey<CurvedNavigationBarState> bottomNavigationKey = GlobalKey();
   final controllerDrawer = Get.put(CustomDrawerController());
+  List<Map<String, dynamic>> userData = [];
 
   @override
   void onInit() async {
     // CartController.instance.loadCartFromApi();
+    await getUserInfo();
     super.onInit();
   }
 
@@ -116,4 +120,31 @@ class NavigationController extends GetxController {
     const ViewOrderScreen(),
     const UserProfileScreen(),
   ];
+
+  Future<void> getUserInfo() async {
+    userData.clear();
+    String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
+    var headers = {'auth-token': token, 'Content-Type': 'application/json'};
+    var dio = Dio();
+    var response = await dio.request(
+      EndPoints.userDetail,
+      options: Options(
+        method: 'GET',
+        headers: headers,
+      ),
+    );
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> responseData = response.data;
+      userData.add({
+        'name': responseData['data']['username'],
+        'profile': responseData['data']['profilePic'],
+        'email': responseData['data']['email'],
+        'phone': responseData['data']['phone'],
+      });
+      print(userData);
+    } else {
+      print(response.statusMessage);
+    }
+  }
 }

@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:solesphere/screens/home/controller/drawer_controller.dart';
 
 import 'package:solesphere/screens/home/controller/product_controller.dart';
 import '../../../../../utils/constants/colors.dart';
@@ -16,7 +17,7 @@ class SHomeCategories extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final controller = Get.put(HomeController());
+    final d = Get.put(CustomDrawerController());
 
     return Padding(
       padding: const EdgeInsets.only(left: 0),
@@ -27,6 +28,7 @@ class SHomeCategories extends StatelessWidget {
             init: ProductController(),
             id: "categories",
             builder: (controller) => SizedBox(
+              key: d.brands,
               height: 60,
               child: ListView.builder(
                 shrinkWrap: true,

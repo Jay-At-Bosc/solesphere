@@ -2,7 +2,8 @@ import 'package:iconsax/iconsax.dart';
 
 import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/common/widgets/text/text_style.dart';
-
+import 'package:solesphere/screens/home/controller/drawer_controller.dart';
+import 'package:solesphere/screens/home/home.dart';
 
 import 'package:solesphere/utils/constants/colors.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
@@ -40,54 +41,81 @@ class UserProfileScreen extends StatelessWidget {
                           width: 90.0,
                           height: 90.0,
                           decoration: const BoxDecoration(
-                            color: SColors.textSecondary,
+                            color: Color.fromARGB(255, 255, 255, 255),
                             shape: BoxShape.circle,
                           ),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(45.0),
-                            // child: Image.file(
-                            //   controller.selectedImage.value!,
-                            //   height: 90,
-                            //   width: 90,
-                            //   fit: BoxFit.cover,
-                            // ),
+                            child: Image.network(
+                              NavigationController.instance.userData[0]
+                                  ['profile'],
+                              height: 90,
+                              width: 90,
+                              fit: BoxFit.cover,
+                              loadingBuilder: (BuildContext context,
+                                  Widget child,
+                                  ImageChunkEvent? loadingProgress) {
+                                if (loadingProgress == null) {
+                                  return child;
+                                } else {
+                                  // Image is still loading
+                                  return const Center(
+                                    child: CircularProgressIndicator(
+                                      color: SColors.accent,
+                                    ),
+                                  );
+                                }
+                              },
+                              errorBuilder: (BuildContext context, Object error,
+                                  StackTrace? stackTrace) {
+                                return Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.error_outline,
+                                      color: SColors.accent,
+                                    ),
+                                  ],
+                                );
+                              },
+                            ),
                           )),
                     ),
-                    Positioned(
-                      top: 75,
-                      child: Container(
-                        height: 26,
-                        width: 26,
-                        decoration: const BoxDecoration(
-                          color: SColors.accent,
-                          shape: BoxShape.circle,
-                        ),
-                        child: IconButton(
-                          padding: const EdgeInsets.all(0),
-                          onPressed: () {},
-                          alignment: Alignment.center,
-                          icon: Icon(
-                            Iconsax.camera,
-                            size: 16,
-                            color: SColors.textWhite.withOpacity(0.7),
-                          ),
-                        ),
-                      ),
-                    ),
+                    // Positioned(
+                    //   top: 75,
+                    //   child: Container(
+                    //     height: 26,
+                    //     width: 26,
+                    //     decoration: const BoxDecoration(
+                    //       color: SColors.accent,
+                    //       shape: BoxShape.circle,
+                    //     ),
+                    //     child: IconButton(
+                    //       padding: const EdgeInsets.all(0),
+                    //       onPressed: () {},
+                    //       alignment: Alignment.center,
+                    //       icon: Icon(
+                    //         Iconsax.camera,
+                    //         size: 16,
+                    //         color: SColors.textWhite.withOpacity(0.7),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
 
               //User Name and Email
               STextStyle(
-                text: "controller.user!.name.toString()",
+                text: NavigationController.instance.userData[0]['name'],
                 style: Theme.of(context)
                     .textTheme
                     .displayMedium!
                     .apply(color: SColors.textPrimaryWith80),
               ),
               STextStyle(
-                text: "controller.user!.email.toString()",
+                text: NavigationController.instance.userData[0]['email'],
                 style: Theme.of(context)
                     .textTheme
                     .bodyLarge!

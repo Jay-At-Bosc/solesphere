@@ -122,15 +122,14 @@ class ShippingAdddressController extends GetxController
           options: Options(method: 'PUT', headers: headers), data: data);
 
       if (response.statusCode == 200) {
-        log("message");
+        Get.back();
         await getUserAddress();
         await controller.getUserAddress();
-        Get.back();
       } else {
-        log("wrong");
+        TLoaders.errorSnackBar(title: "Opps", message: response.statusMessage);
       }
     } catch (e) {
-      log(e.toString());
+      rethrow;
     }
   }
 

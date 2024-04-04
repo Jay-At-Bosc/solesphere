@@ -17,6 +17,7 @@ class SLeadingDrawer extends GetView<CustomDrawerController> {
   Widget build(BuildContext context) {
     // final controller = Get.find<CustomDrawerController>();
     return Container(
+      key: controller.drawer,
       margin: const EdgeInsets.only(left: 10),
       decoration: const BoxDecoration(
         shape: BoxShape.circle,

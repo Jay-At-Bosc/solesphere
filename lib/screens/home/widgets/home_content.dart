@@ -9,6 +9,7 @@ import 'package:solesphere/services/routes/app_route_exports.dart';
 import 'package:solesphere/utils/constants/icons.dart';
 import 'package:solesphere/utils/constants/sizes.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 import '../../../common/widgets/app_bar/app_bar.dart';
 import '../../../common/widgets/brands/brand_categories.dart';
@@ -26,7 +27,7 @@ class HomeScreenContent extends GetView<CustomDrawerController> {
   Widget build(BuildContext context) {
     // final controller = Get.put(ProductController());
     // final productController = Get.put(ProductDetailController());
-    // final controller = Get.put(CustomDrawerController());
+    final controller = Get.put(CustomDrawerController());
 
     // log(controllerDrawer.xOffset);
     // log(controllerDrawer.yOffset);
