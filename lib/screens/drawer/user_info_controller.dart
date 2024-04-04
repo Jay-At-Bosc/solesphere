@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/services/models/user_data_model.dart';
 import 'package:solesphere/utils/local_storage/app_storage.dart';

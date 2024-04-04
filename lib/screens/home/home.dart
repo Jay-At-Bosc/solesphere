@@ -104,7 +104,7 @@ class NavigationController extends GetxController {
   final page = 0.obs;
   final GlobalKey<CurvedNavigationBarState> bottomNavigationKey = GlobalKey();
   final controllerDrawer = Get.put(CustomDrawerController());
-  List<Map<String, dynamic>> userData = [];
+  Map<String, dynamic> userData = {};
 
   @override
   void onInit() async {
@@ -135,14 +135,15 @@ class NavigationController extends GetxController {
     );
 
     if (response.statusCode == 200) {
-      final Map<String, dynamic> responseData = response.data;
-      userData.add({
-        'name': responseData['data']['username'],
-        'profile': responseData['data']['profilePic'],
-        'email': responseData['data']['email'],
-        'phone': responseData['data']['phone'],
-      });
-      print(userData);
+      userData = response.data;
+      // userData.add({
+      //   'name': responseData['data']['username'],
+      //   'profile': responseData['data']['profilePic'],
+      //   'email': responseData['data']['email'],
+      //   'phone': responseData['data']['phone'],
+      // });
+
+      print(userData['data']['username']);
     } else {
       print(response.statusMessage);
     }

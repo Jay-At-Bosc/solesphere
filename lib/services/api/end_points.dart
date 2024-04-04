@@ -5,6 +5,8 @@ class EndPoints {
   static const String onboard = "${baseUrl}onboard";
   static const String isUser = "${baseUrl}auth/isuser";
   static const String userDetail = "${baseUrl}users/";
+  static const String addToFavorite = "${baseUrl}users/add-to-wishlist";
+  static const String getFavorite = "${baseUrl}users/wishlist";
   static const String userProfilePicture = "${baseUrl}users/profile";
   static const String getUser = "${baseUrl}users/";
   static const String addToCart = "${baseUrl}products/add-to-cart/";

@@ -47,8 +47,8 @@ class UserProfileScreen extends StatelessWidget {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(45.0),
                             child: Image.network(
-                              NavigationController.instance.userData[0]
-                                  ['profile'],
+                              NavigationController.instance.userData['data']
+                                  ['profilePic'],
                               height: 90,
                               width: 90,
                               fit: BoxFit.cover,
@@ -68,7 +68,7 @@ class UserProfileScreen extends StatelessWidget {
                               },
                               errorBuilder: (BuildContext context, Object error,
                                   StackTrace? stackTrace) {
-                                return Column(
+                                return const Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Icon(
@@ -108,14 +108,15 @@ class UserProfileScreen extends StatelessWidget {
 
               //User Name and Email
               STextStyle(
-                text: NavigationController.instance.userData[0]['name'],
+                text: NavigationController.instance.userData['data']
+                    ['username'],
                 style: Theme.of(context)
                     .textTheme
                     .displayMedium!
                     .apply(color: SColors.textPrimaryWith80),
               ),
               STextStyle(
-                text: NavigationController.instance.userData[0]['email'],
+                text: NavigationController.instance.userData['data']['email'],
                 style: Theme.of(context)
                     .textTheme
                     .bodyLarge!

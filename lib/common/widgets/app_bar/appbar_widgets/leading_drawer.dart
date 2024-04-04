@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:solesphere/screens/home/home.dart';
 import 'package:solesphere/utils/local_storage/app_storage.dart';
 
 import '../../../../screens/home/controller/drawer_controller.dart';
@@ -28,10 +29,9 @@ class SLeadingDrawer extends GetView<CustomDrawerController> {
         color: SColors.textSecondary,
         onPressed: () async {
           log("user data");
-          final appStorage = Get.find<AppStorage>();
-          // ignore: unused_local_variable
-          final user = appStorage.getUserData();
-          
+
+          final ctx = Get.find<NavigationController>();
+          await ctx.getUserInfo();
 
           controller.isDrawerOpen
               ? controller.closeDrawer()

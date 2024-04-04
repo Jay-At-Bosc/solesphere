@@ -21,7 +21,7 @@ class SFavoriteIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final controller = Get.put(ProductController());
-    final isFavorite = controller.favoriteList.value.contains(product);
+    final isFavorite = controller.favoriteList.contains(product);
     return Positioned(
       top: 8,
       left: 8,
