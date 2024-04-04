@@ -4,11 +4,15 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:solesphere/services/models/user_data_model.dart';
 import 'package:solesphere/services/repositories/authentication.dart';
 import 'package:solesphere/services/repositories/db_authentication.dart';
 import 'package:solesphere/services/routes/app_pages.dart';
+import '../../common/widgets/popup/loaders.dart';
 import '../../utils/constants/labels.dart';
+import '../../utils/exceptions/custom_exception.dart';
+import '../../utils/exceptions/exception_handler.dart';
 import '../../utils/local_storage/app_storage.dart';
 
 class SignUpController extends GetxController {
@@ -72,27 +76,36 @@ class SignUpController extends GetxController {
       final userCredential = await AuthenticationRepository.instance
           .signUpWithEmailAndPassword(email.text.trim(), password.text.trim());
 
-      final user = UserDataModel(
+      final user = userCredential.user;
+      if(user != null){
+        final userStatus = await DbAuthentication.instance.checkUser(user);
+        if(userStatus == 201){
+          final userData = UserDataModel(
           id: userCredential.user!.uid,
           name: username.text.trim(),
           email: email.text.trim());
 
+          // Store data into local database
+          storeToLocal(userData);
+
+          navigateToUserDetails(username.text, email.text);
+          TLoaders.successSnackBar(
+              title: SLabels.accountCreatedTitle,
+              message: SLabels.accountCreatedMessage);
+        }else{
+          throw CustomException(
+              title: SLabels.unauthorizedTitle,
+              message: SLabels.unauthorizedMessage);
+        }
+      }
       // ignore: unused_local_variable
-      final userCreated = await DbAuthentication.instance.createUser(user);
-
-      // Store data into local database
-      storeToLocal(user);
-
+      //final userCreated = await DbAuthentication.instance.createUser(user);
       isRegisterLoading = false;
       update([signupScreen]);
-
-      showMessage(SLabels.success, SLabels.accountCreated);
-
-      navigateToUserDetails(username.text, email.text);
     } catch (e) {
-      showMessage(SLabels.error, e.toString());
       isRegisterLoading = false;
       update([signupScreen]);
+      ExceptionHandler.errorHandler(e, () => signupWithEmailPassword());
     }
   }
 
@@ -104,25 +117,42 @@ class SignUpController extends GetxController {
       isGoogleLoading = true;
       update([signupScreen]);
 
-      final creds = await AuthenticationRepository.instance.signUpWithGoogle();
-
-      final user = UserDataModel(
-          id: creds.user!.uid,
-          name: creds.user!.displayName ?? "Unknown",
-          email: creds.user!.email!);
-
+      final userCredential =
+          await AuthenticationRepository.instance.signUpWithGoogle();
       // ignore: unused_local_variable
-      final userCreated = await DbAuthentication.instance.createUser(user);
+      //final userCreated = await DbAuthentication.instance.createUser(user);
+      final user = userCredential.user;
+      if (user != null) {
+        final userStatus = await DbAuthentication.instance.checkUser(user);
+        log("User status after google log in : $userStatus");
+        if (userStatus == 200) {
+          Get.offAllNamed(Routes.home);
+          TLoaders.successSnackBar(
+              title: SLabels.accountSignedInTitle,
+              message: SLabels.accountSignedInMessage);
+        } else if (userStatus == 201) {
+          final userData = UserDataModel(
+          id: userCredential.user!.uid,
+          name: userCredential.user!.displayName ?? "Unknown",
+          email: userCredential.user!.email!);
 
-      // Store data into local database
-      storeToLocal(user);
+          // Store data into local database
+          storeToLocal(userData);
 
+         navigateToUserDetails(userCredential.user!.displayName!, userCredential.user!.email!);
+          TLoaders.successSnackBar(
+              title: SLabels.accountCreatedTitle,
+              message: SLabels.accountCreatedMessage);
+        } else {
+          await GoogleSignIn().signOut();
+          throw CustomException(
+              title: SLabels.unauthorizedTitle,
+              message: SLabels.unauthorizedMessage);
+        }
+      }
       isGoogleLoading = false; // Sets Register Loading to false
       update([signupScreen]);
-
-      showMessage(SLabels.success, SLabels.accountCreated);
-
-      navigateToUserDetails(creds.user!.displayName!, creds.user!.email!);
+      
     } catch (e) {
       showMessage(SLabels.error, e.toString());
       isGoogleLoading = false;
@@ -156,14 +186,14 @@ class SignUpController extends GetxController {
 
   // Navigation Signup to UserDetails
   void navigateToUserDetails(String? username, String? userEmail) =>
-    Get.offAllNamed(
-      Routes.userDetail,
-      // change to params 
-      arguments: {
-        'username': username?.isNotEmpty == true ? username : 'Unknown',
-        'useremail': userEmail?.isNotEmpty == true ? userEmail : 'Unknown',
-      },
-    );
+      Get.offAllNamed(
+        Routes.userDetail,
+        // change to params
+        arguments: {
+          'username': username?.isNotEmpty == true ? username : 'Unknown',
+          'useremail': userEmail?.isNotEmpty == true ? userEmail : 'Unknown',
+        },
+      );
 
   @override
   void onClose() {
@@ -177,13 +207,10 @@ class SignUpController extends GetxController {
   }
 }
 
-
-
-
- // log(" ${creds.credential!.accessToken}");
-      // log(" ${creds.credential!.providerId}");
-      // //log("${creds.additionalUserInfo.}");
-      // log(" ${creds.user!.uid}");
+// log(" ${creds.credential!.accessToken}");
+// log(" ${creds.credential!.providerId}");
+// //log("${creds.additionalUserInfo.}");
+// log(" ${creds.user!.uid}");
 
 // Check Internet Connectivity
 // final isConnected = await Get.find<NetworkManager>().isConnected();
@@ -207,17 +234,16 @@ class SignUpController extends GetxController {
 //   ),
 // );
 
-
 // Strore Data into local Storage
-  // Future<void> storeToLocal(UserDataModel user) async {
-  //   try {
-  //     String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
-  //     appStorage.setUserData(user);
-  //     appStorage.setString(StorageKey.kAuthToken, token!);
-  //     log(appStorage.getUserData().toString());
-  //     log(appStorage.getString(StorageKey.kAuthToken)!);
-  //     return ;
-  //   } catch (e) {
-  //     throw "Data not store in local storage";
-  //   }
-  // }
+// Future<void> storeToLocal(UserDataModel user) async {
+//   try {
+//     String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
+//     appStorage.setUserData(user);
+//     appStorage.setString(StorageKey.kAuthToken, token!);
+//     log(appStorage.getUserData().toString());
+//     log(appStorage.getString(StorageKey.kAuthToken)!);
+//     return ;
+//   } catch (e) {
+//     throw "Data not store in local storage";
+//   }
+// }

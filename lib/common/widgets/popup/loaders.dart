@@ -76,7 +76,7 @@ class TLoaders {
       ),
       margin: const EdgeInsets.all(20),
       icon: const Icon(
-        Iconsax.check,
+        IconData(0x1F389, fontFamily: 'EmojiOne'),
         color: SColors.textWhite,
       ),
     );

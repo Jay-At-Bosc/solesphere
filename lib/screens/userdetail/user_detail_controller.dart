@@ -8,11 +8,13 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:solesphere/services/routes/app_pages.dart';
+import 'package:solesphere/utils/exceptions/exception_handler.dart';
 
 import '../../services/models/user_data_model.dart';
 import '../../services/repositories/db_authentication.dart';
 import '../../utils/constants/enums.dart';
 import '../../utils/constants/labels.dart';
+import '../../utils/exceptions/custom_exception.dart';
 
 class UserDetailsController extends GetxController
     with GetTickerProviderStateMixin {
@@ -74,10 +76,12 @@ class UserDetailsController extends GetxController
         log(selectedImage.path);
         update([userProfilePictureId]);
       } else {
-        throw "Image Not Selected";
+        throw CustomException(
+            title: "Oops! Image Not Selected",
+            message: "It seems you forgot to select an image.");
       }
     } catch (e) {
-      showMessage("Error", e.toString());
+      ExceptionHandler.errorHandler(e, () => pickImage());
     }
   }
 
@@ -95,7 +99,7 @@ class UserDetailsController extends GetxController
     }
   }
 
-  void skip() {}
+  void skip() => Get.offAllNamed(Routes.home);
 
   Future<void> saveUserData() async {
     final String id = FirebaseAuth.instance.currentUser!.uid;

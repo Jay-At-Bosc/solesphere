@@ -9,15 +9,17 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:solesphere/services/api/end_points.dart';
 import 'package:solesphere/services/models/user_data_model.dart';
+import 'package:solesphere/services/repositories/network.dart';
 
 class DbAuthentication extends GetxController {
   static DbAuthentication get instance => Get.find();
+  final connection = Get.find<NetworkController>();
   var diox = dio.Dio();
 
   Future<int> checkUser(User user) async {
     try {
+      connection.checkInternetConnection();
       Map<String, dynamic> data = {"UID": user.uid, "email": user.email};
-
       final jsonData = jsonEncode(data);
       var response = await diox.request(EndPoints.isUser,
           options: dio.Options(method: 'POST'), data: jsonData);
@@ -28,7 +30,7 @@ class DbAuthentication extends GetxController {
     }
   }
 
-  Future<bool?> createUser(UserDataModel user) async {
+  Future<int> createUser(UserDataModel user) async {
     try {
       // String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
 
@@ -45,29 +47,22 @@ class DbAuthentication extends GetxController {
 
       var response = await diox.request(EndPoints.isUser,
           options: dio.Options(method: 'POST'), data: jsonData);
-
-      if (response.statusCode == 201) {
-        log('Success to mongo : $response');
-        return true;
-      } else {
-        throw "User not created";
-      }
+      return response.statusCode!;
     } on dio.DioException catch (_) {
       throw dio.DioException;
     } catch (e) {
-      throw "Something Went Wrong";
+      rethrow;
     }
   }
 
   Future<bool?> createUserDetails(UserDataModel user, XFile? file) async {
     log("db method called");
-    String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
-
-    var headers = {'auth-token': token};
 
     try {
-     
+      connection.checkInternetConnection();
+      String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
 
+      var headers = {'auth-token': token};
       Map<String, dynamic> data = {
         'phone': user.phone,
         'address': [
@@ -92,7 +87,7 @@ class DbAuthentication extends GetxController {
       );
 
       if (response.statusCode == 201) {
-        log('Success to mongo : $response');
+        
         return true;
       } else {
         throw "User not created";
@@ -105,8 +100,9 @@ class DbAuthentication extends GetxController {
   }
 
   Future<String> uploadImage(XFile? pickerFile) async {
-    String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
     try {
+      connection.checkInternetConnection();
+      String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
       var headers = {
         'Content-Type': 'multipart/form-data',
         'auth-token': token,
@@ -132,10 +128,10 @@ class DbAuthentication extends GetxController {
           return "";
         }
       }
-    } on dio.DioException catch (e) {
-      throw e.message.toString();
+    } on dio.DioException catch (_) {
+      throw dio.DioException;
     } catch (e) {
-      throw e.toString();
+      rethrow;
     }
     return "";
   }

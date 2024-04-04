@@ -32,8 +32,18 @@ class SLabels {
   static const String register = "Register";
   static const String signIn = "Sign In";
   static const String success = "Success";
-  static const String accountCreated = "Account created Succefully";
+  static const String accountCreatedTitle = "Account Created Successfully!";
+  static const String accountCreatedMessage =
+      "Hooray! Your account has been created successfully.";
   static const String error = "Error";
+  static const String accountSignedInTitle = "Welcome Back!";
+  static const String accountSignedInMessage =
+      "Congratulations! You've successfully logged in to your account.";
+  static const String unauthorizedTitle = "Unauthorized";
+  static const String unauthorizedMessage = "Unauthorized";
+  static const String passwordRestTitle = "Password Reset Link Sent!";
+  static const String passwordResetMessage =
+      "Success! We've sent a password reset link to your email.";
 
   // User Details
   static const String userDetails = "User Details";
@@ -42,7 +52,8 @@ class SLabels {
   static const String home = "Home";
   static const String work = "Work";
   static const String other = "Other";
-  static const String termsAndConditions = "I agree to the terms and conditions.";
+  static const String termsAndConditions =
+      "I agree to the terms and conditions.";
   static const String skip = "Skip";
 
   // Home Page

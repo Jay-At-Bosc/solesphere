@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -38,6 +37,31 @@ class CustomProfileUpload extends GetView<UserDetailsController> {
                   borderRadius: BorderRadius.circular(45.0),
                   child: Image.network(
                     controller.selectedImage.path,
+                    loadingBuilder: (BuildContext context, Widget child,
+                        ImageChunkEvent? loadingProgress) {
+                      if (loadingProgress == null) {
+                        return child;
+                      } else {
+                        // Image is still loading
+                        return Center(
+                          child: CircularProgressIndicator(
+                            color: SColors.accent,
+                          ),
+                        );
+                      }
+                    },
+                    errorBuilder: (BuildContext context, Object error,
+                        StackTrace? stackTrace) {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.error_outline,
+                            color: SColors.accent,
+                          ),
+                        ],
+                      );
+                    },
                     height: 90,
                     width: 90,
                     fit: BoxFit.cover,

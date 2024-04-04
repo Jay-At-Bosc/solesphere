@@ -1,9 +1,9 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:solesphere/common/widgets/popup/loaders.dart';
+import 'package:solesphere/utils/constants/labels.dart';
 import 'package:solesphere/utils/exceptions/custom_exception.dart';
 import 'package:solesphere/utils/exceptions/exception_handler.dart';
 
@@ -105,21 +105,27 @@ class SignInController extends GetxController {
         final userStatus = await DbAuthentication.instance.checkUser(user);
         log("User status after google log in : $userStatus");
         if (userStatus == 200) {
-          TLoaders.successSnackBar(
-              title: "Welcome Back!",
-              message:
-                  "Congratulations! You've successfully logged in to your account.");
           Get.offAllNamed(Routes.home);
-        } else if (userStatus == 201) {
           TLoaders.successSnackBar(
-              title: "Account Created Successfully!",
-              message: "Hooray! Your account has been created successfully. ");
-          Get.offAllNamed(Routes.userDetail);
+              title: SLabels.accountSignedInTitle,
+              message: SLabels.accountSignedInMessage);
+        } else if (userStatus == 201) {
+          Get.offAllNamed(
+            Routes.userDetail,
+            arguments: {
+              'username':
+                  user.displayName!.isNotEmpty ? user.displayName : 'Unknown',
+              'useremail': user.email,
+            },
+          );
+          TLoaders.successSnackBar(
+              title: SLabels.accountCreatedTitle,
+              message: SLabels.accountCreatedMessage);
         } else {
           await GoogleSignIn().signOut();
           throw CustomException(
-              title: "Unauthorized",
-              message: "This user blocked by admin.Please contact Admin.");
+              title: SLabels.unauthorizedTitle,
+              message: SLabels.unauthorizedMessage);
         }
       }
 
@@ -129,7 +135,7 @@ class SignInController extends GetxController {
       // shown exception which is thrown
       isGoogleSigInLoading = false;
       update([signInScreen]);
-      ExceptionHandler.errorHandler(e, () => signinWithEmailPassword());
+      ExceptionHandler.errorHandler(e, () => signInWithGoogle());
     }
   }
 
@@ -140,14 +146,10 @@ class SignInController extends GetxController {
   }
 
   void skipSignIn() {
-    // TODO: store user as null
-
     Get.offAllNamed(Routes.home);
   }
 
   Future<void> forgotPassword() async {
-    // TODO: api call for forgot
-
     try {
       checkForgetPasswordEmailValidation;
       isForgotPasswordLoading = true;
@@ -155,15 +157,12 @@ class SignInController extends GetxController {
 
       await AuthenticationRepository.instance
           .sendPasswordResetEmail(email.text.trim());
-
-      Get.snackbar("Success", "Password Reset Email Sent",
-          duration: const Duration(seconds: 2),
-          snackPosition: SnackPosition.BOTTOM);
+      TLoaders.successSnackBar(
+          title: SLabels.passwordRestTitle,
+          message: SLabels.passwordResetMessage);
       Get.offAllNamed(Routes.signin);
     } catch (e) {
-      Get.snackbar("Error", e.toString(),
-          snackPosition: SnackPosition.BOTTOM,
-          duration: const Duration(seconds: 2));
+      ExceptionHandler.errorHandler(e, () => forgotPassword());
     } finally {
       isForgotPasswordLoading = false;
       update([forgetPAsswordButtonId]);

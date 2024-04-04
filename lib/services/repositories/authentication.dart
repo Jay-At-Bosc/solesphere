@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:solesphere/auth/auth_exports.dart';
+import 'package:solesphere/common/widgets/popup/loaders.dart';
 import 'package:solesphere/services/api/end_points.dart';
 
 import 'package:solesphere/services/routes/app_route_exports.dart';
@@ -159,7 +160,8 @@ class AuthenticationRepository extends GetxController {
       await GoogleSignIn().signOut();
       await _auth.signOut();
       Get.offAllNamed(Routes.signin);
-      // log("${_auth.authStateChanges()}");
+      TLoaders.successSnackBar(
+          title: "See You Soon!", message: "You've successfully signed out.");
     } catch (e) {
       rethrow;
     }
