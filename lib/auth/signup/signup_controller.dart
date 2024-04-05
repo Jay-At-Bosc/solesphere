@@ -76,17 +76,16 @@ class SignUpController extends GetxController {
       final userCredential = await AuthenticationRepository.instance
           .signUpWithEmailAndPassword(email.text.trim(), password.text.trim());
 
-      final user = userCredential.user;
-      if(user != null){
-        final userStatus = await DbAuthentication.instance.checkUser(user);
-        if(userStatus == 201){
-          final userData = UserDataModel(
+      
+      if(userCredential.user != null){
+        final user = UserDataModel(
           id: userCredential.user!.uid,
           name: username.text.trim(),
           email: email.text.trim());
-
+        final userStatus = await DbAuthentication.instance.checkUser(user.id,user.email);
+        if(userStatus == 201){
           // Store data into local database
-          storeToLocal(userData);
+          storeToLocal(user);
 
           navigateToUserDetails(username.text, email.text);
           TLoaders.successSnackBar(
@@ -120,23 +119,22 @@ class SignUpController extends GetxController {
       final userCredential =
           await AuthenticationRepository.instance.signUpWithGoogle();
      
-      final user = userCredential.user;
-      if (user != null) {
-        final userStatus = await DbAuthentication.instance.checkUser(user);
-        log("User status after google log in : $userStatus");
+      
+      if (userCredential.user != null) {
+        final user = UserDataModel(
+          id: userCredential.user!.uid,
+          name: userCredential.user!.displayName ?? "Unknown",
+          email: userCredential.user!.email!);
+        final userStatus = await DbAuthentication.instance.checkUser(user.id,user.email);
         if (userStatus == 200) {
           Get.offAllNamed(Routes.home);
           TLoaders.successSnackBar(
               title: SLabels.accountSignedInTitle,
               message: SLabels.accountSignedInMessage);
         } else if (userStatus == 201) {
-          final userData = UserDataModel(
-          id: userCredential.user!.uid,
-          name: userCredential.user!.displayName ?? "Unknown",
-          email: userCredential.user!.email!);
 
           // Store data into local database
-          storeToLocal(userData);
+          storeToLocal(user);
 
          navigateToUserDetails(userCredential.user!.displayName!, userCredential.user!.email!);
           TLoaders.successSnackBar(

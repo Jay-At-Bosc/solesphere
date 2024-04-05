@@ -7,13 +7,14 @@ abstract class Routes {
   static const String signup = _Paths.signup;
   static const String userDetail = _Paths.userDetail;
   static const String home = _Paths.home;
-   static const String favourite = _Paths.favourite;
-   static const String productDetail = _Paths.productDetail;
-   static const String notification = _Paths.notification;
-   static const String cart = _Paths.cart;
-   static const String userProfile = _Paths.userProfileDetail;
-   static const String order = _Paths.order;
-   static const String viewOrder = _Paths.viewOrder;
+  static const String filter = _Paths.filter;
+  static const String favourite = _Paths.favourite;
+  static const String productDetail = _Paths.productDetail;
+  static const String notification = _Paths.notification;
+  static const String cart = _Paths.cart;
+  static const String userProfile = _Paths.userProfileDetail;
+  static const String order = _Paths.order;
+  static const String viewOrder = _Paths.viewOrder;
 }
 
 abstract class _Paths {
@@ -23,6 +24,7 @@ abstract class _Paths {
   static const String signup = '/signup';
   static const String userDetail = '/userdetail';
   static const String home = '/home';
+  static const String filter = '/filter';
   static const String favourite = '/favourite';
   static const String productDetail = '/product_details';
   static const String notification = '/notification';

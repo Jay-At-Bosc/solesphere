@@ -39,7 +39,7 @@ class SplashController extends GetxController {
       if (hasOnboardCompleted) {
         final user = FirebaseAuth.instance.currentUser;
         if (user != null) {
-          final userStatus = await DbAuthentication.instance.checkUser(user);
+          final userStatus = await DbAuthentication.instance.checkUser(user.uid,user.email!);
           if (userStatus == 200) {
             TLoaders.successSnackBar(
               title: "Welcome Back!",

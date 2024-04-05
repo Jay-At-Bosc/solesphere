@@ -66,7 +66,7 @@ class SignInController extends GetxController {
 
       final user = userCredential.user;
       if (user != null) {
-        final userStatus = await DbAuthentication.instance.checkUser(user);
+        final userStatus = await DbAuthentication.instance.checkUser(user.uid,user.email!);
         if (userStatus == 200) {
           TLoaders.successSnackBar(
               title: "Welcome Back!",
@@ -102,7 +102,7 @@ class SignInController extends GetxController {
 
       final user = userCredential.user;
       if (user != null) {
-        final userStatus = await DbAuthentication.instance.checkUser(user);
+        final userStatus = await DbAuthentication.instance.checkUser(user.uid,user.email!);
         log("User status after google log in : $userStatus");
         if (userStatus == 200) {
           Get.offAllNamed(Routes.home);

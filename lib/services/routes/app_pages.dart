@@ -76,6 +76,14 @@ class AppPages {
       curve: Curves.easeIn,
     ),
     GetPage(
+      name: _Paths.filter,
+      page: () => const HomeScreen(),
+      binding: HomeScreenBinding(),
+      //transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 300),
+      curve: Curves.easeIn,
+    ),
+    GetPage(
       name: _Paths.favourite,
       page: () => const FavoriteScreen(),
       binding: FavoriteBinding(),
