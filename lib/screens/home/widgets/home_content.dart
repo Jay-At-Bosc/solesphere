@@ -25,21 +25,13 @@ class HomeScreenContent extends GetView<CustomDrawerController> {
 
   @override
   Widget build(BuildContext context) {
-    // final controller = Get.put(ProductController());
-    // final productController = Get.put(ProductDetailController());
     final controller = Get.put(CustomDrawerController());
 
-    // log(controllerDrawer.xOffset);
-    // log(controllerDrawer.yOffset);
-
     return GetBuilder<CustomDrawerController>(
-      // init: CustomDrawerController(),
       id: "drawer",
       builder: (controller1) {
-        // print('home content:vishal');
-
         return AnimatedContainer(
-          //  if(controllerDrawer.isDrawerOpen.value)
+          
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(40),
               color: controller.isDrawerOpen ? SColors.textWhite : null),
@@ -54,19 +46,7 @@ class HomeScreenContent extends GetView<CustomDrawerController> {
             backgroundColor:
                 controller.isDrawerOpen ? SColors.textPrimaryWith60 : null,
             appBar: const SAppBar(),
-            // drawer: Drawer(
-            //   child: Container(
-            //     decoration: BoxDecoration(
-            //       color: SColors.textWhite,
-            //       borderRadius: BorderRadiusDirectional.circular(50),
-            //     ),
-            //     child: IconButton(
-            //       onPressed: () {},
-            //       icon: const Icon(Iconsax.menu5),
-            //       iconSize: 24,
-            //     ),
-            //   ),
-            // ),
+            
             body: GetBuilder<ProductController>(
               id: 'home',
               builder: (pctx) => RefreshIndicator(
@@ -99,18 +79,7 @@ class HomeScreenContent extends GetView<CustomDrawerController> {
                           const SizedBox(
                             height: SSizes.spaceBtwSections,
                           ),
-                          //Categories
-
-                          // Obx(() => controller.isLoading.value
-                          //     ? const Center(
-                          //         child: CircularProgressIndicator(),
-                          //       )
-                          //     : SHomeCategories(list: controller.brandList)),
-
-                          // const SizedBox(
-                          //   height: SSizes.defaultSpace / 4,
-                          // ),
-
+                          
                           //Product
                           GetBuilder<ProductController>(
                             id: 'home',
@@ -128,18 +97,6 @@ class HomeScreenContent extends GetView<CustomDrawerController> {
                                     ],
                                   ),
                           ),
-
-                          //Card
-
-                          // Obx(
-                          //   () => controller.isProdcutLoading.value
-                          //       ? const Center(
-                          //           child: CircularProgressIndicator(),
-                          //         )
-                          //       : SProductGridView(
-                          //           list: controller.filterProductList,
-                          //         ),
-                          // ),
                         ],
                       ),
                     ),
