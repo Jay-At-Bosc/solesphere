@@ -67,25 +67,8 @@ class ProductDetailController extends GetxController {
   Future<void> fetchProductDetails(String productId) async {
     try {
       isLoading.value = true;
-      // Get.toNamed(Routes.productDetail);
-      // if (isLoading.value == true) {
-      //   Get.dialog(
-      //     AlertDialog(
-      //       backgroundColor: Colors.white, // White background
-      //       shape: RoundedRectangleBorder(
-      //         borderRadius: BorderRadius.circular(10.0), // Square shape
-      //       ),
-      //       icon: Lottie.asset(SJsons.loader,
-      //           width: 30.0.getWidth(), height: 30.0.getWidth()),
-      //       title: const Text(
-      //         'Loading',
-      //         style: TextStyle(color: Colors.black), // Black title
-      //       ),
-      //     ),
-      //     barrierDismissible: false,
-      //   );
-      // }
-      //update([id]);
+      log(productId);
+
       final response = await http.get(
         Uri.parse(
           'https://solesphere-backend.onrender.com/api/v1/products/product-detail?product_id=$productId',
@@ -115,21 +98,6 @@ class ProductDetailController extends GetxController {
     //false
     update();
   }
-
-  //calculate total rating of product
-
-  // List<Review> parseReviews(String productDetail.review) {
-  //   final parsed = jsonDecode(response).cast<Map<String, dynamic>>();
-  //   return parsed.map<Review>((json) => Review.fromJson(json)).toList();
-  // }
-
-  // double calculateAverageRating(List<Review> reviews) {
-  //   if (reviews.isEmpty) return 0;
-
-  //   final totalRating =
-  //       reviews.map((review) => review.rating).reduce((a, b) => a + b);
-  //   return totalRating / reviews.length;
-  // }
 
   //All Images of products
   void getImagesList() {

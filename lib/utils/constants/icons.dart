@@ -19,4 +19,5 @@ class SIcons {
 class SJsons {
   static const String loader = "assets/jsons/loading.json";
   static const String cartLoader = "assets/jsons/cart.json";
+  static const String arrow = "assets/jsons/arrow.json";
 }

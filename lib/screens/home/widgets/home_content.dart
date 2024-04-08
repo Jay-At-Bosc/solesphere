@@ -10,7 +10,6 @@ import 'package:solesphere/utils/constants/icons.dart';
 import 'package:solesphere/utils/constants/sizes.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
-
 import '../../../common/widgets/app_bar/app_bar.dart';
 import '../../../common/widgets/brands/brand_categories.dart';
 import '../../../common/widgets/container/search_container.dart';

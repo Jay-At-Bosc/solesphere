@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:solesphere/screens/home/home.dart';
-import 'package:solesphere/utils/local_storage/app_storage.dart';
+
 
 import '../../../../screens/home/controller/drawer_controller.dart';
 import '../../../../utils/constants/colors.dart';
@@ -31,7 +31,7 @@ class SLeadingDrawer extends GetView<CustomDrawerController> {
           log("user data");
 
           final ctx = Get.find<NavigationController>();
-          await ctx.getUserInfo();
+          ctx.getUserInfo();
 
           controller.isDrawerOpen
               ? controller.closeDrawer()

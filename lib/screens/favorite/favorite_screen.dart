@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:solesphere/common/widgets/product/product_gride.dart';
 import 'package:solesphere/screens/favorite/favorite_controller.dart';
 import 'package:solesphere/utils/constants/labels.dart';
+
+import '../../utils/constants/colors.dart';
 
 class FavoriteScreen extends GetView<FavoriteController> {
   const FavoriteScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(FavoriteController());
+    // final controller = Get.put(FavoriteController());
 
     return Scaffold(
       appBar: AppBar(
@@ -18,15 +21,33 @@ class FavoriteScreen extends GetView<FavoriteController> {
           SLabels.favourite,
           style: Theme.of(context).textTheme.headlineMedium!.apply(),
         ),
+        actions: [
+          IconButton(
+              onPressed: () async {
+                await controller.getFavoriteList();
+              },
+              icon: Icon(Iconsax.refresh)),
+        ],
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await controller.getFavoriteList();
+        },
+        child: SafeArea(
+          child: SingleChildScrollView(
             child: GetBuilder<FavoriteController>(
-              builder: (controller) =>
-                  SProductGridView(list: controller.favoriteList),
+              init: FavoriteController(),
+              id: 'favorite',
+              builder: (controller) => Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 20.0, vertical: 20.0),
+                child: controller.isLoading
+                    ? LinearProgressIndicator(
+                        backgroundColor: SColors.accent.withOpacity(0.6),
+                        color: SColors.accent,
+                      )
+                    : SProductGridView(list: controller.favoriteList),
+              ),
             ),
           ),
         ),

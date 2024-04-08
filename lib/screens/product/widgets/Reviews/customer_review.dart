@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:solesphere/screens/home/home.dart';
+import 'package:solesphere/screens/product/review_controller.dart';
 
 import '../../../../common/widgets/product/rating_bar.dart';
 import '../../../../utils/constants/colors.dart';
@@ -36,19 +39,38 @@ class CustomerReview extends GetView<ProductDetailController> {
             const SizedBox(
               width: SSizes.spaceBtwItems / 2,
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  controller.productDetail.review[index].user.username,
-                  style: Theme.of(context)
-                      .textTheme
-                      .labelMedium!
-                      .apply(color: Colors.black),
-                ),
-                const SRatingBar(rating: 4)
-              ],
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    controller.productDetail.review[index].user.username,
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelMedium!
+                        .apply(color: Colors.black),
+                  ),
+                  SRatingBar(
+                      rating: controller.productDetail.review[index].rating
+                          .toDouble())
+                ],
+              ),
             ),
+            if (controller.productDetail.review[index].user.id ==
+                NavigationController.instance.userData['_id'])
+              IconButton(
+                onPressed: () async {
+                  await ReviewController.instance.deleteReview(
+                      controller.productDetail.review[index].id,
+                      controller.productDetail.id);
+                  await controller
+                      .fetchProductDetails(controller.productDetail.id);
+                },
+                icon: const Icon(
+                  Iconsax.trash,
+                  color: SColors.warning,
+                ),
+              ),
           ],
         ),
         Text(

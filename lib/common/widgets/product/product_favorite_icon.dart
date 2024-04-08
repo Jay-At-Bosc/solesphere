@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:iconsax/iconsax.dart';
+import 'package:solesphere/screens/favorite/favorite_controller.dart';
 import 'package:solesphere/screens/home/controller/product_controller.dart';
 
 import '../../../services/models/product_model.dart';
@@ -14,13 +16,13 @@ class SFavoriteIcon extends StatelessWidget {
     required this.controller,
   });
   final Products product;
-  final ProductController controller;
+  final FavoriteController controller;
 
   final bool dark;
 
   @override
   Widget build(BuildContext context) {
-    // final controller = Get.put(ProductController());
+    final pctr = Get.put(ProductController());
     final isFavorite = controller.favoriteList.contains(product);
     return Positioned(
       top: 8,
@@ -35,8 +37,18 @@ class SFavoriteIcon extends StatelessWidget {
         ),
         child: IconButton(
           onPressed: isFavorite
-              ? () => controller.removeToFavorite(product)
-              : () => controller.addToFavorite(product),
+              ? () {
+                  controller.removeToFavorite(product);
+                  controller.update();
+                  // final isFavorite = controller.favoriteList.contains(product);
+                  // if (isFavorite) pctr.update(['Favorite']);
+                  pctr.update(['fav_icon']);
+                }
+              : () {
+                  controller.addToFavorite(product.id);
+                  controller.update();
+                  pctr.update(['fav_icon']);
+                },
           icon: Icon(
             Iconsax.heart,
             color: isFavorite ? Colors.red : Colors.black,

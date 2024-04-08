@@ -1,6 +1,8 @@
+import 'package:iconsax/iconsax.dart';
 import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/common/widgets/popup/shoes_loading.dart';
 import 'package:solesphere/screens/order/view_order_controller.dart';
+import 'package:solesphere/services/routes/app_pages.dart';
 import 'package:solesphere/services/routes/app_route_exports.dart';
 import 'package:solesphere/utils/constants/icons.dart';
 import 'package:solesphere/utils/constants/labels.dart';
@@ -21,6 +23,13 @@ class ViewOrderScreen extends GetView<ViewOrderController> {
           SLabels.myOrder,
           style: Theme.of(context).textTheme.titleMedium,
         ),
+        leading: Get.previousRoute == '/view-orders'
+            ? IconButton(
+                onPressed: () {
+                  Get.offAllNamed(Routes.home);
+                },
+                icon: const Icon(Iconsax.arrow_left))
+            : null,
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
