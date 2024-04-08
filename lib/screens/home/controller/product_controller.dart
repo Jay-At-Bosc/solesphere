@@ -1,14 +1,13 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:dio/dio.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/common/widgets/popup/loaders.dart';
 import 'package:solesphere/services/api/end_points.dart';
 import '../../../services/models/category_model.dart';
 import '../../../services/models/product_model.dart';
 import 'package:http/http.dart' as http;
-import '../../cart/cart_controller.dart';
 
 class ProductController extends GetxController {
   static ProductController get instance => Get.find();
@@ -18,6 +17,7 @@ class ProductController extends GetxController {
   final isLoading = false.obs;
   final isSearching = false.obs;
   final isProdcutLoading = false.obs;
+  bool isBrandSelected = false;
   final brandName = ''.obs;
 
   final productList = <Products>[].obs;
@@ -26,20 +26,15 @@ class ProductController extends GetxController {
   List<Products> searchProductList = <Products>[].obs;
 
   // final categoryProducts = RxList<Product>([]).obs;
-  List<Products> favoriteList = <Products>[].obs;
+  // List<Products> favoriteList = <Products>[].obs;
 
   final brandList = RxList<Brands>([]);
   // RxInt selectedItem = (-1).obs;
 
   @override
   void onInit() async {
-    // productList.value.addAll(productsData);
-    // categories.addAll(categoryList);
-    // ProductDetailController pd = ProductDetailController();
     fetchBrands();
     fetchProducts();
-    // getFavoriteList();
-    // await CartController.instance.loadCartFromApi();
     super.onInit();
   }
 
@@ -129,138 +124,6 @@ class ProductController extends GetxController {
     update(["categories", "Favorite", "title"]);
   }
 
-  Future<void> addToFavorite(Products product) async {
-    try {
-      String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
-
-      var headers = {
-        'auth-token': token,
-      };
-      var data = json.encode({"product_id": product.id});
-      var dio = Dio();
-      var response = await dio.request(
-        EndPoints.addToFavorite,
-        options: Options(
-          method: 'POST',
-          headers: headers,
-        ),
-        data: data,
-      );
-
-      if (response.statusCode == 200) {
-        TLoaders.successSnackBar(
-            title: "Added to Favorites",
-            message: "Product added to your favorites list!");
-      } else {
-        print(response.statusMessage);
-      }
-    } catch (e) {
-      log(e.toString());
-    }
-
-    // if (favoriteList.value.contains(product)) {
-    //   Get.closeAllSnackbars();
-    //   TLoaders.warningSnackBar(
-    //       title: "Opps!!", message: "Product already added to the favorite");
-    // } else {
-    //   favoriteList.value.add(product);
-    //   // products.value[product].isFavorite = true;
-
-    //   TLoaders.successSnackBar(
-    //       title: "Added to Favorites",
-    //       message: "Product added to your favorites list!");
-    //   update(["Favorite"]); // Update the UI
-    // }
-  }
-
-  Future<void> removeToFavorite(Products product) async {
-    try {
-      String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
-
-      var headers = {
-        'auth-token': token,
-      };
-      var data = json.encode({"product_id": product.id});
-      var dio = Dio();
-      var response = await dio.request(
-        EndPoints.getFavorite,
-        options: Options(
-          method: 'PUT',
-          headers: headers,
-        ),
-        data: data,
-      );
-
-      if (response.statusCode == 200) {
-        TLoaders.successSnackBar(
-            title: "Removed From Favorites",
-            message: "Product removed from your favorites list!");
-      } else {
-        print(response.statusMessage);
-      }
-    } catch (e) {
-      log(e.toString());
-    }
-    // if (!favoriteList.value.contains(product)) {
-    //   TLoaders.warningSnackBar(
-    //       title: "Opps!!", message: "Product Not Found in Favorite");
-    // } else {
-    //   favoriteList.value.remove(product);
-    //   // products.value[product].isFavorite = false;
-
-    //   TLoaders.successSnackBar(
-    //       title: "Removed from Favorites",
-    //       message: "Product removed from your favorites list!");
-    //   update(["Favorite"]); // Update the UI
-    // }
-  }
-
-  Future<void> getFavoriteList() async {
-    try {
-      String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
-
-      var headers = {
-        'auth-token': token,
-      };
-
-      var dio = Dio();
-      var response = await dio.request(
-        EndPoints.getFavorite,
-        options: Options(
-          method: 'GET',
-          headers: headers,
-        ),
-      );
-
-      if (response.statusCode == 200) {
-        List<dynamic> responseData = response.data;
-        List<Products> fav =
-            responseData.map((json) => Products.fromMap(json)).toList();
-        favoriteList = fav;
-
-        // TLoaders.successSnackBar(
-        //     title: "Removed From Favorites",
-        //     message: "Product removed from your favorites list!");
-      } else {
-        print(response.statusMessage);
-      }
-    } catch (e) {
-      log(e.toString());
-    }
-    // if (!favoriteList.value.contains(product)) {
-    //   TLoaders.warningSnackBar(
-    //       title: "Opps!!", message: "Product Not Found in Favorite");
-    // } else {
-    //   favoriteList.value.remove(product);
-    //   // products.value[product].isFavorite = false;
-
-    //   TLoaders.successSnackBar(
-    //       title: "Removed from Favorites",
-    //       message: "Product removed from your favorites list!");
-    //   update(["Favorite"]); // Update the UI
-    // }
-  }
-
   String calculateDiscount(int actualPrice, int discountedPrice) {
     double discountPercentage =
         (((actualPrice - discountedPrice) / actualPrice) * 100).toDouble();
@@ -287,9 +150,9 @@ class ProductController extends GetxController {
         List<Products> productsList =
             responseData.map((json) => Products.fromMap(json)).toList();
         searchProductList = productsList;
-        // productsList.forEach((product) {
-        //   print(product.productName);
-        // });
+        for (var product in productsList) {
+          print(product.id);
+        }
         log('length ${searchProductList.length}');
       } else {
         log(response.statusMessage.toString());
@@ -303,10 +166,3 @@ class ProductController extends GetxController {
     }
   }
 }
-
-// void toggleFavorite(int index) {
-//   products[index].isFavorite = !products[index].isFavorite;
-//   update(); // Update the products list after changing favorite state
-// }
-
-

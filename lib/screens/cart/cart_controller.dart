@@ -27,7 +27,7 @@ class CartController extends GetxController {
   @override
   void onInit() {
     loadCartFromApi();
-    update(['cart_count']);
+    // update(['cart_count']);
     // calculateTotalAmount();
     super.onInit();
   }
@@ -227,22 +227,4 @@ class CartController extends GetxController {
       throw "Something Went Wrong";
     }
   }
-
-  // void calculateTotalAmount() {
-  //   totalAmount = calculateShippmentCharge()
-  //       ? flag.value
-  //           ? (totalAmount + deliveryCharge.value)
-  //           : (totalAmount - deliveryCharge.value)
-  //       : totalAmount;
-  //   update(['amount']);
-  // }
-
-  // bool calculateShippmentCharge() {
-  //   if (totalAmount > 499) {
-  //     return false;
-  //   } else {
-  //     flag.value = true;
-  //     return true;
-  //   }
-  // }
 }

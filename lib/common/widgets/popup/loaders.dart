@@ -7,24 +7,27 @@ import '../../../utils/constants/colors.dart';
 import '../../../utils/helpers/helper_function.dart';
 
 class TLoaders {
-  static errorDialog({required String title,required String message,required Function() ontap}){
+  static errorDialog(
+      {required String title,
+      required String message,
+      required Function() ontap}) {
     Get.defaultDialog(
-          title: title,
-          middleText: message,
-          onWillPop: () async => false,
-          textConfirm: "Retry",
-          textCancel: "Exit",
-          barrierDismissible: false,
-          radius: 50,
-          onConfirm: () async {
-            Get.back();
-            ontap();
-          },
-          onCancel: () {
-            Get.back();
-            SystemNavigator.pop();
-          },
-        );
+      title: title,
+      middleText: message,
+      onWillPop: () async => false,
+      textConfirm: "Retry",
+      textCancel: "Exit",
+      barrierDismissible: false,
+      radius: 50,
+      onConfirm: () async {
+        Get.back();
+        ontap();
+      },
+      onCancel: () {
+        Get.back();
+        SystemNavigator.pop();
+      },
+    );
   }
 
   static errorSnackBar({title = "Error", message = "something went wrong"}) {
@@ -72,8 +75,7 @@ class TLoaders {
       colorText: SColors.textWhite,
       backgroundColor: SColors.accent,
       snackPosition: SnackPosition.BOTTOM,
-      duration: const Duration(seconds: 1
-      ),
+      duration: const Duration(seconds: 1),
       margin: const EdgeInsets.all(20),
       icon: const Icon(
         IconData(0x1F389, fontFamily: 'EmojiOne'),

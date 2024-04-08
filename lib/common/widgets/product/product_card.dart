@@ -1,12 +1,10 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:solesphere/screens/favorite/favorite_controller.dart';
 
 import 'package:solesphere/screens/product/product_detail_controller.dart';
 
 import '../../../services/models/product_model.dart';
-import '../../../screens/home/controller/product_controller.dart';
 import '../../../services/routes/app_pages.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
@@ -29,7 +27,7 @@ class SProductCardVertical extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dark = SHelperFunctions.isDarkMode(context);
-    final controller = Get.put(ProductController());
+    final controller = Get.put(FavoriteController());
     final details = Get.put(ProductDetailController());
     // log("product id: ${product.id}");
 

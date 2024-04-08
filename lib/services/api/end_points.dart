@@ -18,6 +18,7 @@ class EndPoints {
   static String updateAddress = "${baseUrl}users/update-address";
   static String deleteAddress = "${baseUrl}users/address";
   static String search = "${baseUrl}products/search";
+  static String review = "${baseUrl}products/reviews";
 
   static const String productDetail =
       "${baseUrl}products/product-detail?product_id";
