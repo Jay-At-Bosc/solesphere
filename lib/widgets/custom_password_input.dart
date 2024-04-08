@@ -30,6 +30,7 @@ class CustomPasswordInput extends StatelessWidget {
       controller: controller,
       enabled: enable,
       validator: validator,
+      
       cursorColor: SColors.accent,
       cursorErrorColor: SColors.error,
       style: Theme.of(context).textTheme.titleSmall,

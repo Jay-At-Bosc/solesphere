@@ -16,10 +16,9 @@ class DbAuthentication extends GetxController {
   final connection = Get.find<NetworkController>();
   var diox = dio.Dio();
 
-  Future<int> checkUser(String uid,String email) async {
+  Future<int> checkUser(Map<String,dynamic> data) async {
     try {
       connection.checkInternetConnection();
-      Map<String, dynamic> data = {"UID": uid, "email": email};
       final jsonData = jsonEncode(data);
       var response = await diox.request(EndPoints.isUser,
           options: dio.Options(method: 'POST'), data: jsonData);

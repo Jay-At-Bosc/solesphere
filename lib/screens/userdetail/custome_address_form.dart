@@ -29,7 +29,7 @@ class CustomAddressForm extends GetView<UserDetailsController> {
           hintText: SLabels.mobileNumber,
           controller: controller.phoneNo,
           keyboardType: TextInputType.phone,
-          validator: (v) => SValidator.validateIndianPhoneNumber(v),
+          validator: (v) => SValidator.validateIndianPhoneNumber(v.toString().trim()),
         ),
         paddingBetweenFields,
 
@@ -44,7 +44,7 @@ class CustomAddressForm extends GetView<UserDetailsController> {
           controller: controller.addressLine1,
           // enable: controller.isSaveLoading,
           validator: (v) =>
-              SValidator.validateAddress(v, SLabels.addresslineOne),
+              SValidator.validateAddress(v.toString().trim(), SLabels.addresslineOne),
           keyboardType: TextInputType.multiline,
           maxLength: 1,
         ),
@@ -56,7 +56,7 @@ class CustomAddressForm extends GetView<UserDetailsController> {
           controller: controller.addressLine2,
           keyboardType: TextInputType.multiline,
           validator: (v) =>
-              SValidator.validateAddress(v, SLabels.addresslineTwo),
+              SValidator.validateAddress(v.toString().trim(), SLabels.addresslineTwo),
           maxLength: 1,
         ),
         paddingBetweenFields,
@@ -66,7 +66,7 @@ class CustomAddressForm extends GetView<UserDetailsController> {
           hintText: SLabels.city,
           controller: controller.city,
           keyboardType: TextInputType.multiline,
-          validator: (v) => SValidator.validateAddress(v, SLabels.city),
+          validator: (v) => SValidator.validateAddress(v.toString().trim(), SLabels.city),
           maxLength: 1,
         ),
         paddingBetweenFields,
@@ -78,7 +78,7 @@ class CustomAddressForm extends GetView<UserDetailsController> {
               child: CustomSimpleInput(
                 hintText: SLabels.state,
                 controller: controller.state,
-                validator: (v) => SValidator.validateAddress(v, SLabels.state),
+                validator: (v) => SValidator.validateAddress(v.toString().trim(), SLabels.state),
                 maxLength: 1,
               ),
             ),
@@ -87,7 +87,7 @@ class CustomAddressForm extends GetView<UserDetailsController> {
                 hintText: SLabels.zipcode,
                 controller: controller.zipcode,
                 keyboardType: TextInputType.number,
-                validator: (v) => SValidator.validateIndianZipCode(v),
+                validator: (v) => SValidator.validateIndianZipCode(v.toString().trim()),
                 maxLength: 1,
               ),
             ),
