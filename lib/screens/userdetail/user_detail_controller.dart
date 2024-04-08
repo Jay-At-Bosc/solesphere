@@ -58,6 +58,14 @@ class UserDetailsController extends GetxController
   void get checkFormValidation =>
       !userdetailKey.currentState!.validate() ? throw "" : null;
 
+  void checkx() {
+    try {
+      !userdetailKey.currentState!.validate();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   void get acceptPolicies =>
       !isAcceptPolicies ? throw "Please accept the terms and conditions" : null;
   bool get isMainLoading => isSaveLoading;

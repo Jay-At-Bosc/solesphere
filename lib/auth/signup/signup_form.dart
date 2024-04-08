@@ -29,7 +29,7 @@ class SignUpForm extends GetView<SignUpController> {
             enable: !controller.isMainLoading(),
             hintText: SLabels.username,
             keyboardType: TextInputType.text,
-            validator: (value) => SValidator.validateUsername(value),
+            validator: (value) => SValidator.validateUsername(value.toString().trim()),
             maxLength: 1,
           ),
           SizedBox(
@@ -46,7 +46,7 @@ class SignUpForm extends GetView<SignUpController> {
             hintText: SLabels.email,
             enable: !controller.isMainLoading(),
             keyboardType: TextInputType.emailAddress,
-            validator: (value) => SValidator.validateEmail(value),
+            validator: (value) => SValidator.validateEmail(value.toString().trim()),
             maxLength: 1,
           ),
           SizedBox(
@@ -66,7 +66,7 @@ class SignUpForm extends GetView<SignUpController> {
                   hintText: SLabels.password,
                   enable: !controller.isMainLoading(),
                   keyboardType: TextInputType.text,
-                  validator: (value) => SValidator.validatePassword(value),
+                  validator: (value) => SValidator.validatePassword(value.toString().trim()),
                   isObsecure: controller.ispasswordVisible,
                   onIconTap: controller.togglePasswordVisibility,
                 );
@@ -88,7 +88,7 @@ class SignUpForm extends GetView<SignUpController> {
                   hintText: SLabels.confirmPassword,
                   enable: !controller.isMainLoading(),
                   keyboardType: TextInputType.text,
-                  validator: (value) => SValidator.validatePassword(value),
+                  validator: (value) => SValidator.validatePassword(value.toString().trim()),
                   isObsecure: controller.isconfirmpasswordVisible,
                   onIconTap: controller.toggleConfirmPasswordVisibility,
                 );

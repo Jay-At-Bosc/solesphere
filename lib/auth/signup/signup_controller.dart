@@ -76,22 +76,26 @@ class SignUpController extends GetxController {
       final userCredential = await AuthenticationRepository.instance
           .signUpWithEmailAndPassword(email.text.trim(), password.text.trim());
 
-      
-      if(userCredential.user != null){
+      if (userCredential.user != null) {
         final user = UserDataModel(
-          id: userCredential.user!.uid,
-          name: username.text.trim(),
-          email: email.text.trim());
-        final userStatus = await DbAuthentication.instance.checkUser(user.id,user.email);
-        if(userStatus == 201){
+            id: userCredential.user!.uid,
+            name: username.text.trim(),
+            email: email.text.trim());
+        Map<String, dynamic> jsonData = {
+          "email": user.email,
+          "UID": user.id,
+          "username": username.text.trim(),
+        };
+        final userStatus = await DbAuthentication.instance.checkUser(jsonData);
+        if (userStatus == 201) {
           // Store data into local database
           storeToLocal(user);
 
-          navigateToUserDetails(username.text, email.text);
+          navigateToUserDetails(user.name,user.email);
           TLoaders.successSnackBar(
               title: SLabels.accountCreatedTitle,
               message: SLabels.accountCreatedMessage);
-        }else{
+        } else {
           throw CustomException(
               title: SLabels.unauthorizedTitle,
               message: SLabels.unauthorizedMessage);
@@ -118,25 +122,31 @@ class SignUpController extends GetxController {
 
       final userCredential =
           await AuthenticationRepository.instance.signUpWithGoogle();
-     
-      
+
       if (userCredential.user != null) {
         final user = UserDataModel(
-          id: userCredential.user!.uid,
-          name: userCredential.user!.displayName ?? "Unknown",
-          email: userCredential.user!.email!);
-        final userStatus = await DbAuthentication.instance.checkUser(user.id,user.email);
+            id: userCredential.user!.uid,
+            name: userCredential.user!.displayName ?? "Unknown",
+            email: userCredential.user!.email!);
+
+        Map<String, dynamic> jsonData = {
+          "email": user.email,
+          "UID": user.id,
+          "username": user.name,
+        };
+        final userStatus =
+            await DbAuthentication.instance.checkUser(jsonData);
         if (userStatus == 200) {
           Get.offAllNamed(Routes.home);
           TLoaders.successSnackBar(
               title: SLabels.accountSignedInTitle,
               message: SLabels.accountSignedInMessage);
         } else if (userStatus == 201) {
-
           // Store data into local database
           storeToLocal(user);
 
-         navigateToUserDetails(userCredential.user!.displayName!, userCredential.user!.email!);
+          navigateToUserDetails(
+              user.name, user.email);
           TLoaders.successSnackBar(
               title: SLabels.accountCreatedTitle,
               message: SLabels.accountCreatedMessage);
@@ -149,9 +159,9 @@ class SignUpController extends GetxController {
       }
       isGoogleLoading = false; // Sets Register Loading to false
       update([signupScreen]);
-      
     } catch (e) {
-      showMessage(SLabels.error, e.toString());
+      await GoogleSignIn().signOut();
+      ExceptionHandler.errorHandler(e, () => signupWithGoogle());
       isGoogleLoading = false;
       update([signupScreen]);
     }

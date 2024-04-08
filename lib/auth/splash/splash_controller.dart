@@ -39,12 +39,17 @@ class SplashController extends GetxController {
       if (hasOnboardCompleted) {
         final user = FirebaseAuth.instance.currentUser;
         if (user != null) {
-          final userStatus = await DbAuthentication.instance.checkUser(user.uid,user.email!);
+          Map<String, dynamic> jsonData = {
+            "email": user.email,
+            "UID": user.uid,
+          };
+          final userStatus =
+              await DbAuthentication.instance.checkUser(jsonData);
           if (userStatus == 200) {
             TLoaders.successSnackBar(
-              title: "Welcome Back!",
-              message:
-                  "Congratulations! You've successfully logged in to your account.");
+                title: "Welcome Back!",
+                message:
+                    "Congratulations! You've successfully logged in to your account.");
             Get.offAllNamed(Routes.home);
           } else {
             Get.offAllNamed(Routes.signin);
