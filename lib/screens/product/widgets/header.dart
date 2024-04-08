@@ -1,9 +1,11 @@
+import 'package:iconsax/iconsax.dart';
 import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/screens/product/product_detail_controller.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
 import '../../../common/widgets/product/rating_bar.dart';
 import '../../../utils/constants/colors.dart';
+import '../../favorite/favorite_controller.dart';
 
 class ProductDetailHeader extends GetView<ProductDetailController> {
   const ProductDetailHeader({
@@ -48,7 +50,7 @@ class ProductDetailHeader extends GetView<ProductDetailController> {
                       .textTheme
                       .displayMedium!
                       .apply(color: Colors.black.withOpacity(0.6)),
-                  maxLines: 2,
+                  maxLines: 3,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.center,
                   textScaler: const TextScaler.linear(1),
@@ -57,16 +59,25 @@ class ProductDetailHeader extends GetView<ProductDetailController> {
               const SRatingBar(rating: 4),
             ],
           ),
-          Container(
-            decoration: BoxDecoration(
-              color: SColors.textWhite,
-              borderRadius: BorderRadius.circular(100),
+          GetBuilder<FavoriteController>(
+            id: 'fav_icon',
+            builder: (fctr) => Container(
+              decoration: BoxDecoration(
+                color: SColors.textWhite,
+                borderRadius: BorderRadius.circular(100),
+              ),
+              child: IconButton(
+                onPressed: () {
+                  fctr.addToFavorite(controller.productDetail.id);
+                },
+                icon: Icon(
+                  Iconsax.heart,
+                  color: fctr.isFav(controller.productDetail.id)
+                      ? Colors.red
+                      : Colors.black,
+                ),
+              ),
             ),
-            child: IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.favorite_border_outlined,
-                )),
           ),
         ],
       ),

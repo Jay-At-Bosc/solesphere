@@ -77,20 +77,20 @@ class Products {
 
   factory Products.fromMap(Map<String, dynamic> map) {
     return Products(
-      id: map['_id'] as String,
-      productName: map['productName'] as String,
+      id: map['_id'] as String? ?? '',
+      productName: map['productName'] as String? ?? '',
       actualPrice: map['actual_price'] is int
           ? map['actual_price'] as int
-          : int.tryParse(map['actual_price'].toString()) ?? 0,
+          : int.tryParse(map['actual_price']?.toString() ?? '0') ?? 0,
       discountedPrice: map['discounted_price'] is int
           ? map['discounted_price'] as int
-          : int.tryParse(map['discounted_price'].toString()) ?? 0,
+          : int.tryParse(map['discounted_price']?.toString() ?? '0') ?? 0,
       colors: map['colors'] is int
           ? map['colors'] as int
-          : int.tryParse(map['colors'].toString()) ?? 0,
+          : int.tryParse(map['colors']?.toString() ?? '0') ?? 0,
       size: map['size'] is int
           ? map['size'] as int
-          : int.tryParse(map['size'].toString()) ?? 0,
+          : int.tryParse(map['size']?.toString() ?? '0') ?? 0,
       category:
           map['category'] != null && map['category'] is Map<String, dynamic>
               ? Category.fromMap(map['category'] as Map<String, dynamic>)
@@ -98,14 +98,14 @@ class Products {
       brand: map['brand'] != null && map['brand'] is Map<String, dynamic>
           ? Brand.fromMap(map['brand'] as Map<String, dynamic>)
           : Brand(id: '', brand: ''),
-      shortDescription: map['shortDescription'] as String,
+      shortDescription: map['shortDescription'] as String? ?? '',
       avgRating: map['avgRating'] is double
-          ? double.parse(map['avgRating'].toStringAsFixed(1))
-          : double.tryParse(map['avgRating'].toString()) ?? 0,
-      image: map['image'] as String,
+          ? double.parse(map['avgRating']?.toStringAsFixed(1) ?? '0')
+          : double.tryParse(map['avgRating']?.toString() ?? '0') ?? 0,
+      image: map['image'] as String? ?? '',
       totalReview: map['totalReview'] is int
           ? map['totalReview'] as int
-          : int.tryParse(map['totalReview'].toString()) ?? 0,
+          : int.tryParse(map['totalReview']?.toString() ?? '0') ?? 0,
     );
   }
 

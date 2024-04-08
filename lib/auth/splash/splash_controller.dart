@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:flutter/services.dart';
+
 import 'package:solesphere/common/widgets/popup/loaders.dart';
 import 'package:solesphere/services/repositories/authentication.dart';
 import 'package:solesphere/services/repositories/network.dart';

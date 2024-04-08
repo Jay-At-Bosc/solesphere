@@ -7,17 +7,17 @@ class SecondaryButton extends StatelessWidget {
     this.forground = Colors.black,
     this.background = const Color.fromARGB(255, 237, 236, 236),
     this.elevation = 0,
-    required this.style,
+    this.style,
     required this.label,
-    required this.index,
+    this.index,
     required this.onPress,
   });
   final Color forground;
   final Color background;
   final double? elevation;
-  final TextStyle style;
+  final TextStyle? style;
   final String label;
-  final int index;
+  final int? index;
   final Function onPress;
 
   @override
