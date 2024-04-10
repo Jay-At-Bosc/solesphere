@@ -160,6 +160,7 @@ class ProductDetailController extends GetxController {
         // if (isCartLoading.value == false) {
         //   Get.back();
         // }
+        // CartController.instance.loadCartFromApi();
         update(['CartList', 'cartBtn']);
         log("Oooooooooooook");
         TLoaders.successSnackBar(

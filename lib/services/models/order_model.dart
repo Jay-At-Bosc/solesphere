@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 
 class ViewOrderModel {
   final String id;
-  final String transaction_id;
+  final String transactionId;
   final String user;
   final List<Product> products;
   final String totalAmount;
@@ -17,7 +17,7 @@ class ViewOrderModel {
   final int v;
   ViewOrderModel({
     required this.id,
-    required this.transaction_id,
+    required this.transactionId,
     required this.user,
     required this.products,
     required this.totalAmount,
@@ -32,7 +32,7 @@ class ViewOrderModel {
 
   ViewOrderModel copyWith({
     String? id,
-    String? transaction_id,
+    String? transactionId,
     String? user,
     List<Product>? products,
     String? totalAmount,
@@ -46,7 +46,7 @@ class ViewOrderModel {
   }) {
     return ViewOrderModel(
       id: id ?? this.id,
-      transaction_id: transaction_id ?? this.transaction_id,
+      transactionId: transactionId ?? this.transactionId,
       user: user ?? this.user,
       products: products ?? this.products,
       totalAmount: totalAmount ?? this.totalAmount,
@@ -63,7 +63,7 @@ class ViewOrderModel {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       '_id': id,
-      'transaction_id': transaction_id,
+      'transaction_id': transactionId,
       'user': user,
       'products': products.map((x) => x.toMap()).toList(),
       'totalAmount': totalAmount,
@@ -80,7 +80,7 @@ class ViewOrderModel {
   factory ViewOrderModel.fromMap(Map<String, dynamic> map) {
     return ViewOrderModel(
       id: map['_id'] as String,
-      transaction_id: map['transaction_id'] as String,
+      transactionId: map['transaction_id'] as String,
       user: map['user'] as String,
       products: List<Product>.from(
         (map['products'] as List<dynamic>).map<Product>(
@@ -105,7 +105,7 @@ class ViewOrderModel {
 
   @override
   String toString() {
-    return 'ViewOrderModel(_id: $id, transaction_id: $transaction_id, user: $user, products: $products, totalAmount: $totalAmount, totalDiscount: $totalDiscount, orderStatus: $orderStatus, paymentMethod: $paymentMethod, paymentStatus: $paymentStatus, createdAt: $createdAt, updatedAt: $updatedAt, __v: $v)';
+    return 'ViewOrderModel(_id: $id, transaction_id: $transactionId, user: $user, products: $products, totalAmount: $totalAmount, totalDiscount: $totalDiscount, orderStatus: $orderStatus, paymentMethod: $paymentMethod, paymentStatus: $paymentStatus, createdAt: $createdAt, updatedAt: $updatedAt, __v: $v)';
   }
 
   @override
@@ -114,7 +114,7 @@ class ViewOrderModel {
     // final listEquals = const DeepCollectionEquality().equals;
 
     return other.id == id &&
-        other.transaction_id == transaction_id &&
+        other.transactionId == transactionId &&
         other.user == user &&
         listEquals(other.products, products) &&
         other.totalAmount == totalAmount &&
@@ -130,7 +130,7 @@ class ViewOrderModel {
   @override
   int get hashCode {
     return id.hashCode ^
-        transaction_id.hashCode ^
+        transactionId.hashCode ^
         user.hashCode ^
         products.hashCode ^
         totalAmount.hashCode ^
@@ -145,75 +145,75 @@ class ViewOrderModel {
 }
 
 class Product {
-  final String product_id;
+  final String productId;
   final String productName;
-  final String image_url;
+  final String imageUrl;
   final String color;
   final int size;
   final int quantity;
-  final int actual_price;
-  final int discounted_price;
+  final int actualPrice;
+  final int discountedPrice;
   final String id;
   Product({
-    required this.product_id,
+    required this.productId,
     required this.productName,
-    required this.image_url,
+    required this.imageUrl,
     required this.color,
     required this.size,
     required this.quantity,
-    required this.actual_price,
-    required this.discounted_price,
+    required this.actualPrice,
+    required this.discountedPrice,
     required this.id,
   });
 
   Product copyWith({
-    String? product_id,
+    String? productId,
     String? productName,
-    String? image_url,
+    String? imageUrl,
     String? color,
     int? size,
     int? quantity,
-    int? actual_price,
-    int? discounted_price,
+    int? actualPrice,
+    int? discountedPrice,
     String? id,
   }) {
     return Product(
-      product_id: product_id ?? this.product_id,
+      productId: productId ?? this.productId,
       productName: productName ?? this.productName,
-      image_url: image_url ?? this.image_url,
+      imageUrl: imageUrl ?? this.imageUrl,
       color: color ?? this.color,
       size: size ?? this.size,
       quantity: quantity ?? this.quantity,
-      actual_price: actual_price ?? this.actual_price,
-      discounted_price: discounted_price ?? this.discounted_price,
+      actualPrice: actualPrice ?? this.actualPrice,
+      discountedPrice: discountedPrice ?? this.discountedPrice,
       id: id ?? this.id,
     );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'product_id': product_id,
+      'product_id': productId,
       'productName': productName,
-      'image_url': image_url,
+      'image_url': imageUrl,
       'color': color,
       'size': size,
       'quantity': quantity,
-      'actual_price': actual_price,
-      'discounted_price': discounted_price,
+      'actual_price': actualPrice,
+      'discounted_price': discountedPrice,
       '_id': id,
     };
   }
 
   factory Product.fromMap(Map<String, dynamic> map) {
     return Product(
-      product_id: map['product_id'] as String,
+      productId: map['product_id'] as String,
       productName: map['productName'] as String,
-      image_url: map['image_url'] as String,
+      imageUrl: map['image_url'] as String,
       color: map['color'] as String,
       size: map['size'] as int,
       quantity: map['quantity'] as int,
-      actual_price: map['actual_price'] as int,
-      discounted_price: map['discounted_price'] as int,
+      actualPrice: map['actual_price'] as int,
+      discountedPrice: map['discounted_price'] as int,
       id: map['_id'] as String,
     );
   }
@@ -225,34 +225,34 @@ class Product {
 
   @override
   String toString() {
-    return 'Product(product_id: $product_id, productName: $productName, image_url: $image_url, color: $color, size: $size, quantity: $quantity, actual_price: $actual_price, discounted_price: $discounted_price, _id: $id)';
+    return 'Product(product_id: $productId, productName: $productName, image_url: $imageUrl, color: $color, size: $size, quantity: $quantity, actual_price: $actualPrice, discounted_price: $discountedPrice, _id: $id)';
   }
 
   @override
   bool operator ==(covariant Product other) {
     if (identical(this, other)) return true;
 
-    return other.product_id == product_id &&
+    return other.productId == productId &&
         other.productName == productName &&
-        other.image_url == image_url &&
+        other.imageUrl == imageUrl &&
         other.color == color &&
         other.size == size &&
         other.quantity == quantity &&
-        other.actual_price == actual_price &&
-        other.discounted_price == discounted_price &&
+        other.actualPrice == actualPrice &&
+        other.discountedPrice == discountedPrice &&
         other.id == id;
   }
 
   @override
   int get hashCode {
-    return product_id.hashCode ^
+    return productId.hashCode ^
         productName.hashCode ^
-        image_url.hashCode ^
+        imageUrl.hashCode ^
         color.hashCode ^
         size.hashCode ^
         quantity.hashCode ^
-        actual_price.hashCode ^
-        discounted_price.hashCode ^
+        actualPrice.hashCode ^
+        discountedPrice.hashCode ^
         id.hashCode;
   }
 }

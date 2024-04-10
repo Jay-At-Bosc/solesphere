@@ -1,6 +1,6 @@
 import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/screens/order-checkout/order_controller.dart';
-import 'package:solesphere/screens/order-checkout/widgets/payment_%20tile.dart';
+import 'package:solesphere/screens/order-checkout/widgets/payment_tile.dart';
 
 class PaymentSelection extends GetView<OrderController> {
   const PaymentSelection({super.key});

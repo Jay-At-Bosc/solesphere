@@ -38,7 +38,7 @@ class DrawerScreen extends GetView<NavigationController> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(45.0),
                     child: Image.network(
-                      controller.userData['profilePic'],
+                      controller.profilePic.value,
                       height: 90,
                       width: 90,
                       fit: BoxFit.cover,
@@ -84,7 +84,7 @@ class DrawerScreen extends GetView<NavigationController> {
                   width: 45.0.getWidth(),
                   // color: Colors.red,
                   child: Text(
-                    controller.userData['username'],
+                    controller.userName.value,
                     style: Theme.of(context)
                         .textTheme
                         .headlineLarge!

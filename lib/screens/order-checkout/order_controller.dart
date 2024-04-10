@@ -1,6 +1,6 @@
-
 import 'dart:developer';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lottie/lottie.dart';
@@ -31,6 +31,7 @@ class OrderController extends GetxController {
 
   RxBool isAddressLoading = false.obs;
   RxBool isOrderProcessLoading = false.obs;
+  RxBool isSummaryLoading = false.obs;
 
   // List of available use address
   List<Useraddress> userAddresses = <Useraddress>[].obs;
@@ -40,6 +41,8 @@ class OrderController extends GetxController {
 
   // List of available payment method name
   List<String> paymentTitle = ['Razorpay', 'Cash On Delivery'];
+
+  final player = AudioPlayer();
 
   // List of checkout page titles
   List<String> pageTitle = [
@@ -83,7 +86,9 @@ class OrderController extends GetxController {
 
 //check for api call in process
   bool isMainLoading() {
-    if (isAddressLoading.value) {
+    if (isAddressLoading.value ||
+        isOrderProcessLoading.value ||
+        isSummaryLoading.value) {
       return true;
     } else {
       return false;
@@ -117,7 +122,7 @@ class OrderController extends GetxController {
   Future<void> getUserAddress() async {
     try {
       isAddressLoading.value = true;
-      update(['pageContent']);
+      update(['pageContent', 'btn']);
       String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
       var headers = {'auth-token': token, 'Content-Type': 'application/json'};
       var dio = Dio();
@@ -138,13 +143,13 @@ class OrderController extends GetxController {
         log("length : ${addressList.length}");
         isAddressLoading.value = false;
         update(
-          ['pageContent', 'updateAddress'],
+          ['pageContent', 'updateAddress', 'btn'],
         );
       }
     } catch (e) {
       log(e.toString());
       isAddressLoading.value = false;
-      update(['pageContent']);
+      update(['pageContent', 'btn']);
     }
   }
 
@@ -152,8 +157,8 @@ class OrderController extends GetxController {
   Future<void> getOrderSummary() async {
     try {
       orderSummary.clear();
-      isAddressLoading.value = true;
-      update(['pageContent']);
+      isSummaryLoading.value = true;
+      update(['pageContent', 'btn']);
       String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
       var headers = {'auth-token': token, 'Content-Type': 'application/json'};
       var dio = Dio();
@@ -175,13 +180,13 @@ class OrderController extends GetxController {
 
         log("Okkkk");
         log("length : ${orderSummary.length}");
-        isAddressLoading.value = false;
-        update(['pageContent']);
+        isSummaryLoading.value = false;
+        update(['pageContent', 'btn']);
       }
     } catch (e) {
       log(e.toString());
-      isAddressLoading.value = false;
-      update(['pageContent']);
+      isSummaryLoading.value = false;
+      update(['pageContent', 'btn']);
     }
   }
 
@@ -247,6 +252,12 @@ class OrderController extends GetxController {
           _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS,
               (PaymentSuccessResponse response) async {
             log("Payment Success: ${response.paymentId}");
+
+            await player.play(AssetSource(SImages.p),
+                mode: PlayerMode.lowLatency,
+                balance: 100,
+                volume: 300); // Ensure the path is correct
+
             TLoaders.successSnackBar(
                 title: "Success", message: "Payment success");
             await createOrder(
@@ -260,9 +271,10 @@ class OrderController extends GetxController {
           });
 
           _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR,
-              (PaymentFailureResponse response) {
+              (PaymentFailureResponse response) async {
             log("Payment Error: ${response.code} - ${response.message}");
             Get.back();
+
             TLoaders.errorSnackBar(
                 title: "Failed",
                 message: "Payment Failed. Please Try Again..!");
@@ -274,6 +286,7 @@ class OrderController extends GetxController {
             // Handle external wallet selection here
           });
           isOrderProcessLoading.value = false;
+          update(['btn']);
         } else {
           TLoaders.errorSnackBar(
               title: "Failed", message: response.statusMessage);
@@ -282,10 +295,14 @@ class OrderController extends GetxController {
         await createOrder(selectedPaymentMode.value, null, null, false,
             orderSummary[0].totalDiscount.toString());
         isOrderProcessLoading.value = false;
+        update(['btn']);
+
         Get.offAllNamed(Routes.viewOrder);
       }
     } catch (e) {
       isOrderProcessLoading.value = false;
+      update(['btn']);
+
       Get.back();
       log("Error in processOrder: ${e.toString()}");
       TLoaders.errorSnackBar(

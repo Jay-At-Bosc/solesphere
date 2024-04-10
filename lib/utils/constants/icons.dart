@@ -21,3 +21,7 @@ class SJsons {
   static const String cartLoader = "assets/jsons/cart.json";
   static const String arrow = "assets/jsons/arrow.json";
 }
+
+class SSounds {
+  static const String paymentDone = "/sound/gpay.mp3";
+}

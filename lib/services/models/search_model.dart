@@ -59,9 +59,9 @@ class SearchModel {
 class ResponseData {
   final String id;
   final String productName;
-  final int actual_price;
+  final int actualPrice;
   final int size;
-  final int discounted_price;
+  final int discountedPrice;
   final int colors;
   final String category;
   final String brand;
@@ -72,9 +72,9 @@ class ResponseData {
   ResponseData({
     required this.id,
     required this.productName,
-    required this.actual_price,
+    required this.actualPrice,
     required this.size,
-    required this.discounted_price,
+    required this.discountedPrice,
     required this.colors,
     required this.category,
     required this.brand,
@@ -87,9 +87,9 @@ class ResponseData {
   ResponseData copyWith({
     String? id,
     String? productName,
-    int? actual_price,
+    int? actualPrice,
     int? size,
-    int? discounted_price,
+    int? discountedPrice,
     int? colors,
     String? category,
     String? brand,
@@ -101,9 +101,9 @@ class ResponseData {
     return ResponseData(
       id: id ?? this.id,
       productName: productName ?? this.productName,
-      actual_price: actual_price ?? this.actual_price,
+      actualPrice: actualPrice ?? this.actualPrice,
       size: size ?? this.size,
-      discounted_price: discounted_price ?? this.discounted_price,
+      discountedPrice: discountedPrice ?? this.discountedPrice,
       colors: colors ?? this.colors,
       category: category ?? this.category,
       brand: brand ?? this.brand,
@@ -118,9 +118,9 @@ class ResponseData {
     return <String, dynamic>{
       '_id': id,
       'productName': productName,
-      'actual_price': actual_price,
+      'actual_price': actualPrice,
       'size': size,
-      'discounted_price': discounted_price,
+      'discounted_price': discountedPrice,
       'colors': colors,
       'category': category,
       'brand': brand,
@@ -135,9 +135,9 @@ class ResponseData {
     return ResponseData(
       id: map['_id'] as String,
       productName: map['productName'] as String,
-      actual_price: map['actual_price'].toInt() as int,
+      actualPrice: map['actual_price'].toInt() as int,
       size: map['size'].toInt() as int,
-      discounted_price: map['discounted_price'].toInt() as int,
+      discountedPrice: map['discounted_price'].toInt() as int,
       colors: map['colors'].toInt() as int,
       category: map['category'] as String,
       brand: map['brand'] as String,
@@ -154,7 +154,7 @@ class ResponseData {
 
   @override
   String toString() {
-    return 'ResponseData(_id: $id, productName: $productName, actual_price: $actual_price, size: $size, discounted_price: $discounted_price, colors: $colors, category: $category, brand: $brand, shortDescription: $shortDescription, avgRating: $avgRating, image: $image, totalReview: $totalReview)';
+    return 'ResponseData(_id: $id, productName: $productName, actual_price: $actualPrice, size: $size, discounted_price: $discountedPrice, colors: $colors, category: $category, brand: $brand, shortDescription: $shortDescription, avgRating: $avgRating, image: $image, totalReview: $totalReview)';
   }
 
   @override
@@ -164,9 +164,9 @@ class ResponseData {
     return 
       other.id == id &&
       other.productName == productName &&
-      other.actual_price == actual_price &&
+      other.actualPrice == actualPrice &&
       other.size == size &&
-      other.discounted_price == discounted_price &&
+      other.discountedPrice == discountedPrice &&
       other.colors == colors &&
       other.category == category &&
       other.brand == brand &&
@@ -180,9 +180,9 @@ class ResponseData {
   int get hashCode {
     return id.hashCode ^
       productName.hashCode ^
-      actual_price.hashCode ^
+      actualPrice.hashCode ^
       size.hashCode ^
-      discounted_price.hashCode ^
+      discountedPrice.hashCode ^
       colors.hashCode ^
       category.hashCode ^
       brand.hashCode ^

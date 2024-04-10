@@ -82,24 +82,27 @@ class AddressSelection extends GetView<OrderController> {
         builder: (controller) => BottomAppBar(
           surfaceTintColor: Colors.white,
           height: 10.0.getHeight(),
-          child: CustomAccentColorButton(
-            buttonLabel: controller.activeStep.value != 2
-                ? SLabels.next
-                : SLabels.payNow,
-            isLoading: false,
-            onPressed: () async {
-              if (controller.activeStep.value == 1) {
-                await controller.getOrderSummary();
-              }
-              if (controller.activeStep.value == 2) {
-                await controller.processOrder();
-                return;
-              }
-              if (controller.userAddresses.isNotEmpty) {
-                controller.setActiveStep(controller.activeStep.value + 1);
-                Get.toNamed(Routes.order);
-              }
-            },
+          child: AbsorbPointer(
+            absorbing: controller.isMainLoading() ? true : false,
+            child: CustomAccentColorButton(
+              buttonLabel: controller.activeStep.value != 2
+                  ? SLabels.next
+                  : SLabels.payNow,
+              isLoading: false,
+              onPressed: () async {
+                if (controller.activeStep.value == 1) {
+                  await controller.getOrderSummary();
+                }
+                if (controller.activeStep.value == 2) {
+                  await controller.processOrder();
+                  return;
+                }
+                if (controller.userAddresses.isNotEmpty) {
+                  controller.setActiveStep(controller.activeStep.value + 1);
+                  Get.toNamed(Routes.order);
+                }
+              },
+            ),
           ),
         ),
       ),

@@ -28,7 +28,7 @@ class ProductDealOfTheDay extends GetView<ProductDetailController> {
           () => RichText(
             text: TextSpan(
               text:
-                  '-${controller.calculateDiscountPercentage(controller.productDetail.variants[controller.selectedVarient.value].sizes[controller.selectedSize.value].actual_price, controller.productDetail.variants[controller.selectedVarient.value].sizes[controller.selectedSize.value].discounted_price)}% ',
+                  '-${controller.calculateDiscountPercentage(controller.productDetail.variants[controller.selectedVarient.value].sizes[controller.selectedSize.value].actualPrice, controller.productDetail.variants[controller.selectedVarient.value].sizes[controller.selectedSize.value].discountedPrice)}% ',
               style: Theme.of(context)
                   .textTheme
                   .headlineLarge!
@@ -36,7 +36,7 @@ class ProductDealOfTheDay extends GetView<ProductDetailController> {
               children: <TextSpan>[
                 TextSpan(
                   text:
-                      '₹${controller.productDetail.variants[controller.selectedVarient.value].sizes[controller.selectedSize.value].discounted_price}'
+                      '₹${controller.productDetail.variants[controller.selectedVarient.value].sizes[controller.selectedSize.value].discountedPrice}'
                           .toString(),
                   style: Theme.of(context)
                       .textTheme
@@ -49,7 +49,7 @@ class ProductDealOfTheDay extends GetView<ProductDetailController> {
         ),
         Obx(
           () => Text(
-            'M.R.P.: ₹${controller.productDetail.variants[controller.selectedVarient.value].sizes[controller.selectedSize.value].actual_price}',
+            'M.R.P.: ₹${controller.productDetail.variants[controller.selectedVarient.value].sizes[controller.selectedSize.value].actualPrice}',
             style: Theme.of(context).textTheme.titleSmall!.apply(
                 color: SColors.textPrimaryWith80,
                 decoration: TextDecoration.lineThrough),

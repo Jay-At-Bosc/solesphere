@@ -56,7 +56,7 @@ class SProductCardVertical extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            //Thumbnail
+            //Thumbnail 
             TRoundedContainer(
               height: 100,
               // padding: const EdgeInsets.only(

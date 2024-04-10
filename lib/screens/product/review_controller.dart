@@ -22,12 +22,12 @@ class ReviewController extends GetxController {
     update(['arrow_animation']);
     await Future.delayed(const Duration(seconds: 4));
 
-    final orders = Get.put(ViewOrderController());
+    // final orders = Get.put(ViewOrderController());
 
-    for (var order in orders.orders) {
+    for (var order in ViewOrderController.instance.orders) {
       if (order.user == NavigationController.instance.userData['_id']) {
         for (var product in order.products) {
-          if (product.product_id == productId &&
+          if (product.productId == productId &&
               order.orderStatus == 'Delivered') {
             isLoading = false;
             update(['arrow_animation']);
@@ -65,6 +65,8 @@ class ReviewController extends GetxController {
 
       if (response.statusCode == 200) {
         Get.back();
+        review.clear();
+        rating = 0.0;
         TLoaders.successSnackBar(
             title: 'Thanks!', message: "Thanks For Your Valuable Feedback!");
         // print(json.encode(response.data));
@@ -110,5 +112,11 @@ class ReviewController extends GetxController {
     } catch (e) {
       rethrow;
     }
+  }
+
+  @override
+  void dispose() {
+    review.text = "";
+    super.dispose();
   }
 }

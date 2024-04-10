@@ -85,7 +85,7 @@ class SplashController extends GetxController {
   }
 
   Future<bool> getUserData() async {
-    // TODO: add api call to fetch user data
+    // add api call to fetch user data
     await Future.delayed(const Duration(seconds: 0));
     return true;
   }

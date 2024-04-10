@@ -42,7 +42,7 @@ class CustomeStepper extends StatelessWidget {
                   opacity: ctx.activeStep.value >= 0 ? 1 : 0.3,
                   child: Icon(
                     Iconsax.location,
-                    color: ctx.activeStep.value == 1 ? SColors.textWhite : null,
+                    color: ctx.activeStep.value >= 1 ? SColors.textWhite : null,
                   ),
                 ),
               ),
@@ -58,7 +58,7 @@ class CustomeStepper extends StatelessWidget {
                   opacity: ctx.activeStep.value >= 1 ? 1 : 0.3,
                   child: Icon(
                     Iconsax.card,
-                    color: ctx.activeStep.value == 2 ? SColors.textWhite : null,
+                    color: ctx.activeStep.value >= 2 ? SColors.textWhite : null,
                   ),
                 ),
               ),

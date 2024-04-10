@@ -207,8 +207,8 @@ class CartItem {
   final String color;
   final int size;
   final int quantity;
-  final int actual_price;
-  final int discounted_price;
+  final int actualPrice;
+  final int discountedPrice;
   final String id;
   CartItem({
     required this.productId,
@@ -217,8 +217,8 @@ class CartItem {
     required this.color,
     required this.size,
     required this.quantity,
-    required this.actual_price,
-    required this.discounted_price,
+    required this.actualPrice,
+    required this.discountedPrice,
     required this.id,
   });
 
@@ -229,8 +229,8 @@ class CartItem {
     String? color,
     int? size,
     int? quantity,
-    int? actual_price,
-    int? discounted_price,
+    int? actualPrice,
+    int? discountedPrice,
     String? id,
   }) {
     return CartItem(
@@ -240,8 +240,8 @@ class CartItem {
       color: color ?? this.color,
       size: size ?? this.size,
       quantity: quantity ?? this.quantity,
-      actual_price: actual_price ?? this.actual_price,
-      discounted_price: discounted_price ?? this.discounted_price,
+      actualPrice: actualPrice ?? this.actualPrice,
+      discountedPrice: discountedPrice ?? this.discountedPrice,
       id: id ?? this.id,
     );
   }
@@ -254,8 +254,8 @@ class CartItem {
       'color': color,
       'size': size,
       'quantity': quantity,
-      'actual_price': actual_price,
-      'discounted_price': discounted_price,
+      'actual_price': actualPrice,
+      'discounted_price': discountedPrice,
       '_id': id,
     };
   }
@@ -268,8 +268,8 @@ class CartItem {
       color: map['color'] as String,
       size: map['size'].toInt() as int,
       quantity: map['quantity'].toInt() as int,
-      actual_price: map['actual_price'].toInt() as int,
-      discounted_price: map['discounted_price'].toInt() as int,
+      actualPrice: map['actual_price'].toInt() as int,
+      discountedPrice: map['discounted_price'].toInt() as int,
       id: map['_id'] as String,
     );
   }
@@ -281,7 +281,7 @@ class CartItem {
 
   @override
   String toString() {
-    return 'CartItem(product_id: $productId, productName: $productName, image_url: $imgUrl, color: $color, size: $size, quantity: $quantity, actual_price: $actual_price, discounted_price: $discounted_price, _id: $id)';
+    return 'CartItem(product_id: $productId, productName: $productName, image_url: $imgUrl, color: $color, size: $size, quantity: $quantity, actual_price: $actualPrice, discounted_price: $discountedPrice, _id: $id)';
   }
 
   @override
@@ -294,8 +294,8 @@ class CartItem {
         other.color == color &&
         other.size == size &&
         other.quantity == quantity &&
-        other.actual_price == actual_price &&
-        other.discounted_price == discounted_price &&
+        other.actualPrice == actualPrice &&
+        other.discountedPrice == discountedPrice &&
         other.id == id;
   }
 
@@ -307,8 +307,8 @@ class CartItem {
         color.hashCode ^
         size.hashCode ^
         quantity.hashCode ^
-        actual_price.hashCode ^
-        discounted_price.hashCode ^
+        actualPrice.hashCode ^
+        discountedPrice.hashCode ^
         id.hashCode;
   }
 }

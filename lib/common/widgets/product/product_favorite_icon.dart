@@ -15,15 +15,16 @@ class SFavoriteIcon extends StatelessWidget {
     required this.product,
     required this.controller,
   });
+
   final Products product;
   final FavoriteController controller;
-
   final bool dark;
 
   @override
   Widget build(BuildContext context) {
-    final pctr = Get.put(ProductController());
+    final pctr = Get.find<ProductController>();
     final isFavorite = controller.favoriteList.contains(product);
+
     return Positioned(
       top: 8,
       left: 8,
@@ -36,19 +37,15 @@ class SFavoriteIcon extends StatelessWidget {
           borderRadius: BorderRadius.circular(40),
         ),
         child: IconButton(
-          onPressed: isFavorite
-              ? () {
-                  controller.removeToFavorite(product);
-                  controller.update();
-                  // final isFavorite = controller.favoriteList.contains(product);
-                  // if (isFavorite) pctr.update(['Favorite']);
-                  pctr.update(['fav_icon']);
-                }
-              : () {
-                  controller.addToFavorite(product.id);
-                  controller.update();
-                  pctr.update(['fav_icon']);
-                },
+          onPressed: () {
+            if (isFavorite) {
+              controller.removeToFavorite(product);
+            } else {
+              controller.addToFavorite(product.id);
+            }
+            controller.update();
+            pctr.update(['Favorite']);
+          },
           icon: Icon(
             Iconsax.heart,
             color: isFavorite ? Colors.red : Colors.black,

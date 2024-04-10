@@ -1,9 +1,5 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-
 
 class CustomDrawerController extends GetxController {
   static CustomDrawerController get instance => Get.find();
@@ -47,7 +43,4 @@ class CustomDrawerController extends GetxController {
     Get.toNamed(route);
     update(['drawer']);
   }
-
-
-  
 }

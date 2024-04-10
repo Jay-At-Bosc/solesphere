@@ -12,7 +12,7 @@ class SImages {
   static const String onboardingImage_3 =
       "assets/images/onboarding/ig_onboard-3.png";
   static const String onboardingImageDots =
-      "assets/images/test_dot.png";   //ig_onboard-dots.svg";
+      "assets/images/test_dot.png"; //ig_onboard-dots.svg";
 
   // Product Image
   static const String shoe1 = "assets/images/products/ig_shoes-1.jpg";
@@ -26,4 +26,6 @@ class SImages {
   static const String shoe9 = "assets/images/products/ig_shoes-9.jpg";
   static const String shoe10 = "assets/images/products/ig_shoes-10.jpg";
   static const String shoe11 = "assets/images/products/ig_shoes-11.jpg";
+
+  static const String p = "sounds/gpay.mp3";
 }

@@ -1,4 +1,3 @@
-
 import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/common/widgets/text/text_style.dart';
 import 'package:solesphere/screens/home/home.dart';
@@ -48,8 +47,7 @@ class UserProfileScreen extends GetView<NavigationController> {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(45.0),
                               child: Image.network(
-                                NavigationController
-                                    .instance.userData['profilePic'],
+                                controller.profilePic.value,
                                 height: 90,
                                 width: 90,
                                 fit: BoxFit.cover,
@@ -108,19 +106,23 @@ class UserProfileScreen extends GetView<NavigationController> {
                 ),
 
                 //User Name and Email
-                STextStyle(
-                  text: NavigationController.instance.userData['username'],
-                  style: Theme.of(context)
-                      .textTheme
-                      .displayMedium!
-                      .apply(color: SColors.textPrimaryWith80),
+                Obx(
+                  () => STextStyle(
+                    text: controller.userName.value,
+                    style: Theme.of(context)
+                        .textTheme
+                        .displayMedium!
+                        .apply(color: SColors.textPrimaryWith80),
+                  ),
                 ),
-                STextStyle(
-                  text: NavigationController.instance.userData['email'],
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyLarge!
-                      .apply(color: SColors.textPrimaryWith60),
+                Obx(
+                  () => STextStyle(
+                    text: controller.email.value,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge!
+                        .apply(color: SColors.textPrimaryWith60),
+                  ),
                 ),
 
                 const ProfileMenuItems(),

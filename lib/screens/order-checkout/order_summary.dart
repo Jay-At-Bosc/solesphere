@@ -205,7 +205,7 @@ class SummaryItemTile extends GetView<OrderController> {
                   ),
                   STextStyle(
                     text: controller
-                        .orderSummary[0].cartItems[index].discounted_price
+                        .orderSummary[0].cartItems[index].discountedPrice
                         .toString(),
                     style: Theme.of(context).textTheme.labelMedium,
                     maxLine: 1,

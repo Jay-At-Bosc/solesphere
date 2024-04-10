@@ -26,13 +26,14 @@ class FavoriteScreen extends GetView<FavoriteController> {
               onPressed: () async {
                 await controller.getFavoriteList();
               },
-              icon: Icon(Iconsax.refresh)),
+              icon: const Icon(Iconsax.refresh,)),
         ],
       ),
       body: RefreshIndicator(
         onRefresh: () async {
           await controller.getFavoriteList();
         },
+        
         child: SafeArea(
           child: SingleChildScrollView(
             child: GetBuilder<FavoriteController>(

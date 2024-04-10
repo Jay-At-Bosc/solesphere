@@ -65,13 +65,13 @@ class MyOrderCard extends GetView<ViewOrderController> {
                         Get.toNamed(Routes.productDetail);
                         await ProductDetailController.instance
                             .fetchProductDetails(
-                                controller.orders[j].products[i].product_id);
+                                controller.orders[j].products[i].productId);
                         ProductDetailController.instance.getImagesList();
                         // log("product id: ${product.id}");
                         // Get.back();
                       },
                       child: NotificationImageContainer(
-                        url: controller.orders[j].products[i].image_url,
+                        url: controller.orders[j].products[i].imageUrl,
                       ),
                     ),
                     SizedBox(
@@ -91,7 +91,7 @@ class MyOrderCard extends GetView<ViewOrderController> {
                           ),
                           STextStyle(
                             text:
-                                "₹${controller.orders[j].products[i].discounted_price}",
+                                "₹${controller.orders[j].products[i].discountedPrice}",
                             style: Theme.of(context).textTheme.labelMedium,
                             maxLine: 1,
                           ),

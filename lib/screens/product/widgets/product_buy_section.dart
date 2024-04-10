@@ -59,12 +59,12 @@ class ProductBuySection extends GetView<ProductDetailController> {
                             .productDetail
                             .variants[controller.selectedVarient.value]
                             .sizes[controller.selectedSize.value]
-                            .discounted_price,
+                            .discountedPrice,
                         controller
                             .productDetail
                             .variants[controller.selectedVarient.value]
                             .sizes[controller.selectedSize.value]
-                            .actual_price);
+                            .actualPrice);
               }),
         ),
         const SizedBox(
@@ -96,12 +96,12 @@ class ProductBuySection extends GetView<ProductDetailController> {
                           .productDetail
                           .variants[controller.selectedVarient.value]
                           .sizes[controller.selectedSize.value]
-                          .discounted_price,
+                          .discountedPrice,
                       controller
                           .productDetail
                           .variants[controller.selectedVarient.value]
                           .sizes[controller.selectedSize.value]
-                          .actual_price);
+                          .actualPrice);
               Get.toNamed(Routes.order);
             }),
         const SoledByRichText(),

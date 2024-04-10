@@ -4,7 +4,6 @@ import 'package:solesphere/screens/product/product_detail_controller.dart';
 import '../../../../common/widgets/heading/section_heading1.dart';
 
 
-
 class ReviewSection extends GetView<ProductDetailController> {
   const ReviewSection({
     super.key,

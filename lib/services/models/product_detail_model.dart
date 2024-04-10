@@ -337,29 +337,29 @@ class Variant {
 
 class Size {
   final int size;
-  final int actual_price;
-  final int discounted_price;
+  final int actualPrice;
+  final int discountedPrice;
   final int stock;
   final String id;
   Size({
     required this.size,
-    required this.actual_price,
-    required this.discounted_price,
+    required this.actualPrice,
+    required this.discountedPrice,
     required this.stock,
     required this.id,
   });
 
   Size copyWith({
     int? size,
-    int? actual_price,
-    int? discounted_price,
+    int? actualPrice,
+    int? discountedPrice,
     int? stock,
     String? id,
   }) {
     return Size(
       size: size ?? this.size,
-      actual_price: actual_price ?? this.actual_price,
-      discounted_price: discounted_price ?? this.discounted_price,
+      actualPrice: actualPrice ?? this.actualPrice,
+      discountedPrice: discountedPrice ?? this.discountedPrice,
       stock: stock ?? this.stock,
       id: id ?? this.id,
     );
@@ -368,8 +368,8 @@ class Size {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'size': size,
-      'actual_price': actual_price,
-      'discounted_price': discounted_price,
+      'actual_price': actualPrice,
+      'discounted_price': discountedPrice,
       'stock': stock,
       '_id': id,
     };
@@ -378,8 +378,8 @@ class Size {
   factory Size.fromMap(Map<String, dynamic> map) {
     return Size(
       size: map['size'].toInt() as int,
-      actual_price: map['actual_price'].toInt() as int,
-      discounted_price: map['discounted_price'].toInt() as int,
+      actualPrice: map['actual_price'].toInt() as int,
+      discountedPrice: map['discounted_price'].toInt() as int,
       stock: map['stock'].toInt() as int,
       id: map['_id'] as String,
     );
@@ -392,7 +392,7 @@ class Size {
 
   @override
   String toString() {
-    return 'Size(size: $size, actual_price: $actual_price, discounted_price: $discounted_price, stock: $stock, _id: $id)';
+    return 'Size(size: $size, actual_price: $actualPrice, discounted_price: $discountedPrice, stock: $stock, _id: $id)';
   }
 
   @override
@@ -400,8 +400,8 @@ class Size {
     if (identical(this, other)) return true;
 
     return other.size == size &&
-        other.actual_price == actual_price &&
-        other.discounted_price == discounted_price &&
+        other.actualPrice == actualPrice &&
+        other.discountedPrice == discountedPrice &&
         other.stock == stock &&
         other.id == id;
   }
@@ -409,8 +409,8 @@ class Size {
   @override
   int get hashCode {
     return size.hashCode ^
-        actual_price.hashCode ^
-        discounted_price.hashCode ^
+        actualPrice.hashCode ^
+        discountedPrice.hashCode ^
         stock.hashCode ^
         id.hashCode;
   }

@@ -27,7 +27,7 @@ class CartController extends GetxController {
   @override
   void onInit() {
     loadCartFromApi();
-    // update(['cart_count']);
+    update(['cart_count']);
     // calculateTotalAmount();
     super.onInit();
   }
@@ -216,7 +216,7 @@ class CartController extends GetxController {
         }
         isDecrement.value = false;
         // calculateTotalAmount();
-        update(['quantity', 'CartList', 'amount']);
+        update(['quantity', 'CartList', 'amount', 'cart_count']);
       }
     } on DioException catch (_) {
       isDecrement.value = false;

@@ -1,11 +1,13 @@
-import 'package:flutter/material.dart';
+import 'dart:developer';
+
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:get/get.dart';
+
 import 'package:iconsax/iconsax.dart';
 import 'package:solesphere/auth/auth_exports.dart';
+
 import 'package:solesphere/screens/cart/cart_screen.dart';
 import 'package:solesphere/screens/favorite/favorite_screen.dart';
 import 'package:solesphere/screens/drawer/drawer_screen.dart';
@@ -13,11 +15,14 @@ import 'package:solesphere/screens/home/controller/drawer_controller.dart';
 import 'package:solesphere/screens/order/view_order_screen.dart';
 import 'package:solesphere/screens/user_profile/user_profile_screen.dart';
 import 'package:solesphere/services/api/end_points.dart';
+import 'package:solesphere/services/routes/app_route_exports.dart';
+
+import '../../common/widgets/popup/loaders.dart';
 import '../../services/routes/app_pages.dart';
 import 'widgets/home_content.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +60,35 @@ class HomeScreen extends StatelessWidget {
             ),
             CurvedNavigationBarItem(
               child: Icon(Iconsax.shopping_cart),
+              //     child: Stack(
+              //   children: [
+              //     Icon(Iconsax.shopping_cart),
+              //     Positioned(
+              //       left: 1.0.getWidth(),
+              //       // top: 1.0.getWidth(),
+              //       child: GetBuilder<CartController>(
+              //         id: 'cart_count',
+              //         builder: (controller) => Container(
+              //           width: 20,
+              //           height: 20,
+              //           decoration: BoxDecoration(
+              //             // color: Colors.red,
+              //             borderRadius: BorderRadius.circular(100),
+              //           ),
+              //           child: Center(
+              //             child: STextStyle(
+              //               text: controller.cartItemsList.length.toString(),
+              //               style: Theme.of(context)
+              //                   .textTheme
+              //                   .titleSmall!
+              //                   .copyWith(fontSize: 3.0.getWidth()),
+              //             ),
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //   ],
+              // )),
             ),
             CurvedNavigationBarItem(
               child: Icon(Iconsax.shopping_bag),
@@ -93,7 +127,7 @@ class HomeScreen extends StatelessWidget {
                   children: [drawerScreen, homeContent],
                 );
               case Routes.viewOrder:
-                return ViewOrderScreen();
+                return const ViewOrderScreen();
               //  case Routes.favourite:
               // return FavoriteScreen;,
 
@@ -115,6 +149,9 @@ class NavigationController extends GetxController {
   final GlobalKey<CurvedNavigationBarState> bottomNavigationKey = GlobalKey();
   final controllerDrawer = Get.put(CustomDrawerController());
   Map<String, dynamic> userData = {};
+  final profilePic = ''.obs;
+  final userName = ''.obs;
+  final email = ''.obs;
 
   @override
   void onInit() async {
@@ -136,14 +173,22 @@ class NavigationController extends GetxController {
     );
 
     if (response.statusCode == 200) {
+      log(response.data.toString());
       if (response.data is Map<String, dynamic> &&
           response.data.containsKey('data')) {
         userData = response.data['data'];
-    
+        log(userData.toString());
       }
+
+      // Map<String, dynamic> responseMap = jsonDecode(response.data);
+      profilePic.value = response.data['data']['profilePic'];
+      userName.value = response.data['data']['username'];
+      email.value = response.data['data']['email'];
+      // print(profilePic);
       update(['user']);
     } else {
-      print(response.statusMessage);
+      TLoaders.warningSnackBar(
+          title: "Something Wrong!!", message: response.statusMessage);
     }
   }
 }
