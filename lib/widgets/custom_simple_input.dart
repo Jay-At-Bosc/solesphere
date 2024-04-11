@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:solesphere/utils/constants/colors.dart';
 
 class CustomSimpleInput extends StatelessWidget {
@@ -56,6 +57,7 @@ class CustomSimpleInput extends StatelessWidget {
         hintText: hintText,
         hintStyle: Theme.of(context).textTheme.labelMedium,
         contentPadding: const EdgeInsets.all(16.0),
+        
       ),
     );
   }

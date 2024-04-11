@@ -65,8 +65,13 @@ class AddressBottomSheet extends GetView<ShippingAdddressController> {
                           hintText: SLabels.addresslineOne,
                           controller: controller.addressLine1,
                           // enable: controller.isSaveLoading,
-                          validator: (v) => SValidator.validateAddress(
-                              v, SLabels.addresslineOne),
+                          validator: (v) {
+                            // if (v == null || v.isEmpty) {
+                            //   return '${SLabels.addresslineOne} is required';
+                            // }
+                            return SValidator.validateAddress(
+                                v, SLabels.addresslineOne);
+                          },
                           keyboardType: TextInputType.multiline,
                           // maxLength: 1,
                         ),
@@ -85,13 +90,14 @@ class AddressBottomSheet extends GetView<ShippingAdddressController> {
 
                         // City
                         CustomSimpleInput(
-                          hintText: SLabels.city,
-                          controller: controller.city,
-                          keyboardType: TextInputType.multiline,
-                          validator: (v) =>
-                              SValidator.validateAddress(v, SLabels.city),
-                          // maxLength: 1,
-                        ),
+                            hintText: SLabels.city,
+                            controller: controller.city,
+                            keyboardType: TextInputType.multiline,
+                            validator: (v) =>
+                                SValidator.validateAddress(v, SLabels.city)
+
+                            // maxLength: 1,
+                            ),
                         paddingBetweenFields,
 
                         // State And Zipcode
@@ -99,12 +105,13 @@ class AddressBottomSheet extends GetView<ShippingAdddressController> {
                           children: [
                             Flexible(
                               child: CustomSimpleInput(
-                                hintText: SLabels.state,
-                                controller: controller.state,
-                                validator: (v) => SValidator.validateAddress(
-                                    v, SLabels.state),
-                                // maxLength: 1,
-                              ),
+                                  hintText: SLabels.state,
+                                  controller: controller.state,
+                                  validator: (v) => SValidator.validateAddress(
+                                      v, SLabels.state)
+
+                                  // maxLength: 1,
+                                  ),
                             ),
                             Flexible(
                               child: CustomSimpleInput(
@@ -113,7 +120,8 @@ class AddressBottomSheet extends GetView<ShippingAdddressController> {
                                 keyboardType: TextInputType.number,
                                 validator: (v) =>
                                     SValidator.validateIndianZipCode(v),
-                                maxLength: 6,
+                                maxLength: 1,
+                                maxInputChar: 6,
                               ),
                             ),
                           ],
