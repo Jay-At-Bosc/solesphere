@@ -1,7 +1,9 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/common/widgets/popup/loaders.dart';
 import 'package:solesphere/services/api/end_points.dart';
@@ -113,6 +115,50 @@ class ViewOrderController extends GetxController {
         return 'December';
       default:
         return '';
+    }
+  }
+
+  Future<void> cancelOrders(String id, bool paymentMethod, String amount,
+      String paymentId, String signature) async {
+    try {
+      // isLoading = true;
+      // update(['orders']);
+      String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
+      var data = json.encode({
+        "paymentMethod": paymentMethod ? '1' : '0',
+        "orderId": id,
+      });
+      var headers = {'auth-token': token, 'Content-Type': 'application/json'};
+
+      var dio = Dio();
+
+      var response = await dio.post(EndPoints.cancelOrders,
+          options: Options(
+            headers: headers,
+          ),
+          data: data);
+
+      if (response.statusCode == 200) {
+        final jsonResponse = response.data as Map<String, dynamic>;
+        final List<dynamic> dataList = jsonResponse['data'];
+        orders = dataList.map((data) => ViewOrderModel.fromMap(data)).toList();
+        orders.sort(((a, b) => b.id.compareTo(a.id)));
+        log(orders.length.toString());
+        isLoading = false;
+        update(['orders', 'orderStatus']);
+      } else {
+        TLoaders.warningSnackBar(
+          title: "Opps",
+          message: response.statusMessage ?? 'Failed to load data',
+        );
+        isLoading = false;
+        update(['orders']);
+      }
+    } catch (e) {
+      TLoaders.warningSnackBar(title: "Opps", message: e.toString());
+      log(e.toString());
+      isLoading = false;
+      update(['orders']);
     }
   }
 }

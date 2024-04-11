@@ -263,6 +263,7 @@ class OrderController extends GetxController {
             await createOrder(
                 selectedPaymentMode.value,
                 response.paymentId,
+                response.signature,
                 (responseData['amount'] / 100).toString(),
                 true,
                 orderSummary[0].totalDiscount.toString());
@@ -292,7 +293,7 @@ class OrderController extends GetxController {
               title: "Failed", message: response.statusMessage);
         }
       } else {
-        await createOrder(selectedPaymentMode.value, null, null, false,
+        await createOrder(selectedPaymentMode.value, null, null, null, false,
             orderSummary[0].totalDiscount.toString());
         isOrderProcessLoading.value = false;
         update(['btn']);
@@ -316,7 +317,7 @@ class OrderController extends GetxController {
   }
 
   Future<void> createOrder(String paymentMethod, String? transactionId,
-      String? amount, bool status, String? discount) async {
+      String? signature, String? amount, bool status, String? discount) async {
     try {
       String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
       if (token == null) {
@@ -339,6 +340,7 @@ class OrderController extends GetxController {
         data: {
           'paymentMethod': paymentMethod,
           'transaction_id': transactionId,
+          'signature': signature,
           'paymentStatus': status,
           'totalAmount': amount,
           'totalDiscount': discount

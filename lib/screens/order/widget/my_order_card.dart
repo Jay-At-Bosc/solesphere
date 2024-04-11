@@ -1,4 +1,5 @@
 import 'package:solesphere/auth/auth_exports.dart';
+import 'package:solesphere/common/widgets/popup/loaders.dart';
 import 'package:solesphere/screens/order/order_detail.screen.dart';
 
 import 'package:solesphere/screens/order/view_order_controller.dart';
@@ -144,7 +145,13 @@ class MyOrderCard extends GetView<ViewOrderController> {
                     index: j,
                     onPress: Get.currentRoute == '/OrderDetailScreen'
                         ? () {
-                            Get.back();
+                            TLoaders.errorSnackBar(title: "asdf");
+                            controller.cancelOrders(
+                                controller.orders[j].id,
+                                controller.orders[j].paymentMethod,
+                                controller.orders[j].totalAmount,
+                                controller.orders[j].transactionId,
+                                controller.orders[j].signature);
                           }
                         : () {
                             Get.to(() => const OrderDetailScreen(),
