@@ -61,13 +61,14 @@ class HomeScreenContent extends GetView<CustomDrawerController> {
                           Padding(
                             padding: const EdgeInsets.only(top: 38.0),
                             child: InkWell(
+                              splashColor: Colors.transparent,
                               onTap: () => Get.to(() => const Search()),
                               child: const TSearchContainer(
-                                text: "Search in SoleSphere",
-                                icon: Iconsax.search_normal,
-                                isSuffix: true,
-                                suffixIcon: Iconsax.microphone,
-                              ),
+                                  text: "Search in SoleSphere",
+                                  icon: Iconsax.search_normal,
+                                  isSuffix: true,
+                                  suffixIcon: Iconsax.microphone,
+                                  isDisable: true),
                             ),
                           ),
                           const SizedBox(height: SSizes.spaceBtwSections),

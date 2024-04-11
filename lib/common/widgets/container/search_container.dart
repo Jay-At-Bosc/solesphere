@@ -1,15 +1,18 @@
 import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/screens/home/controller/product_controller.dart';
 import 'package:solesphere/utils/constants/sizes.dart';
+import 'package:solesphere/utils/extensions/responsive_extension.dart';
 import '../../../../utils/device/device_utility.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/helpers/helper_function.dart';
 
 class TSearchContainer extends GetView<ProductController> {
-  const TSearchContainer({
+  const TSearchContainer(
+   {
     super.key,
     required this.text,
     this.icon,
+    this.isDisable = false,
     this.showBackground = true,
     this.showBorder = false,
     this.isSuffix = false,
@@ -22,6 +25,7 @@ class TSearchContainer extends GetView<ProductController> {
   final IconData? icon;
   final bool showBackground, showBorder;
   final bool isSuffix;
+  final bool isDisable;
   final IconData? suffixIcon;
   final Function()? suffixOnTap;
   final Function()? prefficOnTap;
@@ -48,7 +52,7 @@ class TSearchContainer extends GetView<ProductController> {
               : null,
         ),
         child: Row(
-          // crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             InkWell(
               onTap: () {
@@ -63,29 +67,28 @@ class TSearchContainer extends GetView<ProductController> {
               width: SSizes.spaceBtwItems,
             ),
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  top: 14.0,
-                ),
-                child: TextField(
-                  controller: controller.searchProduct,
-                  decoration: InputDecoration(
-                    hintText: text,
-                    hintStyle: Theme.of(context).textTheme.bodyMedium!.apply(
-                          color: SColors.textSecondary.withOpacity(0.7),
-                          fontFamily: 'AirbnbCereal',
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                    border: InputBorder.none,
-                  ),
-                  style: Theme.of(context).textTheme.bodyMedium!.apply(
-                        color: SColors.textSecondary,
+              child: TextField(
+                controller: controller.searchProduct,
+                enabled: isDisable ? false : true,
+                decoration: InputDecoration(
+                  hintText: text,
+                  hintStyle: Theme.of(context).textTheme.bodyMedium!.apply(
+                        color: SColors.textSecondary.withOpacity(0.7),
                         fontFamily: 'AirbnbCereal',
+                        overflow: TextOverflow.ellipsis,
                       ),
+                  contentPadding: EdgeInsets.symmetric(
+                      vertical: 2.4.getWidth(), horizontal: 0.0),
+                  border: InputBorder.none,
+                  // Center the hint text vertically
+                  alignLabelWithHint: true,
                 ),
+                style: Theme.of(context).textTheme.bodyMedium!.apply(
+                      color: SColors.textSecondary,
+                      fontFamily: 'AirbnbCereal',
+                    ),
               ),
             ),
-            // const Spacer(),
             if (isSuffix)
               GestureDetector(
                 onTap: () {

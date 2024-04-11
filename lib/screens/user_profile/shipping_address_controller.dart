@@ -37,8 +37,8 @@ class ShippingAdddressController extends GetxController
     super.onInit();
   }
 
-  // void get checkFormValidation =>
-  //     !address.currentState!.validate() ? throw "" : null;
+  void get checkFormValidation =>
+      !address.currentState!.validate() ? throw "" : null;
 
   void setInitialValue(int index) {
     if (index != -1) {
@@ -103,12 +103,15 @@ class ShippingAdddressController extends GetxController
   Future<void> updateAddress(int index) async {
     // https://solesphere-backend.onrender.com/api/v1/users/update-address
     try {
-      addressLine1.text = addressLine1.text.trim();
-      addressLine2.text = addressLine2.text.trim();
-      zipcode.text = zipcode.text.trim();
-      city.text = city.text.trim();
-      state.text = state.text.trim();
-      address.currentState!.validate() ? throw "" : null;
+      addressLine1.text =
+          addressLine1.text.trim().replaceAll(RegExp(r'\s+'), ' ');
+      addressLine2.text =
+          addressLine2.text.trim().replaceAll(RegExp(r'\s+'), ' ');
+      zipcode.text = zipcode.text.trim().replaceAll(RegExp(r'\s+'), ' ');
+      city.text = city.text.trim().replaceAll(RegExp(r'\s+'), ' ');
+      state.text = state.text.trim().replaceAll(RegExp(r'\s+'), ' ');
+      !address.currentState!.validate() ? throw "" : null;
+      // address.currentState!.validate() ? throw "" : null;
       String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
       var headers = {'auth-token': token, 'Content-Type': 'application/json'};
       var data = json.encode({
