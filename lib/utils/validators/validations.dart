@@ -8,9 +8,9 @@ class SValidationRules {
   static final hasSpecialChar = RegExp(r'[!@#$%^&*]');
   static final hasMultipleSpaceChar = RegExp(r'[/^(?!.*\s{2,})\S(?:.*\S)?$/]');
   static final hasWhitespace = RegExp(r'\s');
-  static final hasIndianPhoneNo =
-      RegExp(r'^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$');
+  static final hasIndianPhoneNo = RegExp(r'^(?!.*(.)\1{9})\d{10}$');
   static final hasIndianZipCode = RegExp(r'^\d{6}$');
+  static final hasTwoSpaces = RegExp(r'\s{2,}');
 }
 
 class SValidator {
@@ -19,9 +19,10 @@ class SValidator {
       return 'Usename is required';
     }
 
-    if (!value.contains(SValidationRules.hasMultipleSpaceChar)) {
-      return 'Usename is required';
+    if (value.contains(SValidationRules.hasTwoSpaces)) {
+      return 'Username cannot contain consecutive spaces';
     }
+
 
     if (value.length < 4 || value.length > 25) {
       return 'Username must be between 4 and 25 characters';
@@ -31,10 +32,13 @@ class SValidator {
     }
     if (!value.contains(SValidationRules.hasLowercase)) {
       return 'Username contain at least one lowercase';
+    
     }
     if (value.contains(SValidationRules.hasDigit)) {
       return 'Username can not contain any digit ';
+      
     }
+
 
     return null;
   }
@@ -44,11 +48,18 @@ class SValidator {
       return 'Email is required';
     }
 
+    if (value.contains(SValidationRules.hasTwoSpaces)) {
+      return 'Email cannot contain consecutive spaces';
+    }
+
+
     if (!SValidationRules.emailRegex.hasMatch(value)) {
       return 'Enter a valid email';
+  
     }
     if (value.length > 320) {
       return 'Email must be less than or equal to 320 characters';
+     
     }
     return null;
   }
@@ -56,8 +67,12 @@ class SValidator {
   static String? validatePassword(String? value) {
     if (value == null || value.isEmpty) return 'Password is required';
 
+    if (value.contains(SValidationRules.hasTwoSpaces)) {
+      return 'Password cannot contain consecutive spaces';
+    }
     if (value.length < 8) {
       return 'Password greater than or equal to 8 characters';
+      
     }
     if (value.length > 32) {
       return 'Password less than or equal to 32 characters';
@@ -67,15 +82,19 @@ class SValidator {
     }
     if (!value.contains(SValidationRules.hasLowercase)) {
       return 'Password contain at least one lowercase letter';
+  
     }
     if (!value.contains(SValidationRules.hasDigit)) {
       return 'Password contain at least one digit ';
+      
     }
     if (!value.contains(SValidationRules.hasSpecialChar)) {
       return "Password contain at least one special character(!@#\$%^&*)";
+      
     }
     if (!value.contains(SValidationRules.hasSpecialChar)) {
       return 'Password can not contain any white Spaces';
+      
     }
 
     return null;
@@ -86,12 +105,12 @@ class SValidator {
       return 'Mobile No. is required';
     }
 
-    if (!value.startsWith("+91")) {
-      return 'Mobile No. must start with +91';
+    if (value.contains(SValidationRules.hasTwoSpaces)) {
+      return 'Mobile number cannot contain consecutive spaces';
     }
+
     if (!SValidationRules.hasIndianPhoneNo.hasMatch(value) ||
-        value.length > 13 ||
-        value.length < 13) {
+        value.length != 10) {
       return 'Enter a valid Mobile No.';
     }
     return null;
@@ -100,16 +119,25 @@ class SValidator {
   static String? validateAddress(String? value, String label) {
     if (value == null || value.isEmpty) {
       return '$label is required';
+     
     }
+
+    if (value.contains(SValidationRules.hasTwoSpaces)) {
+      return '$label cannot contain consecutive spaces';
+    }
+
     return null;
   }
 
   static String? validateIndianZipCode(String? value) {
     if (value == null || value.isEmpty) {
       return 'Zip Code is required';
+    
     }
+
     if (!SValidationRules.hasIndianZipCode.hasMatch(value)) {
       return 'Enter a valid Zip Code';
+     
     }
     return null;
   }

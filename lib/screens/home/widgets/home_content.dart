@@ -45,7 +45,7 @@ class HomeScreenContent extends GetView<CustomDrawerController> {
                 : null,
             appBar: const SAppBar(),
             body: GetBuilder<ProductController>(
-              id: 'home',
+              id: ProductController.instance.homeId,
               builder: (productController) => RefreshIndicator(
                 onRefresh: () async {
                   await productController.fetchBrands();

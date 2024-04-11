@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:convert';
 import 'dart:developer';
 import 'package:dio/dio.dart';
@@ -6,12 +8,16 @@ import 'package:http/http.dart' as http;
 
 import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/common/widgets/popup/loaders.dart';
+import 'package:solesphere/screens/filter/filter_controller.dart';
+import 'package:solesphere/screens/filter/filter_screen.dart';
 import 'package:solesphere/services/api/end_points.dart';
 import '../../../services/models/category_model.dart';
 import '../../../services/models/product_model.dart';
 
 class ProductController extends GetxController {
   static ProductController get instance => Get.find();
+
+  String get homeId => "HomeId";
 
   TextEditingController searchProduct = TextEditingController();
 
@@ -39,24 +45,27 @@ class ProductController extends GetxController {
 
   Future<void> fetchBrands() async {
     isLoading.value = true;
-    final response = await http.get(Uri.parse('https://solesphere-backend.onrender.com/api/v1/brands/'));
+    final response = await http.get(
+        Uri.parse('https://solesphere-backend.onrender.com/api/v1/brands/'));
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> responseData = json.decode(response.body);
       final List<dynamic> brandsData = responseData['data']['brands'];
-      final List<Brands> brands = brandsData.map((item) => Brands.fromMap(item)).toList();
+      final List<Brands> brands =
+          brandsData.map((item) => Brands.fromMap(item)).toList();
       brandList.assignAll(brands);
     } else {
       TLoaders.errorSnackBar(title: "Oops!", message: "Failed to load data");
     }
     isLoading.value = false;
-    update(['home']);
+    update([homeId]);
   }
 
   Future<void> fetchProducts() async {
     filterProductList.clear();
     isProdcutLoading.value = true;
-    final response = await http.get(Uri.parse('https://solesphere-backend.onrender.com/api/v1/products/'));
+    final response = await http.get(
+        Uri.parse('https://solesphere-backend.onrender.com/api/v1/products/'));
 
     if (response.statusCode == 200) {
       final List<dynamic> data = json.decode(response.body)['data'];
@@ -68,7 +77,7 @@ class ProductController extends GetxController {
       throw Exception('Failed to load products');
     }
     isProdcutLoading.value = false;
-    update(['home']);
+    update([homeId]);
   }
 
   void onItemClick(String id, String name) {
@@ -76,7 +85,8 @@ class ProductController extends GetxController {
     if (selectedCategory.value != '') {
       filterProductList.clear();
       brandName.value = name;
-      filterProductList.addAll(productList.where((product) => product.brand.id == id));
+      filterProductList
+          .addAll(productList.where((product) => product.brand.id == id));
     } else {
       brandName.value = '';
       filterProductList.clear();
@@ -86,7 +96,8 @@ class ProductController extends GetxController {
   }
 
   String calculateDiscount(int actualPrice, int discountedPrice) {
-    double discountPercentage = (((actualPrice - discountedPrice) / actualPrice) * 100).toDouble();
+    double discountPercentage =
+        (((actualPrice - discountedPrice) / actualPrice) * 100).toDouble();
     return discountPercentage.toStringAsFixed(0);
   }
 
@@ -103,7 +114,8 @@ class ProductController extends GetxController {
 
       if (response.statusCode == 200) {
         List<dynamic> responseData = response.data['data']['responseData'];
-        searchProductList.addAll(responseData.map((json) => Products.fromMap(json)));
+        searchProductList
+            .addAll(responseData.map((json) => Products.fromMap(json)));
         log('Search Results Count: ${searchProductList.length}');
       } else {
         log(response.statusMessage.toString());
@@ -116,5 +128,20 @@ class ProductController extends GetxController {
     }
   }
 
-  
+  filterOpen() async {
+    await FilterController.instance.fetchData();
+    Get.bottomSheet(
+      FilterScreen(),
+      isScrollControlled: false,
+      enableDrag: false,
+      backgroundColor: Colors.white,
+      isDismissible: false,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+      ),
+    );
+  }
 }

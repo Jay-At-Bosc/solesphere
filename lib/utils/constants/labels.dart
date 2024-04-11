@@ -44,6 +44,7 @@ class SLabels {
   static const String passwordRestTitle = "Password Reset Link Sent!";
   static const String passwordResetMessage =
       "Success! We've sent a password reset link to your email.";
+      
 
   // User Details
   static const String userDetails = "User Details";
