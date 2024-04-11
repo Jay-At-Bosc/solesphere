@@ -26,19 +26,17 @@ class SValidator {
 
     if (value.length < 4 || value.length > 25) {
       return 'Username must be between 4 and 25 characters';
-      return 'Username must be between 4 and 25 characters';
     }
     if (!value.contains(SValidationRules.hasUppercase)) {
-      return 'Username contain at least one uppercase';
       return 'Username contain at least one uppercase';
     }
     if (!value.contains(SValidationRules.hasLowercase)) {
       return 'Username contain at least one lowercase';
-      return 'Username contain at least one lowercase';
+    
     }
     if (value.contains(SValidationRules.hasDigit)) {
       return 'Username can not contain any digit ';
-      return 'Username can not contain any digit ';
+      
     }
 
 
@@ -57,11 +55,11 @@ class SValidator {
 
     if (!SValidationRules.emailRegex.hasMatch(value)) {
       return 'Enter a valid email';
-      return 'Enter a valid email';
+  
     }
     if (value.length > 320) {
       return 'Email must be less than or equal to 320 characters';
-      return 'Email must be less than or equal to 320 characters';
+     
     }
     return null;
   }
@@ -74,31 +72,29 @@ class SValidator {
     }
     if (value.length < 8) {
       return 'Password greater than or equal to 8 characters';
-      return 'Password greater than or equal to 8 characters';
+      
     }
     if (value.length > 32) {
-      return 'Password less than or equal to 32 characters';
       return 'Password less than or equal to 32 characters';
     }
     if (!value.contains(SValidationRules.hasUppercase)) {
       return 'Password contain at least one uppercase letter';
-      return 'Password contain at least one uppercase letter';
     }
     if (!value.contains(SValidationRules.hasLowercase)) {
       return 'Password contain at least one lowercase letter';
-      return 'Password contain at least one lowercase letter';
+  
     }
     if (!value.contains(SValidationRules.hasDigit)) {
       return 'Password contain at least one digit ';
-      return 'Password contain at least one digit ';
+      
     }
     if (!value.contains(SValidationRules.hasSpecialChar)) {
       return "Password contain at least one special character(!@#\$%^&*)";
-      return "Password contain at least one special character(!@#\$%^&*)";
+      
     }
     if (!value.contains(SValidationRules.hasSpecialChar)) {
       return 'Password can not contain any white Spaces';
-      return 'Password can not contain any white Spaces';
+      
     }
 
     return null;
@@ -106,7 +102,6 @@ class SValidator {
 
   static String? validateIndianPhoneNumber(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Mobile No. is required';
       return 'Mobile No. is required';
     }
 
@@ -124,7 +119,7 @@ class SValidator {
   static String? validateAddress(String? value, String label) {
     if (value == null || value.isEmpty) {
       return '$label is required';
-      return '$label is required';
+     
     }
 
     if (value.contains(SValidationRules.hasTwoSpaces)) {
@@ -137,12 +132,12 @@ class SValidator {
   static String? validateIndianZipCode(String? value) {
     if (value == null || value.isEmpty) {
       return 'Zip Code is required';
-      return 'Zip Code is required';
+    
     }
 
     if (!SValidationRules.hasIndianZipCode.hasMatch(value)) {
       return 'Enter a valid Zip Code';
-      return 'Enter a valid Zip Code';
+     
     }
     return null;
   }

@@ -13,7 +13,8 @@ class CustomSimpleInput extends StatelessWidget {
     this.hintText,
     this.enable = true,
     this.value,
-    this.prefixText
+    this.prefixText,
+    this.maxInputChar
   });
 
   final TextEditingController controller;
@@ -24,6 +25,7 @@ class CustomSimpleInput extends StatelessWidget {
   final String? hintText;
   final String? prefixText;
 
+  final int? maxInputChar;
 
   final bool enable;
 
@@ -32,6 +34,7 @@ class CustomSimpleInput extends StatelessWidget {
     return TextFormField(
       // initialValue: value,
       enabled: enable,
+      inputFormatters: [LengthLimitingTextInputFormatter(maxInputChar)],
       controller: controller,
       validator: validator,
       maxLines: maxLength,
