@@ -12,6 +12,7 @@ class CustomSimpleInput extends StatelessWidget {
     this.hintText,
     this.enable = true,
     this.value,
+    this.prefixText
   });
 
   final TextEditingController controller;
@@ -20,6 +21,8 @@ class CustomSimpleInput extends StatelessWidget {
   final FormFieldValidator<String>? validator;
   final int? maxLength;
   final String? hintText;
+  final String? prefixText;
+
 
   final bool enable;
 
@@ -34,10 +37,12 @@ class CustomSimpleInput extends StatelessWidget {
       cursorColor: SColors.accent,
       cursorErrorColor: SColors.error,
       style: Theme.of(context).textTheme.titleSmall,
+
       decoration: InputDecoration(
         errorStyle: Theme.of(context).textTheme.labelSmall,
         fillColor: SColors.primary,
         filled: true,
+        prefixText: prefixText,
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(50.0),
           borderSide: const BorderSide(

@@ -8,7 +8,7 @@ class SValidationRules {
   static final hasSpecialChar = RegExp(r'[!@#$%^&*]');
   static final hasWhitespace = RegExp(r'\s');
   static final hasIndianPhoneNo =
-      RegExp(r'^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$');
+     RegExp(r'^(?!.*(.)\1{9})\d{10}$');
   static final hasIndianZipCode = RegExp(r'^\d{6}$');
 }
 
@@ -82,14 +82,9 @@ class SValidator {
       throw 'Mobile No. is required';
     }
     
-    if (!value.startsWith("+91")) {
-      throw 'Mobile No. must start with +91';
-    }
-    if (!SValidationRules.hasIndianPhoneNo.hasMatch(value) ||
-        value.length > 13 ||
-        value.length < 13) {
-      throw 'Enter a valid Mobile No.';
-    }
+    if (!SValidationRules.hasIndianPhoneNo.hasMatch(value) || value.length != 10) {
+    return 'Enter a valid Mobile No.';
+  }
     return null;
   }
 

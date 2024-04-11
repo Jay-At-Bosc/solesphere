@@ -1,5 +1,8 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:solesphere/common/widgets/popup/loaders.dart';
 import 'package:solesphere/screens/home/controller/product_controller.dart';
 
@@ -33,20 +36,24 @@ class SSectionTitle extends StatelessWidget {
               textScaler: const TextScaler.linear(1),
               style: Theme.of(context).textTheme.bodyLarge,
             ),
-            TextButton(
+            // TextButton(
+            //   onPressed: () {
+            //     Get.closeAllSnackbars();
+            //     TLoaders.warningSnackBar(
+            //         title: "Oh noo", message: "There is nothing to see");
+            //   },
+            //   child: const Icon(
+            //     Iconsax.filter,
+            //     color: SColors.accent,
+            //   ),
+            // ),
+            IconButton(
               onPressed: () {
-                Get.closeAllSnackbars();
-                TLoaders.warningSnackBar(
-                    title: "Oh noo", message: "There is nothing to see");
+                ctx.filterOpen();
               },
-              child: Text(
-                SLabels.seeAll,
-                overflow: TextOverflow.ellipsis,
-                textScaler: const TextScaler.linear(1),
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium!
-                    .apply(color: SColors.accent),
+              icon: Icon(
+                Icons.format_align_left_sharp,
+                color: SColors.textPrimary,
               ),
             )
           ],
