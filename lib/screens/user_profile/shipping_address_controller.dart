@@ -103,7 +103,12 @@ class ShippingAdddressController extends GetxController
   Future<void> updateAddress(int index) async {
     // https://solesphere-backend.onrender.com/api/v1/users/update-address
     try {
-      !address.currentState!.validate() ? throw "" : null;
+      addressLine1.text = addressLine1.text.trim();
+      addressLine2.text = addressLine2.text.trim();
+      zipcode.text = zipcode.text.trim();
+      city.text = city.text.trim();
+      state.text = state.text.trim();
+      address.currentState!.validate() ? throw "" : null;
       String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
       var headers = {'auth-token': token, 'Content-Type': 'application/json'};
       var data = json.encode({

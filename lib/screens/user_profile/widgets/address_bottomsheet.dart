@@ -68,7 +68,7 @@ class AddressBottomSheet extends GetView<ShippingAdddressController> {
                           validator: (v) => SValidator.validateAddress(
                               v, SLabels.addresslineOne),
                           keyboardType: TextInputType.multiline,
-                          maxLength: 1,
+                          // maxLength: 1,
                         ),
                         paddingBetweenFields,
 
@@ -79,7 +79,7 @@ class AddressBottomSheet extends GetView<ShippingAdddressController> {
                           keyboardType: TextInputType.multiline,
                           validator: (v) => SValidator.validateAddress(
                               v, SLabels.addresslineTwo),
-                          maxLength: 1,
+                          // maxLength: 1,
                         ),
                         paddingBetweenFields,
 
@@ -90,7 +90,7 @@ class AddressBottomSheet extends GetView<ShippingAdddressController> {
                           keyboardType: TextInputType.multiline,
                           validator: (v) =>
                               SValidator.validateAddress(v, SLabels.city),
-                          maxLength: 1,
+                          // maxLength: 1,
                         ),
                         paddingBetweenFields,
 
@@ -103,7 +103,7 @@ class AddressBottomSheet extends GetView<ShippingAdddressController> {
                                 controller: controller.state,
                                 validator: (v) => SValidator.validateAddress(
                                     v, SLabels.state),
-                                maxLength: 1,
+                                // maxLength: 1,
                               ),
                             ),
                             Flexible(
@@ -113,7 +113,7 @@ class AddressBottomSheet extends GetView<ShippingAdddressController> {
                                 keyboardType: TextInputType.number,
                                 validator: (v) =>
                                     SValidator.validateIndianZipCode(v),
-                                maxLength: 1,
+                                maxLength: 6,
                               ),
                             ),
                           ],
