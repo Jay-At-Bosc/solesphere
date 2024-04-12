@@ -1,6 +1,4 @@
 // ignore_for_file: avoid_print
-
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
@@ -65,6 +63,9 @@ class FilterController extends GetxController {
           controller.isProdcutLoading.value = false;
           Get.back();
           controller.update([controller.homeId]);
+        } else if (response.statusCode == 404) {
+          Get.back();
+          throw CustomException(title: "Opps!", message: "No Product Found!");
         } else {
           controller.isProdcutLoading.value = false;
           controller.update([controller.homeId]);

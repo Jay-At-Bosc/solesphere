@@ -2,8 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
-import 'package:solesphere/common/widgets/popup/loaders.dart';
 import 'package:solesphere/screens/home/controller/product_controller.dart';
 
 import '../../../utils/constants/colors.dart';

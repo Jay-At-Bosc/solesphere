@@ -70,6 +70,7 @@ class OrderDetailScreen extends GetView<ViewOrderController> {
                             .copyWith(fontWeight: FontWeight.w300),
                       ),
                       LabelAndPrice(
+                        sign: "+",
                         title: SLabels.discount,
                         price: int.parse(
                             double.parse(controller.orders[index].totalDiscount)
@@ -78,9 +79,12 @@ class OrderDetailScreen extends GetView<ViewOrderController> {
                         style: Theme.of(context)
                             .textTheme
                             .labelMedium!
-                            .copyWith(fontWeight: FontWeight.w300),
+                            .copyWith(
+                                fontWeight: FontWeight.w300,
+                                color: SColors.success),
                       ),
                       LabelAndPrice(
+                        sign: "-",
                         title: "Delivery Fees / Shipping Cost",
                         price: int.parse(double.parse(
                                         controller.orders[index].totalAmount)
@@ -92,7 +96,8 @@ class OrderDetailScreen extends GetView<ViewOrderController> {
                         style: Theme.of(context)
                             .textTheme
                             .labelMedium!
-                            .copyWith(fontWeight: FontWeight.w300),
+                            .copyWith(
+                                fontWeight: FontWeight.w300, color: Colors.red),
                       ),
                       const Divider(),
                       LabelAndPrice(

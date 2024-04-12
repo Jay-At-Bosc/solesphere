@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:solesphere/screens/filter/custom_filter_type_component.dart';
 import 'package:solesphere/screens/filter/custom_filter_value_component.dart';
-import 'package:solesphere/screens/filter/title_and_button.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
 import '../../utils/constants/colors.dart';
