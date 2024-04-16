@@ -23,7 +23,7 @@ class HomeScreenContent extends GetView<CustomDrawerController> {
     Get.put(CustomDrawerController());
 
     return GetBuilder<CustomDrawerController>(
-      id: "drawer",
+      id: controller.drawerId,
       builder: (drawerController) {
         return AnimatedContainer(
           decoration: BoxDecoration(

@@ -8,7 +8,7 @@ class PaymentSelection extends GetView<OrderController> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<OrderController>(
-      id: 'payment',
+      id: controller.paymentId,
       builder: (ctx) => SizedBox(
         height: Get.size.height * 0.5,
         child: ListView.builder(

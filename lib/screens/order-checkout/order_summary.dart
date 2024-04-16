@@ -17,7 +17,7 @@ class OrderSummary extends GetView<OrderController> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<OrderController>(
-      id: 'summary',
+      id: controller.summaryId,
       builder: (ctx) => SizedBox(
         // color: Colors.red.withOpacity(0.1),
         // height: Get.size.height * 0.5,
@@ -62,7 +62,7 @@ class OrderSummary extends GetView<OrderController> {
                 padding: 7.0,
               ),
               GetBuilder<OrderController>(
-                id: 'updateAddress',
+                id: controller.updateAddressId,
                 builder: (ctx) => ListTile(
                   contentPadding: EdgeInsets.all(4.0.getWidth()),
                   tileColor: SColors.primary,

@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 import 'package:dio/dio.dart';
@@ -18,6 +19,7 @@ class ProductController extends GetxController {
   static ProductController get instance => Get.find();
 
   String get homeId => "HomeId";
+  String get searchId => "search";
 
   TextEditingController searchProduct = TextEditingController();
 
@@ -33,15 +35,25 @@ class ProductController extends GetxController {
   final searchProductList = <Products>[].obs;
 
   final brandList = RxList<Brands>([]);
+  late Timer timer;
 
   @override
   void onInit() {
+    timer = Timer.periodic(Duration(minutes: 10), (_) => fetchData());
+    selectedCategory.value = '0';
     fetchBrands();
     fetchProducts();
+    // searchProductList.value = productList;
     super.onInit();
   }
 
   bool isMainLoading() => isLoading.value || isProdcutLoading.value;
+
+  void fetchData() {
+    log("calling..");
+    fetchBrands();
+    fetchProducts();
+  }
 
   Future<void> fetchBrands() async {
     isLoading.value = true;
@@ -124,7 +136,7 @@ class ProductController extends GetxController {
       log(e.toString());
     } finally {
       isSearching.value = false;
-      update(['search']);
+      update([searchId]);
     }
   }
 
@@ -143,5 +155,11 @@ class ProductController extends GetxController {
         ),
       ),
     );
+  }
+
+  @override
+  void onClose() {
+    timer.cancel();
+    super.onClose();
   }
 }

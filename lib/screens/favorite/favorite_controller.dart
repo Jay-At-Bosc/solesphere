@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:solesphere/auth/auth_exports.dart';
@@ -95,6 +96,12 @@ class FavoriteController extends GetxController {
         );
 
         getFavoriteList();
+
+        // await FirebaseAnalytics.instance.logAddToCart(
+        //   currency: 'INR',
+        //   value: ,
+        //   items: [toAnalyticsEventItem()],
+        // );
         update(['Favorite']);
       } else {
         log(response.statusMessage.toString());
@@ -138,4 +145,26 @@ class FavoriteController extends GetxController {
       log(e.toString());
     }
   }
+
+
+  // AnalyticsEventItem toAnalyticsEventItem() {
+  //   String itemName = favoriteList;
+  //   String itemId = productDetail.id;
+  //   String itemCategory = productDetail.category.category;
+  //   double price =
+  //       productDetail.variants.first.sizes.first.discountedPrice.toDouble();
+  //   String? currency = 'INR'; // Assuming currency is in the first variant
+
+  //   String? brand =
+  //       productDetail.brand.brand; // Assuming Brand has a 'name' property
+
+  //   return AnalyticsEventItem(
+  //     itemId: itemId,
+  //     itemName: itemName,
+  //     itemCategory: itemCategory,
+  //     price: price,
+  //     currency: currency,
+  //     itemBrand: brand,
+  //   );
+  // }
 }

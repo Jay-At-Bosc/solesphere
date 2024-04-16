@@ -33,6 +33,16 @@ class OrderController extends GetxController {
   RxBool isOrderProcessLoading = false.obs;
   RxBool isSummaryLoading = false.obs;
 
+  //ID
+  String get addressId => 'address';
+  String get titleId => 'title';
+  String get btnId => "btn";
+  String get pageContentId => "pageContent";
+  String get paymentId => "payment";
+  String get summaryId => "summary";
+  String get updateAddressId => "updateAddress";
+  String get stepperId => "stepper";
+
   // List of available use address
   List<Useraddress> userAddresses = <Useraddress>[].obs;
 
@@ -99,14 +109,14 @@ class OrderController extends GetxController {
   void setSelectedOption(String value) {
     selectedOption.value = value;
     log('selected Address: ${selectedOption.value}');
-    update(['address']);
+    update([addressId]);
   }
 
 // selected payment method
   void setPaymentMode(String value) {
     selectedPaymentMode.value = value;
     log('selected Payment Mode: ${selectedPaymentMode.value}');
-    update(['payment']);
+    update([paymentId]);
   }
 
 // set Active Step in stepper
@@ -114,7 +124,7 @@ class OrderController extends GetxController {
     if (index < 3) {
       activeStep.value = index; // Update active step
       log(activeStep.toString());
-      update(['stepper', 'pageContent', 'btn', 'title']);
+      update([stepperId, pageContentId, btnId,titleId]);
     }
   }
 
@@ -122,7 +132,7 @@ class OrderController extends GetxController {
   Future<void> getUserAddress() async {
     try {
       isAddressLoading.value = true;
-      update(['pageContent', 'btn']);
+      update([pageContentId, btnId]);
       String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
       var headers = {'auth-token': token, 'Content-Type': 'application/json'};
       var dio = Dio();
@@ -143,13 +153,13 @@ class OrderController extends GetxController {
         log("length : ${addressList.length}");
         isAddressLoading.value = false;
         update(
-          ['pageContent', 'updateAddress', 'btn'],
+          [pageContentId, updateAddressId, btnId],
         );
       }
     } catch (e) {
       log(e.toString());
       isAddressLoading.value = false;
-      update(['pageContent', 'btn']);
+      update([pageContentId, btnId]);
     }
   }
 
@@ -158,7 +168,7 @@ class OrderController extends GetxController {
     try {
       orderSummary.clear();
       isSummaryLoading.value = true;
-      update(['pageContent', 'btn']);
+      update([pageContentId, btnId]);
       String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
       var headers = {'auth-token': token, 'Content-Type': 'application/json'};
       var dio = Dio();
@@ -181,12 +191,12 @@ class OrderController extends GetxController {
         log("Okkkk");
         log("length : ${orderSummary.length}");
         isSummaryLoading.value = false;
-        update(['pageContent', 'btn']);
+        update([pageContentId, btnId]);
       }
     } catch (e) {
       log(e.toString());
       isSummaryLoading.value = false;
-      update(['pageContent', 'btn']);
+      update([pageContentId, btnId]);
     }
   }
 
@@ -268,7 +278,7 @@ class OrderController extends GetxController {
                 true,
                 orderSummary[0].totalDiscount.toString());
 
-            Get.offAllNamed(Routes.viewOrder);
+            // Get.offAllNamed(Routes.viewOrder);
           });
 
           _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR,
@@ -287,22 +297,27 @@ class OrderController extends GetxController {
             // Handle external wallet selection here
           });
           isOrderProcessLoading.value = false;
-          update(['btn']);
+          update([btnId]);
         } else {
           TLoaders.errorSnackBar(
               title: "Failed", message: response.statusMessage);
         }
       } else {
-        await createOrder(selectedPaymentMode.value, null, null, null, false,
+        await createOrder(
+            selectedPaymentMode.value,
+            null,
+            null,
+            orderSummary[0].totalDiscountedAmount.toString(),
+            false,
             orderSummary[0].totalDiscount.toString());
         isOrderProcessLoading.value = false;
-        update(['btn']);
+        update([btnId]);
 
-        Get.offAllNamed(Routes.viewOrder);
+        // Get.offAllNamed(Routes.viewOrder);
       }
     } catch (e) {
       isOrderProcessLoading.value = false;
-      update(['btn']);
+      update([btnId]);
 
       Get.back();
       log("Error in processOrder: ${e.toString()}");
@@ -356,6 +371,7 @@ class OrderController extends GetxController {
       }
     } catch (e) {
       log('Error creating order: $e');
+      Get.back();
       TLoaders.errorSnackBar(
           title: "Error",
           message: "An error occurred while placing your order.");

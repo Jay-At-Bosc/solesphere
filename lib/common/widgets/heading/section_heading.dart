@@ -32,19 +32,11 @@ class SSectionTitle extends StatelessWidget {
                   : SLabels.newArrivals,
               overflow: TextOverflow.ellipsis,
               textScaler: const TextScaler.linear(1),
-              style: Theme.of(context).textTheme.bodyLarge,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyLarge!
+                  .copyWith(color: Colors.black),
             ),
-            // TextButton(
-            //   onPressed: () {
-            //     Get.closeAllSnackbars();
-            //     TLoaders.warningSnackBar(
-            //         title: "Oh noo", message: "There is nothing to see");
-            //   },
-            //   child: const Icon(
-            //     Iconsax.filter,
-            //     color: SColors.accent,
-            //   ),
-            // ),
             IconButton(
               onPressed: () {
                 ctx.filterOpen();

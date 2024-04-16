@@ -1,4 +1,4 @@
-
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:solesphere/auth/auth_exports.dart';
 //import 'package:solesphere/auth/signup/signup_screen.dart';
 
@@ -11,7 +11,16 @@ class App extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    final FirebaseAnalyticsObserver observer =
+        FirebaseAnalyticsObserver(analytics: analytics);
+
+    analytics.logEvent(name: 'APP', parameters: {
+      'app_name': 'S'
+    });
+
     return GetMaterialApp(
+      navigatorObservers: <NavigatorObserver>[observer],
       title: 'Solesphere App',
       themeMode: ThemeMode.system,
       theme: SAppTheme.lightTheme,
@@ -21,7 +30,6 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialBinding: GlobalBindings(),
       //home: const SignUpScreen(),
-      
     );
   }
 }
@@ -29,6 +37,6 @@ class App extends StatelessWidget {
 class GlobalBindings extends Bindings {
   @override
   void dependencies() {
-    Get.put(SplashController(),permanent: true);
+    Get.put(SplashController(), permanent: true);
   }
 }

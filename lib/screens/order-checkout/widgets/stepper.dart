@@ -20,7 +20,7 @@ class CustomeStepper extends StatelessWidget {
       height: 13.0.getHeight(),
       // color: Colors.white,
       child: GetBuilder<OrderController>(
-        id: 'stepper',
+        id: OrderController().stepperId,
         builder: (ctx) => EasyStepper(
           activeStep: ctx.activeStep.value,
           stepShape: StepShape.rRectangle,

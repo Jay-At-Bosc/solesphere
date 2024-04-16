@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:solesphere/auth/auth_exports.dart';
@@ -25,6 +26,11 @@ class ProductDetailController extends GetxController {
   RxBool isCartLoading = false.obs;
   RxInt selectedVarient = 0.obs;
   RxInt selectedSize = 0.obs;
+
+  AnalyticsEventItem event = AnalyticsEventItem();
+
+  String get detailedProductId => 'detailedProductId';
+  String get cartBtnId => 'cartBtn';
   // String productId = '';
 
   // @override
@@ -69,6 +75,10 @@ class ProductDetailController extends GetxController {
       isLoading.value = true;
       log(productId);
 
+      // await FirebaseAnalytics.instance.logViewItem(
+
+      // );
+
       final response = await http.get(
         Uri.parse(
           'https://solesphere-backend.onrender.com/api/v1/products/product-detail?product_id=$productId',
@@ -82,6 +92,15 @@ class ProductDetailController extends GetxController {
         Map<String, dynamic> responseData = json.decode(response.body);
         setProductDetails(responseData);
         isLoading.value = false;
+
+        
+        await FirebaseAnalytics.instance.logViewItem(
+            currency: "INR",
+            value: productDetail.variants.first.sizes.first.discountedPrice
+                .toDouble(),
+            items: [
+              toAnalyticsEventItem(),
+            ]);
       } else {
         isLoading.value = false;
         throw Exception('Failed to load product details');
@@ -126,7 +145,7 @@ class ProductDetailController extends GetxController {
       // if (isCartLoading.value == true) {
       //   const ShoesLoading();
       // }
-      update(['CartList', 'cartBtn']);
+      update(['CartList', cartBtnId]);
       String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
 
       var headers = {'auth-token': token, 'Content-Type': 'application/json'};
@@ -161,7 +180,15 @@ class ProductDetailController extends GetxController {
         //   Get.back();
         // }
         // CartController.instance.loadCartFromApi();
-        update(['CartList', 'cartBtn']);
+
+        await FirebaseAnalytics.instance.logAddToCart(
+          currency: 'INR',
+          value: productDetail.variants.first.sizes.first.discountedPrice
+              .toDouble(),
+          items: [toAnalyticsEventItem()],
+        );
+
+        update(['CartList', cartBtnId]);
         log("Oooooooooooook");
         TLoaders.successSnackBar(
             title: "Wow 🎉", message: "$name is added to the cart");
@@ -183,5 +210,26 @@ class ProductDetailController extends GetxController {
     imageUrls.clear();
 
     super.onClose();
+  }
+
+  AnalyticsEventItem toAnalyticsEventItem() {
+    String itemName = productDetail.productName;
+    String itemId = productDetail.id;
+    String itemCategory = productDetail.category.category;
+    double price =
+        productDetail.variants.first.sizes.first.discountedPrice.toDouble();
+    String? currency = 'INR'; // Assuming currency is in the first variant
+
+    String? brand =
+        productDetail.brand.brand; // Assuming Brand has a 'name' property
+
+    return AnalyticsEventItem(
+      itemId: itemId,
+      itemName: itemName,
+      itemCategory: itemCategory,
+      price: price,
+      currency: currency,
+      itemBrand: brand,
+    );
   }
 }

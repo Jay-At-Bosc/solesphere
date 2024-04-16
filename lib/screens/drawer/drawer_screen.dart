@@ -23,7 +23,7 @@ class DrawerScreen extends GetView<NavigationController> {
         ),
         child: SingleChildScrollView(
           child: GetBuilder<NavigationController>(
-            id: 'user',
+            id: controller.userId,
             builder: (controller) => Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

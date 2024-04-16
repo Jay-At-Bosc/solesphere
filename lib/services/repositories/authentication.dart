@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -20,6 +21,9 @@ class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
 
   final _auth = FirebaseAuth.instance;
+  // final firebaseAnalytics = FirebaseAnalytics.instance;
+
+  // FirebaseAnalyticsObserver observer = FirebaseAnalyticsObserver(analytics: firebaseAnalytics);
 
   final appStorage = Get.find<AppStorage>();
   final connection = Get.find<NetworkController>();
@@ -151,7 +155,6 @@ class AuthenticationRepository extends GetxController {
     } on FormatException catch (_) {
       throw const SFormatException();
     } catch (e) {
-      
       rethrow;
     }
   }

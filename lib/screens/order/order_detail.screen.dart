@@ -29,7 +29,7 @@ class OrderDetailScreen extends GetView<ViewOrderController> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: GetBuilder<ViewOrderController>(
-          id: 'orderStatus',
+          id: controller.ordersStatusId,
           builder: (controller) => RefreshIndicator(
             onRefresh: () async {
               await controller.getUserOrders();
@@ -147,13 +147,10 @@ class OrderStatusStepper extends GetView<ViewOrderController> {
       stepShape: StepShape.rRectangle,
       stepBorderRadius: 3.0.getWidth(),
       borderThickness: 2,
-      // padding: const EdgeInsets.all(0.0),
       stepRadius: 3.4.getHeight(),
-      finishedStepBorderColor: SColors.accent,
-      // finishedStepTextColor: SColors.accent,
+      finishedStepBorderColor:
+          controller.orderStatus != 4 ? SColors.accent : Colors.black,
       finishedStepBackgroundColor: Colors.white,
-      // activeStepIconColor: SColors.accent,
-      // unreachedStepBackgroundColor: SColors.buttonDisabled,
       showLoadingAnimation: false,
       steps: [
         EasyStep(
@@ -164,7 +161,10 @@ class OrderStatusStepper extends GetView<ViewOrderController> {
               child: Icon(
                 Iconsax.box,
                 size: 8.0.getWidth(),
-                color: controller.orderStatus >= 1 ? SColors.accent : null,
+                color:
+                    controller.orderStatus >= 1 && controller.orderStatus != 4
+                        ? SColors.accent
+                        : null,
               ),
             ),
           ),
@@ -182,7 +182,9 @@ class OrderStatusStepper extends GetView<ViewOrderController> {
                 Iconsax.truck_fast,
                 size: 8.0.getWidth(),
                 color:
-                    controller.orderStatus >= 2 ? SColors.accent : Colors.black,
+                    controller.orderStatus >= 2 && controller.orderStatus != 4
+                        ? SColors.accent
+                        : Colors.black,
               ),
             ),
           ),
@@ -197,9 +199,10 @@ class OrderStatusStepper extends GetView<ViewOrderController> {
             child: Opacity(
               opacity: 1,
               child: Icon(Iconsax.truck_tick,
-                  color: controller.orderStatus >= 3
-                      ? SColors.accent
-                      : Colors.black,
+                  color:
+                      controller.orderStatus >= 3 && controller.orderStatus != 4
+                          ? SColors.accent
+                          : Colors.black,
                   size: 8.0.getWidth()),
             ),
           ),

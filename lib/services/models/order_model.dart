@@ -2,10 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
-class ViewOrderModel {
+class   ViewOrderModel {
   final String id;
   final String transactionId;
   final String signature;
+  final String refundId;
   final String user;
   final List<Product> products;
   final String totalAmount;
@@ -20,6 +21,7 @@ class ViewOrderModel {
     required this.id,
     required this.transactionId,
     required this.signature,
+    required this.refundId,
     required this.user,
     required this.products,
     required this.totalAmount,
@@ -36,6 +38,7 @@ class ViewOrderModel {
     String? id,
     String? transactionId,
     String? signature,
+    String? refundId,
     String? user,
     List<Product>? products,
     String? totalAmount,
@@ -51,6 +54,7 @@ class ViewOrderModel {
       id: id ?? this.id,
       transactionId: transactionId ?? this.transactionId,
       signature: signature ?? this.signature,
+      refundId: refundId ?? this.refundId,
       user: user ?? this.user,
       products: products ?? this.products,
       totalAmount: totalAmount ?? this.totalAmount,
@@ -69,6 +73,7 @@ class ViewOrderModel {
       '_id': id,
       'transaction_id': transactionId,
       'signature': signature,
+      'refund_id': refundId,
       'user': user,
       'products': products.map((x) => x.toMap()).toList(),
       'totalAmount': totalAmount,
@@ -85,8 +90,9 @@ class ViewOrderModel {
   factory ViewOrderModel.fromMap(Map<String, dynamic> map) {
     return ViewOrderModel(
       id: map['_id'] as String,
-      transactionId: map['transaction_id'] as String,
-      signature: map['signature'] as String,
+      transactionId: map['transaction_id'] as String? ?? '',
+      signature: map['signature'] as String? ?? '',
+      refundId: map['refund_id'] as String? ?? '',
       user: map['user'] as String,
       products: List<Product>.from(
         (map['products'] as List<dynamic>).map<Product>(
@@ -100,7 +106,7 @@ class ViewOrderModel {
       paymentStatus: map['paymentStatus'] as String,
       createdAt: map['createdAt'] as String,
       updatedAt: map['updatedAt'] as String,
-      v: map['__v'] as int,
+      v: map['__v'].toInt(),
     );
   }
 
@@ -111,7 +117,7 @@ class ViewOrderModel {
 
   @override
   String toString() {
-    return 'ViewOrderModel(_id: $id, transaction_id: $transactionId, signature: $signature, user: $user, products: $products, totalAmount: $totalAmount, totalDiscount: $totalDiscount, orderStatus: $orderStatus, paymentMethod: $paymentMethod, paymentStatus: $paymentStatus, createdAt: $createdAt, updatedAt: $updatedAt, __v: $v)';
+    return 'ViewOrderModel(_id: $id, transaction_id: $transactionId, signature: $signature, refund_id: $refundId,user: $user, products: $products, totalAmount: $totalAmount, totalDiscount: $totalDiscount, orderStatus: $orderStatus, paymentMethod: $paymentMethod, paymentStatus: $paymentStatus, createdAt: $createdAt, updatedAt: $updatedAt, __v: $v)';
   }
 
   @override
@@ -122,6 +128,7 @@ class ViewOrderModel {
     return other.id == id &&
         other.transactionId == transactionId &&
         other.signature == signature &&
+        other.refundId == refundId &&
         other.user == user &&
         listEquals(other.products, products) &&
         other.totalAmount == totalAmount &&
@@ -139,6 +146,7 @@ class ViewOrderModel {
     return id.hashCode ^
         transactionId.hashCode ^
         signature.hashCode ^
+        refundId.hashCode ^
         user.hashCode ^
         products.hashCode ^
         totalAmount.hashCode ^

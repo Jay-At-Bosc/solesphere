@@ -16,6 +16,9 @@ class ViewOrderController extends GetxController {
   int orderStatus = 1;
   bool isLoading = false;
 
+  String get ordersId => 'orders';
+  String get ordersStatusId => 'orderStatus';
+
   @override
   void onInit() async {
     await getUserOrders();
@@ -35,14 +38,17 @@ class ViewOrderController extends GetxController {
       case 'Delivered':
         orderStatus = 3;
         break;
+      case 'Cancelled':
+        orderStatus = 4;
+        break;
     }
-    update(['orderStatus']);
+    update([ordersStatusId]);
   }
 
   Future<void> getUserOrders() async {
     try {
       isLoading = true;
-      update(['orders']);
+      update([ordersId]);
       String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
 
       var headers = {
@@ -65,20 +71,20 @@ class ViewOrderController extends GetxController {
         orders.sort(((a, b) => b.id.compareTo(a.id)));
         log(orders.length.toString());
         isLoading = false;
-        update(['orders', 'orderStatus']);
+        update([ordersId, ordersStatusId]);
       } else {
         TLoaders.warningSnackBar(
           title: "Opps",
           message: response.statusMessage ?? 'Failed to load data',
         );
         isLoading = false;
-        update(['orders']);
+        update([ordersId]);
       }
     } catch (e) {
       TLoaders.warningSnackBar(title: "Opps", message: e.toString());
       log(e.toString());
       isLoading = false;
-      update(['orders']);
+      update([ordersId]);
     }
   }
 
@@ -118,47 +124,53 @@ class ViewOrderController extends GetxController {
     }
   }
 
-  Future<void> cancelOrders(String id, bool paymentMethod, String amount,
-      String paymentId, String signature) async {
+  Future<void> cancelOrders(String transactionId) async {
     try {
       // isLoading = true;
       // update(['orders']);
       String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
-      var data = json.encode({
-        "paymentMethod": paymentMethod ? '1' : '0',
-        "orderId": id,
-      });
+      // var data = json.encode({'transction_id': transactionId});
       var headers = {'auth-token': token, 'Content-Type': 'application/json'};
 
       var dio = Dio();
 
-      var response = await dio.post(EndPoints.cancelOrders,
-          options: Options(
-            headers: headers,
-          ),
-          data: data);
+      var response = await dio.post(
+        'https://solesphere-backend.onrender.com/api/v1/orders/refund/$transactionId',
+        options: Options(headers: headers),
+      );
 
       if (response.statusCode == 200) {
-        final jsonResponse = response.data as Map<String, dynamic>;
-        final List<dynamic> dataList = jsonResponse['data'];
-        orders = dataList.map((data) => ViewOrderModel.fromMap(data)).toList();
-        orders.sort(((a, b) => b.id.compareTo(a.id)));
+        // final jsonResponse = response.data as Map<String, dynamic>;
+        // final List<dynamic> dataList = jsonResponse['data'];
+        // orders = dataList.map((data) => ViewOrderModel.fromMap(data)).toList();
+        // orders.sort(((a, b) => b.id.compareTo(a.id)));
+        Get.back();
+        TLoaders.successSnackBar(
+            title: "Order Cancelled..",
+            message:
+                'Your Order has been Cancelled and ${response.statusMessage}');
+        getUserOrders();
+
         log(orders.length.toString());
+        log(response.data.toString());
         isLoading = false;
-        update(['orders', 'orderStatus']);
+        update([ordersId, ordersStatusId]);
+        update();
       } else {
         TLoaders.warningSnackBar(
           title: "Opps",
           message: response.statusMessage ?? 'Failed to load data',
         );
         isLoading = false;
-        update(['orders']);
+        update([ordersId]);
       }
     } catch (e) {
-      TLoaders.warningSnackBar(title: "Opps", message: e.toString());
-      log(e.toString());
+      TLoaders.warningSnackBar(
+          title: "Opps",
+          message: 'Something went wrong.. Please try again later.!');
+      // log(e.toString());
       isLoading = false;
-      update(['orders']);
+      update([ordersId]);
     }
   }
 }

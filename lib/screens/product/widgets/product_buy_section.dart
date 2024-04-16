@@ -32,7 +32,7 @@ class ProductBuySection extends GetView<ProductDetailController> {
         //   height: SSizes.spaceBtwItems,
         // ),
         GetBuilder<ProductDetailController>(
-          id: 'cartBtn',
+          id: controller.cartBtnId,
           builder: (controller) => CustomButton(
               btnText: "Add To Cart",
               foregroundColor: Colors.black,

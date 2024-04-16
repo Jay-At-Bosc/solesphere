@@ -27,6 +27,9 @@ Future<void> main() async {
   /// Initilize Network Manager
   Get.put<NetworkController>(NetworkController(), permanent: true);
 
+  
+  
+
   /// Firebase Initialization
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,

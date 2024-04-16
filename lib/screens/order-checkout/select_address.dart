@@ -22,7 +22,7 @@ class AddressSelection extends GetView<OrderController> {
 
   List<Widget> pageContent = <Widget>[
     GetBuilder<OrderController>(
-      id: 'address',
+      id: OrderController().addressId,
       builder: (ctx) => Column(
         children: [
           SizedBox(
@@ -70,7 +70,7 @@ class AddressSelection extends GetView<OrderController> {
       backgroundColor: SColors.lightBackground.withOpacity(0.99),
       appBar: AppBar(
         title: GetBuilder<OrderController>(
-          id: 'title',
+          id: controller.titleId,
           builder: (controller) => Text(
             controller.pageTitle[controller.activeStep.value],
             style: Theme.of(context).textTheme.titleMedium,
@@ -78,7 +78,7 @@ class AddressSelection extends GetView<OrderController> {
         ),
       ),
       bottomNavigationBar: GetBuilder<OrderController>(
-        id: 'btn',
+        id: controller.btnId,
         builder: (controller) => BottomAppBar(
           surfaceTintColor: Colors.white,
           height: 10.0.getHeight(),
@@ -127,7 +127,7 @@ class AddressSelection extends GetView<OrderController> {
 
                       //Page Contents
                       GetBuilder<OrderController>(
-                        id: 'pageContent',
+                        id: controller.pageContentId,
                         builder: (controller) => controller.isMainLoading()
                             ? const Center(
                                 child: CircularProgressIndicator(),

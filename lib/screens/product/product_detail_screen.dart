@@ -148,7 +148,7 @@ class AddReviewTitle extends GetView<ReviewController> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ReviewController>(
-      id: 'review_form',
+      id: controller.reviewFormId,
       init: ReviewController(),
       builder: (controller) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -244,7 +244,7 @@ class AddReviewTitle extends GetView<ReviewController> {
                 }
               },
               child: GetBuilder<ReviewController>(
-                id: 'arrow_animation',
+                id: controller.arrowAnimationId,
                 builder: (controller) => ListTile(
                   shape: RoundedRectangleBorder(
                       side: const BorderSide(color: Colors.grey),
