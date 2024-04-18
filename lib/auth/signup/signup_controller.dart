@@ -91,7 +91,7 @@ class SignUpController extends GetxController {
           // Store data into local database
           storeToLocal(user);
 
-          navigateToUserDetails(user.name,user.email);
+          navigateToUserDetails(user.name, user.email);
           TLoaders.successSnackBar(
               title: SLabels.accountCreatedTitle,
               message: SLabels.accountCreatedMessage);
@@ -108,7 +108,7 @@ class SignUpController extends GetxController {
     } catch (e) {
       isRegisterLoading = false;
       update([signupScreen]);
-      ExceptionHandler.errorHandler(e, () => signupWithEmailPassword());
+      // ExceptionHandler.errorHandler(e, () => signupWithEmailPassword());
     }
   }
 
@@ -134,8 +134,7 @@ class SignUpController extends GetxController {
           "UID": user.id,
           "username": user.name,
         };
-        final userStatus =
-            await DbAuthentication.instance.checkUser(jsonData);
+        final userStatus = await DbAuthentication.instance.checkUser(jsonData);
         if (userStatus == 200) {
           Get.offAllNamed(Routes.home);
           TLoaders.successSnackBar(
@@ -145,8 +144,7 @@ class SignUpController extends GetxController {
           // Store data into local database
           storeToLocal(user);
 
-          navigateToUserDetails(
-              user.name, user.email);
+          navigateToUserDetails(user.name, user.email);
           TLoaders.successSnackBar(
               title: SLabels.accountCreatedTitle,
               message: SLabels.accountCreatedMessage);
@@ -161,7 +159,8 @@ class SignUpController extends GetxController {
       update([signupScreen]);
     } catch (e) {
       await GoogleSignIn().signOut();
-      ExceptionHandler.errorHandler(e, () => signupWithGoogle());
+      ExceptionHandler.errorHandler(
+          'Some thing went wrong.', () => signupWithGoogle());
       isGoogleLoading = false;
       update([signupScreen]);
     }

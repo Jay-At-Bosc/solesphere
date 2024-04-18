@@ -60,9 +60,12 @@ class OrderDetailScreen extends GetView<ViewOrderController> {
                       ),
                       LabelAndPrice(
                         title: SLabels.totalAmount,
-                        price: int.parse(
-                            double.parse(controller.orders[index].totalAmount)
-                                .toStringAsFixed(0)),
+                        price: (int.parse(double.parse(
+                                    controller.orders[index].totalAmount)
+                                .toStringAsFixed(0))) +
+                            (int.parse(double.parse(
+                                    controller.orders[index].totalDiscount)
+                                .toStringAsFixed(0))),
                         padding: 0,
                         style: Theme.of(context)
                             .textTheme
@@ -70,7 +73,7 @@ class OrderDetailScreen extends GetView<ViewOrderController> {
                             .copyWith(fontWeight: FontWeight.w300),
                       ),
                       LabelAndPrice(
-                        sign: "+",
+                        sign: "-",
                         title: SLabels.discount,
                         price: int.parse(
                             double.parse(controller.orders[index].totalDiscount)
@@ -81,10 +84,10 @@ class OrderDetailScreen extends GetView<ViewOrderController> {
                             .labelMedium!
                             .copyWith(
                                 fontWeight: FontWeight.w300,
-                                color: SColors.success),
+                                color: SColors.error),
                       ),
                       LabelAndPrice(
-                        sign: "-",
+                        sign: "+",
                         title: "Delivery Fees / Shipping Cost",
                         price: int.parse(double.parse(
                                         controller.orders[index].totalAmount)
@@ -97,19 +100,22 @@ class OrderDetailScreen extends GetView<ViewOrderController> {
                             .textTheme
                             .labelMedium!
                             .copyWith(
-                                fontWeight: FontWeight.w300, color: Colors.red),
+                                fontWeight: FontWeight.w300,
+                                color: SColors.success),
                       ),
                       const Divider(),
                       LabelAndPrice(
                         title: SLabels.grandTotal,
-                        price: (int.parse(double.parse(
-                                    controller.orders[index].totalAmount)
-                                .toStringAsFixed(0))) -
-                            (int.parse(double.parse(
-                                    controller.orders[index].totalDiscount)
-                                .toStringAsFixed(0))) +
-                            (int.parse(double.parse(controller
-                                            .orders[index].totalAmount)
+                        price: (int.parse(
+                                double.parse(controller.orders[index].totalAmount)
+                                    .toStringAsFixed(0))) +
+                            (int.parse(
+                                double.parse(controller.orders[index].totalDiscount)
+                                    .toStringAsFixed(0))) -
+                            (int.parse(
+                                double.parse(controller.orders[index].totalDiscount)
+                                    .toStringAsFixed(0))) +
+                            (int.parse(double.parse(controller.orders[index].totalAmount)
                                         .toStringAsFixed(0)) <
                                     500
                                 ? 40

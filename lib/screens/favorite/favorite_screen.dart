@@ -26,19 +26,20 @@ class FavoriteScreen extends GetView<FavoriteController> {
               onPressed: () async {
                 await controller.getFavoriteList();
               },
-              icon: const Icon(Iconsax.refresh,)),
+              icon: const Icon(
+                Iconsax.refresh,
+              )),
         ],
       ),
       body: RefreshIndicator(
         onRefresh: () async {
           await controller.getFavoriteList();
         },
-        
         child: SafeArea(
           child: SingleChildScrollView(
             child: GetBuilder<FavoriteController>(
               init: FavoriteController(),
-              id: 'favorite',
+              id: controller.favoriteId,
               builder: (controller) => Padding(
                 padding: const EdgeInsets.symmetric(
                     horizontal: 20.0, vertical: 20.0),

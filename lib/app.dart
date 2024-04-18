@@ -8,16 +8,24 @@ import 'utils/theme/theme.dart';
 class App extends StatelessWidget {
   const App({super.key});
 
+  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  static FirebaseAnalyticsObserver observer =
+      FirebaseAnalyticsObserver(analytics: analytics);
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-    final FirebaseAnalyticsObserver observer =
-        FirebaseAnalyticsObserver(analytics: analytics);
+    FirebaseAnalytics.instance.logEvent(
+      name: 'App Start',
+      parameters: {'status': 'True'},
+    );
+    // FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    // final FirebaseAnalyticsObserver observer =
+    //     FirebaseAnalyticsObserver(analytics: analytics);
 
-    analytics.logEvent(name: 'APP', parameters: {
-      'app_name': 'S'
-    });
+    // analytics.logEvent(name: 'APP', parameters: {
+    //   'app_name': 'S'
+    // });
 
     return GetMaterialApp(
       navigatorObservers: <NavigatorObserver>[observer],

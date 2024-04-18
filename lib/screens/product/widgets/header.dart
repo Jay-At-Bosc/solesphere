@@ -15,10 +15,12 @@ class ProductDetailHeader extends GetView<ProductDetailController> {
   @override
   Widget build(BuildContext context) {
     // log('name: ${controller.productDetailList[0].productName}');
+    final isFavorite = FavoriteController.instance.favoriteList
+        .any((favorite) => favorite.id == controller.productDetail.id);
 
-    return GetBuilder<ProductDetailController>(
-      id: controller.detailedProductId,
-      builder: (controller) => Padding(
+    return GetBuilder<FavoriteController>(
+      id: FavoriteController.instance.favoriteId,
+      builder: (ctx) => Padding(
         padding: const EdgeInsets.only(bottom: 8.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -42,7 +44,6 @@ class ProductDetailHeader extends GetView<ProductDetailController> {
                     color: Colors.black,
                   )),
             ),
-            Spacer(),
             Column(
               children: [
                 SizedBox(
@@ -62,27 +63,26 @@ class ProductDetailHeader extends GetView<ProductDetailController> {
                 const SRatingBar(rating: 4),
               ],
             ),
-            Spacer()
-            // GetBuilder<FavoriteController>(
-            //   id: 'fav_icon',
-            //   builder: (fctr) => Container(
-            //     decoration: BoxDecoration(
-            //       color: SColors.textWhite,
-            //       borderRadius: BorderRadius.circular(100),
-            //     ),
-            //     child: IconButton(
-            //       onPressed: () {
-            //         fctr.addToFavorite(controller.productDetail.id);
-            //       },
-            //       icon: Icon(
-            //         Iconsax.heart,
-            //         color: fctr.isFav(controller.productDetail.id)
-            //             ? Colors.red
-            //             : Colors.black,
-            //       ),
-            //     ),
-            //   ),
-            // ),
+            Container(
+              decoration: BoxDecoration(
+                color: SColors.textWhite,
+                borderRadius: BorderRadius.circular(100),
+              ),
+              child: IconButton(
+                onPressed: () {
+                  if (isFavorite) {
+                    ctx.removeToFavorite(controller.productDetail.id);
+                  } else {
+                    ctx.addToFavorite(controller.productDetail.id);
+                  }
+                  ctx.update([FavoriteController.instance.favoriteId]);
+                },
+                icon: Icon(
+                  Iconsax.heart,
+                  color: isFavorite ? Colors.red : Colors.black,
+                ),
+              ),
+            ),
           ],
         ),
       ),

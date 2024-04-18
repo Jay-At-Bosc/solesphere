@@ -25,8 +25,8 @@ class SHomeCategories extends StatelessWidget {
         children: [
           //Scrolable Catgories
           GetBuilder<ProductController>(
-            init: ProductController(),
-            id: "categories",
+            // init: ProductController(),
+            id: ProductController.instance.catId,
             builder: (controller) => SizedBox(
               key: d.brands,
               height: 60,
@@ -42,7 +42,7 @@ class SHomeCategories extends StatelessWidget {
                       log('brand id :${controller.brandList[index].id}');
                     },
                     onDoubleTap: () {
-                      controller.onItemClick('', '');
+                      controller.onItemClick('0', '');
                     },
                     child: SVerticalImageText(
                       image: controller.brandList[index].brandIcon,

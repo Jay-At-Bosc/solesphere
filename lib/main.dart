@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,6 +15,7 @@ import 'package:solesphere/utils/local_storage/app_storage.dart';
 Future<void> main() async {
   /// Widgets Bindings
   WidgetsFlutterBinding.ensureInitialized();
+
 
   /// Device orientation setttings
   SystemChrome.setPreferredOrientations([
@@ -37,6 +39,9 @@ Future<void> main() async {
         Get.put(AuthenticationRepository()),
         Get.put(DbAuthentication()),
       });
+
+  await FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(true);
+
 
   runApp(const App());
 }

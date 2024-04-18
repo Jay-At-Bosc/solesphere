@@ -16,6 +16,7 @@ class ViewOrderScreen extends GetView<ViewOrderController> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     final ct = Get.put(ViewOrderController());
 
     return Scaffold(
@@ -42,9 +43,9 @@ class ViewOrderScreen extends GetView<ViewOrderController> {
           future: controller.getUserOrders(),
           builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Container(
+              return SizedBox(
                   // width: 50.0.getWidth(),
-                  height: 30.0.getHeight(),
+                  height: 31.0.getHeight(),
                   child: const ShoesLoading(loader: SJsons.loader));
             } else if (snapshot.hasError) {
               return Center(child: Text('Error: ${snapshot.error}'));

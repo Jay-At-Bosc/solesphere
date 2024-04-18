@@ -1,9 +1,7 @@
 import 'package:solesphere/auth/auth_exports.dart';
 
-
 import '../../../utils/device/device_utility.dart';
 import 'appbar_widgets/leading_drawer.dart';
-import 'appbar_widgets/notification_icon.dart';
 import 'appbar_widgets/verticle_text.dart';
 
 class SAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -17,7 +15,11 @@ class SAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: const SLeadingDrawer(),
       title: const SVerticalText(),
       actions: const [
-        SNotificationIcon(),
+        // SNotificationIcon(),
+        SizedBox(
+          height: 24,
+          width: 24,
+        )
       ],
       backgroundColor: Colors.transparent, // Set your desired background color
       elevation: 0, // Remove shadow

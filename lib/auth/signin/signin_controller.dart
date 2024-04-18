@@ -90,7 +90,7 @@ class SignInController extends GetxController {
     } catch (e) {
       isSigInLoading = false; // Sets Register Loading to false
       update([signInScreen]);
-      ExceptionHandler.errorHandler(e, () => signinWithEmailPassword());
+      // ExceptionHandler.errorHandler(e, () => signinWithEmailPassword());
     }
   }
 
@@ -143,7 +143,8 @@ class SignInController extends GetxController {
       // shown exception which is thrown
       isGoogleSigInLoading = false;
       update([signInScreen]);
-      ExceptionHandler.errorHandler(e, () => signInWithGoogle());
+      ExceptionHandler.errorHandler(
+          'Something went wrong', () => signInWithGoogle());
     }
   }
 

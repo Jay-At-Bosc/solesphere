@@ -17,6 +17,10 @@ import 'package:http/http.dart' as http;
 class ProductDetailController extends GetxController {
   // static const String rebuildProductDetails = "rebuildProductDetils";
 
+  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  static FirebaseAnalyticsObserver observer =
+      FirebaseAnalyticsObserver(analytics: analytics);
+
   static ProductDetailController get instance =>
       Get.find<ProductDetailController>();
 
@@ -33,13 +37,13 @@ class ProductDetailController extends GetxController {
   String get cartBtnId => 'cartBtn';
   // String productId = '';
 
-  // @override
-  // void onInit() async {
-  //   await fetchProductDetails(productId);
-  //   getImagesList();
-  //   //call api and initialize the productDetail
-  //   super.onInit();
-  // }
+  @override
+  void onInit() async {
+    FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(true);
+
+    //call api and initialize the productDetail
+    super.onInit();
+  }
 
   // Iterate over each ProductDetailModel in productDetailList
 
@@ -93,7 +97,6 @@ class ProductDetailController extends GetxController {
         setProductDetails(responseData);
         isLoading.value = false;
 
-        
         await FirebaseAnalytics.instance.logViewItem(
             currency: "INR",
             value: productDetail.variants.first.sizes.first.discountedPrice
@@ -138,26 +141,26 @@ class ProductDetailController extends GetxController {
         .floor(); // Round the double value to the nearest integer
   }
 
-  Future<void> addToCartApi(String id, String name, String image, String color,
-      int size, int qty, int discountedPrice, int actualPrice) async {
+  Future<void> addToCartApi(ProductDetailModel product) async {
     try {
       isCartLoading.value = true;
-      // if (isCartLoading.value == true) {
-      //   const ShoesLoading();
-      // }
+
       update(['CartList', cartBtnId]);
       String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
 
       var headers = {'auth-token': token, 'Content-Type': 'application/json'};
       Map<String, dynamic> data = {
-        'product_id': id,
-        'productName': name,
-        'image_url': image,
-        'color': color,
-        'size': size,
-        'quantity': qty,
-        'discounted_price': discountedPrice,
-        'actual_price': actualPrice,
+        'product_id': product.id,
+        'productName': product.productName,
+        'image_url': product.variants[selectedVarient.value].imageUrls.first,
+        'color': product.variants[selectedVarient.value].color,
+        'size': product
+            .variants[selectedVarient.value].sizes[selectedSize.value].size,
+        'quantity': 1,
+        'discounted_price': product.variants[selectedVarient.value]
+            .sizes[selectedSize.value].discountedPrice,
+        'actual_price': product.variants[selectedVarient.value]
+            .sizes[selectedSize.value].actualPrice,
       };
       final jsonData = jsonEncode(data);
 
@@ -166,20 +169,7 @@ class ProductDetailController extends GetxController {
           options: Options(method: 'POST', headers: headers), data: jsonData);
 
       if (response.statusCode == 200) {
-        // Map<String, dynamic> jsonResponse = json.decode(response.body);
-        // final List<dynamic> cartItemsJson = jsonResponse['data']['cartItems'];
-
-        // for (var item in cartItemsJson) {
-        //   CartModel cartItem = CartModel.fromMap(item);
-        //   totalAmount += (cartItem.discounted_price * cartItem.quantity);
-        //   cartItemsList.add(cartItem);
-        // }
-        // log("cart-data ${cartItemsList}");
         isCartLoading.value = false;
-        // if (isCartLoading.value == false) {
-        //   Get.back();
-        // }
-        // CartController.instance.loadCartFromApi();
 
         await FirebaseAnalytics.instance.logAddToCart(
           currency: 'INR',
@@ -191,7 +181,8 @@ class ProductDetailController extends GetxController {
         update(['CartList', cartBtnId]);
         log("Oooooooooooook");
         TLoaders.successSnackBar(
-            title: "Wow 🎉", message: "$name is added to the cart");
+            title: "Wow 🎉",
+            message: "${product.productName} is added to the cart");
       }
     } on SocketException catch (e) {
       // Handle SocketException (e.g., no internet connection)
@@ -202,6 +193,9 @@ class ProductDetailController extends GetxController {
     } catch (e) {
       // Catch any other error that might occur
       log('Error: $e');
+    } finally {
+      isCartLoading.value = false;
+      update(['CartList', cartBtnId]);
     }
   }
 

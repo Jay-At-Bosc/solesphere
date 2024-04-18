@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
@@ -15,6 +14,7 @@ class ViewOrderController extends GetxController {
   List<ViewOrderModel> orders = <ViewOrderModel>[];
   int orderStatus = 1;
   bool isLoading = false;
+  bool isCancelLoading = false;
 
   String get ordersId => 'orders';
   String get ordersStatusId => 'orderStatus';
@@ -126,8 +126,8 @@ class ViewOrderController extends GetxController {
 
   Future<void> cancelOrders(String transactionId) async {
     try {
-      // isLoading = true;
-      // update(['orders']);
+      isCancelLoading = true;
+      update([ordersId]);
       String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
       // var data = json.encode({'transction_id': transactionId});
       var headers = {'auth-token': token, 'Content-Type': 'application/json'};
@@ -154,6 +154,7 @@ class ViewOrderController extends GetxController {
         log(orders.length.toString());
         log(response.data.toString());
         isLoading = false;
+        isCancelLoading = false;
         update([ordersId, ordersStatusId]);
         update();
       } else {
@@ -170,6 +171,7 @@ class ViewOrderController extends GetxController {
           message: 'Something went wrong.. Please try again later.!');
       // log(e.toString());
       isLoading = false;
+      isCancelLoading = false;
       update([ordersId]);
     }
   }

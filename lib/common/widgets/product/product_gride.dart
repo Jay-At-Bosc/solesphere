@@ -20,7 +20,7 @@ class SProductGridView extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 12),
       child: GetBuilder<ProductController>(
-        id: "Favorite",
+        id: ProductController.instance.homeId,
         builder: (ctx) => list.isNotEmpty
             ? GridView.builder(
                 itemCount: list.length,

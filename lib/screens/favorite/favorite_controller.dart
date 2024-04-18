@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:solesphere/auth/auth_exports.dart';
@@ -16,21 +15,23 @@ class FavoriteController extends GetxController {
   List<Products> favoriteList = <Products>[].obs;
   bool isLoading = false;
 
+  String get favoriteId => 'favoriteId';
+
   @override
   void onInit() {
     getFavoriteList();
     super.onInit();
   }
 
-  bool isFav(String id) {
-    update(['fav_icon']);
-    return favoriteList.any((product) => product.id == id);
-  }
+  // bool isFav(String id) {
+  //   update(['fav_icon']);
+  //   return favoriteList.any((product) => product.id == id);
+  // }
 
   Future<void> getFavoriteList() async {
     try {
       isLoading = true;
-      update(['favorite']);
+      update([favoriteId]);
 
       String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
 
@@ -58,7 +59,7 @@ class FavoriteController extends GetxController {
         // }
 
         isLoading = false;
-        update(['favorite']);
+        update([favoriteId]);
       } else {
         TLoaders.warningSnackBar(
             title: "Opps!!", message: response.statusMessage);
@@ -66,7 +67,7 @@ class FavoriteController extends GetxController {
     } catch (e) {
       isLoading = false;
       TLoaders.warningSnackBar(title: "Opps!!", message: e.toString());
-      update(['favorite']);
+      update([favoriteId]);
     }
   }
 
@@ -95,14 +96,14 @@ class FavoriteController extends GetxController {
           message: "Product added to your favorites list!",
         );
 
-        getFavoriteList();
+        await getFavoriteList();
 
         // await FirebaseAnalytics.instance.logAddToCart(
         //   currency: 'INR',
         //   value: ,
         //   items: [toAnalyticsEventItem()],
         // );
-        update(['Favorite']);
+        update([favoriteId]);
       } else {
         log(response.statusMessage.toString());
       }
@@ -111,7 +112,7 @@ class FavoriteController extends GetxController {
     }
   }
 
-  Future<void> removeToFavorite(Products product) async {
+  Future<void> removeToFavorite(String id) async {
     try {
       String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
 
@@ -119,7 +120,7 @@ class FavoriteController extends GetxController {
         'auth-token': token,
       };
 
-      var data = json.encode({"product_id": product.id});
+      var data = json.encode({"product_id": id});
 
       var dio = Dio();
       var response = await dio.put(
@@ -137,7 +138,7 @@ class FavoriteController extends GetxController {
         );
 
         getFavoriteList();
-        update(['Favorite']);
+        update([favoriteId]);
       } else {
         log(response.statusMessage.toString());
       }
@@ -145,7 +146,6 @@ class FavoriteController extends GetxController {
       log(e.toString());
     }
   }
-
 
   // AnalyticsEventItem toAnalyticsEventItem() {
   //   String itemName = favoriteList;

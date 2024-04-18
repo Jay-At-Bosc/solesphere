@@ -1,6 +1,8 @@
 import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
 
+import '../../../utils/constants/labels.dart';
+
 class SecondaryButton extends StatelessWidget {
   const SecondaryButton({
     super.key,
@@ -8,7 +10,7 @@ class SecondaryButton extends StatelessWidget {
     this.background = const Color.fromARGB(255, 237, 236, 236),
     this.elevation = 0,
     this.style,
-    required this.label,
+    this.label = SLabels.viewDetails,
     this.index,
     required this.onPress,
   });
@@ -39,7 +41,9 @@ class SecondaryButton extends StatelessWidget {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           textStyle: style,
         ),
-        child: Text(label),
+        child: Text(Get.currentRoute == '/OrderDetailScreen'
+            ? SLabels.cancel
+            : SLabels.viewDetails),
       ),
     );
   }

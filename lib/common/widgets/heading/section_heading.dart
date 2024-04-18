@@ -27,7 +27,7 @@ class SSectionTitle extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              ctx.selectedCategory.value != ''
+              ctx.selectedCategory.value != "0"
                   ? ctx.brandName.value.capitalize!.toString()
                   : SLabels.newArrivals,
               overflow: TextOverflow.ellipsis,

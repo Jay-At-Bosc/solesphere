@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:solesphere/auth/auth_exports.dart';
-import 'package:solesphere/common/widgets/popup/loaders.dart';
 import 'package:solesphere/screens/order/order_detail.screen.dart';
 
 import 'package:solesphere/screens/order/view_order_controller.dart';
@@ -66,6 +65,7 @@ class MyOrderCard extends GetView<ViewOrderController> {
                     GestureDetector(
                       onTap: () async {
                         final x = ProductDetailController.instance;
+
                         Get.toNamed(Routes.productDetail);
                         log(controller.orders[j].products[i].productId);
                         await x.fetchProductDetails(
@@ -91,7 +91,7 @@ class MyOrderCard extends GetView<ViewOrderController> {
                                 .textTheme
                                 .labelMedium!
                                 .apply(color: Colors.black),
-                            maxLine: 1,
+                            maxLine: 2,
                           ),
                           STextStyle(
                             text:
@@ -110,7 +110,11 @@ class MyOrderCard extends GetView<ViewOrderController> {
                               style: Theme.of(context)
                                   .textTheme
                                   .labelSmall!
-                                  .apply(color: Colors.blue),
+                                  .apply(
+                                      color: controller.orders[j].orderStatus !=
+                                              'Cancelled'
+                                          ? Colors.blue
+                                          : SColors.error),
                               maxLine: 1,
                             ),
                           )
@@ -140,19 +144,22 @@ class MyOrderCard extends GetView<ViewOrderController> {
             if (controller.orders[j].orderStatus != 'Cancelled')
               GetBuilder<ViewOrderController>(
                 builder: (controller) => SecondaryButton(
-                    label: Get.currentRoute == '/OrderDetailScreen'
-                        ? SLabels.cancel
-                        : SLabels.viewDetails,
+                    // label: Get.currentRoute == '/OrderDetailScreen'
+                    //     ? SLabels.cancel
+                    //     : SLabels.viewDetails,
                     style: Theme.of(context).textTheme.labelMedium!,
                     index: j,
                     onPress: Get.currentRoute == '/OrderDetailScreen'
                         ? () {
-                            // TLoaders.errorSnackBar(title: "asdf");
+                            // TLoaders.errorSnackBar(title: "asdf")
+                            // controller.update();
                             controller.cancelOrders(
                               controller.orders[j].transactionId,
                             );
                           }
                         : () {
+                            // controller.update();
+
                             Get.to(() => const OrderDetailScreen(),
                                 arguments: {'index': j});
                           }),

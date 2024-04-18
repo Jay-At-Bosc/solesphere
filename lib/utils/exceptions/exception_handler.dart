@@ -2,7 +2,7 @@ import '../../common/widgets/popup/loaders.dart';
 import 'custom_exception.dart';
 
 class ExceptionHandler{
-  static errorHandler(e,Function() function){
+  static  errorHandler(e,Function() function){
     if (e is CustomInternetException) {
         TLoaders.errorDialog(
             title: e.title, message: e.message, ontap: function);

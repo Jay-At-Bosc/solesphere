@@ -36,6 +36,7 @@ class FilterController extends GetxController {
 
   resetFilter() {
     selecetdFilters.clear();
+    controller.filterProductList.addAll(controller.productList);
     update([filterId, controller.homeId]);
     Get.back();
   }
