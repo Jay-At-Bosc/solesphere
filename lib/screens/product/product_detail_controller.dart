@@ -20,6 +20,7 @@ class ProductDetailController extends GetxController {
   // static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   // static FirebaseAnalyticsObserver observer =
   //     FirebaseAnalyticsObserver(analytics: analytics);
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   static ProductDetailController get instance =>
       Get.find<ProductDetailController>();
@@ -171,14 +172,16 @@ class ProductDetailController extends GetxController {
       if (response.statusCode == 200) {
         isCartLoading.value = false;
 
-        await FirebaseAnalytics.instance.logAddToCart(
-          currency: 'INR',
-          value: productDetail.variants.first.sizes.first.discountedPrice
-              .toDouble(),
-          items: [toAnalyticsEventItem()],
-        );
+        // await FirebaseAnalytics.instance.logAddToCart(
+        //   currency: 'INR',
+        //   value: productDetail.variants.first.sizes.first.discountedPrice
+        //       .toDouble(),
+        //   items: [toAnalyticsEventItem()],
+        // );
 
-      
+        analytics.logEvent(name: 'cart_added', parameters: {
+          'product_name': product.productName,
+        });
 
         update(['CartList', cartBtnId]);
         log("Oooooooooooook");
