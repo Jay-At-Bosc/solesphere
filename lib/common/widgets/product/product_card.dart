@@ -27,7 +27,7 @@ class SProductCardVertical extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dark = SHelperFunctions.isDarkMode(context);
-    final controller = Get.put(FavoriteController());
+    // final controller = Get.put(FavoriteController());
     final details = Get.put(ProductDetailController());
     // log("product id: ${product.id}");
 
@@ -56,7 +56,7 @@ class SProductCardVertical extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            //Thumbnail 
+            //Thumbnail
             TRoundedContainer(
               height: 100,
               // padding: const EdgeInsets.only(
@@ -72,10 +72,13 @@ class SProductCardVertical extends StatelessWidget {
                     isNetworkImage: true,
                   ),
                   //Favorite Icon Button
-                  SFavoriteIcon(
-                    product: product,
-                    dark: dark,
-                    controller: controller,
+                  GetBuilder<FavoriteController>(
+                    id: FavoriteController.instance.favoriteId,
+                    builder: (controller) => SFavoriteIcon(
+                      product: product,
+                      dark: dark,
+                      controller: controller,
+                    ),
                   )
                 ],
               ),

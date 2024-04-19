@@ -1,6 +1,4 @@
 // ignore_for_file: avoid_print
-
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
@@ -38,6 +36,7 @@ class FilterController extends GetxController {
 
   resetFilter() {
     selecetdFilters.clear();
+    controller.filterProductList.addAll(controller.productList);
     update([filterId, controller.homeId]);
     Get.back();
   }
@@ -56,15 +55,26 @@ class FilterController extends GetxController {
             await dio.request("$uri$query", options: Options(method: 'GET'));
         log(response.statusCode.toString());
         if (response.statusCode == 200) {
+          log(response.data.toString());
           final List<dynamic> data = response.data['data'];
           controller.productList.value =
               data.map((item) => Products.fromMap(item)).toList();
-          controller.productList.sort((a, b) => b.id.compareTo(a.id));
+          //controller.productList.sort((a, b) => b.id.compareTo(a.id));
           controller.filterProductList.clear();
           controller.filterProductList.addAll(controller.productList);
           controller.isProdcutLoading.value = false;
           Get.back();
+
+          // if (selectedFilterIndex == 4) {
+          //   ProductController.instance.selectedCategory.value =
+          //       selectedFilterValueIndex.toString();
+          //   log(ProductController.instance.selectedCategory.value);
+          //   update([ProductController.instance.homeId]);
+          // }
           controller.update([controller.homeId]);
+        } else if (response.statusCode == 404) {
+          Get.back();
+          throw CustomException(title: "Opps!", message: "No Product Found!");
         } else {
           controller.isProdcutLoading.value = false;
           controller.update([controller.homeId]);
@@ -136,6 +146,7 @@ class FilterController extends GetxController {
         selectedFilterValue
       ]; // add key and item is add if it's not in selected filter
     }
+
     update([valueId]);
     print(selecetdFilters);
   }

@@ -12,6 +12,9 @@ import '../order/view_order_controller.dart';
 class ReviewController extends GetxController {
   static ReviewController get instance => Get.find();
 
+  String get reviewFormId => 'review_form';
+  String get arrowAnimationId => 'arrow_animation';
+
   double rating = 0.0;
   bool isLoading = false;
   final TextEditingController review = TextEditingController();
@@ -19,8 +22,8 @@ class ReviewController extends GetxController {
 
   Future<bool> isUserEligible(String productId) async {
     isLoading = true;
-    update(['arrow_animation']);
-    await Future.delayed(const Duration(seconds: 4));
+    update([arrowAnimationId]);
+    await Future.delayed(const Duration(seconds: 3));
 
     // final orders = Get.put(ViewOrderController());
 
@@ -30,7 +33,7 @@ class ReviewController extends GetxController {
           if (product.productId == productId &&
               order.orderStatus == 'Delivered') {
             isLoading = false;
-            update(['arrow_animation']);
+            update([arrowAnimationId]);
             return true;
           }
         }
@@ -38,7 +41,7 @@ class ReviewController extends GetxController {
     }
 
     isLoading = false;
-    update(['arrow_animation']);
+    update([arrowAnimationId]);
 
     return false;
   }

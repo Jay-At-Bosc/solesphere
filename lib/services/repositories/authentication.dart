@@ -20,6 +20,9 @@ class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
 
   final _auth = FirebaseAuth.instance;
+  // final firebaseAnalytics = FirebaseAnalytics.instance;
+
+  // FirebaseAnalyticsObserver observer = FirebaseAnalyticsObserver(analytics: firebaseAnalytics);
 
   final appStorage = Get.find<AppStorage>();
   final connection = Get.find<NetworkController>();
@@ -151,7 +154,6 @@ class AuthenticationRepository extends GetxController {
     } on FormatException catch (_) {
       throw const SFormatException();
     } catch (e) {
-      
       rethrow;
     }
   }

@@ -1,19 +1,27 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 
+
 class HomeController extends GetxController {
   static HomeController get instance => Get.find();
+
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   // final categories = RxList<Categories>([]);
   RxInt selectedItem = (-1).obs;
   RxString city = ''.obs;
   RxString state = ''.obs;
 
+  // final AnalyticsService _analyticsService = Get.find();
+
   @override
   void onInit() {
     // categories.addAll(categoryList);
+    analytics.setAnalyticsCollectionEnabled(true);
     fetchLocation();
+
     super.onInit();
   }
 
@@ -59,7 +67,7 @@ class HomeController extends GetxController {
         state.value = placemarks[0].administrativeArea ?? ''; // Check for null
       }
     }
-    
+
     update(['location']);
   }
 }

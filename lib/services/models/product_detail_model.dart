@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 
 class ProductDetailModel {
@@ -126,7 +125,7 @@ class ProductDetailModel {
           [],
       closureType: map['closureType'] as String? ?? '',
       material: map['material'] as String? ?? '',
-      longDescription: map['longDescription'] as String? ?? '',
+      longDescription: map['longDescription'] as String? ?? '', 
       giftPackaging: map['giftPackaging'] as bool? ?? false,
       qr: map['qr'] as String? ?? '',
       gender: map['gender'] as String? ?? '',
@@ -667,4 +666,7 @@ class Brand {
 
   @override
   int get hashCode => id.hashCode ^ brand.hashCode ^ brandIcon.hashCode;
+
 }
+
+

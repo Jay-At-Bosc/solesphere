@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 class CustomDrawerController extends GetxController {
   static CustomDrawerController get instance => Get.find();
 
+  String get drawerId => 'drawer';
+
   GlobalKey drawer = GlobalKey();
   GlobalKey brands = GlobalKey();
   // GlobalKey products = GlobalKey();
@@ -20,7 +22,7 @@ class CustomDrawerController extends GetxController {
     // log(yOffset.toString());
     // print('open drawer :vishal');
 
-    update(['drawer']);
+    update([drawerId]);
   }
 
   void closeDrawer() {
@@ -29,7 +31,7 @@ class CustomDrawerController extends GetxController {
     isDrawerOpen = false;
     // print('close drawer : vishal');
 
-    update(['drawer']);
+    update([drawerId]);
     // log(xOffset.toString());
     // log(yOffset.toString());
   }
@@ -41,6 +43,6 @@ class CustomDrawerController extends GetxController {
     closeDrawer();
     // update(['drawer']);
     Get.toNamed(route);
-    update(['drawer']);
+    update([drawerId]);
   }
 }

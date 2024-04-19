@@ -36,7 +36,7 @@ class Search extends GetView<ProductController> {
             Expanded(
               child: SingleChildScrollView(
                 child: GetBuilder<ProductController>(
-                  id: "search",
+                  id: controller.searchId,
                   builder: (controller) => controller.isSearching.value
                       ? LinearProgressIndicator(
                           color: SColors.accent,

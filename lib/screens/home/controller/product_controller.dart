@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 import 'package:dio/dio.dart';
@@ -18,10 +19,12 @@ class ProductController extends GetxController {
   static ProductController get instance => Get.find();
 
   String get homeId => "HomeId";
+  String get searchId => "search";
+  String get catId => "catId";
 
   TextEditingController searchProduct = TextEditingController();
 
-  final selectedCategory = ''.obs;
+  final selectedCategory = '0'.obs;
   final isLoading = false.obs;
   final isSearching = false.obs;
   final isProdcutLoading = false.obs;
@@ -33,15 +36,26 @@ class ProductController extends GetxController {
   final searchProductList = <Products>[].obs;
 
   final brandList = RxList<Brands>([]);
+  late Timer timer;
 
   @override
   void onInit() {
+    timer = Timer.periodic(Duration(minutes: 10), (_) => fetchData());
+    selectedCategory.value = '0';
     fetchBrands();
     fetchProducts();
+    searchProductList.value = productList;
     super.onInit();
   }
 
   bool isMainLoading() => isLoading.value || isProdcutLoading.value;
+
+  void fetchData() {
+    log("calling..");
+    fetchBrands();
+    fetchProducts();
+    update(['title']);
+  }
 
   Future<void> fetchBrands() async {
     isLoading.value = true;
@@ -82,7 +96,7 @@ class ProductController extends GetxController {
 
   void onItemClick(String id, String name) {
     selectedCategory.value = id;
-    if (selectedCategory.value != '') {
+    if (selectedCategory.value != '0') {
       filterProductList.clear();
       brandName.value = name;
       filterProductList
@@ -92,7 +106,7 @@ class ProductController extends GetxController {
       filterProductList.clear();
       filterProductList.addAll(productList);
     }
-    update(["categories", "Favorite", "title"]);
+    update([homeId, "title"]);
   }
 
   String calculateDiscount(int actualPrice, int discountedPrice) {
@@ -104,12 +118,13 @@ class ProductController extends GetxController {
   Future<void> search(String query) async {
     try {
       isSearching.value = true;
+      update([searchId]);
       searchProductList.clear();
       var dio = Dio();
       var response = await dio.request(
         EndPoints.search,
         options: Options(method: 'GET'),
-        queryParameters: {'q': query},
+        queryParameters: {'search': query},
       );
 
       if (response.statusCode == 200) {
@@ -124,7 +139,7 @@ class ProductController extends GetxController {
       log(e.toString());
     } finally {
       isSearching.value = false;
-      update(['search']);
+      update([searchId]);
     }
   }
 
@@ -143,5 +158,11 @@ class ProductController extends GetxController {
         ),
       ),
     );
+  }
+
+  @override
+  void onClose() {
+    timer.cancel();
+    super.onClose();
   }
 }

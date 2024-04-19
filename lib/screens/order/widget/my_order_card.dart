@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/screens/order/order_detail.screen.dart';
 
@@ -62,11 +64,13 @@ class MyOrderCard extends GetView<ViewOrderController> {
                   children: [
                     GestureDetector(
                       onTap: () async {
+                        final x = ProductDetailController.instance;
+
                         Get.toNamed(Routes.productDetail);
-                        await ProductDetailController.instance
-                            .fetchProductDetails(
-                                controller.orders[j].products[i].productId);
-                        ProductDetailController.instance.getImagesList();
+                        log(controller.orders[j].products[i].productId);
+                        await x.fetchProductDetails(
+                            controller.orders[j].products[i].productId);
+                        x.getImagesList();
                         // log("product id: ${product.id}");
                         // Get.back();
                       },
@@ -87,7 +91,7 @@ class MyOrderCard extends GetView<ViewOrderController> {
                                 .textTheme
                                 .labelMedium!
                                 .apply(color: Colors.black),
-                            maxLine: 1,
+                            maxLine: 2,
                           ),
                           STextStyle(
                             text:
@@ -106,7 +110,11 @@ class MyOrderCard extends GetView<ViewOrderController> {
                               style: Theme.of(context)
                                   .textTheme
                                   .labelSmall!
-                                  .apply(color: Colors.blue),
+                                  .apply(
+                                      color: controller.orders[j].orderStatus !=
+                                              'Cancelled'
+                                          ? Colors.blue
+                                          : SColors.error),
                               maxLine: 1,
                             ),
                           )
@@ -133,35 +141,41 @@ class MyOrderCard extends GetView<ViewOrderController> {
             child,
 
             //Buttons
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SecondaryButton(
-                    label: Get.currentRoute == '/OrderDetailScreen'
-                        ? SLabels.cancel
-                        : SLabels.viewDetails,
+            if (controller.orders[j].orderStatus != 'Cancelled')
+              GetBuilder<ViewOrderController>(
+                builder: (controller) => SecondaryButton(
+                    // label: Get.currentRoute == '/OrderDetailScreen'
+                    //     ? SLabels.cancel
+                    //     : SLabels.viewDetails,
                     style: Theme.of(context).textTheme.labelMedium!,
                     index: j,
                     onPress: Get.currentRoute == '/OrderDetailScreen'
                         ? () {
-                            Get.back();
+                            // TLoaders.errorSnackBar(title: "asdf")
+                            // controller.update();
+                            controller.cancelOrders(
+                              controller.orders[j].transactionId,
+                            );
                           }
                         : () {
+                            // controller.update();
+
                             Get.to(() => const OrderDetailScreen(),
                                 arguments: {'index': j});
                           }),
-                SecondaryButton(
-                  label: Get.currentRoute == '/OrderDetailScreen'
-                      ? SLabels.review
-                      : SLabels.reorder,
-                  style: Theme.of(context).textTheme.labelMedium!,
-                  forground: SColors.textWhite,
-                  background: SColors.accent,
-                  index: j,
-                  onPress: () {},
-                ),
-              ],
-            )
+              ),
+
+            // if (controller.orders[j].orderStatus == 'Cancelled')
+            //   GetBuilder<ViewOrderController>(
+            //     builder: (controller) => SecondaryButton(
+            //         label: SLabels.viewDetails,
+            //         style: Theme.of(context).textTheme.labelMedium!,
+            //         index: j,
+            //         onPress: () {
+            //           Get.to(() => const OrderDetailScreen(),
+            //               arguments: {'index': j});
+            //         }),
+            //   )
           ],
         ),
       ),

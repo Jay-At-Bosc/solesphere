@@ -27,7 +27,7 @@ class CustomFilterValueComponent extends GetView<FilterController> {
                   runSpacing: 8.0,
                   spacing: 8.0,
                   children: List.generate(values.length, (index) {
-                    if (controller.seletedFilterType == "colors") {
+                    if (controller.seletedFilterType == "color") {
                       return InkWell(
                         onTap: () {
                           controller.valueSelect(index);
@@ -37,6 +37,9 @@ class CustomFilterValueComponent extends GetView<FilterController> {
                           width: 10.0.getWidth(),
                           decoration: BoxDecoration(
                             color: Color(int.parse(values[index])),
+                            border: controller.isValueSelected(index)
+                                ? Border.all(color: SColors.accent, width: 1.5)
+                                : null,
                             borderRadius: BorderRadius.all(Radius.circular(4)),
                           ),
                         ),

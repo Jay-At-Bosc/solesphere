@@ -1,4 +1,5 @@
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+
 import 'package:iconsax/iconsax.dart';
 import 'package:lottie/lottie.dart';
 import 'package:solesphere/auth/auth_exports.dart';
@@ -6,6 +7,7 @@ import 'package:solesphere/common/widgets/buttons/secondary_button.dart';
 import 'package:solesphere/common/widgets/popup/loaders.dart';
 import 'package:solesphere/common/widgets/popup/shoes_loading.dart';
 import 'package:solesphere/common/widgets/text/text_style.dart';
+import 'package:solesphere/screens/favorite/favorite_controller.dart';
 import 'package:solesphere/screens/product/product_detail_controller.dart';
 import 'package:solesphere/screens/product/review_controller.dart';
 import 'package:solesphere/screens/product/widgets/Reviews/customer_review.dart';
@@ -49,7 +51,9 @@ class ProductDetail extends GetView<ProductDetailController> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const ProductDetailHeader(),
+                          GetBuilder<FavoriteController>(
+                              id: FavoriteController.instance.favoriteId,
+                              builder: (ctx) => const ProductDetailHeader()),
 
                           //Short Description of product and slider
                           const ProductSlider(),
@@ -148,7 +152,7 @@ class AddReviewTitle extends GetView<ReviewController> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ReviewController>(
-      id: 'review_form',
+      id: controller.reviewFormId,
       init: ReviewController(),
       builder: (controller) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -244,7 +248,7 @@ class AddReviewTitle extends GetView<ReviewController> {
                 }
               },
               child: GetBuilder<ReviewController>(
-                id: 'arrow_animation',
+                id: controller.arrowAnimationId,
                 builder: (controller) => ListTile(
                   shape: RoundedRectangleBorder(
                       side: const BorderSide(color: Colors.grey),

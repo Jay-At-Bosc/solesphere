@@ -32,7 +32,7 @@ class ProductBuySection extends GetView<ProductDetailController> {
         //   height: SSizes.spaceBtwItems,
         // ),
         GetBuilder<ProductDetailController>(
-          id: 'cartBtn',
+          id: controller.cartBtnId,
           builder: (controller) => CustomButton(
               btnText: "Add To Cart",
               foregroundColor: Colors.black,
@@ -40,31 +40,7 @@ class ProductBuySection extends GetView<ProductDetailController> {
               onPressed: () {
                 controller.isCartLoading.value
                     ? null
-                    : controller.addToCartApi(
-                        controller.productDetail.id,
-                        controller.productDetail.productName,
-                        controller
-                            .productDetail
-                            .variants[controller.selectedVarient.value]
-                            .imageUrls[0],
-                        controller.productDetail
-                            .variants[controller.selectedVarient.value].color,
-                        controller
-                            .productDetail
-                            .variants[controller.selectedVarient.value]
-                            .sizes[controller.selectedSize.value]
-                            .size,
-                        1,
-                        controller
-                            .productDetail
-                            .variants[controller.selectedVarient.value]
-                            .sizes[controller.selectedSize.value]
-                            .discountedPrice,
-                        controller
-                            .productDetail
-                            .variants[controller.selectedVarient.value]
-                            .sizes[controller.selectedSize.value]
-                            .actualPrice);
+                    : controller.addToCartApi(controller.productDetail);
               }),
         ),
         const SizedBox(
@@ -77,31 +53,7 @@ class ProductBuySection extends GetView<ProductDetailController> {
             onPressed: () {
               controller.isCartLoading.value
                   ? null
-                  : controller.addToCartApi(
-                      controller.productDetail.id,
-                      controller.productDetail.productName,
-                      controller
-                          .productDetail
-                          .variants[controller.selectedVarient.value]
-                          .imageUrls[0],
-                      controller.productDetail
-                          .variants[controller.selectedVarient.value].color,
-                      controller
-                          .productDetail
-                          .variants[controller.selectedVarient.value]
-                          .sizes[controller.selectedSize.value]
-                          .size,
-                      1,
-                      controller
-                          .productDetail
-                          .variants[controller.selectedVarient.value]
-                          .sizes[controller.selectedSize.value]
-                          .discountedPrice,
-                      controller
-                          .productDetail
-                          .variants[controller.selectedVarient.value]
-                          .sizes[controller.selectedSize.value]
-                          .actualPrice);
+                  : controller.addToCartApi(controller.productDetail);
               Get.toNamed(Routes.order);
             }),
         const SoledByRichText(),

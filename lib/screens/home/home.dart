@@ -153,6 +153,8 @@ class NavigationController extends GetxController {
   final userName = ''.obs;
   final email = ''.obs;
 
+  String get userId => 'user';
+
   @override
   void onInit() async {
     await getUserInfo();
