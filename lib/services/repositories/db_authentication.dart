@@ -22,7 +22,7 @@ class DbAuthentication extends GetxController {
       final jsonData = jsonEncode(data);
       var response = await diox.request(EndPoints.isUser,
           options: dio.Options(method: 'POST'), data: jsonData);
-      log(response.statusCode.toString());
+
       return response.statusCode!;
     } catch (e) {
       rethrow;
@@ -55,8 +55,6 @@ class DbAuthentication extends GetxController {
   }
 
   Future<bool?> createUserDetails(UserDataModel user, XFile? file) async {
-    log("db method called");
-
     try {
       connection.checkInternetConnection();
       String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
@@ -77,7 +75,6 @@ class DbAuthentication extends GetxController {
       };
 
       final jsonData = jsonEncode(data);
-      log("api call : ${data.values}");
 
       var response = await diox.request(
         EndPoints.userDetail,
