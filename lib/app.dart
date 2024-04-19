@@ -1,4 +1,5 @@
 
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:solesphere/auth/auth_exports.dart';
 //import 'package:solesphere/auth/signup/signup_screen.dart';
 
@@ -8,9 +9,18 @@ import 'utils/theme/theme.dart';
 class App extends StatelessWidget {
   const App({super.key});
 
+
+static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  static FirebaseAnalyticsObserver observer =
+      FirebaseAnalyticsObserver(analytics: analytics);
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    FirebaseAnalytics.instance.logEvent(
+      name: 'app',
+      parameters: {'counter_value': 'app1'},
+    );
+    
     return GetMaterialApp(
       title: 'Solesphere App',
       themeMode: ThemeMode.system,

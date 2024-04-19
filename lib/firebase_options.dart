@@ -27,10 +27,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.macOS:
         return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -74,12 +71,23 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyCI1BkTN8qTRKQ5gFdAcGPL7DQbAsKre08',
-    appId: '1:946297687740:ios:a2eabcbbd9c7f92979cab9',
+    appId: '1:946297687740:ios:1e13fb69dc4fb5c279cab9',
     messagingSenderId: '946297687740',
     projectId: 'solesphere-app-73c2b',
     storageBucket: 'solesphere-app-73c2b.appspot.com',
     androidClientId: '946297687740-6nkbe22l1umstekjsnhiv7qvmjlb8r58.apps.googleusercontent.com',
-    iosClientId: '946297687740-4liim37evo3iraae8s785kiu73dpkdj5.apps.googleusercontent.com',
-    iosBundleId: 'com.example.solesphere.RunnerTests',
+    iosClientId: '946297687740-vefaj2h12vbf84loprhrd8ntfnerqoui.apps.googleusercontent.com',
+    iosBundleId: 'com.example.solesphere',
   );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyDkBnpXCOyb-ZhjKG5utN3aMoyHqTw0EJk',
+    appId: '1:946297687740:web:a584e9f629a931a079cab9',
+    messagingSenderId: '946297687740',
+    projectId: 'solesphere-app-73c2b',
+    authDomain: 'solesphere-app-73c2b.firebaseapp.com',
+    storageBucket: 'solesphere-app-73c2b.appspot.com',
+    measurementId: 'G-7D6Q63FXM6',
+  );
+
 }

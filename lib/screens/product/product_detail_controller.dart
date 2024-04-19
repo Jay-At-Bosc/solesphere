@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:solesphere/auth/auth_exports.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:solesphere/common/widgets/popup/loaders.dart';
 import 'package:solesphere/services/api/end_points.dart';
 
@@ -156,6 +157,9 @@ class ProductDetailController extends GetxController {
         //   cartItemsList.add(cartItem);
         // }
         // log("cart-data ${cartItemsList}");
+        FirebaseAnalytics.instance.logEvent(name: 'cart_added', parameters: {
+          'product_name': product.productName,
+        });
         isCartLoading.value = false;
         // if (isCartLoading.value == false) {
         //   Get.back();
