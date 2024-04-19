@@ -2,6 +2,8 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 
+import '../../../services/analytics_service.dart';
+
 class HomeController extends GetxController {
   static HomeController get instance => Get.find();
 
@@ -10,10 +12,13 @@ class HomeController extends GetxController {
   RxString city = ''.obs;
   RxString state = ''.obs;
 
+  // final AnalyticsService _analyticsService = Get.find();
+
   @override
   void onInit() {
     // categories.addAll(categoryList);
     fetchLocation();
+
     super.onInit();
   }
 
@@ -59,7 +64,7 @@ class HomeController extends GetxController {
         state.value = placemarks[0].administrativeArea ?? ''; // Check for null
       }
     }
-    
+
     update(['location']);
   }
 }

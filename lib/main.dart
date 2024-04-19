@@ -12,10 +12,10 @@ import 'package:solesphere/services/repositories/network.dart';
 
 import 'package:solesphere/utils/local_storage/app_storage.dart';
 
+
 Future<void> main() async {
   /// Widgets Bindings
   WidgetsFlutterBinding.ensureInitialized();
-
 
   /// Device orientation setttings
   SystemChrome.setPreferredOrientations([
@@ -29,9 +29,6 @@ Future<void> main() async {
   /// Initilize Network Manager
   Get.put<NetworkController>(NetworkController(), permanent: true);
 
-  
-  
-
   /// Firebase Initialization
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -39,9 +36,6 @@ Future<void> main() async {
         Get.put(AuthenticationRepository()),
         Get.put(DbAuthentication()),
       });
-
-  await FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(true);
-
 
   runApp(const App());
 }

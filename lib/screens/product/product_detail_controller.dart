@@ -17,9 +17,9 @@ import 'package:http/http.dart' as http;
 class ProductDetailController extends GetxController {
   // static const String rebuildProductDetails = "rebuildProductDetils";
 
-  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-  static FirebaseAnalyticsObserver observer =
-      FirebaseAnalyticsObserver(analytics: analytics);
+  // static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  // static FirebaseAnalyticsObserver observer =
+  //     FirebaseAnalyticsObserver(analytics: analytics);
 
   static ProductDetailController get instance =>
       Get.find<ProductDetailController>();
@@ -39,7 +39,7 @@ class ProductDetailController extends GetxController {
 
   @override
   void onInit() async {
-    FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(true);
+    // FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(true);
 
     //call api and initialize the productDetail
     super.onInit();
@@ -177,6 +177,8 @@ class ProductDetailController extends GetxController {
               .toDouble(),
           items: [toAnalyticsEventItem()],
         );
+
+      
 
         update(['CartList', cartBtnId]);
         log("Oooooooooooook");

@@ -1,5 +1,5 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 
 import 'package:solesphere/common/widgets/popup/loaders.dart';
 import 'package:solesphere/services/repositories/authentication.dart';
@@ -19,8 +19,10 @@ class SplashController extends GetxController {
   final checkConnection = Get.find<NetworkController>();
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
+    await FirebaseAnalytics.instance
+        .logEvent(name: 'app', parameters: {'app': 'solesphere'});
     checkMainProcess();
   }
 
