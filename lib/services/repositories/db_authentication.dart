@@ -1,7 +1,7 @@
 // ignore_for_file: body_might_complete_normally_nullable
 
 import 'dart:convert';
-import 'dart:developer';
+
 import 'package:dio/dio.dart' as dio;
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -16,7 +16,7 @@ class DbAuthentication extends GetxController {
   final connection = Get.find<NetworkController>();
   var diox = dio.Dio();
 
-  Future<int> checkUser(Map<String,dynamic> data) async {
+  Future<int> checkUser(Map<String, dynamic> data) async {
     try {
       connection.checkInternetConnection();
       final jsonData = jsonEncode(data);
@@ -86,7 +86,6 @@ class DbAuthentication extends GetxController {
       );
 
       if (response.statusCode == 201) {
-        
         return true;
       } else {
         throw "User not created";

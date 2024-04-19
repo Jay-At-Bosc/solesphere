@@ -1,6 +1,4 @@
 // ignore_for_file: unused_local_variable
-
-import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';

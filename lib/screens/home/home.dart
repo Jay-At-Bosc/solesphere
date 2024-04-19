@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 import 'package:dio/dio.dart';
@@ -175,11 +173,11 @@ class NavigationController extends GetxController {
     );
 
     if (response.statusCode == 200) {
-      log(response.data.toString());
+      
       if (response.data is Map<String, dynamic> &&
           response.data.containsKey('data')) {
         userData = response.data['data'];
-        log(userData.toString());
+    
       }
 
       // Map<String, dynamic> responseMap = jsonDecode(response.data);

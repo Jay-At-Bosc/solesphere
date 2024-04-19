@@ -2,7 +2,7 @@
 
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
+
 import 'package:dio/dio.dart';
 
 import 'package:http/http.dart' as http;
@@ -51,7 +51,7 @@ class ProductController extends GetxController {
   bool isMainLoading() => isLoading.value || isProdcutLoading.value;
 
   void fetchData() {
-    log("calling..");
+  
     fetchBrands();
     fetchProducts();
     update(['title']);
@@ -86,7 +86,7 @@ class ProductController extends GetxController {
       productList.value = data.map((item) => Products.fromMap(item)).toList();
       productList.sort((a, b) => b.id.compareTo(a.id));
       filterProductList.addAll(productList);
-      log('Products Count: ${productList.length}');
+    
     } else {
       throw Exception('Failed to load products');
     }
@@ -131,12 +131,14 @@ class ProductController extends GetxController {
         List<dynamic> responseData = response.data['data']['responseData'];
         searchProductList
             .addAll(responseData.map((json) => Products.fromMap(json)));
-        log('Search Results Count: ${searchProductList.length}');
+        
       } else {
-        log(response.statusMessage.toString());
+        TLoaders.warningSnackBar(
+              title: 'Opps', message: 'Something went wrong..Please try again later');
       }
     } catch (e) {
-      log(e.toString());
+      TLoaders.warningSnackBar(
+              title: 'Opps', message: '$e');
     } finally {
       isSearching.value = false;
       update([searchId]);

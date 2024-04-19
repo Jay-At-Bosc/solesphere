@@ -1,6 +1,6 @@
 // import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:auth_google/signup/authentication_repository.dart';
-import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -63,7 +63,7 @@ class SignUpController extends GetxController {
   }
 
   Future<void> signupWithEmailPassword() async {
-    log("signupWithEmailPassword method called");
+    
     try {
       isPasswordMatched; // Checks Password is matched or not
 
@@ -114,7 +114,7 @@ class SignUpController extends GetxController {
 
   // Register User With Google
   Future<void> signupWithGoogle() async {
-    log("signupWithGoogle method called");
+    
     try {
       // repo call
       isGoogleLoading = true;
@@ -168,8 +168,6 @@ class SignUpController extends GetxController {
 
   void storeToLocal(UserDataModel user) {
     appStorage.setUserData(user);
-    log(" data from read : ${appStorage.getUserData()!.email}");
-    log("user created on local storage");
   }
 
   // Toggle Password

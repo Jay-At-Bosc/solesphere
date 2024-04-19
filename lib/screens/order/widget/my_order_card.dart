@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/screens/order/order_detail.screen.dart';
 
@@ -67,7 +65,7 @@ class MyOrderCard extends GetView<ViewOrderController> {
                         final x = ProductDetailController.instance;
 
                         Get.toNamed(Routes.productDetail);
-                        log(controller.orders[j].products[i].productId);
+                      
                         await x.fetchProductDetails(
                             controller.orders[j].products[i].productId);
                         x.getImagesList();

@@ -1,5 +1,4 @@
 // ignore_for_file: avoid_print
-import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
@@ -47,25 +46,23 @@ class FilterController extends GetxController {
       controller.update([controller.homeId]);
       if (selecetdFilters.isNotEmpty) {
         String query = generateFilterParams(selecetdFilters);
-        
+
         String uri = "https://solesphere-backend.onrender.com/api/v1/products/";
-        
+
         var dio = Dio();
         var response =
             await dio.request("$uri$query", options: Options(method: 'GET'));
-        
+
         if (response.statusCode == 200) {
-        
           final List<dynamic> data = response.data['data'];
           controller.productList.value =
               data.map((item) => Products.fromMap(item)).toList();
-        
+
           controller.filterProductList.clear();
           controller.filterProductList.addAll(controller.productList);
           controller.isProdcutLoading.value = false;
           Get.back();
 
-         
           controller.update([controller.homeId]);
         } else if (response.statusCode == 404) {
           Get.back();
@@ -117,13 +114,13 @@ class FilterController extends GetxController {
 
   keySelect(int index) {
     selectedFilterIndex = index;
-    
+
     update([filterId]);
   }
 
   valueSelect(int index) {
     selectedFilterValueIndex = index;
-    
+
     if (selecetdFilters.containsKey(seletedFilterType)) {
       if (selecetdFilters[seletedFilterType]!.contains(selectedFilterValue)) {
         selecetdFilters[seletedFilterType]!.remove(

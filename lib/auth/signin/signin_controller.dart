@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -51,7 +50,7 @@ class SignInController extends GetxController {
   /// Methods
   // Register User
   Future<void> signinWithEmailPassword() async {
-    log("signinWithEmailPassword method called");
+    
     try {
       // Form Validation
 
@@ -96,7 +95,7 @@ class SignInController extends GetxController {
 
   // Register User With Google
   Future<void> signInWithGoogle() async {
-    log("signupWithGoogle method called");
+    
     try {
       isGoogleSigInLoading = true;
       update([signInScreen]);
@@ -111,7 +110,7 @@ class SignInController extends GetxController {
           "UID": user.uid,
         };
         final userStatus = await DbAuthentication.instance.checkUser(jsonData);
-        log("User status after google log in : $userStatus");
+        
         if (userStatus == 200) {
           Get.offAllNamed(Routes.home);
           TLoaders.successSnackBar(
