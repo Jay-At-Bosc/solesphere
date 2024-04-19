@@ -105,10 +105,13 @@ class FavoriteController extends GetxController {
         // );
         update([favoriteId]);
       } else {
-        log(response.statusMessage.toString());
+        // TLoaders.warningSnackBar(
+        //     title: 'Opps', message: response.data['message']);
       }
     } catch (e) {
-      log(e.toString());
+      TLoaders.warningSnackBar(
+          title: 'Opps',
+          message: 'Something went wrong..Please try again later');
     }
   }
 
@@ -140,10 +143,14 @@ class FavoriteController extends GetxController {
         getFavoriteList();
         update([favoriteId]);
       } else {
-        log(response.statusMessage.toString());
+        TLoaders.warningSnackBar(
+            title: 'Opps',
+            message: 'Something went wrong..Please try again later');
       }
     } catch (e) {
-      log(e.toString());
+      TLoaders.warningSnackBar(
+          title: 'Opps',
+          message: 'Something went wrong..Please try again later');
     }
   }
 

@@ -16,9 +16,4 @@ class UserInfoController extends GetxController {
 
   final appStorage = Get.find<AppStorage>();
 
-  // void getuser() {
-  //   user = appStorage.getUserData()!;
-  //   log("User Details fromd asdf  adhfiuh");
-  //   // log(user!.name);
-  // }
 }

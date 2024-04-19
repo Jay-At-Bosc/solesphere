@@ -81,7 +81,7 @@ class UserDetailsController extends GetxController
         await DbAuthentication.instance.uploadImage(image).then((isUpload) =>
             selectedImage =
                 isUpload.isNotEmpty ? XFile(isUpload) : selectedImage);
-        log(selectedImage.path);
+        
         update([userProfilePictureId]);
       } else {
         throw CustomException(
@@ -99,7 +99,7 @@ class UserDetailsController extends GetxController
       Permission.storage,
     ].request();
 
-    log('asked for permission');
+  
 
     if (permissionStatus[Permission.camera] != PermissionStatus.granted ||
         permissionStatus[Permission.storage] != PermissionStatus.granted) {

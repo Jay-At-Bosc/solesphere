@@ -5,6 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:solesphere/auth/auth_exports.dart';
 import 'package:solesphere/common/widgets/popup/loaders.dart';
+import 'package:solesphere/screens/favorite/favorite_controller.dart';
+import 'package:solesphere/screens/product/product_detail_controller.dart';
 import 'package:solesphere/services/api/end_points.dart';
 
 import '../../services/models/order_model.dart';
@@ -21,6 +23,8 @@ class ViewOrderController extends GetxController {
 
   @override
   void onInit() async {
+    Get.put<ProductDetailController>(ProductDetailController());
+    Get.put<FavoriteController>(FavoriteController());
     await getUserOrders();
     super.onInit();
   }
@@ -69,7 +73,7 @@ class ViewOrderController extends GetxController {
         final List<dynamic> dataList = jsonResponse['data'];
         orders = dataList.map((data) => ViewOrderModel.fromMap(data)).toList();
         orders.sort(((a, b) => b.id.compareTo(a.id)));
-        log(orders.length.toString());
+      
         isLoading = false;
         update([ordersId, ordersStatusId]);
       } else {
@@ -82,7 +86,6 @@ class ViewOrderController extends GetxController {
       }
     } catch (e) {
       TLoaders.warningSnackBar(title: "Opps", message: e.toString());
-      log(e.toString());
       isLoading = false;
       update([ordersId]);
     }
@@ -151,8 +154,7 @@ class ViewOrderController extends GetxController {
                 'Your Order has been Cancelled and ${response.statusMessage}');
         getUserOrders();
 
-        log(orders.length.toString());
-        log(response.data.toString());
+      
         isLoading = false;
         isCancelLoading = false;
         update([ordersId, ordersStatusId]);
@@ -169,7 +171,7 @@ class ViewOrderController extends GetxController {
       TLoaders.warningSnackBar(
           title: "Opps",
           message: 'Something went wrong.. Please try again later.!');
-      // log(e.toString());
+    
       isLoading = false;
       isCancelLoading = false;
       update([ordersId]);

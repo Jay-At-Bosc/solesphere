@@ -12,8 +12,7 @@ class DrawerScreen extends GetView<NavigationController> {
 
   @override
   Widget build(BuildContext context) {
-    // final controller = Get.put(NavigationController());
-    // log(7.0.getHeight());
+    
     return Scaffold(
       backgroundColor: Colors.black,
       body: Padding(

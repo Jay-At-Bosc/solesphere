@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lottie/lottie.dart';
 import 'package:solesphere/auth/auth_exports.dart';
+import 'package:solesphere/common/widgets/popup/loaders.dart';
 import 'package:solesphere/utils/constants/icons.dart';
 import 'package:solesphere/utils/extensions/responsive_extension.dart';
 // import 'package:solesphere/screens/cart/cart_repository.dart';
@@ -57,7 +58,7 @@ class CartController extends GetxController {
         }
         totalAmount.value = jsonResponse['data']['totalAmount'];
         deliveryCharge.value = jsonResponse['data']['deliveryCharge'];
-        log("cart-data $cartItemsList");
+
         isCartLoading.value = false;
         update(['CartList', 'amount', 'cart_count']);
       } else {
@@ -68,7 +69,6 @@ class CartController extends GetxController {
     } catch (e) {
       isCartLoading.value = false;
       update(['CartList', 'cart_count']);
-      log(e.toString());
     }
   }
 
@@ -111,7 +111,6 @@ class CartController extends GetxController {
           'size': cartItemsList[index].size,
         };
         String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
-        log('token: $token');
 
         final jsonData = jsonEncode(data);
         var headers = {'auth-token': token, 'Content-Type': 'application/json'};
@@ -120,15 +119,14 @@ class CartController extends GetxController {
             options: Options(method: 'POST', headers: headers), data: jsonData);
 
         if (response.statusCode == 200) {
-          log("Updated......................");
-          log("cart-data $cartItemsList");
           cartItemsList[index].quantity++;
           totalAmount.value += cartItemsList[index].discountedPrice;
 
           isIncreament.value = false;
           update(['amount']);
         } else {
-          log(response.statusCode.toString());
+          TLoaders.warningSnackBar(
+              title: 'Opps', message: response.data['message']);
         }
 
         update(['quantity']);
@@ -220,7 +218,7 @@ class CartController extends GetxController {
       }
     } on DioException catch (_) {
       isDecrement.value = false;
-      // log(DioException);
+
       throw DioException;
     } catch (e) {
       isDecrement.value = false;
