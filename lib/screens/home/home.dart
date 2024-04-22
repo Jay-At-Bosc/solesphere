@@ -99,7 +99,7 @@ class HomeScreen extends StatelessWidget {
           buttonBackgroundColor: Colors.white,
           backgroundColor: Colors.transparent,
           animationCurve: Curves.easeInOut,
-          animationDuration: const Duration(milliseconds: 600),
+          animationDuration: const Duration(milliseconds: 600),   
           onTap: (index) {
             controller.page.value = index;
             // Update the UI

@@ -111,6 +111,8 @@ class FavoriteController extends GetxController {
       TLoaders.warningSnackBar(
           title: 'Opps',
           message: 'Something went wrong..Please try again later');
+    } finally {
+      update([favoriteId]);
     }
   }
 

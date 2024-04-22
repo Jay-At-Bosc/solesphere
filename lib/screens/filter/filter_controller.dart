@@ -33,10 +33,11 @@ class FilterController extends GetxController {
     return '?${params.join('&')}';
   }
 
-  resetFilter() {
+  resetFilter() async {
     selecetdFilters.clear();
-    controller.filterProductList.addAll(controller.productList);
+    await controller.fetchProducts();
     update([filterId, controller.homeId]);
+    controller.update([controller.homeId]);
     Get.back();
   }
 

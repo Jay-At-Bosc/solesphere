@@ -48,6 +48,7 @@ class HomeScreenContent extends GetView<CustomDrawerController> {
               id: ProductController.instance.homeId,
               builder: (productController) => RefreshIndicator(
                 onRefresh: () async {
+                  productController.selectedCategory.value = '0';
                   await productController.fetchBrands();
                   await productController.fetchProducts();
                 },
