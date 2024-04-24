@@ -43,13 +43,13 @@ class DrawerMenu extends StatelessWidget {
             text: "Orders", route: Routes.viewOrder,
             // onTap: () {},
           ),
-          const SDrawerOption(
-            icon: Iconsax.notification_bing,
-            text: "Notifications",
-            route: Routes.notification,
+          // const SDrawerOption(
+          //   icon: Iconsax.notification_bing,
+          //   text: "Notifications",
+          //   route: Routes.notification,
 
-            // onTap: () {},
-          ),
+          //   // onTap: () {},
+          // ),
           SizedBox(
             width: 50.0.getWidth(),
             child: Divider(

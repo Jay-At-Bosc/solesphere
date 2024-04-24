@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:solesphere/common/widgets/popup/loaders.dart';
 import 'package:solesphere/services/routes/app_pages.dart';
 import 'package:solesphere/utils/exceptions/exception_handler.dart';
 
@@ -79,7 +80,7 @@ class UserDetailsController extends GetxController
         await DbAuthentication.instance.uploadImage(image).then((isUpload) =>
             selectedImage =
                 isUpload.isNotEmpty ? XFile(isUpload) : selectedImage);
-        
+
         update([userProfilePictureId]);
       } else {
         throw CustomException(
@@ -96,8 +97,6 @@ class UserDetailsController extends GetxController
       Permission.camera,
       Permission.storage,
     ].request();
-
-  
 
     if (permissionStatus[Permission.camera] != PermissionStatus.granted ||
         permissionStatus[Permission.storage] != PermissionStatus.granted) {
@@ -143,13 +142,11 @@ class UserDetailsController extends GetxController
     } catch (e) {
       isSaveLoading = false;
       update([userDetailScreenId]);
-      showMessage(SLabels.error, e.toString());
+      showMessage("Warning!", "Please Fill All The Details");
     }
   }
 
   showMessage(String title, String message) {
-    return Get.snackbar(title, message,
-        duration: const Duration(seconds: 2),
-        snackPosition: SnackPosition.BOTTOM);
+    return TLoaders.warningSnackBar(title: title, message: message);
   }
 }

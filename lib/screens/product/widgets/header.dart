@@ -16,7 +16,7 @@ class ProductDetailHeader extends GetView<FavoriteController> {
   });
 
   final String name;
-  final int rating;
+  final double rating;
   final String id;
 
   @override

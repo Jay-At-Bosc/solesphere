@@ -1,5 +1,4 @@
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-
 import 'package:iconsax/iconsax.dart';
 import 'package:lottie/lottie.dart';
 import 'package:solesphere/auth/auth_exports.dart';
@@ -56,7 +55,8 @@ class ProductDetail extends GetView<ProductDetailController> {
                             builder: (ctx) => ProductDetailHeader(
                               id: controller.productDetail.id,
                               name: controller.productDetail.productName,
-                              rating: 5,
+                              rating: controller.getAverageReview(
+                                  controller.productDetail.review),
                             ),
                           ),
 

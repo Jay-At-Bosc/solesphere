@@ -50,7 +50,6 @@ class SignInController extends GetxController {
   /// Methods
   // Register User
   Future<void> signinWithEmailPassword() async {
-    
     try {
       // Form Validation
 
@@ -95,7 +94,6 @@ class SignInController extends GetxController {
 
   // Register User With Google
   Future<void> signInWithGoogle() async {
-    
     try {
       isGoogleSigInLoading = true;
       update([signInScreen]);
@@ -108,9 +106,10 @@ class SignInController extends GetxController {
         Map<String, dynamic> jsonData = {
           "email": user.email,
           "UID": user.uid,
+          "username": user.displayName ?? "Unknown",
         };
         final userStatus = await DbAuthentication.instance.checkUser(jsonData);
-        
+
         if (userStatus == 200) {
           Get.offAllNamed(Routes.home);
           TLoaders.successSnackBar(

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'dart:io';
 import 'package:dio/dio.dart';
@@ -148,12 +149,12 @@ class ProductDetailController extends GetxController {
       if (response.statusCode == 200) {
         isCartLoading.value = false;
 
-        // await FirebaseAnalytics.instance.logAddToCart(
-        //   currency: 'INR',
-        //   value: productDetail.variants.first.sizes.first.discountedPrice
-        //       .toDouble(),
-        //   items: [toAnalyticsEventItem()],
-        // );
+        await FirebaseAnalytics.instance.logAddToCart(
+          currency: 'INR',
+          value: productDetail.variants.first.sizes.first.discountedPrice
+              .toDouble(),
+          items: [toAnalyticsEventItem()],
+        );
 
         analytics.logEvent(name: 'cart_added', parameters: {
           'product_name': product.productName,
@@ -163,6 +164,9 @@ class ProductDetailController extends GetxController {
         TLoaders.successSnackBar(
             title: "Wow 🎉",
             message: "${product.productName} is added to the cart");
+      } else {
+        isCartLoading.value = false;
+        update(['CartList', cartBtnId]);
       }
     } on SocketException catch (e) {
       TLoaders.warningSnackBar(title: 'Opps', message: '$e');
@@ -179,7 +183,6 @@ class ProductDetailController extends GetxController {
   @override
   void onClose() {
     imageUrls.clear();
-
     super.onClose();
   }
 
@@ -189,10 +192,10 @@ class ProductDetailController extends GetxController {
     String itemCategory = productDetail.category.category;
     double price =
         productDetail.variants.first.sizes.first.discountedPrice.toDouble();
-    String? currency = 'INR'; // Assuming currency is in the first variant
+    String? currency = 'INR'; 
 
     String? brand =
-        productDetail.brand.brand; // Assuming Brand has a 'name' property
+        productDetail.brand.brand;
 
     return AnalyticsEventItem(
       itemId: itemId,
@@ -202,5 +205,19 @@ class ProductDetailController extends GetxController {
       currency: currency,
       itemBrand: brand,
     );
+  }
+
+  double getAverageReview(List<Review> reviews) {
+    double averageRating = 0;
+    double totalReview = reviews.length.toDouble();
+    if (reviews.isNotEmpty) {
+      for (int i = 0; i < reviews.length; i++) {
+        averageRating += reviews[i].rating;
+      }
+      log("${averageRating / totalReview}");
+      return averageRating / totalReview;
+    } else {
+      return 0;
+    }
   }
 }

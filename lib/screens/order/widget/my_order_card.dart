@@ -65,7 +65,7 @@ class MyOrderCard extends GetView<ViewOrderController> {
                         final x = ProductDetailController.instance;
 
                         Get.toNamed(Routes.productDetail);
-                      
+
                         await x.fetchProductDetails(
                             controller.orders[j].products[i].productId);
                         x.getImagesList();
@@ -142,9 +142,9 @@ class MyOrderCard extends GetView<ViewOrderController> {
             if (controller.orders[j].orderStatus != 'Cancelled')
               GetBuilder<ViewOrderController>(
                 builder: (controller) => SecondaryButton(
-                    // label: Get.currentRoute == '/OrderDetailScreen'
-                    //     ? SLabels.cancel
-                    //     : SLabels.viewDetails,
+                    label: Get.currentRoute == '/OrderDetailScreen'
+                        ? SLabels.cancel
+                        : SLabels.viewDetails,
                     style: Theme.of(context).textTheme.labelMedium!,
                     index: j,
                     onPress: Get.currentRoute == '/OrderDetailScreen'

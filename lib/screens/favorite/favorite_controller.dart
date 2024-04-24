@@ -155,24 +155,5 @@ class FavoriteController extends GetxController {
     }
   }
 
-  // AnalyticsEventItem toAnalyticsEventItem() {
-  //   String itemName = favoriteList;
-  //   String itemId = productDetail.id;
-  //   String itemCategory = productDetail.category.category;
-  //   double price =
-  //       productDetail.variants.first.sizes.first.discountedPrice.toDouble();
-  //   String? currency = 'INR'; // Assuming currency is in the first variant
-
-  //   String? brand =
-  //       productDetail.brand.brand; // Assuming Brand has a 'name' property
-
-  //   return AnalyticsEventItem(
-  //     itemId: itemId,
-  //     itemName: itemName,
-  //     itemCategory: itemCategory,
-  //     price: price,
-  //     currency: currency,
-  //     itemBrand: brand,
-  //   );
-  // }
+ 
 }

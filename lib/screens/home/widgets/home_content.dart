@@ -67,8 +67,7 @@ class HomeScreenContent extends GetView<CustomDrawerController> {
                               child: const TSearchContainer(
                                   text: "Search in SoleSphere",
                                   icon: Iconsax.search_normal,
-                                  isSuffix: true,
-                                  suffixIcon: Iconsax.microphone,
+                                  isSuffix: false,
                                   isDisable: true),
                             ),
                           ),

@@ -41,9 +41,7 @@ class SecondaryButton extends StatelessWidget {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           textStyle: style,
         ),
-        child: Text(Get.currentRoute == '/OrderDetailScreen'
-            ? SLabels.cancel
-            : SLabels.viewDetails),
+        child: Text(label),
       ),
     );
   }
