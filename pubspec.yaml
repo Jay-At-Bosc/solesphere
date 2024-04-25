@@ -35,7 +35,7 @@ dependencies:
   lottie: 
   firebase_auth: ^4.17.9
   google_sign_in: ^6.2.1
-  dio: ^5.4.1
+  dio: ^5.4.3+1
   easy_stepper: ^0.8.3
   geolocator: ^11.0.0
   geocoding: ^3.0.0

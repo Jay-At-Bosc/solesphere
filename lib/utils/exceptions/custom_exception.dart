@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:dio/dio.dart';
+
 class CustomInternetException implements Exception {
   final String title;
   final String message;
@@ -16,3 +18,5 @@ class CustomException implements Exception {
     required this.message,
   });
 }
+
+

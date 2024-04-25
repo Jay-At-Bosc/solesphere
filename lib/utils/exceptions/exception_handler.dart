@@ -9,7 +9,7 @@ class ExceptionHandler{
       } else if (e is CustomException) {
        TLoaders.errorSnackBar(title: e.title, message: e.message);
       } else {
-        TLoaders.errorSnackBar(message: e.toString());
+        TLoaders.errorSnackBar();
       }
   }
 }

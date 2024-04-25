@@ -65,12 +65,7 @@ class FilterController extends GetxController {
           controller.isProdcutLoading.value = false;
           Get.back();
 
-          // if (selectedFilterIndex == 4) {
-          //   ProductController.instance.selectedCategory.value =
-          //       selectedFilterValueIndex.toString();
-          //   log(ProductController.instance.selectedCategory.value);
-          //   update([ProductController.instance.homeId]);
-          // }
+
           controller.update([controller.homeId]);
         } else if (response.statusCode == 404) {
           Get.back();
