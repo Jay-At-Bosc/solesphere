@@ -1,5 +1,4 @@
 // ignore_for_file: avoid_print
-import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
@@ -34,10 +33,11 @@ class FilterController extends GetxController {
     return '?${params.join('&')}';
   }
 
-  resetFilter() {
+  resetFilter() async {
     selecetdFilters.clear();
-    controller.filterProductList.addAll(controller.productList);
+    await controller.fetchProducts();
     update([filterId, controller.homeId]);
+    controller.update([controller.homeId]);
     Get.back();
   }
 
@@ -47,19 +47,18 @@ class FilterController extends GetxController {
       controller.update([controller.homeId]);
       if (selecetdFilters.isNotEmpty) {
         String query = generateFilterParams(selecetdFilters);
-        log("quesry - $query");
+
         String uri = "https://solesphere-backend.onrender.com/api/v1/products/";
-        log("uri - $uri$query");
+
         var dio = Dio();
         var response =
             await dio.request("$uri$query", options: Options(method: 'GET'));
-        log(response.statusCode.toString());
+
         if (response.statusCode == 200) {
-          log(response.data.toString());
           final List<dynamic> data = response.data['data'];
           controller.productList.value =
               data.map((item) => Products.fromMap(item)).toList();
-          //controller.productList.sort((a, b) => b.id.compareTo(a.id));
+
           controller.filterProductList.clear();
           controller.filterProductList.addAll(controller.productList);
           controller.isProdcutLoading.value = false;
@@ -117,14 +116,13 @@ class FilterController extends GetxController {
 
   keySelect(int index) {
     selectedFilterIndex = index;
-    log("selected index = $selectedFilterIndex");
-    log("key : ${filters.keys.toList()[index]}");
+
     update([filterId]);
   }
 
   valueSelect(int index) {
     selectedFilterValueIndex = index;
-    log("filter value - ${filters[seletedFilterType]![index].toString()}");
+
     if (selecetdFilters.containsKey(seletedFilterType)) {
       if (selecetdFilters[seletedFilterType]!.contains(selectedFilterValue)) {
         selecetdFilters[seletedFilterType]!.remove(

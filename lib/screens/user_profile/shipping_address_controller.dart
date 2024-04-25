@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -151,7 +150,6 @@ class ShippingAdddressController extends GetxController
           options: Options(method: 'DELETE', headers: headers), data: data);
 
       if (response.statusCode == 200) {
-        log("Deleted");
         await getUserAddress();
         await controller.getUserAddress();
       } else {
@@ -159,7 +157,6 @@ class ShippingAdddressController extends GetxController
             title: "Opps!!", message: response.statusMessage);
       }
     } catch (e) {
-      log(e.toString());
       TLoaders.errorSnackBar(title: "Opps!!", message: e);
     }
   }

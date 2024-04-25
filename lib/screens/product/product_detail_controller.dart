@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'dart:developer';
+
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:solesphere/auth/auth_exports.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:solesphere/common/widgets/popup/loaders.dart';
 import 'package:solesphere/services/api/end_points.dart';
 
@@ -16,11 +16,6 @@ import '../../services/models/product_detail_model.dart';
 import 'package:http/http.dart' as http;
 
 class ProductDetailController extends GetxController {
-  // static const String rebuildProductDetails = "rebuildProductDetils";
-
-  // static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-  // static FirebaseAnalyticsObserver observer =
-  //     FirebaseAnalyticsObserver(analytics: analytics);
   final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   static ProductDetailController get instance =>
@@ -60,9 +55,6 @@ class ProductDetailController extends GetxController {
 
         if (data is Map<String, dynamic>) {
           productDetail = ProductDetailModel.fromMap(data);
-          // productDetailList.add(product);
-          // log('Product Added: ${productDetailList.length}');
-          log('Product Details: $productDetail');
         } else {
           throw const FormatException('Invalid product data structure');
         }
@@ -70,29 +62,21 @@ class ProductDetailController extends GetxController {
         throw const FormatException('No product data found');
       }
     } catch (error) {
-      log('Error parsing product details: $error');
-      // log(stackTrace);
-      // Handle parsing error
+      TLoaders.warningSnackBar(
+          title: 'Opps',
+          message: 'Something went wrong..Please try again later');
     }
   }
 
   Future<void> fetchProductDetails(String productId) async {
     try {
       isLoading.value = true;
-      log(productId);
-
-      // await FirebaseAnalytics.instance.logViewItem(
-
-      // );
 
       final response = await http.get(
         Uri.parse(
           'https://solesphere-backend.onrender.com/api/v1/products/product-detail?product_id=$productId',
         ),
       );
-
-      log('Response status code: ${response.statusCode}');
-      log('Response body: ${response.body}');
 
       if (response.statusCode == 200) {
         Map<String, dynamic> responseData = json.decode(response.body);
@@ -112,28 +96,20 @@ class ProductDetailController extends GetxController {
       }
     } catch (error) {
       isLoading.value = false;
-      log('Error during API request: $error');
-      // Handle error
-    } finally {
-      // if (isLoading.value == false) {
-      //   Get.back();
-      // }
+      TLoaders.warningSnackBar(
+          title: 'Opps',
+          message: 'Something went wrong..Please try again later');
     }
-    //false
+
     update();
   }
 
   //All Images of products
   void getImagesList() {
     imageUrls.clear();
-    // Iterate over each Variant in the current ProductDetailModel
     for (Variant variant in productDetail.variants) {
-      // Add all image URLs from the current Variant to allImagesList
       imageUrls.addAll(variant.imageUrls);
     }
-
-    log('total images: ${imageUrls.length}');
-    // }
   }
 
   int calculateDiscountPercentage(int actualPrice, int discountedPrice) {
@@ -171,43 +147,33 @@ class ProductDetailController extends GetxController {
           options: Options(method: 'POST', headers: headers), data: jsonData);
 
       if (response.statusCode == 200) {
-        // Map<String, dynamic> jsonResponse = json.decode(response.body);
-        // final List<dynamic> cartItemsJson = jsonResponse['data']['cartItems'];
-
-        // for (var item in cartItemsJson) {
-        //   CartModel cartItem = CartModel.fromMap(item);
-        //   totalAmount += (cartItem.discounted_price * cartItem.quantity);
-        //   cartItemsList.add(cartItem);
-        // }
-        // log("cart-data ${cartItemsList}");
         isCartLoading.value = false;
 
-        // await FirebaseAnalytics.instance.logAddToCart(
-        //   currency: 'INR',
-        //   value: productDetail.variants.first.sizes.first.discountedPrice
-        //       .toDouble(),
-        //   items: [toAnalyticsEventItem()],
-        // );
+        await FirebaseAnalytics.instance.logAddToCart(
+          currency: 'INR',
+          value: productDetail.variants.first.sizes.first.discountedPrice
+              .toDouble(),
+          items: [toAnalyticsEventItem()],
+        );
 
         analytics.logEvent(name: 'cart_added', parameters: {
           'product_name': product.productName,
         });
 
         update(['CartList', cartBtnId]);
-        log("Oooooooooooook");
         TLoaders.successSnackBar(
             title: "Wow 🎉",
             message: "${product.productName} is added to the cart");
+      } else {
+        isCartLoading.value = false;
+        update(['CartList', cartBtnId]);
       }
     } on SocketException catch (e) {
-      // Handle SocketException (e.g., no internet connection)
-      log('SocketException: $e');
+      TLoaders.warningSnackBar(title: 'Opps', message: '$e');
     } on HttpException catch (e) {
-      // Handle HttpException (e.g., 404 Not Found)
-      log('HttpException: $e');
+      TLoaders.warningSnackBar(title: 'Opps', message: e.toString());
     } catch (e) {
-      // Catch any other error that might occur
-      log('Error: $e');
+      TLoaders.warningSnackBar(title: 'Opps', message: '$e');
     } finally {
       isCartLoading.value = false;
       update(['CartList', cartBtnId]);
@@ -217,7 +183,6 @@ class ProductDetailController extends GetxController {
   @override
   void onClose() {
     imageUrls.clear();
-
     super.onClose();
   }
 
@@ -227,10 +192,10 @@ class ProductDetailController extends GetxController {
     String itemCategory = productDetail.category.category;
     double price =
         productDetail.variants.first.sizes.first.discountedPrice.toDouble();
-    String? currency = 'INR'; // Assuming currency is in the first variant
+    String? currency = 'INR'; 
 
     String? brand =
-        productDetail.brand.brand; // Assuming Brand has a 'name' property
+        productDetail.brand.brand;
 
     return AnalyticsEventItem(
       itemId: itemId,
@@ -240,5 +205,19 @@ class ProductDetailController extends GetxController {
       currency: currency,
       itemBrand: brand,
     );
+  }
+
+  double getAverageReview(List<Review> reviews) {
+    double averageRating = 0;
+    double totalReview = reviews.length.toDouble();
+    if (reviews.isNotEmpty) {
+      for (int i = 0; i < reviews.length; i++) {
+        averageRating += reviews[i].rating;
+      }
+      log("${averageRating / totalReview}");
+      return averageRating / totalReview;
+    } else {
+      return 0;
+    }
   }
 }

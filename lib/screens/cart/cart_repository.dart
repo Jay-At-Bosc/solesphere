@@ -1,8 +1,6 @@
 import 'dart:convert';
 
-
 import 'package:http/http.dart' as http;
-
 
 class CartRepository {
   var url = "https://solesphere-backend.onrender.com/api/v1/products/get-cart";
@@ -15,15 +13,8 @@ class CartRepository {
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonResponse = json.decode(response.body);
       final List<dynamic> cartItemsJson = jsonResponse['data']['cartItems'];
-     
+
       return cartItemsJson;
     }
-    // var cartData = json.decode(response.body);
-    // log(cartData);
   }
-
-  // getProductFromApi(productId) async {
-  //   var response = await http.get(Uri.parse(url + productId.toString()));
-  //   return json.decode(response.body);
-  // }
 }

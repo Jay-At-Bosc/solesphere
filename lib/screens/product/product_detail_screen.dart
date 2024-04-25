@@ -1,5 +1,4 @@
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-
 import 'package:iconsax/iconsax.dart';
 import 'package:lottie/lottie.dart';
 import 'package:solesphere/auth/auth_exports.dart';
@@ -52,8 +51,14 @@ class ProductDetail extends GetView<ProductDetailController> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           GetBuilder<FavoriteController>(
-                              id: FavoriteController.instance.favoriteId,
-                              builder: (ctx) => const ProductDetailHeader()),
+                            id: FavoriteController.instance.favoriteId,
+                            builder: (ctx) => ProductDetailHeader(
+                              id: controller.productDetail.id,
+                              name: controller.productDetail.productName,
+                              rating: controller.getAverageReview(
+                                  controller.productDetail.review),
+                            ),
+                          ),
 
                           //Short Description of product and slider
                           const ProductSlider(),
@@ -242,9 +247,10 @@ class AddReviewTitle extends GetView<ReviewController> {
                   );
                 } else {
                   TLoaders.warningSnackBar(
-                      title: "Not Eligible",
-                      message:
-                          "You are not eligible to write a review for this product.");
+                    title: "Not Eligible",
+                    message:
+                        "You are not eligible to write a review for this product.",
+                  );
                 }
               },
               child: GetBuilder<ReviewController>(
@@ -257,10 +263,9 @@ class AddReviewTitle extends GetView<ReviewController> {
                   title: const STextStyle(text: SLabels.review),
                   trailing: controller.isLoading
                       ? Lottie.asset(
-                          SJsons.arrow, // Path to your Lottie animation
+                          SJsons.arrow,
                           width: 50,
                           height: 30,
-
                           fit: BoxFit.fill,
                         )
                       : const Icon(Iconsax.arrow_right_3),

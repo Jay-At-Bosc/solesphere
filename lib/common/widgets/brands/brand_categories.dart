@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:solesphere/screens/home/controller/drawer_controller.dart';
@@ -39,7 +37,7 @@ class SHomeCategories extends StatelessWidget {
                     onTap: () {
                       controller.onItemClick(controller.brandList[index].id,
                           controller.brandList[index].brand);
-                      log('brand id :${controller.brandList[index].id}');
+                      
                     },
                     onDoubleTap: () {
                       controller.onItemClick('0', '');

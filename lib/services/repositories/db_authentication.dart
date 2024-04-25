@@ -1,7 +1,7 @@
 // ignore_for_file: body_might_complete_normally_nullable
 
 import 'dart:convert';
-import 'dart:developer';
+
 import 'package:dio/dio.dart' as dio;
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -16,13 +16,13 @@ class DbAuthentication extends GetxController {
   final connection = Get.find<NetworkController>();
   var diox = dio.Dio();
 
-  Future<int> checkUser(Map<String,dynamic> data) async {
+  Future<int> checkUser(Map<String, dynamic> data) async {
     try {
       connection.checkInternetConnection();
       final jsonData = jsonEncode(data);
       var response = await diox.request(EndPoints.isUser,
           options: dio.Options(method: 'POST'), data: jsonData);
-      log(response.statusCode.toString());
+
       return response.statusCode!;
     } catch (e) {
       rethrow;
@@ -55,8 +55,6 @@ class DbAuthentication extends GetxController {
   }
 
   Future<bool?> createUserDetails(UserDataModel user, XFile? file) async {
-    log("db method called");
-
     try {
       connection.checkInternetConnection();
       String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
@@ -77,7 +75,6 @@ class DbAuthentication extends GetxController {
       };
 
       final jsonData = jsonEncode(data);
-      log("api call : ${data.values}");
 
       var response = await diox.request(
         EndPoints.userDetail,
@@ -86,7 +83,6 @@ class DbAuthentication extends GetxController {
       );
 
       if (response.statusCode == 201) {
-        
         return true;
       } else {
         throw "User not created";

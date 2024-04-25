@@ -108,14 +108,12 @@ class OrderController extends GetxController {
   // selected addresss
   void setSelectedOption(String value) {
     selectedOption.value = value;
-    log('selected Address: ${selectedOption.value}');
     update([addressId]);
   }
 
 // selected payment method
   void setPaymentMode(String value) {
     selectedPaymentMode.value = value;
-    log('selected Payment Mode: ${selectedPaymentMode.value}');
     update([paymentId]);
   }
 
@@ -123,8 +121,7 @@ class OrderController extends GetxController {
   Future<void> setActiveStep(int index) async {
     if (index < 3) {
       activeStep.value = index; // Update active step
-      log(activeStep.toString());
-      update([stepperId, pageContentId, btnId,titleId]);
+      update([stepperId, pageContentId, btnId, titleId]);
     }
   }
 
@@ -145,19 +142,13 @@ class OrderController extends GetxController {
         final List<dynamic> addressList = responseData['data']['address'];
         userAddresses =
             addressList.map((address) => Useraddress.fromMap(address)).toList();
-        // for (final address in userAddresses) {
-        //   addressList.add(address);
-        // }
 
-        log("Okkkk");
-        log("length : ${addressList.length}");
         isAddressLoading.value = false;
         update(
           [pageContentId, updateAddressId, btnId],
         );
       }
     } catch (e) {
-      log(e.toString());
       isAddressLoading.value = false;
       update([pageContentId, btnId]);
     }
@@ -188,13 +179,13 @@ class OrderController extends GetxController {
         OrderSummaryModel order = OrderSummaryModel.fromMap(responseData);
         orderSummary = [order];
 
-        log("Okkkk");
-        log("length : ${orderSummary.length}");
         isSummaryLoading.value = false;
         update([pageContentId, btnId]);
       }
     } catch (e) {
-      log(e.toString());
+      TLoaders.warningSnackBar(
+          title: 'Opps',
+          message: 'Something went wrong..Please try again later');
       isSummaryLoading.value = false;
       update([pageContentId, btnId]);
     }
@@ -237,7 +228,6 @@ class OrderController extends GetxController {
           // data: jsonEncode(data),
         );
         if (response.statusCode == 200) {
-          log(response.data.toString());
           final Map<String, dynamic> responseData =
               response.data['data'] as Map<String, dynamic>;
 
@@ -283,7 +273,6 @@ class OrderController extends GetxController {
 
           _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR,
               (PaymentFailureResponse response) async {
-            log("Payment Error: ${response.code} - ${response.message}");
             Get.back();
 
             TLoaders.errorSnackBar(
@@ -292,10 +281,7 @@ class OrderController extends GetxController {
           });
 
           _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET,
-              (ExternalWalletResponse response) {
-            log("External Wallet: ${response.walletName}");
-            // Handle external wallet selection here
-          });
+              (ExternalWalletResponse response) {});
           isOrderProcessLoading.value = false;
           update([btnId]);
         } else {
@@ -336,7 +322,6 @@ class OrderController extends GetxController {
     try {
       String? token = await FirebaseAuth.instance.currentUser?.getIdToken();
       if (token == null) {
-        log('User token is null');
         return;
       }
 
@@ -367,10 +352,11 @@ class OrderController extends GetxController {
         TLoaders.successSnackBar(
             title: "Congratulations!", message: "Your Order Has Been Placed");
       } else {
-        log('Failed to create order. Status code: ${response.statusCode}');
+        TLoaders.warningSnackBar(
+            title: 'Opps',
+            message: 'Something went wrong..Please try again later');
       }
     } catch (e) {
-      log('Error creating order: $e');
       Get.back();
       TLoaders.errorSnackBar(
           title: "Error",

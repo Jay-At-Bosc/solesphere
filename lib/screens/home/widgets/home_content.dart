@@ -48,6 +48,7 @@ class HomeScreenContent extends GetView<CustomDrawerController> {
               id: ProductController.instance.homeId,
               builder: (productController) => RefreshIndicator(
                 onRefresh: () async {
+                  productController.selectedCategory.value = '0';
                   await productController.fetchBrands();
                   await productController.fetchProducts();
                 },
@@ -66,8 +67,7 @@ class HomeScreenContent extends GetView<CustomDrawerController> {
                               child: const TSearchContainer(
                                   text: "Search in SoleSphere",
                                   icon: Iconsax.search_normal,
-                                  isSuffix: true,
-                                  suffixIcon: Iconsax.microphone,
+                                  isSuffix: false,
                                   isDisable: true),
                             ),
                           ),

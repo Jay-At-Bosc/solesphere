@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -105,10 +104,15 @@ class FavoriteController extends GetxController {
         // );
         update([favoriteId]);
       } else {
-        log(response.statusMessage.toString());
+        // TLoaders.warningSnackBar(
+        //     title: 'Opps', message: response.data['message']);
       }
     } catch (e) {
-      log(e.toString());
+      TLoaders.warningSnackBar(
+          title: 'Opps',
+          message: 'Something went wrong..Please try again later');
+    } finally {
+      update([favoriteId]);
     }
   }
 
@@ -140,31 +144,16 @@ class FavoriteController extends GetxController {
         getFavoriteList();
         update([favoriteId]);
       } else {
-        log(response.statusMessage.toString());
+        TLoaders.warningSnackBar(
+            title: 'Opps',
+            message: 'Something went wrong..Please try again later');
       }
     } catch (e) {
-      log(e.toString());
+      TLoaders.warningSnackBar(
+          title: 'Opps',
+          message: 'Something went wrong..Please try again later');
     }
   }
 
-  // AnalyticsEventItem toAnalyticsEventItem() {
-  //   String itemName = favoriteList;
-  //   String itemId = productDetail.id;
-  //   String itemCategory = productDetail.category.category;
-  //   double price =
-  //       productDetail.variants.first.sizes.first.discountedPrice.toDouble();
-  //   String? currency = 'INR'; // Assuming currency is in the first variant
-
-  //   String? brand =
-  //       productDetail.brand.brand; // Assuming Brand has a 'name' property
-
-  //   return AnalyticsEventItem(
-  //     itemId: itemId,
-  //     itemName: itemName,
-  //     itemCategory: itemCategory,
-  //     price: price,
-  //     currency: currency,
-  //     itemBrand: brand,
-  //   );
-  // }
+ 
 }

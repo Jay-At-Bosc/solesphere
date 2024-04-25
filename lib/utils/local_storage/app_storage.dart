@@ -1,7 +1,6 @@
 // ignore_for_file: unused_import
 
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:get_storage/get_storage.dart';
 import 'package:solesphere/services/models/onboarding_model.dart';

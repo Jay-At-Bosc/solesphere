@@ -90,6 +90,9 @@ class CustomAddressForm extends GetView<UserDetailsController> {
                 maxLength: 1,
               ),
             ),
+            const SizedBox(
+              width: 10,
+            ),
             Flexible(
               child: CustomSimpleInput(
                 hintText: SLabels.zipcode,
@@ -107,14 +110,18 @@ class CustomAddressForm extends GetView<UserDetailsController> {
         // Default address as check mark
         Row(
           children: [
-            CheckboxTheme(
-                data: SCheckboxTheme.lightCheckboxTheme,
-                child: Checkbox(
-                  value: controller.isAcceptPolicies,
-                  onChanged: (value) {
-                    controller.isAcceptPolicies = value ?? false;
-                  },
-                )),
+            GetBuilder<UserDetailsController>(
+              id: 'checkbox',
+              builder: (controller) => CheckboxTheme(
+                  data: SCheckboxTheme.lightCheckboxTheme,
+                  child: Checkbox(
+                    value: controller.isAcceptPolicies,
+                    onChanged: (value) {
+                      controller.isAcceptPolicies = value ?? false;
+                      controller.update(['checkbox']);
+                    },
+                  )),
+            ),
             Text(
               SLabels.termsAndConditions,
               style: STextTheme.lightTextTheme.bodySmall,
